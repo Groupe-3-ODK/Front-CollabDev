@@ -1,1 +1,30 @@
-<p>project-card works!</p>
+<div class="bg-white shadow-lg rounded-2xl w-full max-w-sm overflow-hidden">
+  <div class="bg-orange-500 text-white text-lg font-bold p-4">
+    {{ title }}
+  </div>
+  <div class="p-4 space-y-2 text-sm text-gray-700">
+    <p>Créer le {{ createdDate }}</p>
+    <p>{{ user }}</p>
+    <p>Soumis le {{ submittedDate }}</p>
+    <p>{{ manager }}</p>
+    <p>
+      GitHub :
+      <a [href]="github" target="_blank" class="text-blue-600 underline">{{
+        github
+      }}</a>
+    </p>
+    <p>Contributeurs : 👤 +{{ contributors }}</p>
+  </div>
+  <div class="flex justify-between bg-black p-2">
+    <button
+      class="bg-orange-500 text-white px-4 py-1 rounded-full hover:bg-orange-600"
+    >
+      Rejeter
+    </button>
+    <button
+      class="bg-green-500 text-white px-4 py-1 rounded-full hover:bg-green-600"
+    >
+      Valider
+    </button>
+  </div>
+</div>
