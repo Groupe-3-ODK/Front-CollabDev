@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
+import { SidebarComponent } from '../shared/reusablesComponents/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    UserSidebarComponent
-  ],
+  imports: [SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
