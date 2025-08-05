@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ProfilComponent } from '../pages/users/profil/profil.component';
+import { SidebarComponent } from '../shared/reusablesComponents/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ProfilComponent ],
+  standalone: true,
+  imports: [SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
