@@ -1,0 +1,182 @@
+
+/* Main Content Styling */
+.main-content {
+    flex-grow: 1;
+    padding: 2.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: scroll;
+    height: 100vh;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-bottom: 0; /* Adjusted as there's no secondary header text */
+}
+
+/* Card Styling */
+.card {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    padding: 0.5rem;
+    box-shadow: 0 6px 20px var(--shadow-light);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.8rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-header h3 {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.edit-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-btn i {
+    font-size: 1rem;
+}
+
+.edit-btn:hover {
+    background-color: #e65c00; /* Slightly darker orange */
+    transform: translateY(-2px);
+}
+
+/* Profile Overview Section */
+.profile-overview-card {
+    padding: 1rem 1.5rem; /* Specific padding for this card */
+}
+
+.profile-overview {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 600;
+    flex-shrink: 0; /* Prevent shrinking */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-info {
+    flex-grow: 1;
+}
+
+.profile-info h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.profile-info .role {
+    color: var(--text-medium);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+.coins-badge {
+    background-color: #FF6F00; /* Light orange/yellow background for badge */
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    display: inline-block; /* Allows padding and border-radius */
+}
+
+.profile-info .location {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-info .location i {
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.profile-status-icons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto; /* Pushes icons to the right */
+}
+
+.status-icon i {
+    font-size: 1.2rem;
+}
+
+.status-icon.online i {
+    color: var(--online-color);
+}
+
+.status-icon.available i {
+    color: var(--available-color);
+}
+
+.status-icon.busy i {
+    color: var(--busy-color);
+}
+
+/* Information Grids */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem 2rem;
+}
+
+.info-item label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-item p {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 600;
+}
