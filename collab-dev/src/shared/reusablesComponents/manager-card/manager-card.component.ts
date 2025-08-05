@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-manager-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './manager-card.component.html',
   styleUrl: './manager-card.component.css',
 })

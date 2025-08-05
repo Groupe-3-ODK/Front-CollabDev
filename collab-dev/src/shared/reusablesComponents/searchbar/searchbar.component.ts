@@ -1,8 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-searchbar',
-  imports: [],
+  imports: [BrowserModule, LucideAngularModule],
   templateUrl: './searchbar.component.html',
   styleUrl: './searchbar.component.css',
 })

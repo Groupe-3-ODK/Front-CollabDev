@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ManagerCardComponent } from '../../../shared/reusablesComponents/manager-card/manager-card.component';
 import { SearchbarComponent } from '../../../shared/reusablesComponents/searchbar/searchbar.component';
+import { SnackbarComponent } from '../../../shared/reusablesComponents/snackbar/snackbar.component';
 import { TableComponent } from '../../../shared/reusablesComponents/table/table.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { TableComponent } from '../../../shared/reusablesComponents/table/table.
     ManagerCardComponent,
     TableComponent,
     SearchbarComponent,
-    CommonModule,
+    SnackbarComponent,
   ],
   templateUrl: './managers.component.html',
   styleUrl: './managers.component.css',

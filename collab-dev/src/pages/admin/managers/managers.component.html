@@ -5,8 +5,8 @@
   ></app-searchbar>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    @for (project of projects; track project) {
     <app-manager-card
-      *ngFor="let project of projects"
       [title]="project.title"
       [description]="project.description"
       [status]="project.status"
@@ -17,8 +17,15 @@
       [author]="project.author"
     >
     </app-manager-card>
+    }
   </div>
 
   <h2 class="text-lg font-semibold mb-4">Tableau des Projets</h2>
   <app-table [projects]="projects"></app-table>
 </div>
+<!-- <app-snackbar></app-snackbar>
+
+<app-searchbar
+  (search)="onSearch($event)"
+  (filter)="onFilter()"
+></app-searchbar> -->
