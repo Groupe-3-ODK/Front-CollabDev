@@ -82,6 +82,8 @@ export const routes: Routes = [
             '../pages/admin/confidentiality-policy/confidentiality-policy.component'
           ).then((m) => m.ConfidentialityPolicyComponent),
       },
+      //-----------------------------------------------------------------------
+      
     ],
   },
 ];
