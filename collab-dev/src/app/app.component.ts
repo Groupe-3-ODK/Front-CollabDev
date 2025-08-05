@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [
+    UserSidebarComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

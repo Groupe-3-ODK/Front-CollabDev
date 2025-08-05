@@ -1,0 +1,92 @@
+<aside class="bg-orange-500 w-64 min-h-screen text-white p-4 flex flex-col justify-between">
+  <div>
+    <nav class="flex flex-col gap-3">
+       <!-- Nouveau Projet -->
+      <div class="one">
+        <a routerLink="/user/new-project" class="flex items-center gap-3 bg-white p-2 rounded">
+          <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" height="0.8em" viewBox="0 0 640 640">
+              <path d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"/>
+            </svg>
+          </span>
+          <span class="text-orange-500 font-bold ">Nouveau Projet</span>
+        </a>
+      </div>  
+      <!-- Tableau de bord -->
+      <div class="one">
+        <a routerLink="user/home" class="flex items-center gap-3 bg-[#FEF9E1] p-2 rounded">
+          <span class="bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" height="0.8em" viewBox="0 0 640 640">
+              <path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"/>
+            </svg>
+          </span>
+          <span class="text-orange-500">Tableau de bord</span>
+        </a>
+      </div>
+      <!-- Profils -->
+      <div class="one">
+        <a routerLink="/user/profil" class="flex items-center gap-3 hover:bg-orange-600 p-2 rounded">
+          <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" height="0.8em" viewBox="0 0 640 640">
+              <path d="M320 312C386.3 312 440 258.3 440 192C440 125.7 386.3 72 320 72C253.7 72 200 125.7 200 192C200 258.3 253.7 312 320 312zM290.3 368C191.8 368 112 447.8 112 546.3C112 562.7 125.3 576 141.7 576L498.3 576C514.7 576 528 562.7 528 546.3C528 447.8 448.2 368 349.7 368L290.3 368z"/>
+            </svg>
+          </span>
+          <span>Profils</span>
+        </a>
+      </div>
+
+      <!-- Projets -->
+      <div class="one">
+        <a routerLink="/user/projects" class="flex items-center gap-3 hover:bg-orange-600 p-2 rounded">
+          <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+          </span>
+          <span>Projets</span>
+        </a>
+      </div>
+
+      <!-- Demandes Contributions -->
+      <div class="one">
+        <a routerLink="/user/request-for-contribution" class="flex items-center gap-3 text-white-500  p-2 rounded">
+          <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+          </span>
+          <span>Demandes Contributions</span>
+        </a>
+      </div>
+
+      <!-- Mes contributions -->
+      <div class="one">
+        <a routerLink="/user/contribution" class="flex items-center gap-3 hover:bg-orange-600 p-2 rounded">
+          <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+          </span>
+          <span>Mes contributions</span>
+        </a>
+      </div>
+
+      <!-- Paramètres -->
+      <div class="one">
+        <a routerLink="/user/settings" class="flex items-center gap-3 hover:bg-orange-600 p-2 rounded">
+          <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+          </span>
+          <span>Paramètres</span>
+        </a>
+      </div>
+
+      <!-- Se déconnecter -->
+      <div class="one">
+        <a routerLink="/user/deconnexion" class="flex items-center gap-3 hover:bg-orange-600 p-2 rounded">
+          <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+          </span>
+          <span>Se déconnecter</span>
+        </a>
+      </div>
+    </nav>
+  </div>
+  <div>
+    <div class="border-t border-white pt-4"></div>
+    <a routerLink="/admin/confidentiality-policy" class="flex items-center gap-3 hover:bg-orange-600 p-2 rounded">
+      <span class="bg-white text-orange-500 rounded-full w-6 h-6 flex items-center justify-center">
+      </span>
+      <span>Politiques de confidentialité</span>
+    </a>
+  </div>
+</aside>
