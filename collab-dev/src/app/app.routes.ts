@@ -1,16 +1,45 @@
 import { Routes } from '@angular/router';
+import { CONSTANT } from '../core/constants/contant';
 import { LayoutComponent } from './layout/layout.component';
-import { ProfilComponent } from '../pages/users/profil/profil.component';
+import { Redirect } from './redirect/redirect';
 
 export const routes: Routes = [
   {
     path: '',
-    component: ProfilComponent,
+    component: LayoutComponent,
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'admin/statistics',
+        redirectTo: 'redirect',
+      },
+      {
+        path: 'redirect',
+        component: Redirect,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo:
+              CONSTANT.CURRENT_USER.ROLE === 'ADMIN'
+                ? 'admin/statistics'
+                : 'user/dashboard',
+          },
+          {
+            path: 'admin/statistics',
+            loadComponent: () =>
+              import('../pages/admin/statistics/statistics.component').then(
+                (m) => m.StatisticsComponent
+              ),
+          },
+          {
+            path: 'user/dashboard',
+            loadComponent: () =>
+              import('../pages/users/dashboard/dashboard.component').then(
+                (m) => m.DashboardComponent
+              ),
+          },
+        ],
       },
       {
         path: 'admin/statistics',
@@ -83,7 +112,45 @@ export const routes: Routes = [
           ).then((m) => m.ConfidentialityPolicyComponent),
       },
       //-----------------------------------------------------------------------
-      
+
+      {
+        path: 'user/dashboard',
+        loadComponent: () =>
+          import('../pages/users/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
+      {
+        path: 'user/profil',
+        loadComponent: () =>
+          import('../pages/users/profil/profil.component').then(
+            (m) => m.ProfilComponent
+          ),
+      },
+      {
+        path: 'user/projects',
+        loadComponent: () =>
+          import('../pages/users/projects/projects').then((m) => m.Projects),
+      },
+      {
+        path: 'user/contribution-ask',
+        loadComponent: () =>
+          import('../pages/users/contribution-ask/contribution-ask').then(
+            (m) => m.ContributionAsk
+          ),
+      },
+      {
+        path: 'user/my-contributions',
+        loadComponent: () =>
+          import('../pages/users/my-contributions/my-contributions').then(
+            (m) => m.MyContributions
+          ),
+      },
+      {
+        path: 'user/settings',
+        loadComponent: () =>
+          import('../pages/users/settings/settings').then((m) => m.Settings),
+      },
     ],
   },
 ];
