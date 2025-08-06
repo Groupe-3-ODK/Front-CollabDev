@@ -82,7 +82,6 @@ export const routes: Routes = [
           ).then((m) => m.ConfidentialityPolicyComponent),
       },
       //-----------------------------------------------------------------------
-      
     ],
   },
 ];
