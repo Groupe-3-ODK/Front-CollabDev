@@ -1,0 +1,64 @@
+<!-- login.component.html -->
+ <div class="page">
+  <div class="login-container">
+    <div class="support-panel-left">
+      <div class="left-panel">
+        <h1>Connexion</h1>
+        <div class="illustration">
+          <!-- Ajoutez ici l'image ou l'illustration de la maquette -->
+          <img src="assets/images/Hand coding-bro.png" alt="Illustration de connexion" />
+        </div>
+      </div>
+    </div>
+    <div class="support-panel-right">
+      <div class="right-panel">
+        <div class="logo-container">
+            <img src="assets/images/logoV11.png" alt="Logo CollabDev" class="logo" />
+        </div>
+        <div class="login-form">
+          <p class="login-form-p">Content de te revoir 👋</p>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <!-- <label for="email">Email</label> -->
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                placeholder="Email"
+              />
+              <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
+                Veuillez entrer un email valide.
+              </div>
+            </div>
+            <div class="form-group">
+              <!-- <label for="password">Mot de passe</label> -->
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                placeholder="Mot de passe"
+              />
+              <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+                Le mot de passe est requis.
+              </div>
+            </div>
+            <div class="form-options">
+              <label>
+                <input type="checkbox" formControlName="rememberMe" /> Se souvenir de moi
+              </label>
+              <a href="#">Mot de passe oublié ?</a>
+            </div>
+            <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
+              Se connecter
+            </button>
+            <div class="signup-link">
+              <p>Vous n'avez pas de compte ?</p>
+              <a href="#">s'inscrire</a>
+            </div>
+            
+          </form>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>

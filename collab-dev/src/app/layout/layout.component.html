@@ -1,6 +1,10 @@
 <div class="flex flex-row h-screen">
+  @if (role ==="ADMIN") {
   <app-sidebar class="w-64"></app-sidebar>
-  <!-- largeur fixe -->
+  } @else {
+  <app-user-sidebar class="w-64"></app-user-sidebar>
+  }
+
   <div class="flex-1 overflow-auto">
     <router-outlet></router-outlet>
   </div>

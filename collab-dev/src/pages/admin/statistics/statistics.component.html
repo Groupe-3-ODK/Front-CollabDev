@@ -1,1 +1,31 @@
-<p>statistics works!</p>
+<div class="grid grid-cols-2 grid-rows-2 gap-6 p-4">
+  <!-- Section 1 -->
+  <div class="card flex justify-center">
+    <p-chart
+      type="polarArea"
+      [data]="chartData"
+      [options]="chartOptions"
+      class="w-full md:w-[20rem]"
+    ></p-chart>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="card flex justify-center">
+    <p-chart
+      type="doughnut"
+      [data]="data"
+      [options]="options"
+      class="w-full md:w-[20rem]"
+    ></p-chart>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="card flex items-center justify-center bg-gray-100 h-64">
+    <p>Section 3 (contenu ou autre chart)</p>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="card flex items-center justify-center bg-gray-100 h-64">
+    <p>Section 4 (contenu ou autre chart)</p>
+  </div>
+</div>
