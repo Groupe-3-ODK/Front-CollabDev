@@ -40,3 +40,59 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+pnpm-lock.yaml
+
+# Angular build files
+dist/
+out-tsc/
+
+# Environment files
+/src/environments/*.ts
+!src/environments/environment*.ts
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Compiled output
+*.js
+*.js.map
+*.tsbuildinfo
+
+# Angular cache
+.angular/
+.tmp/
+.cache/
+
+# Coverage reports
+coverage/
+
+# Misc
+*.bak
+*.swp
+*.orig
+
+# Optional: Ignore dotenv files (if you use them)
+.env
+.env.*
+
+package.json
+package-lock.json
+node_modules/
