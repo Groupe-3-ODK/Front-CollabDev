@@ -16,4 +16,5 @@
     --stat-icon-todo-circle-bg: #67B6E9; /* Bleu clair pour "Projets à faire" (conforme à l'image) */
     --stat-icon-inprogress-circle-bg: #FEF9E1; /* Jaune pâle/crème pour "Projets en cours" (conforme à l'image) */
     --stat-icon-completed-circle-bg: #4CAF50; /* Vert pour "Projets terminés" (conforme à l'image) */
+    --status-todo: black; /* Gris pour à faire */
 }
