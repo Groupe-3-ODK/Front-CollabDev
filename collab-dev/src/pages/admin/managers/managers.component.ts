@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
 import { ManagerCardComponent } from '../../../shared/reusablesComponents/manager-card/manager-card.component';
 import { SearchbarComponent } from '../../../shared/reusablesComponents/searchbar/searchbar.component';
-import { SnackbarComponent } from '../../../shared/reusablesComponents/snackbar/snackbar.component';
 import { TableComponent } from '../../../shared/reusablesComponents/table/table.component';
 
 @Component({
   selector: 'app-managers',
-  imports: [
-    ManagerCardComponent,
-    TableComponent,
-    SearchbarComponent,
-    SnackbarComponent,
-  ],
+  imports: [ManagerCardComponent, TableComponent, SearchbarComponent],
   templateUrl: './managers.component.html',
   styleUrl: './managers.component.css',
 })
