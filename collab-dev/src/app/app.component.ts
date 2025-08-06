@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { LoginComponent } from '../components/login/login.component'; // Importez le composant
+import { ProjectDoneComponent } from '../pages/users/project-done/project-done.component';
+
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [LoginComponent],
+  imports: [ProjectDoneComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

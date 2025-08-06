@@ -12,6 +12,9 @@
     --online-color: #28a745; /* Green */
     --available-color: #ffc107; /* Yellow/Orange */
     --busy-color: #dc3545; /* Red */
+    --status-in-progress: #FF6F00; /* Orange de la palette */
+    --status-completed: #4CAF50; /* Vert pour terminé */
+    --status-todo: #000000; /* Gris pour à faire */
       /* Couleurs spécifiques pour les icônes de stats des cercles de fond */
     --stat-icon-todo-circle-bg: #67B6E9; /* Bleu clair pour "Projets à faire" (conforme à l'image) */
     --stat-icon-inprogress-circle-bg: #FEF9E1; /* Jaune pâle/crème pour "Projets en cours" (conforme à l'image) */

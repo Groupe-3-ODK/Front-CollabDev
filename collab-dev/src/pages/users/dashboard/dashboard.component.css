@@ -96,6 +96,24 @@ body {
 }
 
 .btn-new-project {
+<<<<<<< HEAD
+
+    background-color: black;
+    color: white !important;
+    text-align: center;
+    padding: 1rem !important;
+    margin-bottom: 2rem;
+    margin: 2px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-weight: 600 !important;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 90%;
+=======
   background-color: black;
   color: white !important;
   text-align: center;
@@ -111,6 +129,7 @@ body {
   align-items: center;
   gap: 10px;
   width: 90%;
+>>>>>>> main
 }
 
 .btn-new-project:hover {
@@ -225,12 +244,23 @@ body {
 
 /* Styles pour l'icône de filtre (image) */
 .filter-icon {
+<<<<<<< HEAD
+    width: 18px; /* Ajustez la taille selon vos préférences */
+    height: 18px;
+    margin-right: 8px;
+    object-fit: contain;
+    /* L'icône de filtre est noire, elle restera noire sur le fond blanc du bouton */
+}
+
+
+=======
   width: 18px; /* Ajustez la taille selon vos préférences */
   height: 18px;
   margin-right: 8px;
   object-fit: contain;
   /* L'icône de filtre est noire, elle restera noire sur le fond blanc du bouton */
 }
+>>>>>>> main
 
 /* Stat Cards */
 .stat-cards {
@@ -326,11 +356,19 @@ body {
 }
 
 .status {
+<<<<<<< HEAD
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: white;
+=======
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 0.85em;
   font-weight: bold;
   color: white;
+>>>>>>> main
 }
 
 .status.in-progress {
@@ -391,12 +429,46 @@ body {
   left: -30px;
   background-color: gray;
 }
+<<<<<<< HEAD
+.content{
+    display: flex;
+    align-items: center;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: gray;
+    border: 4px solid white;
+    position: relative;
+    z-index: 5;
+}
+.bl{
+    z-index: 2;
+    position: relative;
+    left: -15px;
+    background-color: gray;
+}
+.bc{
+    z-index: 1;
+    position: relative;
+    left: -30px;
+    background-color: gray;
+}
+.project-footer {
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+=======
 .project-footer {
   display: block;
   justify-content: space-between;
   align-items: center;
   padding-top: 15px;
   border-top: 1px solid var(--border-color);
+>>>>>>> main
 }
 
 .collaborators-progress {

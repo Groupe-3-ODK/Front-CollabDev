@@ -1,5 +1,5 @@
 /* login.component.css */
-.page{
+.page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@
   width: 80%;
   height: 90vh;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
 }
 .support-panel-left {
   width: 50%;
@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   color: white;
-  background-color: #FF6F00;
+  background-color: #ff6f00;
   border-radius: 0 0 15px 0;
 }
 
@@ -38,10 +38,10 @@
   margin: auto;
 }
 
-.support-panel-right{
+.support-panel-right {
   width: 50%;
   height: 100%;
-  background-color: #FF6F00;
+  background-color: #ff6f00;
 }
 
 .right-panel {
@@ -52,8 +52,7 @@
   align-items: center;
   background-color: white;
   height: 100%;
-  border-radius: 15px 0 0 0 ;
-  
+  border-radius: 15px 0 0 0;
 }
 
 .login-form {
@@ -63,16 +62,16 @@
   align-items: center; */
   width: 100%;
   max-width: 400px;
-  
+
   padding: 20px;
-  
+
   /* border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
-.login-form-p{
+.login-form-p {
   width: 50%;
- 
+
   margin: auto;
   padding-bottom: 5%;
 }
@@ -81,13 +80,10 @@
   /* display: block; */
   margin: auto;
   width: 80%;
-  
 }
 
 .logo-container {
-  
-  margin-top:-6%
-  
+  margin-top: -6%;
 }
 
 .form-group {
@@ -106,7 +102,7 @@
   border-radius: 50px;
 }
 
-.form-group input::placeholder{
+.form-group input::placeholder {
   opacity: 0.3;
   font-size: 0.9em;
   padding-left: 2%;
@@ -124,7 +120,7 @@
   margin-bottom: 20px;
 }
 
-.form-options a{
+.form-options a {
   opacity: 0.3;
 }
 .form-options a:hover {
@@ -134,7 +130,7 @@
 .login-btn {
   width: 100%;
   padding: 10px;
-  background-color: #FF6F00;
+  background-color: #ff6f00;
   color: white;
   border: none;
   border-radius: 50px;
@@ -150,7 +146,7 @@
   /* cursor: not-allowed; */
 }
 
-.signup-link P{
+.signup-link P {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -163,9 +159,8 @@
 }
 .signup-link a:hover {
   opacity: 0.8;
-  color:#127cbe
+  color: #127cbe;
 }
-
 
 @media (max-width: 768px) {
   .support-panel-left {
