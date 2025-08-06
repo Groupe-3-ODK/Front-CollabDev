@@ -91,20 +91,7 @@ body {
 }
 
 .btn-new-project {
-    /*background-color: var(--primary-color);
-    color: var(--text-color-light);
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;*/
+
     background-color: black;
     color: white !important;
     text-align: center;
@@ -241,14 +228,7 @@ body {
     /* L'icône de filtre est noire, elle restera noire sur le fond blanc du bouton */
 }
 
-.profile-placeholder {
-    width: 40px;
-    height: 40px;
-    background-color: #ccc;
-    border-radius: 50%;
-    margin-left: 10px;
-    /* Sur la maquette, c'est une image de profil, vous pouvez la remplacer ici si vous en avez une */
-}
+
 
 /* Stat Cards */
 .stat-cards {
@@ -343,7 +323,7 @@ body {
     border-radius: 5px;
     font-size: 0.85em;
     font-weight: bold;
-    color: var(--text-color-light);
+    color: white;
 }
 
 .status.in-progress {
@@ -379,9 +359,33 @@ body {
     display: inline-block;
     margin-bottom: 5px;
 }
-
-.project-footer {
+.content{
     display: flex;
+    align-items: center;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: gray;
+    border: 4px solid white;
+    position: relative;
+    z-index: 5;
+}
+.bl{
+    z-index: 2;
+    position: relative;
+    left: -15px;
+    background-color: gray;
+}
+.bc{
+    z-index: 1;
+    position: relative;
+    left: -30px;
+    background-color: gray;
+}
+.project-footer {
+    display: block;
     justify-content: space-between;
     align-items: center;
     padding-top: 15px;
