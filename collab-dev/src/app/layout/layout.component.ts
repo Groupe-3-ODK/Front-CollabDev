@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CONSTANT } from '../../core/constants/contant';
 import { SidebarComponent } from '../../shared/reusablesComponents/sidebar/sidebar.component';
-import { UserSidebarComponent } from '../user-sidebar/user-sidebar.component';
+import { UserSidebarComponent } from '../../shared/reusablesComponents/user-sidebar/user-sidebar.component';
 
 @Component({
   selector: 'app-layout',
