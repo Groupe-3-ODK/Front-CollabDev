@@ -1,0 +1,54 @@
+<!-- login.component.html -->
+<div class="login-container">
+  <div class="left-panel" style="background-color: #f28c38;">
+    <h1>Connexion</h1>
+    <div class="illustration">
+      <!-- Ajoutez ici l'image ou l'illustration de la maquette -->
+      <img src="assets/illustration-login.png" alt="Illustration de connexion" />
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="login-form">
+      <img src="assets/logo-collabdev.png" alt="Logo CollabDev" class="logo" />
+      <p>Content de te revoir 👋</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Entrez votre email"
+          />
+          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
+            Veuillez entrer un email valide.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="Entrez votre mot de passe"
+          />
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+            Le mot de passe est requis.
+          </div>
+        </div>
+        <div class="form-options">
+          <label>
+            <input type="checkbox" formControlName="rememberMe" /> Se souvenir de moi
+          </label>
+          <a href="#">Mot de passe oublié ?</a>
+        </div>
+        <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
+          Se connecter
+        </button>
+        <p class="signup-link">
+          Vous n'avez pas de compte ? <a href="#">s'inscrire</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
