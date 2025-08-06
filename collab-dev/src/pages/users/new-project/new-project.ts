@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { UploadFileComponent } from '../../../shared/upload-file/upload-file.component';
 
 @Component({
   selector: 'app-new-project',
@@ -16,7 +17,8 @@ import { MessageService } from 'primeng/api';
     FileUploadModule,
     ButtonModule,
     ProgressBarModule,
-    ToastModule
+    ToastModule,
+    UploadFileComponent
   ],
   providers: [MessageService],
   templateUrl: './new-project.html',
@@ -45,24 +47,19 @@ export class NewProjectComponent {
     file: null as File | null
   };
 
-  selectedFiles: File[] = [];
-
-  onSelect(event: any) {
-  const file = event.target.files?.[0];
-  if (file) {
+  onFileSelected(file: File) {
     this.formData.file = file;
   }
-}
 
-handleUpload() {
-  if (this.formData.file) {
-    console.log('Fichier à téléverser :', this.formData.file.name);
-    // 🔁 ici, tu pourras appeler ton backend (via HttpClient) plus tard
-  } else {
-    console.warn('Aucun fichier sélectionné.');
+  cancel() {
+    this.formData = {
+      title: '',
+      domain: '',
+      customDomain: '',
+      description: '',
+      file: null
+    };
   }
-}
-
 
   submitForm() {
     const finalDomain =
@@ -77,6 +74,7 @@ handleUpload() {
       fichier: this.formData.file?.name ?? 'Aucun fichier joint'
     });
 
-    // Tu peux ici envoyer les données à ton backend
+
+    // 🔁 futur appel backend ici
   }
 }

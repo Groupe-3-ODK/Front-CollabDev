@@ -1,54 +1,53 @@
-<div class="form-container">
-  <div class="newProject">
-    <h2>Nouveau Projet</h2> 
-  </div>
+<div class="form-layout">
 
-  <div class="pContent">
-    <form (ngSubmit)="submitForm()">
+  <div class="form-container">
+    <div class="newProject">
+      <h2>Nouveau Projet</h2> 
+    </div>
+      
+    <form (ngSubmit)="submitForm()" class="project-form">
 
       <div class="projectName">
         <label for="title">Titre *</label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            [(ngModel)]="formData.title"
-            required
-          />
-
+        <input
+          id="title"
+          name="title"
+          type="text"
+          [(ngModel)]="formData.title"
+          required
+        />
       </div>
 
       <div class="projectDomain">
         <label for="domain">Domaine *</label>
-          <select
-            id="domain"
-            name="domain"
-            [(ngModel)]="formData.domain"
-            required>
+        <select
+          id="domain"
+          name="domain"
+          [(ngModel)]="formData.domain"
+          required
+        >
+          <option value="" disabled selected>Choisir un domaine</option>
+          <option *ngFor="let domain of domains" [value]="domain">
+            {{ domain }}
+          </option>
+        </select>
 
-            <option value="" disabled selected>Choisir un domaine</option>
-            <option *ngFor="let domain of domains" [value]="domain">
-              {{ domain }}
-            </option>
-          </select>
-
-                    <!-- Domaine personnalisé -->
-            <div *ngIf="formData.domain === 'Autre'">
-              <label for="customDomain">Précisez le domaine</label>
-              <input
-                type="text"
-                id="customDomain"
-                name="customDomain"
-                [(ngModel)]="formData.customDomain"
-                placeholder="Ex : LegalTech, ArtTech..."
-                required/>
-
-            </div>
+        <div *ngIf="formData.domain === 'Autre'">
+          <label for="customDomain">Précisez le domaine</label>
+          <input
+            type="text"
+            id="customDomain"
+            name="customDomain"
+            [(ngModel)]="formData.customDomain"
+            placeholder="Ex : LegalTech, ArtTech..."
+            required
+          />
+        </div>
       </div>
 
+      <!-- Description -->
       <div class="projectDescription">
-              <!-- Description -->
-        <label for="description">Description du projet</label>
+        <label for="description">Description</label>
         <textarea
           id="description"
           name="description"
@@ -58,50 +57,19 @@
         ></textarea>
       </div>
 
-  
+      <!-- Upload fichier (composant externe réutilisable) -->
+      <div class="fileUpload">
+        <label>Cahier des charges (optionnel)</label>
+        <app-upload-file (fileSelected)="onFileSelected($event)"></app-upload-file>
+      </div>
 
-  <!-- Upload fichier (PrimeNG) -->
-  <!-- <p-fileupload
-    name="cahier"
-    [customUpload]="true"
-    [auto]="true"
-    [maxFileSize]="2000000"
-    accept=".pdf,.doc,.docx"
-    (onSelect)="onSelect($event)"
-    (uploadHandler)="handleUpload($event)"
-    chooseLabel="Choisir un fichier"
-    uploadLabel="Téléverser"
-    cancelLabel="Annuler"
-  ></p-fileupload> -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancel()">Annuler</button>
+        <button type="submit" class="btn-primary">Créer projet</button>
+      </div>
 
-  <!-- Upload fichier -->
-<label for="fileInput">Cahier des charges (optionnel)</label>
-<input
-  type="file"
-  id="fileInput"
-  (change)="onSelect($event)"
-  accept=".pdf,.doc,.docx"
-/>
-
-<!-- Prévisualisation -->
-  <div *ngIf="formData.file">
-    <p>Fichier sélectionné : {{ formData.file.name }}</p>
-    <button (click)="handleUpload()">Téléverser</button>
-  </div>
-
-    <!-- Soumettre -->
-    <button type="submit">Soumettre le projet</button>
-  </form>
-
-
-    <form (ngSubmit)="submitForm()" class="project-form">
-      <!-- contenu ici -->
     </form>
-    
   </div>
   
-
-
 </div>
-
-
+  
