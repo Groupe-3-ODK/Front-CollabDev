@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ProjectDoneComponent } from '../pages/users/project-done/project-done.component';
+import { RouterOutlet } from '@angular/router';
+import { LandingPage } from '../components/landing-page/landing-page';
 
 @Component({
   selector: 'app-root',
-  imports: [ProjectDoneComponent],
+  imports: [RouterOutlet, LandingPage],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
