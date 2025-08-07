@@ -6,6 +6,7 @@ import {
 import { provideRouter } from '@angular/router';
 import { Bell, House, LucideAngularModule, Settings } from 'lucide-angular';
 
+import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     importProvidersFrom(LucideAngularModule.pick({ House, Settings, Bell })),
+    provideHttpClient(),
   ],
 };
