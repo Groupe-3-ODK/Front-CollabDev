@@ -3,6 +3,7 @@ import { SidebarComponent } from '../../../shared/reusablesComponents/sidebar/si
 
 @Component({
   selector: 'app-project-done',
+  standalone: true,
   imports: [],
   templateUrl: './project-done.component.html',
   styleUrl: './project-done.component.css'
