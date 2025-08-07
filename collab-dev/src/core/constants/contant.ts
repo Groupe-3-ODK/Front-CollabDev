@@ -16,6 +16,9 @@ export const CONSTANT = {
     // UPDATE_USER_PASSWORD: "users/updateUserPassword/",
   },
   CURRENT_USER: {
+    USERNAME: 'Seydou',
+    EMAIL: 'dem@gmail.com',
+    PASSWORD: 'password123',
     ROLE: 'USER',
   },
 };

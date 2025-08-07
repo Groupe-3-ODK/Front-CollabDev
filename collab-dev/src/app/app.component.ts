@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ProjectDoneComponent } from '../pages/users/project-done/project-done.component';
-import { SignupComponent } from '../components/signup/signup';
-import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password';
+
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProjectDoneComponent, SignupComponent, ForgotPasswordComponent],
+  imports: [RouterOutlet],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
