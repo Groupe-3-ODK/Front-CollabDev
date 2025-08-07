@@ -160,4 +160,16 @@ export const routes: Routes = [
         (m) => m.LoginComponent
       ),
   },
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('../components/signup/signup').then((m) => m.SignupComponent),
+  },
+  {
+    path: 'langing-page',
+    loadComponent: () =>
+      import('../components/landing-page/landing-page').then(
+        (m) => m.LandingPage
+      ),
+  },
 ];
