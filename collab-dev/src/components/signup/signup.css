@@ -7,7 +7,7 @@
 }
 .signup-container {
   display: flex;
-  width: 80%;
+  width: 70%;
   height: 90vh;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
@@ -58,9 +58,7 @@
 }
 
 .signup-form {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
+  width: 80%;
   /* border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
@@ -69,7 +67,7 @@
   width: 50%;
   margin: 0 auto;
   text-align: center;
-  padding-bottom: 5%;
+  padding-bottom: 2%;
   font-size: 1.5em;
 }
 
@@ -81,13 +79,13 @@
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-.form-group label {
+/* .form-group label {
   display: block;
   margin-bottom: 5px;
-}
+} */
 
 .form-group input {
   width: 100%;
@@ -137,4 +135,7 @@
 .login-link a {
   color: #1da1f2;
   text-decoration: none;
+}
+.login-link a:hover {
+  color: #127cbe;
 }

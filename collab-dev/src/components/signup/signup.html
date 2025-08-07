@@ -1,11 +1,9 @@
-<!-- signup.component.html -->
 <div class="page">
     <div class="signup-container">
         <div class="support-panel-left">
             <div class="left-panel">
                 <h1>Inscription</h1>
                 <div class="illustration">
-                    <!-- Ajoutez ici l'image ou l'illustration de la maquette -->
                     <img src="assets/images/Hand coding-bro.png" alt="Illustration d'inscription" />
                 </div>
             </div>
@@ -13,8 +11,9 @@
 
         <div class="support-panel-rigth">
             <div class="right-panel">
+                <img src="assets/images/logoV11.png" alt="Logo CollabDev" class="logo" />
                 <div class="signup-form">
-                    <img src="assets/images/logoV11.png" alt="Logo CollabDev" class="logo" />
+                    
                     <p class="signup-form-p">Bienvenue</p>
                     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                         <div class="form-group">
