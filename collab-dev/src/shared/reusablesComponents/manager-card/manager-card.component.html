@@ -1,0 +1,35 @@
+<div class="border border-gray-300 rounded-lg p-6 shadow-sm w-full max-w-md">
+  <div class="flex justify-between items-center mb-4">
+    <span
+      class="bg-orange-400 text-white text-xs font-semibold px-3 py-1 rounded-full"
+      >{{ status }}</span
+      >
+      <span
+        class="bg-yellow-200 text-black text-xs font-semibold px-2 py-1 rounded"
+        >{{ level }}</span
+        >
+      </div>
+
+      <h2 class="font-bold text-lg">{{ title }}</h2>
+      <p class="text-sm text-gray-600 mb-4">{{ description }}</p>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        @for (tech of stack; track tech) {
+          <span
+            class="px-2 py-1 bg-gray-200 rounded text-sm font-medium"
+            >{{ tech }}</span
+            >
+          }
+        </div>
+
+        <div class="w-full bg-gray-200 h-2 rounded mb-2">
+          <div class="bg-orange-500 h-2 rounded" [style.width.%]="progress"></div>
+        </div>
+
+        <div class="text-sm text-orange-600 mb-2">
+          {{ collaborators }} Collaborateurs
+        </div>
+        <p class="text-sm">
+          <span class="font-bold text-orange-600">Auteur:</span> {{ author }}
+        </p>
+      </div>

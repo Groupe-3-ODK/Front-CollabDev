@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ProjectCardComponent } from '../../../shared/reusablesComponents/project-card/project-card.component';
 
 @Component({
   selector: 'app-projects-to-approve',
-  imports: [CommonModule, ProjectCardComponent],
+  imports: [ProjectCardComponent],
   templateUrl: './projects-to-approve.component.html',
   styleUrl: './projects-to-approve.component.css',
 })
