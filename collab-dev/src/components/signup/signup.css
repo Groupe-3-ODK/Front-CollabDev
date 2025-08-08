@@ -1,0 +1,141 @@
+/* signup.component.css */
+.page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.signup-container {
+  display: flex;
+  width: 70%;
+  height: 90vh;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.support-panel-left {
+  width: 50%;
+  height: 100%;
+}
+.left-panel {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #ff6f00;
+  border-radius: 0 0 15px 0;    
+}
+
+.left-panel h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.illustration img {
+  width: 50%;
+  margin: auto;
+}
+
+.support-panel-rigth{
+  width: 50%;
+  height: 100%;
+  background-color: #ff6f00;
+ 
+}
+.right-panel {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  
+  border-radius: 15px 0 0 0;
+}
+
+.signup-form {
+  width: 80%;
+  /* border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.signup-form-p{
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 2%;
+  font-size: 1.5em;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px;
+  width: 80%;
+  height: 15%;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+/* .form-group label {
+  display: block;
+  margin-bottom: 5px;
+} */
+
+.form-group input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+}
+
+.form-group input::placeholder {
+  font-size: 0.8em;
+  opacity: 0.3;
+  padding-left: 2%;
+}
+
+.error {
+  color: red;
+  font-size: 0.7em;
+  margin-top: 1px;
+  margin-left: 5%;
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 5px;
+  background-color: #ff6f00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup-btn:hover {
+  background-color: #e65c00;
+}
+.signup-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.login-link {
+  display: flex;
+  flex-direction: column;
+  
+  margin-top: 10px;
+}
+
+.login-link a {
+  color: #1da1f2;
+  text-decoration: none;
+}
+.login-link a:hover {
+  color: #127cbe;
+}

@@ -1,0 +1,94 @@
+<div class="settings-container">
+  <!-- En-tête amélioré -->
+  <div class="header-container">
+    <div class="header">
+      <h1>Paramètres</h1>
+      <div class="header-actions">
+        <div class="user-avatar" (click)="openProfileMenu()">
+          {{ userInitials }}
+        </div>
+        <button class="theme-toggle" (click)="toggleTheme()">
+          <span class="icon">{{ isLightTheme ? '☀️' : '🌙' }}</span>
+        </button>
+        <div class="user-avatar" (click)="openProfileMenu()">
+          {{ userInitials }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Utilisateur -->
+  <div class="settings-section">
+    <h2>Utilisateur</h2>
+    
+    <div class="info-field">
+      <label>Pseudo</label>
+      <input type="text" [(ngModel)]="userData.pseudo" placeholder="Coulibaly">
+    </div>
+    
+    <div class="info-field">
+      <label>Mail</label>
+      <input type="email" [(ngModel)]="userData.email" placeholder="Coulibaly@gmail.com">
+    </div>
+    
+    <button class="action-button" (click)="updateProfile()">Mettre à jour</button>
+  </div>
+
+  <!-- Section Langues -->
+  <div class="settings-section">
+    <h2>Langues</h2>
+    
+    <div class="radio-option" *ngFor="let language of languages" 
+         [class.selected]="selectedLanguage === language.value"
+         (click)="selectLanguage(language.value)">
+      <div class="radio-indicator"></div>
+      <span>{{ language.label }}</span>
+    </div>
+  </div>
+
+  <!-- Section Thème -->
+  <div class="settings-section">
+    <h2>Thème de l'application</h2>
+    
+    <div class="theme-option" (click)="toggleTheme()">
+      <div class="theme-indicator" [class.dark]="!isLightTheme"></div>
+      <div>
+        <span>{{ isLightTheme ? 'Mode Clair' : 'Mode Sombre' }}</span>
+        <p>{{ isLightTheme ? 'Interface claire et lumineuse' : 'Interface sombre et reposante' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Mot de passe -->
+  <div class="settings-section">
+    <h2>Changer le mot de passe</h2>
+    
+    <div class="info-field">
+      <label>Mot de passe actuel</label>
+      <input type="password" [(ngModel)]="password.current" placeholder="Entrez votre mot de passe actuel">
+    </div>
+    
+    <div class="info-field">
+      <label>Nouveau mot de passe</label>
+      <input type="password" [(ngModel)]="password.new" placeholder="Entrez votre nouveau mot de passe">
+    </div>
+    
+    <div class="info-field">
+      <label>Confirmer le mot de passe</label>
+      <input type="password" [(ngModel)]="password.confirm" placeholder="Confirmer le nouveau mot de passe">
+    </div>
+    
+    <button class="action-button" (click)="changePassword()">Confirmer</button>
+  </div>
+
+  <!-- Popup de confirmation -->
+  <div class="confirmation-popup" *ngIf="showConfirmation">
+    <div class="popup-content">
+      <h3>{{ confirmationMessage }}</h3>
+      <div class="popup-buttons">
+        <button class="confirm-btn" (click)="confirmAction()">OK</button>
+        <button class="cancel-btn" (click)="cancelAction()" *ngIf="showCancelButton">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
