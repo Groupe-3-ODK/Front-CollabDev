@@ -1,0 +1,170 @@
+
+    <div class="container">
+        <header>
+            <div class="search-bar">
+                <input type="text" placeholder="Recherche">
+            </div>
+            <button class="filter-button" aria-label="Filtres"></button>
+        </header>
+
+        <div class="main-content">
+            <div class="card idea-holder">
+                <div class="boite">
+                    <img src="image/user-icon.png" style="width: 120px; height: 120px;"
+                        alt="Avatar de Fatoumata Diawara">
+                    <h3>Fatoumata Diawara</h3>
+                    <p>A participé à <span style="font-weight: 600;">20 projets</span></p>
+                    <p>Utilisatrice depuis 2024</p>
+                </div>
+            </div>
+            <div class="card project-description">
+                <div class="status">En cours</div>
+                <h1>ALP</h1>
+                <span class="level">INTERMEDIAIRE</span>
+                <p>Une app application web innovante conçue pour optimiser le suivi, la planification et la gestion
+                    collaborative de projets en temps réel. Grâce à une interface intuitive et une architecture
+                    modulaire, la plateforme permet aux équipes de visualiser l'avancement des tâches, d'automatiser les
+                    rappels, et de générer des rapports personnalisés. L'objectif principal de NovaTrack est de
+                    mutualiser les équipes à des échelles de tout en offrant un tableau de bord dynamique permettant aux
+                    responsables de projet de prendre des décisions éclairées.</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="progress-text">50%</div>
+                <button class="join-button">Rejoindre</button>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <div class="timeline-section">
+                <h2>Timeline du projet</h2>
+                <div class="timeline-item">
+                    <div class="timeline-icon creation">
+                        <img src="image/calendar-icon.png" style="width: 90px; height: 90px;" alt="deconnect">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Création du projet</h3>
+                        <p>Initialisation et définition des objectifs</p>
+                        <p class="date">Créer le 6 Août 2025</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon state">
+                        <img src="image/okay-icon.png" style="width: 90px; height: 90px;" alt="Icône de coche">
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Etat du projet</h3>
+                        <p>Phase de développement du projet</p>
+                        <p class="status-ongoing">En cours</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="members-section">
+                <div class="card">
+                    <div class="technology-list">
+                        <div class="technology-item">
+                            <span class="tech-icon">
+                                <div class="box-langage">
+                                    <\>
+                                </div>
+                            </span>Angular
+                        </div>
+                        <div class="technology-item">
+                            <span class="tech-icon">
+                                <div class="box-langage">
+                                    <\>
+                                </div>
+                            </span>Typescript
+                        </div>
+                        <div class="technology-item">
+                            <span class="tech-icon">
+                                <div class="box-langage">
+                                    <\>
+                                </div>
+                            </span>Spring boot
+                        </div>
+                    </div>
+                    <!-- === Liste visible de membres === -->
+                    <div class="members-list">
+                        <div class="member-item">
+                            <div class="member-avatar">FD</div>
+                            <div class="name-avatar">Fatoumata Diawara</div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">MK</div>
+                            <div class="name-avatar">Mamadou Koné</div>
+                        </div>
+                        <div class="member-item">
+                            <div class="member-avatar">IT</div>
+                            <div class="name-avatar">Issa Traoré</div>
+                        </div>
+
+                        <!-- 🔘 Bouton modale -->
+                        <button class="view-all-members" id="openModalBtn">Voir tous les membres</button>
+                    </div>
+
+                    <!-- === 💬 MODALE (cachée au départ) === -->
+                    <div class="modal-overlay" id="modalOverlay">
+                        <div class="modal">
+                            <span class="close-btn" id="closeModalBtn">&times;</span>
+                            <h2>Membres du Projet</h2>
+
+                            <div class="modal-content">
+                                <div class="member-item">
+                                    <div class="initials-circle">FD</div>
+                                    <div class="member-name">Fatoumata Diawara</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                                <div class="member-item">
+                                    <div class="initials-circle">MS</div>
+                                    <div class="member-name">Modibo Sangaré</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                                <div class="member-item">
+                                    <div class="initials-circle">FD</div>
+                                    <div class="member-name">Hamza sanmo</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                                <div class="member-item">
+                                    <div class="initials-circle">MS</div>
+                                    <div class="member-name">Aichatou coulibaly</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                                <div class="member-item">
+                                    <div class="initials-circle">FD</div>
+                                    <div class="member-name">Seydou dembele</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                                <div class="member-item">
+                                    <div class="initials-circle">MS</div>
+                                    <div class="member-name">Yacouba sanogo</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                                <div class="member-item">
+                                    <div class="initials-circle">FD</div>
+                                    <div class="member-name">Sekou keita</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                                <div class="member-item">
+                                    <div class="initials-circle">MS</div>
+                                    <div class="member-name">elinka lika</div>
+                                    <div class="badge">🏅</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <script>
+                        const modal = document.getElementById("modalOverlay");
+                        const openBtn = document.getElementById("openModalBtn");
+                        const closeBtn = document.getElementById("closeModalBtn");
+
+                        openBtn.onclick = () => modal.style.display = "flex";
+                        closeBtn.onclick = () => modal.style.display = "none";
+                        window.onclick = e => {
+                            if (e.target === modal) modal.style.display = "none";
+                        };
+                    </script>
