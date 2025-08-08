@@ -1,1 +1,142 @@
-<p>detail-projet works!</p>
+<div class="dashboard-container">
+    <main class="main-content">
+        <header class="main-header">
+            <div class="header-left">
+                <h1 class="header-title">E-learning</h1>
+                <p class="header-subtitle">Plateforme d'apprentissage</p>
+            </div>
+            <div class="header-right">
+                <button class="btn-add-collaborator">
+                    <img src="bi_people (1).png" alt="Ajouter un collaborateur" class="icon-btn"> Ajouter collaborateur
+                </button>
+                <button class="btn-new-task">
+                    <img src="Add.png" alt="Ajouter une tâche" class="icon-btn"> Nouvelle tâche
+                </button>
+            </div>
+        </header>
+
+        <section class="kanban-stats">
+            <div class="stat-card orange">
+                <div class="stat-text">
+                    <p class="stat-label">Total tâches</p>
+                    <p class="stat-number">{{ totalTasks }}</p>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <img src="mingcute_task-2-fill.png" alt="Total tâches" class="stat-icon">
+                </div>
+            </div>
+            <div class="stat-card blue">
+                <div class="stat-text">
+                    <p class="stat-label">En progression</p>
+                    <p class="stat-number">{{ inProgressTasks }}</p>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <img src="icomoon-free_clockProjets à faire.png" alt="En progression" class="stat-icon">
+                </div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-text">
+                    <p class="stat-label">Terminées</p>
+                    <p class="stat-number">{{ doneTasks }}</p>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <img src="VectorProjets terminés.png" alt="Terminées" class="stat-icon">
+                </div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-text">
+                    <p class="stat-label">Collaborateurs</p>
+                    <p class="stat-number">{{ collaboratorsCount }}</p>
+                </div>
+                <div class="stat-icon-wrapper">
+                    <img src="bi_people.png" alt="Collaborateurs" class="stat-icon">
+                </div>
+            </div>
+        </section>
+
+        <section class="project-team">
+            <h2 class="section-title">Equipe du projet</h2>
+            <div class="team-list">
+                <div class="team-member" *ngFor="let member of teamMembers">
+                    <div class="member-avatar" [ngClass]="member.avatarClass">{{ member.initials }}</div>
+                    <div class="member-info">
+                        <p class="member-name">{{ member.name }}</p>
+                        <p class="member-role">{{ member.role }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="kanban-board">
+            <div class="kanban-column">
+                <h3 class="column-title">A faire</h3>
+                <div class="kanban-cards-container" 
+                     [attr.data-status]="TaskStatus.Todo"
+                     (dragover)="allowDrop($event)" 
+                     (drop)="drop($event, TaskStatus.Todo)">
+                    <div class="kanban-card" 
+                         *ngFor="let task of tasks[TaskStatus.Todo]" 
+                         draggable="true"
+                         (dragstart)="drag($event, task)">
+                        <p class="card-title">{{ task.title }}</p>
+                        <div class="card-footer">
+                            <div class="task-assigned">
+                                <div class="member-avatar" [ngClass]="task.avatarClass">{{ task.initials }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kanban-column">
+                <h3 class="column-title">En cours</h3>
+                <div class="kanban-cards-container" 
+                     [attr.data-status]="TaskStatus.InProgress"
+                     (dragover)="allowDrop($event)" 
+                     (drop)="drop($event, TaskStatus.InProgress)">
+                    <div class="kanban-card" 
+                         *ngFor="let task of tasks[TaskStatus.InProgress]" 
+                         draggable="true"
+                         (dragstart)="drag($event, task)">
+                        <p class="card-title">{{ task.title }}</p>
+                        <div class="card-footer">
+                            <div class="task-assigned">
+                                <div class="member-avatar" [ngClass]="task.avatarClass">{{ task.initials }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kanban-column">
+                <h3 class="column-title">Terminée</h3>
+                <div class="kanban-cards-container" 
+                     [attr.data-status]="TaskStatus.Done"
+                     (dragover)="allowDrop($event)" 
+                     (drop)="drop($event, TaskStatus.Done)">
+                    <div class="kanban-card" 
+                         *ngFor="let task of tasks[TaskStatus.Done]" 
+                         draggable="true"
+                         (dragstart)="drag($event, task)">
+                        <p class="card-title">{{ task.title }}</p>
+                        <div class="card-footer">
+                            <div class="task-assigned">
+                                <div class="member-avatar" [ngClass]="task.avatarClass">{{ task.initials }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="kanban-column project-state">
+                <h3 class="column-title">Etat du projet</h3>
+                <p class="project-progress-label">Progression</p>
+                <p class="project-progress-percent">{{ progressPercent }}%</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" [style.width.%]="progressPercent"></div>
+                </div>
+                <button class="btn-status-completed">Terminé</button>
+            </div>
+        </section>
+    </main>
+</div>
