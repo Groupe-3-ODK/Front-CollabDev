@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
-import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
-import { CreateTaskModal } from '../shared/reusablesComponents/create-task-modal/create-task-modal';
+import { PendingList } from '../components/pending-list/pending-list';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LandingPageTwo, CreateTaskModal],
+  standalone: true,
+  imports: [RouterOutlet, PendingList],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
