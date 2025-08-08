@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-user-sidebar',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive, LucideAngularModule],
   templateUrl: './user-sidebar.component.html',
   styleUrl: './user-sidebar.component.css',
 })

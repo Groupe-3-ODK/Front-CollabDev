@@ -1,10 +1,8 @@
 export class badge {
-  labelBadge: string
-  level: string
+  labelBadge: string;
+  level: string;
 
-  constructor(){
-    this.labelBadge = '',
-    this.level = ''
+  constructor() {
+    (this.labelBadge = ''), (this.level = '');
   }
 }
-

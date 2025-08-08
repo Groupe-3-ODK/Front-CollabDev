@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { ProjectDoneComponent } from '../pages/users/project-done/project-done.component';
-import { Parameter } from '../pages/users/parameter/parameter';
+
+import { RouterOutlet } from '@angular/router';
+import { LandingPage } from '../components/landing-page/landing-page';
 
 @Component({
   selector: 'app-root',
-  imports: [Parameter],
+  imports: [RouterOutlet, LandingPage],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
