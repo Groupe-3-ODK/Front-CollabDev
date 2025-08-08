@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
-
-import { ProfilComponent } from '../pages/users/profil/profil.component';
-import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
-import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
+import { LandingPage } from '../components/landing-page/landing-page';
 
 @Component({
   selector: 'app-root',
-  imports: [DetailProjetComponent],
+  imports: [RouterOutlet, LandingPage],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
