@@ -1,0 +1,95 @@
+<div
+  class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+  [class.hidden]="!showModal"
+>
+  <div
+    class="relative bg-white rounded-[25px] border-2 border-gray-300 p-10 shadow-lg h-[85%] w-[60%] overflow-auto"
+  >
+    <div class="flex items-center space-x-4 mb-16">
+      <h2 class="text-3xl font-semibold">Titre</h2>
+      <input
+        type="text"
+        class="flex-1 p-4 border border-gray-400 rounded-lg text-lg"
+      />
+    </div>
+
+    <div class="mb-16">
+      <h3 class="text-3xl font-semibold mb-4">Description:</h3>
+      <textarea
+        rows="8"
+        class="w-full p-4 border border-gray-400 rounded-lg text-lg resize-none"
+      ></textarea>
+    </div>
+
+    <div class="flex justify-between items-center mb-16">
+      <div class="w-1/2 pr-4">
+        <h4 class="text-xl font-medium mb-4">Date de création:</h4>
+        <div class="relative flex items-center">
+          <input
+            type="text"
+            bsDatepicker
+            class="w-full p-4 border border-gray-400 rounded-lg shadow-md text-lg"
+            placeholder="Sélectionner une date"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-gray-500 absolute right-4 cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="w-1/2 pl-4">
+        <h4 class="text-xl font-medium mb-4">Date de soumission:</h4>
+        <div class="relative flex items-center">
+          <input
+            type="text"
+            bsDatepicker
+            class="w-full p-4 border border-gray-400 rounded-lg shadow-md text-lg"
+            placeholder="Sélectionner une date"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8 text-gray-500 absolute right-4 cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-10 border-t-4 border-gray-300"></div>
+
+    <div class="flex justify-between items-center pt-8">
+      <button
+        (click)="onClose()"
+        class="bg-orange-500 text-white font-bold py-6 px-16 rounded-full text-2xl shadow-lg hover:bg-orange-600 transition-colors"
+      >
+        Fermer
+      </button>
+      <button
+        (click)="onSave()"
+        class="bg-black text-white font-bold py-6 px-16 rounded-full text-2xl shadow-lg hover:bg-gray-800 transition-colors"
+      >
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</div>
