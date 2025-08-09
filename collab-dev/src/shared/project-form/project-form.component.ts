@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-project-form',
-  imports: [ CommonModule, // souvent nécessaire
+  imports: [ CommonModule, 
     ReactiveFormsModule],
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css'
