@@ -2,10 +2,39 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
-export interface User {
+import { environment } from '../../environments/environment';
+import { CONSTANT } from '../constants/contant';
+
+export interface IUser {
   id: number;
-  name: string;
+  speudo: string;
   email: string;
+  profils: any;
+  role: string;
+}
+
+export class updatePassword {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+
+  constructor() {
+    this.oldPassword = '';
+    this.newPassword = '';
+    this.confirmPassword = '';
+  }
+}
+
+export class User {
+  speudo: string;
+  email: string;
+  password: string;
+
+  constructor() {
+    this.speudo = '';
+    this.email = '';
+    this.password = '';
+  }
 }
 
 @Injectable({
@@ -14,39 +43,60 @@ export interface User {
 export class UsersService {
   private _http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:8080/api/users';
-
   getUsers(): Observable<User[]> {
     return this._http
-      .get<User[]>(this.apiUrl)
+      .get<User[]>(environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS)
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
   getUserById(id: number): Observable<User> {
     return this._http
-      .get<User>(`${this.apiUrl}/${id}`)
+      .get<User>(
+        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}`
+      )
       .pipe(catchError(this.handleError));
   }
 
   // POST new user
-  createUser(user: User): Observable<User> {
+  createUser(user: User): Observable<IUser> {
     return this._http
-      .post<User>(this.apiUrl, user)
+      .post<IUser>(
+        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS,
+        user
+      )
       .pipe(catchError(this.handleError));
   }
 
   // PUT update user
-  updateUser(id: number, user: User): Observable<User> {
+  updateUserInFo(id: number, user: User): Observable<string> {
     return this._http
-      .put<User>(`${this.apiUrl}/${id}`, user)
+      .put<string>(
+        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
+          CONSTANT.USER_RESSOURCES.UPDATE
+        }`,
+        user
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  updatePassword(id: number, passwordObj: updatePassword): Observable<string> {
+    return this._http
+      .put<string>(
+        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
+          CONSTANT.USER_RESSOURCES.UPDATE_PASSWORD
+        }`,
+        passwordObj
+      )
       .pipe(catchError(this.handleError));
   }
 
   // DELETE user
   deleteUser(id: number): Observable<void> {
     return this._http
-      .delete<void>(`${this.apiUrl}/${id}`)
+      .delete<void>(
+        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}`
+      )
       .pipe(catchError(this.handleError));
   }
 

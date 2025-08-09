@@ -128,9 +128,11 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'user/projects',
+        path: 'user/projects-views/',
         loadComponent: () =>
-          import('../pages/users/projects/projects').then((m) => m.Projects),
+          import('../pages/users/view-projects/view-projects').then(
+            (m) => m.ViewProjectsComponent
+          ),
       },
       {
         path: 'user/contribution-ask',
@@ -179,5 +181,13 @@ export const routes: Routes = [
       import('../components/forgot-password/forgot-password').then(
         (m) => m.ForgotPasswordComponent
       ),
+  },
+
+  {
+    path: 'projects/view-details/:id',
+    loadComponent: () =>
+      import(
+        '../pages/users/voir-details-projet/voir-details-projet.component'
+      ).then((m) => m.VoirDetailsProjetComponent),
   },
 ];

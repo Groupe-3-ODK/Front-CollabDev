@@ -10,9 +10,11 @@ export const CONSTANT = {
     MY_CONTRIBUTIONS: 'myContributions',
   },
   USER_RESSOURCES: {
-    USERS: 'createUser',
-    UPDATE: 'updateUser',
+    USERS: 'users',
+    UPDATE: 'updateUserInfo',
+    UPDATE_PASSWORD: 'changePassword',
     DELETE: 'deleteUser',
+    LOGIN: '/login',
   },
   BADGE_RESSOURCES: {
     BADGES: 'badges',

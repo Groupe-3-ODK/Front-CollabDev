@@ -8,7 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CONSTANT } from '../../core/constants/contant';
+import { CookieService } from 'ngx-cookie-service';
+import { Auth, Login } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
@@ -16,18 +17,19 @@ import { CONSTANT } from '../../core/constants/contant';
   imports: [ReactiveFormsModule, CommonModule], // Importe ReactiveFormsModule pour ce composant
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  providers: [CookieService], // Fournisseur de CookieService
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  private loginData: Login = new Login();
+
   private router = inject(Router); // Injecter le Router si nécessaire
 
-  private loginData = {
-    email: '',
-    password: '',
-    rememberMe: false,
-  };
-
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private _authService: Auth,
+    private cookieService: CookieService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -37,26 +39,29 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Formulaire soumis', this.loginForm.value);
       // Ajoutez ici la logique pour envoyer les données au backend
       this.loginData.email = this.loginForm.value.email;
       this.loginData.password = this.loginForm.value.password;
-      this.loginData.rememberMe = this.loginForm.value.rememberMe;
+      this._authService.login(this.loginData).subscribe({
+        next: (response) => {
+          console.log('Connexion réussie:', response);
+          this.cookieService.set('currentUser', JSON.stringify(response), {
+            path: '/', // cookie disponible partout
+            expires: 7, // 7 jours
+          });
+          // Vous pouvez rediriger l'utilisateur ou afficher un message de succès ici
+        },
+        complete: () => {
+          // Rediriger vers la page d'accueil ou une autre page après la connexion réussie
+          this.router.navigate(['/redirect']);
 
-      if (
-        CONSTANT.CURRENT_USER.EMAIL === this.loginData.email &&
-        CONSTANT.CURRENT_USER.PASSWORD === this.loginData.password
-      ) {
-        localStorage.setItem(
-          'currentUser',
-          JSON.stringify(CONSTANT.CURRENT_USER)
-        );
-        alert(
-          'Connexion réussie ! Bienvenue ' + CONSTANT.CURRENT_USER.USERNAME
-        );
-        // Rediriger vers la page d'accueil oau une autre page après la connexion réussie
-        this.router.navigate(['/redirect']);
-      }
+          alert('Connexion réussie !');
+        },
+        error: (error) => {
+          console.error('Erreur lors de la connexion:', error);
+          alert('Échec de la connexion. Veuillez vérifier vos identifiants.');
+        },
+      });
     } else {
       console.error('Formulaire invalide');
       alert('Veuillez remplir correctement le formulaire.');
