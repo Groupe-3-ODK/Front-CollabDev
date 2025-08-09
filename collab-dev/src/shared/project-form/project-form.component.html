@@ -1,0 +1,43 @@
+<div class="background-animation">
+  <div class="form-container">
+    <h2>Création d'un projet</h2>
+    <p>Partagez votre passion avec notre communauté de managers, designers et développeurs</p>
+    
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Nom du projet -->
+      <div class="form-group">
+        <label for="projectName">Nom du projet <span>*</span></label>
+        <input type="text" id="projectName" formControlName="projectName" placeholder="Veuillez saisir le nom de votre ...">
+      </div>
+      
+      <!-- Domaine -->
+      <div class="form-group">
+        <label for="domain">Domaine <span>*</span></label>
+        <select id="domain" formControlName="domain">
+          <option value="" disabled selected>-- Sélectionnez un domaine --</option>
+          <option value="web">Développement Web</option>
+          <option value="mobile">Développement Mobile</option>
+          <option value="design">UI/UX Design</option>
+          <option value="data">Data Science</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+      
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" placeholder="Décrivez votre projet..." rows="4"></textarea>
+      </div>
+      
+      <!-- Documentation -->
+      <div class="form-group-doc">
+        <label for="documentation">Documentation</label>
+        <input type="file" id="documentation" formControlName="documentation" accept="application/pdf">
+      </div>
+      
+      <!-- Bouton -->
+      <button type="submit">Soumettre</button>
+    </form>
+  </div>
+</div>

@@ -111,6 +111,7 @@ export const routes: Routes = [
             '../pages/admin/confidentiality-policy/confidentiality-policy.component'
           ).then((m) => m.ConfidentialityPolicyComponent),
       },
+
       //-------------------------- USER LINK ---------------------------------------------
 
       {
@@ -153,7 +154,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../pages/users/settings/settings').then((m) => m.Settings),
       },
-    ],
+  ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
   {
