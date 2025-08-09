@@ -7,10 +7,10 @@ import { TableComponent } from '../../../shared/reusablesComponents/table/table.
 @Component({
   selector: 'app-managers',
   imports: [
-    ManagerCardComponent,
+    ManagerCardComponent, 
     TableComponent,
+    
     SearchbarComponent,
-    SnackbarComponent,
   ],
   templateUrl: './managers.component.html',
   styleUrl: './managers.component.css',
