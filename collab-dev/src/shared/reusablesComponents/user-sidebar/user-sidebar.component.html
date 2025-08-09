@@ -1,78 +1,121 @@
 <aside
-  class="bg-orange-500 w-64 min-h-screen text-white p-4 flex flex-col justify-between"
+  class="bg-orange-500 w-64 min-h-screen text-white flex flex-col justify-between"
 >
   <div>
-    <div class="flex items-center gap-2 mb-6">
-      <img src="assets/images/logoV1.png" alt="Logo" class="w-10 h-10" />
+    <div>
+      <div class="flex items-center gap-2 mb-6 bg-white w-full">
+        <img src="assets/images/logoV11.png" alt="Logo" class="w-80 h-30" />
+      </div>
     </div>
 
     <nav class="flex flex-col gap-3">
-      <a
-        routerLink="/admin/statistics"
-        class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-      >
-        <span>Statistiques</span>
-      </a>
-      <a
-        routerLink="/admin/projects"
-        class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-      >
-        Projets</a
-      >
-      <a
-        routerLink="/admin/managers"
-        class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-      >
-        Gestionnaires</a
-      >
-      <a
-        routerLink="/admin/projects-to-approve"
-        class="flex items-center gap-2 bg-white text-orange-500 font-bold p-2 rounded"
-        >Projets à valider</a
-      >
-      <a
-        routerLink="/admin/users"
-        class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-      >
-        Utilisateurs</a
-      >
-    </nav>
+      <!-- Nouveau Projet -->
+      <div class="one">
+        <a
+          routerLink="/user/new-project"
+          class="flex items-center gap-3 bg-white p-2 mx-2 w-64 rounded"
+        >
+          <lucide-angular
+            name="copy-plus"
+            class="text-orange-500"
+          ></lucide-angular>
+          <span class="text-orange-500 font-bold">Nouveau Projet</span>
+        </a>
+      </div>
+      <!-- Tableau de bord -->
+      <div class="one">
+        <a
+          routerLink="user/dashboard"
+          class="flex items-center gap-3 hover:bg-orange-600 p-2 hover:w-60 rounded"
+          routerLinkActive="bg-orange-600 text-xl  rounded w-60"
+        >
+          <lucide-angular name="house"></lucide-angular>
+          <span>Tableau de bord</span>
+        </a>
+      </div>
+      <!-- Profils -->
+      <div class="one">
+        <a
+          routerLink="/user/profil"
+          routerLinkActive="bg-orange-600 text-xl rounded w-60"
+          class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
+        >
+          <lucide-angular name="user"></lucide-angular>
+          <span>Profils</span>
+        </a>
+      </div>
 
-    <div class="mt-6 border-t border-white pt-4">
-      <h2 class="font-semibold mb-2">Configurer CollabDev</h2>
-      <a
-        routerLink="/admin/configuration"
-        class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-      >
-        Configuration</a
-      >
-    </div>
+      <!-- Projets -->
+      <div class="one">
+        <a
+          routerLink="/user/projects-views"
+          routerLinkActive="bg-orange-600 text-xl rounded w-60"
+          class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
+        >
+          <lucide-angular name="folder-open-dot"></lucide-angular>
+          <span>Projets</span>
+        </a>
+      </div>
+
+      <!-- Demandes Contributions -->
+      <div class="one">
+        <a
+          routerLink="/user/contribution-ask"
+          routerLinkActive="bg-orange-600 text-xl rounded w-60"
+          class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
+        >
+          <lucide-angular name="hand-coins"></lucide-angular>
+          <span>Demandes Contributions</span>
+        </a>
+      </div>
+
+      <!-- Mes contributions -->
+      <div class="one">
+        <a
+          routerLink="/user/my-contributions"
+          routerLinkActive="bg-orange-600 text-xl rounded w-60"
+          class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
+        >
+          <lucide-angular name="layers"></lucide-angular>
+          <span>Mes contributions</span>
+        </a>
+      </div>
+
+      <!-- Paramètres -->
+      <div class="one">
+        <a
+          routerLink="/user/settings"
+          routerLinkActive="bg-orange-600 text-xl rounded w-60"
+          class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
+        >
+          <lucide-angular name="settings"></lucide-angular>
+          <span>Paramètres</span>
+        </a>
+      </div>
+
+      <!-- Se déconnecter -->
+      <div class="one">
+        <a
+          routerLink="/user/deconnexion"
+          routerLinkActive="bg-orange-600 text-xl rounded w-60"
+          class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
+        >
+          <lucide-angular name="log-in"></lucide-angular>
+          <span>Se déconnecter</span>
+        </a>
+      </div>
+    </nav>
   </div>
 
-  <div class="border-t border-white pt-4">
-    <h2 class="font-semibold mb-2">Paramètres</h2>
-    <a
-      routerLink="/admin/settings"
-      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-    >
-      Paramètre compte</a
-    >
-    <a
-      routerLink="/admin/teams-and-roles"
-      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-    >
-      Équipe & Permissions</a
-    >
-    <a
-      routerLink="/admin/support"
-      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-    >
-      Support</a
-    >
+  <div>
+    <div class="border-t border-white pt-4"></div>
     <a
       routerLink="/admin/confidentiality-policy"
-      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-      >Politiques de confidentialité</a
+      routerLinkActive="bg-orange-600 text-xl rounded w-60"
+      class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
     >
+      <lucide-angular name="user-round-pen"></lucide-angular>
+      <span>[nom de l'utilisateur]</span>
+    </a>
   </div>
 </aside>

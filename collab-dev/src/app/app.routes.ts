@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
+import { CONSTANT } from '../core/constants/contant';
 import { LayoutComponent } from './layout/layout.component';
+import { Redirect } from './redirect/redirect';
 
 export const routes: Routes = [
   {
@@ -9,7 +11,35 @@ export const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'admin/statistics',
+        redirectTo: 'redirect',
+      },
+      {
+        path: 'redirect',
+        component: Redirect,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo:
+              CONSTANT.CURRENT_USER.ROLE === 'ADMIN'
+                ? 'admin/statistics'
+                : 'user/dashboard',
+          },
+          {
+            path: 'admin/statistics',
+            loadComponent: () =>
+              import('../pages/admin/statistics/statistics.component').then(
+                (m) => m.StatisticsComponent
+              ),
+          },
+          {
+            path: 'user/dashboard',
+            loadComponent: () =>
+              import('../pages/users/dashboard/dashboard.component').then(
+                (m) => m.DashboardComponent
+              ),
+          },
+        ],
       },
       {
         path: 'admin/statistics',
@@ -81,7 +111,84 @@ export const routes: Routes = [
             '../pages/admin/confidentiality-policy/confidentiality-policy.component'
           ).then((m) => m.ConfidentialityPolicyComponent),
       },
-      //-----------------------------------------------------------------------
-    ],
+
+      //-------------------------- USER LINK ---------------------------------------------
+
+      {
+        path: 'user/dashboard',
+        loadComponent: () =>
+          import('../pages/users/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
+      {
+        path: 'user/profil',
+        loadComponent: () =>
+          import('../pages/users/profil/profil.component').then(
+            (m) => m.ProfilComponent
+          ),
+      },
+      {
+        path: 'user/projects-views/',
+        loadComponent: () =>
+          import('../pages/users/view-projects/view-projects').then(
+            (m) => m.ViewProjectsComponent
+          ),
+      },
+      {
+        path: 'user/contribution-ask',
+        loadComponent: () =>
+          import('../pages/users/contribution-ask/contribution-ask').then(
+            (m) => m.ContributionAsk
+          ),
+      },
+      {
+        path: 'user/my-contributions',
+        loadComponent: () =>
+          import('../pages/users/my-contributions/my-contributions').then(
+            (m) => m.MyContributions
+          ),
+      },
+      {
+        path: 'user/settings',
+        loadComponent: () =>
+          import('../pages/users/settings/settings').then((m) => m.Settings),
+      },
+  ],
+    //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('../components/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+  },
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('../components/signup/signup').then((m) => m.SignupComponent),
+  },
+  {
+    path: 'langing-page',
+    loadComponent: () =>
+      import('../components/landing-page/landing-page').then(
+        (m) => m.LandingPage
+      ),
+  },
+  {
+    path: 'user/forgot-password',
+    loadComponent: () =>
+      import('../components/forgot-password/forgot-password').then(
+        (m) => m.ForgotPasswordComponent
+      ),
+  },
+
+  {
+    path: 'projects/view-details/:id',
+    loadComponent: () =>
+      import(
+        '../pages/users/voir-details-projet/voir-details-projet.component'
+      ).then((m) => m.VoirDetailsProjetComponent),
   },
 ];

@@ -1,52 +1,64 @@
 <aside
-  class="bg-orange-500 w-64 min-h-screen text-white p-4 flex flex-col justify-between"
+  class="bg-orange-500 w-64 min-h-screen text-white flex flex-col justify-between"
 >
   <div>
     <div class="flex items-center gap-2 mb-6 bg-white w-full">
-      <img src="assets/images/logoV1.png" alt="Logo" class="w-80 h-30" />
+      <img src="assets/images/logoV11.png" alt="Logo" class="w-80 h-30" />
     </div>
 
-    <nav class="flex flex-col gap-3">
+    <nav class="flex flex-col gap-5">
       <a
         routerLink="/admin/statistics"
+        routerLinkActive="bg-orange-600 text-xl  rounded "
         class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
       >
-        <lucide-angular name="house"></lucide-angular>
+        <lucide-angular name="chart-no-axes-combined"></lucide-angular>
         <span>Statistiques</span>
       </a>
       <a
         routerLink="/admin/projects"
+        routerLinkActive="bg-orange-600 text-xl rounded"
         class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
       >
-        Projets</a
-      >
+        <lucide-angular name="lightbulb"></lucide-angular>
+        <span>Projects</span>
+      </a>
       <a
         routerLink="/admin/managers"
+        routerLinkActive="bg-orange-600 text-xl rounded"
         class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
       >
-        Gestionnaires</a
-      >
+        <lucide-angular name="user-check"></lucide-angular>
+        <span>Gestionnaires</span>
+      </a>
       <a
         routerLink="/admin/projects-to-approve"
+        routerLinkActive="bg-orange-600 text-xl rounded"
         class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-        >Projets à valider</a
       >
+        <lucide-angular name="circle-check-big"></lucide-angular>
+        <span>Projets à valider</span>
+      </a>
       <a
         routerLink="/admin/users"
+        routerLinkActive="bg-orange-600 text-xl  rounded"
         class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
       >
-        Utilisateurs</a
-      >
+        <lucide-angular name="circle-user-round"></lucide-angular>
+        <span>Utilisateurs</span>
+      </a>
     </nav>
 
     <div class="mt-6 border-t border-white pt-4">
       <h2 class="font-semibold mb-2">Configurer CollabDev</h2>
       <a
         routerLink="/admin/configuration"
+        routerLinkActive="bg-orange-600 text-xl rounded"
         class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
       >
-        Configuration</a
-      >
+        <lucide-angular name="monitor-cog"></lucide-angular>
+        <span>Configuration</span>
+      </a>
     </div>
   </div>
 
@@ -54,26 +66,35 @@
     <h2 class="font-semibold mb-2">Paramètres</h2>
     <a
       routerLink="/admin/settings"
+      routerLinkActive="bg-orange-600 text-xl rounded"
       class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
     >
-      Paramètre compte</a
-    >
+      <lucide-angular name="cog"></lucide-angular>
+      <span>Paramètre compte</span>
+    </a>
     <a
       routerLink="/admin/teams-and-roles"
+      routerLinkActive="bg-orange-600 text-xl rounded"
       class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
     >
-      Équipe & Permissions</a
-    >
+      <lucide-angular name="users"></lucide-angular>
+      <span>Équipe & Permissions</span>
+    </a>
     <a
       routerLink="/admin/support"
+      routerLinkActive="bg-orange-600 text-xl rounded"
       class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
     >
-      Support</a
-    >
+      <lucide-angular name="book-marked"></lucide-angular>
+      <span>Support</span>
+    </a>
     <a
       routerLink="/admin/confidentiality-policy"
+      routerLinkActive="bg-orange-600 text-xl rounded"
       class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-      >Politiques de confidentialité</a
     >
+      <lucide-angular name="scroll-text"></lucide-angular>
+      <span>Politiques de confidentialité</span>
+    </a>
   </div>
 </aside>
