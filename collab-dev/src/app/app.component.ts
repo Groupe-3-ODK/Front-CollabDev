@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+import { ProfilComponent } from '../pages/users/profil/profil.component';
 
 
 import { Component, inject, OnInit } from '@angular/core';
@@ -17,13 +18,7 @@ import { CreerTache } from '../pages/users/creer-tache/creer-tache';
   standalone: true,
 
 
-
-
-
-
-
-
-  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent],
+  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent, ],
 
   templateUrl: './app.component.html',
   providers: [CookieService],
