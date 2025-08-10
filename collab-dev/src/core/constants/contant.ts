@@ -1,11 +1,10 @@
 export const CONSTANT = {
   PROJECT_RESSOURCES: {
     PROJECTS: 'projects',
-    CONFIGURE_PROJECT: 'configureProject',
-    ATTRIBUATE_MANAGER_TO_PROJECT: 'attributeManagerToProject',
-    JION_PROJECT_WITH_PROFILE_NAME: 'joinProjectWithProfilName',
-    LOGIN: 'login',
-    SIGNUP: 'signup',
+    CONFIGURE_PROJECT: '/configureProject',
+    ATTRIBUATE_MANAGER_TO_PROJECT: '/attributeManagerToProject',
+    JION_PROJECT_WITH_PROFILE_NAME: '/joinProjectWithProfilName',
+    JOIN_PROJECT_AS_MANAGER: '/joinProjectAsManager',
     CONTRIBUTION_ASK: 'contributionAsk',
     MY_CONTRIBUTIONS: 'myContributions',
   },

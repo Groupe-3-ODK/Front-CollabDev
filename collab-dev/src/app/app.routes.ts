@@ -129,7 +129,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'user/projects-views/',
+        path: 'user/projects-views',
         loadComponent: () =>
           import('../pages/users/view-projects/view-projects').then(
             (m) => m.ViewProjectsComponent
@@ -154,7 +154,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../pages/users/settings/settings').then((m) => m.Settings),
       },
-  ],
+    ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
   {
@@ -190,5 +190,12 @@ export const routes: Routes = [
       import(
         '../pages/users/voir-details-projet/voir-details-projet.component'
       ).then((m) => m.VoirDetailsProjetComponent),
+  },
+  {
+    path: 'user/contribution-ask',
+    loadComponent: () =>
+      import('../pages/users/contribution-ask/contribution-ask').then(
+        (m) => m.ContributionAsk
+      ),
   },
 ];

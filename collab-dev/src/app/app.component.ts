@@ -1,30 +1,26 @@
-import { Component } from '@angular/core';
-
-import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
-import { ProjectFormComponent } from '../shared/project-form/project-form.component';
-import { SubmitProjectFormComponent } from '../shared/submit-project-form/submit-project-form.component';
-
+import { Component, inject, OnInit } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
-
+import { CookieService } from 'ngx-cookie-service';
+import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
+import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
+import { CreerTache } from '../pages/users/creer-tache/creer-tache';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-
-  imports: [
-    //UserSidebarComponent,
-    //ProjectFormComponent
-    SubmitProjectFormComponent
-  ],
-
-  imports: [RouterOutlet],
-
-
+  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache],
   templateUrl: './app.component.html',
+  providers: [CookieService],
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private cookieService = inject(CookieService);
+
+  ngOnInit(): void {
+    this.cookieService.deleteAll('/');
+  }
+
   title = 'collab-dev';
 
   // Variable qui contrôle l'affichage du modal
