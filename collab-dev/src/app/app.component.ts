@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-
-import { UserSidebarComponent } from './user-sidebar/user-sidebar.component';
-import { ProjectFormComponent } from '../shared/project-form/project-form.component';
-import { SubmitProjectFormComponent } from '../shared/submit-project-form/submit-project-form.component';
-
-
-import { RouterOutlet } from '@angular/router';
+import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
 
 
 @Component({
@@ -13,12 +7,12 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
 
   imports: [
-    //UserSidebarComponent,
     //ProjectFormComponent
-    SubmitProjectFormComponent
+    //SubmitProjectFormComponent,
+    DashboardComponent
   ],
 
-  imports: [RouterOutlet],
+
 
 
   templateUrl: './app.component.html',
