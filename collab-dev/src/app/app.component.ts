@@ -7,12 +7,21 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { LoginComponent } from '../components/login/login.component';
 import { SignupComponent } from '../components/signup/signup';
+import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
+import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
 import { ProfilComponent } from '../pages/users/profil/profil.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, LoginComponent, SignupComponent, ProfilComponent],
+  imports: [
+    RouterOutlet,
+    LoginComponent,
+    SignupComponent,
+    ProfilComponent,
+    DashboardComponent,
+    ConfigurationDuProjet,
+  ],
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',

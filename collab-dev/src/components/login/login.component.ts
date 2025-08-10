@@ -45,7 +45,8 @@ export class LoginComponent {
       this._authService.login(this.loginData).subscribe({
         next: (response) => {
           console.log('Connexion réussie:', response);
-          this.cookieService.set('currentUser', JSON.stringify(response), {
+
+          this.cookieService.set('currentUser', JSON.stringify(response.data), {
             path: '/', // cookie disponible partout
             expires: 7, // 7 jours
           });

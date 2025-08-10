@@ -24,7 +24,7 @@ export class LayoutComponent implements OnInit {
     const cookieValue = this.cookieService.get('currentUser');
     this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
     if (this.currentUser) {
-      this.role = 'ADMIN';
+      this.role = this.currentUser.role;
     }
   }
 
