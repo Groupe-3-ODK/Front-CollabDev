@@ -1,0 +1,121 @@
+/* Fichier: category-card.css */
+
+.card-container {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  margin: 40px auto;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  overflow: hidden; /* Assure que le border-radius s'applique à l'en-tête */
+}
+
+/* Nouvelles règles pour l'en-tête en barre horizontale */
+.card-header-bar {
+  background-color: #FFA500; /* Orange */
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.card-title h2 {
+  font-size: 2rem;
+  color: #fff; /* Texte blanc pour l'en-tête */
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Le reste du contenu de la carte */
+form {
+  padding: 30px; /* Ajoute un padding au formulaire */
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.input-field,
+.input-field-large,
+.date-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-field:focus,
+.input-field-large:focus,
+.date-input:focus {
+  border-color: #FFA500;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 165, 0, 0.5);
+}
+
+.input-field-large {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.error-message {
+  color: #E53935;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  background-color: #FFA500;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #ff8c00;
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background-color: #f1f1f1;
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
