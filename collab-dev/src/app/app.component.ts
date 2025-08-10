@@ -1,3 +1,8 @@
+
+import { Component } from '@angular/core';
+import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+
+
 import { Component, inject, OnInit } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
@@ -6,10 +11,20 @@ import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
 import { CreerTache } from '../pages/users/creer-tache/creer-tache';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache],
+
+
+
+
+
+
+
+
+  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent],
+
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',
