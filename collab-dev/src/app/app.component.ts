@@ -1,25 +1,18 @@
-
 import { Component } from '@angular/core';
-import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
-import { ProfilComponent } from '../pages/users/profil/profil.component';
 
-
-import { Component, inject, OnInit } from '@angular/core';
+import { inject, OnInit } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
-import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
-import { CreerTache } from '../pages/users/creer-tache/creer-tache';
 
+import { LoginComponent } from '../components/login/login.component';
+import { SignupComponent } from '../components/signup/signup';
+import { ProfilComponent } from '../pages/users/profil/profil.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-
-
-  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent, ],
-
+  imports: [RouterOutlet, LoginComponent, SignupComponent, ProfilComponent],
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',

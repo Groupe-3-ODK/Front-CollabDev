@@ -7,14 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Auth, Login } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule], // Importe ReactiveFormsModule pour ce composant
+  imports: [ReactiveFormsModule, CommonModule, RouterModule], // Importe ReactiveFormsModule pour ce composant
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   providers: [CookieService], // Fournisseur de CookieService
