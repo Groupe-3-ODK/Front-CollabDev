@@ -4,23 +4,23 @@
 
     <section class="card profile-overview-card">
       <div class="profile-overview">
-        <div class="profile-avatar">MT</div>
+        <div class="profile-avatar">{{ personalInfo.firstName.charAt(0) }}{{ personalInfo.lastName.charAt(0) }}</div>
         <div class="profile-info">
-          <h2>Mohamed Touré</h2>
+          <h2>{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h2>
           <p class="role">Utilisateur</p>
           <span class="coins-badge">50 coins</span>
-          <p class="location">Bamako, Mali</p>
+          <p class="location">{{ addressInfo.city }}, {{ addressInfo.country }}</p>
         </div>
         <div class="profile-status-icons">
-          <span class="status-icon online"
-            ><img src="Group78.png" alt="Online status icon"
-          /></span>
-          <span class="status-icon available"
-            ><img src="Group 141.png" alt="Online status icon"
-          /></span>
-          <span class="status-icon busy"
-            ><img src="Group 140.png" alt="Online status icon"
-          /></span>
+          <span class="status-icon online">
+            <img src="Group78.png" alt="Online status icon" />
+          </span>
+          <span class="status-icon available">
+            <img src="Group 141.png" alt="Online status icon" />
+          </span>
+          <span class="status-icon busy">
+            <img src="Group 140.png" alt="Online status icon" />
+          </span>
         </div>
       </div>
     </section>
@@ -28,58 +28,73 @@
     <section class="card">
       <div class="card-header">
         <h3>Information personnelle</h3>
-        <button class="edit-btn">
-          Edit<img src="stylo 1.png" alt="Edit icon" />
+        <button class="edit-btn" (click)="togglePersonalInfoEdit()">
+          {{ isEditingPersonalInfo ? 'Cancel' : 'Edit' }}<img src="stylo 1.png" alt="Edit icon" />
         </button>
       </div>
       <div class="info-grid">
         <div class="info-item">
           <label>Prénom</label>
-          <p>Mohamed</p>
+          <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.firstName }}</p>
+          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.firstName" type="text">
         </div>
         <div class="info-item">
           <label>Nom</label>
-          <p>Touré</p>
+          <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.lastName }}</p>
+          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.lastName" type="text">
         </div>
         <div class="info-item">
           <label>Date de naissance</label>
-          <p>12-10-2001</p>
+          <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.birthDate }}</p>
+          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.birthDate" type="date">
         </div>
         <div class="info-item">
           <label>Email Adress</label>
-          <p>rjkjk</p>
+          <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.email }}</p>
+          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.email" type="email">
         </div>
         <div class="info-item">
           <label>Téléphone</label>
-          <p>+22370672215</p>
+          <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.phone }}</p>
+          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.phone" type="tel">
         </div>
         <div class="info-item">
           <label>Profil</label>
-          <p>Développeur</p>
+          <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.profile }}</p>
+          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.profile" type="text">
         </div>
+      </div>
+      <div *ngIf="isEditingPersonalInfo" class="save-btn-container">
+        <button class="save-btn" (click)="savePersonalInfo()">Save Changes</button>
       </div>
     </section>
 
     <section class="card">
       <div class="card-header">
         <h3>Adresse</h3>
-        <button class="edit-btn">
-          Edit<img src="stylo 1.png" alt="Edit icon" />
+        <button class="edit-btn" (click)="toggleAddressEdit()">
+          {{ isEditingAddress ? 'Cancel' : 'Edit' }}<img src="stylo 1.png" alt="Edit icon" />
         </button>
       </div>
       <div class="info-grid">
         <div class="info-item">
           <label>Pays</label>
-          <p>Mali</p>
+          <p *ngIf="!isEditingAddress">{{ addressInfo.country }}</p>
+          <input *ngIf="isEditingAddress" [(ngModel)]="addressInfo.country" type="text">
         </div>
         <div class="info-item">
           <label>Ville</label>
-          <p>Bamako</p>
+          <p *ngIf="!isEditingAddress">{{ addressInfo.city }}</p>
+          <input *ngIf="isEditingAddress" [(ngModel)]="addressInfo.city" type="text">
         </div>
         <div class="info-item">
           <label>Code Postal</label>
-          <p>25029</p>
+          <p *ngIf="!isEditingAddress">{{ addressInfo.postalCode }}</p>
+          <input *ngIf="isEditingAddress" [(ngModel)]="addressInfo.postalCode" type="text">
         </div>
+      </div>
+      <div *ngIf="isEditingAddress" class="save-btn-container">
+        <button class="save-btn" (click)="saveAddress()">Save Changes</button>
       </div>
     </section>
   </main>

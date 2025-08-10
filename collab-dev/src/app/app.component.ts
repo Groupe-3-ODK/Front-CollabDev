@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+import { ProfilComponent } from '../pages/users/profil/profil.component';
 
 
 @Component({
@@ -9,7 +10,8 @@ import { DashboardComponent } from '../pages/users/dashboard/dashboard.component
   imports: [
     //ProjectFormComponent
     //SubmitProjectFormComponent,
-    DashboardComponent
+    // DashboardComponent,
+    ProfilComponent
   ],
 
 
