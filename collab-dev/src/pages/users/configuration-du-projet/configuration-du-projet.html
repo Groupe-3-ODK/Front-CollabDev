@@ -12,7 +12,8 @@
     <!-- Onglets de progression -->
     <div class="progression-tabs-container horizontal-tabs">
       <div *ngFor="let tab of tabs" 
-           class="tab-item">
+            class="tab-item"
+            [ngClass]="{'active': tab.completed}">
         <svg class="tab-icon" fill="currentColor" viewBox="0 0 24 24">
           <path [attr.d]="tab.iconPath" />
         </svg>
@@ -35,10 +36,10 @@
         </div>
         <div class="input-group">
           <input type="text"
-                 placeholder="EX: https://github.com/..."
-                 class="form-input"
-                 [(ngModel)]="projectData.githubLink"
-                 (ngModelChange)="updateValidation()">
+                  placeholder="EX: https://github.com/..."
+                  class="form-input"
+                  [(ngModel)]="projectData.githubLink"
+                  (ngModelChange)="updateValidation()">
         </div>
       </div>
 
@@ -70,9 +71,9 @@
         </div>
         <div class="date-input-group">
           <input type="date"
-                 class="form-input date-field"
-                 [(ngModel)]="projectData.deadline"
-                 (ngModelChange)="updateValidation()">
+                  class="form-input date-field"
+                  [(ngModel)]="projectData.deadline"
+                  (ngModelChange)="updateValidation()">
           <span class="hint-text">Date de livraison prévue</span>
         </div>
       </div>
