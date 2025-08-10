@@ -1,0 +1,81 @@
+<div class="team-management-container" [style.transform]="'scale(' + scaleFactor + ')'">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="project-header">
+      <h1 class="project-title">Gestion de l'équipe <span class="highlighted-project">{{teamName}}</span></h1>
+      <button class="add-collaborator-btn">
+        Ajouter collaborateur
+        <span class="plus-icon">+</span>
+      </button>
+    </div>
+
+    <div class="search-filter-container">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="text" placeholder="Recherche un utilisateur" [(ngModel)]="searchQuery">
+      </div>
+      
+      <div class="filter-box">
+        <select [(ngModel)]="roleFilter">
+          <option value="Tous les rôles">Tous les rôles</option>
+          <option value="DESIGNER">DESIGNER</option>
+          <option value="DEVELOPPEUR">DEVELOPPEUR</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Team Stats -->
+  <div class="team-stats">
+    {{filteredMembers.length}} designer & développeur
+  </div>
+
+  <!-- Members Table -->
+  <div class="members-table">
+    <div class="table-header">
+      <div class="header-cell pseudo">Pseudo</div>
+      <div class="header-cell mail">Mail</div>
+      <div class="header-cell role">Rôles</div>
+      <div class="header-cell date">Date d'ajout</div>
+      <div class="header-cell action">Action</div>
+    </div>
+
+    <div class="table-body">
+      <div class="table-row" *ngFor="let member of filteredMembers">
+        <div class="cell pseudo">{{member.pseudo}}</div>
+        <div class="cell mail">{{member.mail}}</div>
+        <div class="cell role">
+          <div class="role-badge" [ngStyle]="getRoleStyle(member.role)">
+            {{member.role}}
+          </div>
+        </div>
+        <div class="cell date">{{member.dateAdded}}</div>
+        <div class="cell action">
+          <button class="delete-btn" (click)="openDeletePopup(member)">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Popup -->
+  <div class="popup-overlay" *ngIf="showDeletePopup">
+    <div class="popup-content">
+      <h3>Confirmer la suppression</h3>
+      <p>Êtes-vous sûr de vouloir supprimer <strong>{{memberToDelete?.pseudo}}</strong> de l'équipe ?</p>
+      
+      <div class="popup-actions">
+        <button class="cancel-btn" (click)="closePopup()">Annuler</button>
+        <button class="confirm-btn" (click)="confirmDelete()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+
+  
+</div>
