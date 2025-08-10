@@ -5,11 +5,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
 import { CreerTache } from '../pages/users/creer-tache/creer-tache';
+import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache],
+  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent],
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',
