@@ -1,0 +1,64 @@
+<div class="card-container">
+  <!-- En-tête avec la nouvelle barre horizontale -->
+  <div class="card-header-bar">
+    <div class="card-title">
+      <h2>Créer une nouvelle tâche</h2>
+    </div>
+  </div>
+
+  <form #taskForm="ngForm" (ngSubmit)="onValidate()">
+    <div class="form-group">
+      <label for="taskName">Nom de la tâche</label>
+      <input
+        type="text"
+        id="taskName"
+        name="taskName"
+        class="input-field"
+        [(ngModel)]="task.name"
+        required
+        #taskName="ngModel"
+        placeholder="Entrez le nom de la tâche"
+      />
+      <div *ngIf="taskName.invalid && (taskName.dirty || taskName.touched)" class="error-message">
+        Le nom de la tâche est requis.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="taskDescription">Description de la tâche</label>
+      <textarea
+        id="taskDescription"
+        name="taskDescription"
+        class="input-field-large"
+        [(ngModel)]="task.description"
+        required
+        #taskDescription="ngModel"
+        placeholder="Entrez une description pour la tâche"
+      ></textarea>
+      <div *ngIf="taskDescription.invalid && (taskDescription.dirty || taskDescription.touched)" class="error-message">
+        La description est requise.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="deadline">Date limite</label>
+      <input
+        type="date"
+        id="deadline"
+        name="deadline"
+        class="date-input"
+        [(ngModel)]="task.deadline"
+        required
+        #deadline="ngModel"
+      />
+      <div *ngIf="deadline.invalid && (deadline.dirty || deadline.touched)" class="error-message">
+        La date limite est requise.
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Annuler</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!taskForm.form.valid">Valider</button>
+    </div>
+  </form>
+</div>
