@@ -43,9 +43,9 @@ export class User {
 export class UsersService {
   private _http = inject(HttpClient);
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<IUser[]> {
     return this._http
-      .get<User[]>(environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS)
+      .get<IUser[]>(environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS)
       .pipe(catchError(this.handleError));
   }
 

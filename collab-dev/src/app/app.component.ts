@@ -1,26 +1,36 @@
+
 import { Component } from '@angular/core';
 import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
 import { ProfilComponent } from '../pages/users/profil/profil.component';
+
+
+import { Component, inject, OnInit } from '@angular/core';
+
+import { RouterOutlet } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
+import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
+import { CreerTache } from '../pages/users/creer-tache/creer-tache';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
 
-  imports: [
-    //ProjectFormComponent
-    //SubmitProjectFormComponent,
-    // DashboardComponent,
-    ProfilComponent
-  ],
 
-
-
+  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent, ],
 
   templateUrl: './app.component.html',
+  providers: [CookieService],
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private cookieService = inject(CookieService);
+
+  ngOnInit(): void {
+    this.cookieService.deleteAll('/');
+  }
+
   title = 'collab-dev';
 
   // Variable qui contrôle l'affichage du modal

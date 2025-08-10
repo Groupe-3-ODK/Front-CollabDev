@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendingList } from './pending-list';
+import { MesContribution } from './mes-contribution';
 
-describe('Pending', () => {
-  let component: PendingList;
-  let fixture: ComponentFixture<PendingList>;
+describe('MesContribution', () => {
+  let component: MesContribution;
+  let fixture: ComponentFixture<MesContribution>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PendingList],
-    }).compileComponents();
+      imports: [MesContribution]
+    })
+    .compileComponents();
 
-    fixture = TestBed.createComponent(PendingList);
+    fixture = TestBed.createComponent(MesContribution);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
