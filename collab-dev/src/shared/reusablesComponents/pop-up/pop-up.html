@@ -1,0 +1,24 @@
+<div class="popup-overlay">
+  <div class="popup-content">
+    <h2>Choose Role</h2>
+    <p>Select a role to start organizing your content.</p>
+    <div class="role-options">
+      <div class="role-option" [class.selected]="isSelected('designer')" (click)="onRoleSelect('designer')">
+        <span>Designer</span>
+        <p>Create and design visually appealing content</p>
+      </div>
+      <div class="role-option" [class.selected]="isSelected('developer')" (click)="onRoleSelect('developer')">
+        <span>Developer</span>
+        <p>Build and code functional applications</p>
+      </div>
+      <div class="role-option" [class.selected]="isSelected('manager')" (click)="onRoleSelect('manager')">
+        <span>Manager</span>
+        <p>Organize and manage projects efficiently</p>
+      </div>
+    </div>
+    <div class="popup-actions">
+      <button (click)="closePopup()">Cancel</button>
+      <button [disabled]="!selectedRole" (click)="confirmRole()">Next</button>
+    </div>
+  </div>
+</div>

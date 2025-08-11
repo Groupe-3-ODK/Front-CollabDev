@@ -111,7 +111,8 @@ export const routes: Routes = [
             '../pages/admin/confidentiality-policy/confidentiality-policy.component'
           ).then((m) => m.ConfidentialityPolicyComponent),
       },
-      //-----------------------------------------------------------------------
+
+      //-------------------------- USER LINK ---------------------------------------------
 
       {
         path: 'user/dashboard',
@@ -128,9 +129,11 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'user/projects',
+        path: 'user/projects-views',
         loadComponent: () =>
-          import('../pages/users/projects/projects').then((m) => m.Projects),
+          import('../pages/users/view-projects/view-projects').then(
+            (m) => m.ViewProjectsComponent
+          ),
       },
       {
         path: 'user/contribution-ask',
@@ -152,5 +155,47 @@ export const routes: Routes = [
           import('../pages/users/settings/settings').then((m) => m.Settings),
       },
     ],
+    //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('../components/login/login.component').then(
+        (m) => m.LoginComponent
+      ),
+  },
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('../components/signup/signup').then((m) => m.SignupComponent),
+  },
+  {
+    path: 'langing-page',
+    loadComponent: () =>
+      import('../components/landing-page/landing-page').then(
+        (m) => m.LandingPage
+      ),
+  },
+  {
+    path: 'user/forgot-password',
+    loadComponent: () =>
+      import('../components/forgot-password/forgot-password').then(
+        (m) => m.ForgotPasswordComponent
+      ),
+  },
+
+  {
+    path: 'projects/view-details/:id',
+    loadComponent: () =>
+      import(
+        '../pages/users/voir-details-projet/voir-details-projet.component'
+      ).then((m) => m.VoirDetailsProjetComponent),
+  },
+  {
+    path: 'user/contribution-ask',
+    loadComponent: () =>
+      import('../pages/users/contribution-ask/contribution-ask').then(
+        (m) => m.ContributionAsk
+      ),
   },
 ];
