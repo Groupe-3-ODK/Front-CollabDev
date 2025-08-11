@@ -10,6 +10,7 @@ import { SignupComponent } from '../components/signup/signup';
 import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
 import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
 import { ProfilComponent } from '../pages/users/profil/profil.component';
+import { ProjectFormComponent } from '../shared/project-form/project-form.component';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ import { ProfilComponent } from '../pages/users/profil/profil.component';
     ProfilComponent,
     DashboardComponent,
     ConfigurationDuProjet,
+    ProjectFormComponent,
   ],
   templateUrl: './app.component.html',
   providers: [CookieService],

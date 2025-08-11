@@ -26,8 +26,8 @@ export class Auth {
     return this._http
       .post<IApiResponse>(
         environment.API_BASE_URL +
-          CONSTANT.USER_RESSOURCES.USERS +
-          CONSTANT.USER_RESSOURCES.LOGIN,
+          CONSTANT.USER_RESSOURCES.USERS + // users
+          CONSTANT.USER_RESSOURCES.LOGIN, // login
         login
       )
       .pipe(catchError(this.handleError));
