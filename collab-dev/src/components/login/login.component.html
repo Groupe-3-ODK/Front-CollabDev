@@ -66,9 +66,16 @@
                 <input type="checkbox" formControlName="rememberMe" /> Se
                 souvenir de moi
               </label>
-              <a [routerLink]="['/user/forgot-password']">Mot de passe oublié ?</a>
+              <a [routerLink]="['/user/forgot-password']"
+                >Mot de passe oublié ?</a
+              >
             </div>
-            <button (click)="onSubmit()" type="submit" class="login-btn" [disabled]="loginForm.invalid">
+            <button
+              (click)="onSubmit()"
+              type="submit"
+              class="login-btn"
+              [disabled]="loginForm.invalid"
+            >
               Se connecter
             </button>
             <div class="signup-link">

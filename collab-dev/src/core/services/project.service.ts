@@ -25,32 +25,26 @@ export class CreateProject {
 export class ProjectService {
   private _http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:8080/api/users';
+  private _apiUrl =
+    environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
 
   getProjects(): Observable<Iproject[]> {
     return this._http
-      .get<Iproject[]>(this.apiUrl)
+      .get<Iproject[]>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
   getProjectById(id: number): Observable<Iproject> {
     return this._http
-      .get<Iproject>(
-        `${
-          environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
-        }/${id}`
-      )
+      .get<Iproject>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
   // POST new user
   createProject(project: CreateProject): Observable<Iproject> {
     return this._http
-      .post<Iproject>(
-        environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS,
-        project
-      )
+      .post<Iproject>(this._apiUrl, project)
       .pipe(catchError(this.handleError));
   }
 
@@ -58,9 +52,7 @@ export class ProjectService {
   updateProject(id: number, project: Iproject): Observable<Iproject> {
     return this._http
       .put<Iproject>(
-        `${
-          environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
-        }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
+        `${this._apiUrl}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
         project
       )
       .pipe(catchError(this.handleError));
@@ -69,11 +61,7 @@ export class ProjectService {
   // DELETE user
   deleteProject(id: number): Observable<void> {
     return this._http
-      .delete<void>(
-        `${
-          environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
-        }/${id}`
-      )
+      .delete<void>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
