@@ -4,6 +4,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
+import { IApiResponse } from '../interfaces/api-response';
 
 export interface IUser {
   id: number;
@@ -59,9 +60,9 @@ export class UsersService {
   }
 
   // POST new user
-  createUser(user: User): Observable<IUser> {
+  createUser(user: User): Observable<IApiResponse> {
     return this._http
-      .post<IUser>(
+      .post<IApiResponse>(
         environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS,
         user
       )

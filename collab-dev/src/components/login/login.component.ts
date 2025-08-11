@@ -7,14 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Auth, Login } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink], // Importe ReactiveFormsModule pour ce composant
+  imports: [ReactiveFormsModule, CommonModule, RouterModule], // Importe ReactiveFormsModule pour ce composant
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   providers: [CookieService], // Fournisseur de CookieService
@@ -45,7 +45,8 @@ export class LoginComponent {
       this._authService.login(this.loginData).subscribe({
         next: (response) => {
           console.log('Connexion réussie:', response);
-          this.cookieService.set('currentUser', JSON.stringify(response), {
+
+          this.cookieService.set('currentUser', JSON.stringify(response.data), {
             path: '/', // cookie disponible partout
             expires: 7, // 7 jours
           });

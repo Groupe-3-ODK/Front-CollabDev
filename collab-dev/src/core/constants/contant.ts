@@ -17,8 +17,14 @@ export const CONSTANT = {
   },
   BADGE_RESSOURCES: {
     BADGES: 'badges',
-
     UPDATE_BADGE: 'updateBadge',
+  },
+
+  TASK_RESSOURCES: {
+    TASKS: 'tasks',
+    CREATE: 'create-Tasks',
+    ASSIGN_TASK: 'assignTask',
+    SUBMIT_TASK: 'submitTask',
   },
 
   CURRENT_USER: {

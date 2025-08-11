@@ -19,7 +19,7 @@ export class UsersComponent {
   public getUsers(): void {
     this._userService.getUsers().subscribe({
       next: (response) => {
-        this.users = response;
+        // this.users = response;
         console.log(
           'Liste des utilisateurs récupérée avec succès:',
           this.users
