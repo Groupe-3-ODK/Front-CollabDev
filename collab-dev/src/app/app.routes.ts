@@ -293,4 +293,68 @@ export const routes: Routes = [
         (m) => m.AjoutEquipe
       ),
   },
+  {
+    path: 'shared/manager-card',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/manager-card/manager-card.component'
+      ).then((m) => m.ManagerCardComponent),
+  },
+
+  {
+    path: 'shared/pop-up',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/pop-up/pop-up'
+      ).then((m) => m.PopUp),
+  },
+
+  {
+    path: 'shared/project-card',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/project-card/project-card.component'
+      ).then((m) => m.ProjectCardComponent),
+  },
+
+  {
+    path: 'shared/searchbar',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/searchbar/searchbar.component'
+      ).then((m) => m.SearchbarComponent),
+  },
+
+  {
+    path: 'shared/sidebar',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/sidebar/sidebar.component'
+      ).then((m) => m.SidebarComponent),
+  },
+
+  {
+    path: 'shared/snackbar',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/snackbar/snackbar.component'
+      ).then((m) => m.SnackbarComponent),
+  },
+
+  {
+    path: 'shared/table',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/table/table.component'
+      ).then((m) => m.TableComponent),
+  },
+
+  {
+    path: 'shared/user-sidebar',
+    loadComponent: () =>
+      import(
+        '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
+      ).then((m) => m.UserSidebarComponent),
+  },
+  
 ];
