@@ -88,4 +88,8 @@ export class DetailProjetComponent {
     this.totalTasks = this.tasks[TaskStatus.Todo].length + this.inProgressTasks + this.doneTasks;
     this.progressPercent = this.totalTasks > 0 ? Math.round((this.doneTasks / this.totalTasks) * 100) : 0;
   }
+
+  sendToAdmin(){
+    alert('Envoyé à l\'administrateur');
+  }
 }

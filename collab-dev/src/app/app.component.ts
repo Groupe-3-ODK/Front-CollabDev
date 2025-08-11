@@ -8,22 +8,13 @@ import { CookieService } from 'ngx-cookie-service';
 import { LoginComponent } from '../components/login/login.component';
 import { SignupComponent } from '../components/signup/signup';
 import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
+import { CreerTache } from '../pages/users/creer-tache/creer-tache';
 import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
-import { ProfilComponent } from '../pages/users/profil/profil.component';
-import { ProjectFormComponent } from '../shared/project-form/project-form.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    LoginComponent,
-    SignupComponent,
-    ProfilComponent,
-    DashboardComponent,
-    ConfigurationDuProjet,
-    ProjectFormComponent,
-  ],
+  imports: [RouterOutlet, ConfigurationDuProjet, CreerTache, DashboardComponent],
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',
