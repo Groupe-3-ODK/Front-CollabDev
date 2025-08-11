@@ -6,10 +6,10 @@
                 <p class="header-subtitle">Plateforme d'apprentissage</p>
             </div>
             <div class="header-right">
-                <button class="btn-add-collaborator">
+                <button [routerLink]="['user/contribution-ask']" class="btn-add-collaborator">
                     <img src="bi_people (1).png" alt="Ajouter un collaborateur" class="icon-btn"> Ajouter collaborateur
                 </button>
-                <button class="btn-new-task">
+                <button [routerLink]="['users/create-task/:id']" class="btn-new-task">
                     <img src="Add.png" alt="Ajouter une tâche" class="icon-btn"> Nouvelle tâche
                 </button>
             </div>

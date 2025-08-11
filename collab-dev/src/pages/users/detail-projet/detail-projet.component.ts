@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 enum TaskStatus {
   Todo = 'todo',
@@ -25,7 +26,7 @@ interface TeamMember {
 @Component({
   selector: 'app-detail-projet',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './detail-projet.component.html',
   styleUrls: ['./detail-projet.component.css']
 })

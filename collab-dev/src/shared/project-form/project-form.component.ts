@@ -21,6 +21,7 @@ export class ProjectFormComponent {
 
   onSubmit() {
     console.log(this.projectForm.value);
+    alert('Projet soumit avec succes!');
   }
 
   onFileSelected(event: Event) {
