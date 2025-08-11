@@ -21,21 +21,21 @@ export class VoirDetailsProjetComponent {
   ) {
     this.route.params.subscribe((params) => {
       const projectId = +params['id'];
-      this.loadProjectDetails(projectId);
+      // this.loadProjectDetails(projectId);
     });
   }
 
-  loadProjectDetails(projectId: number) {
-    this._projectsService.getProjectById(projectId).subscribe({
-      next: (project) => {
-        this.project = project;
-        this.loading = false;
-      },
-      error: (error: any) => {
-        this.errorMessage = 'Erreur lors du chargement des détails du projet.';
-        console.error(error);
-        this.loading = false;
-      },
-    });
-  }
+  // loadProjectDetails(projectId: number) {
+  //   this._projectsService.getProjectById(projectId).subscribe({
+  //     next: (project) => {
+  //       this.project = project.data[1];
+  //       this.loading = false;
+  //     },
+  //     error: (error: any) => {
+  //       this.errorMessage = 'Erreur lors du chargement des détails du projet.';
+  //       console.error(error);
+  //       this.loading = false;
+  //     },
+  //   });
+  // }
 }

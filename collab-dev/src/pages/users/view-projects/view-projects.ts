@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ProjectService } from '../../../core/services/project.service';
 
 interface Project {
   id: number;
@@ -24,7 +25,8 @@ interface Project {
   styleUrl: './view-projects.css',
 })
 export class ViewProjectsComponent implements OnInit {
-  router = inject(Router); // Injecter le Router si nécessaire
+  router = inject(Router);
+  private _projectService = inject(ProjectService);
 
   showProjectDetails(project: Project) {
     this.router.navigate(['/projects/view-details', project.id]);
@@ -182,4 +184,17 @@ export class ViewProjectsComponent implements OnInit {
   stopPropagation(event: Event) {
     event.stopPropagation();
   }
+
+  //   getProjects() {
+  // this._projectService.getProjects().subscribe({
+  //   next: (response) =>{
+  //     this.projects = response.data;
+  //     console.warn(this.projects);
+  //   },
+  //   error: (error) =>{
+  //     console.error("Error lors de la recuperation des projects", error);
+  //   }
+  // })
+
+  //   }
 }

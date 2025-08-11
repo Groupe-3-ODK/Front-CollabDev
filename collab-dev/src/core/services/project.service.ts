@@ -3,19 +3,20 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
+import { IApiResponse } from '../interfaces/api-response';
 import { Iproject } from '../interfaces/project';
 
 export class CreateProject {
   title: string;
   description: string;
   domain: string;
-  author: number;
+  author: { id: number };
 
   constructor() {
     this.title = '';
     this.description = '';
     this.domain = '';
-    this.author = 0;
+    this.author = { id: 0 };
   }
 }
 
@@ -28,30 +29,30 @@ export class ProjectService {
   private _apiUrl =
     environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
 
-  getProjects(): Observable<Iproject[]> {
+  getProjects(): Observable<IApiResponse> {
     return this._http
-      .get<Iproject[]>(this._apiUrl)
+      .get<IApiResponse>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
-  getProjectById(id: number): Observable<Iproject> {
+  getProjectById(id: number): Observable<IApiResponse> {
     return this._http
-      .get<Iproject>(`${this._apiUrl}/${id}`)
+      .get<IApiResponse>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
   // POST new user
-  createProject(project: CreateProject): Observable<Iproject> {
+  createProject(project: CreateProject): Observable<IApiResponse> {
     return this._http
-      .post<Iproject>(this._apiUrl, project)
+      .post<IApiResponse>(this._apiUrl, project)
       .pipe(catchError(this.handleError));
   }
 
   // PUT update user
-  updateProject(id: number, project: Iproject): Observable<Iproject> {
+  updateProject(id: number, project: Iproject): Observable<IApiResponse> {
     return this._http
-      .put<Iproject>(
+      .put<IApiResponse>(
         `${this._apiUrl}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
         project
       )
