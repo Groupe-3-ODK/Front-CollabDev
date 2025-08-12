@@ -7,10 +7,7 @@ import { ProfilType, UsersService } from '../../../core/services/users.service';
 import { forkJoin } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
 
-import { UsersService } from '../../../core/services/users.service';
-import { project } from '../../../core/classes/project/project';
 import { Iproject } from '../../../core/interfaces/project';
-
 
 interface Project {
   id: number;
@@ -44,9 +41,6 @@ export class ViewProjectsComponent implements OnInit {
   //   this.router.navigate(['/projects/view-details', project.id]);
   // }
 
-
-  
- 
   filteredProjects: Iproject[] = [];
 
   constructor(private userService: UsersService) {}
@@ -55,7 +49,6 @@ export class ViewProjectsComponent implements OnInit {
   profilType: ProfilType = 2;
 
   projects: Project[] = [];
-
 
   searchTerm: string = '';
   selectedFilter: string = 'title';
