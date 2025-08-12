@@ -21,7 +21,7 @@ export interface Iproject {
 
 /** ENUMS (même valeurs que côté Java) */
 export type Domain = 'TECH' | 'DESIGN' | 'MARKETING' | 'OTHER'; // à adapter selon ton enum Domain Java
-export type Status = 'OPEN' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'; // idem
+export type Status = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED'; // idem
 export type Level = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED'; // idem
 
 /** Interfaces minimales des sous-objets */

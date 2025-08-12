@@ -50,16 +50,18 @@ export class User {
 export class UsersService {
   private _http = inject(HttpClient);
 
-  getUsers(): Observable<IUser[]> {
+  getUsers(): Observable<IApiResponse> {
     return this._http
-      .get<IUser[]>(environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS)
+      .get<IApiResponse>(
+        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS
+      )
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
-  getUserById(id: number): Observable<User> {
+  getUserById(id: number): Observable<IApiResponse> {
     return this._http
-      .get<User>(
+      .get<IApiResponse>(
         `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}`
       )
       .pipe(catchError(this.handleError));
@@ -76,9 +78,9 @@ export class UsersService {
   }
 
   // PUT update user
-  updateUserInFo(id: number, user: User): Observable<string> {
+  updateUserInFo(id: number, user: User): Observable<IApiResponse> {
     return this._http
-      .put<string>(
+      .put<IApiResponse>(
         `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
           CONSTANT.USER_RESSOURCES.UPDATE
         }`,
@@ -104,9 +106,12 @@ export class UsersService {
       ).pipe(catchError(this.handleError));
   }
 
-  updatePassword(id: number, passwordObj: updatePassword): Observable<string> {
+  updatePassword(
+    id: number,
+    passwordObj: updatePassword
+  ): Observable<IApiResponse> {
     return this._http
-      .put<string>(
+      .put<IApiResponse>(
         `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
           CONSTANT.USER_RESSOURCES.UPDATE_PASSWORD
         }`,

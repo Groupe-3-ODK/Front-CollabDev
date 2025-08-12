@@ -3,19 +3,20 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
+import { IApiResponse } from '../interfaces/api-response';
 import { Iproject } from '../interfaces/project';
 
 export class CreateProject {
   title: string;
   description: string;
   domain: string;
-  author: number;
+  author: { id: number };
 
   constructor() {
     this.title = '';
     this.description = '';
     this.domain = '';
-    this.author = 0;
+    this.author = { id: 0 };
   }
 }
 
@@ -25,42 +26,45 @@ export class CreateProject {
 export class ProjectService {
   private _http = inject(HttpClient);
 
+<<<<<<< HEAD
   private apiUrl = environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
+=======
+  private _apiUrl =
+    environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
+>>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
 
-  getProjects(): Observable<Iproject[]> {
+  getProjects(): Observable<IApiResponse> {
     return this._http
-      .get<Iproject[]>(this.apiUrl)
+      .get<IApiResponse>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
-  getProjectById(id: number): Observable<Iproject> {
+  getProjectById(id: number): Observable<IApiResponse> {
     return this._http
-      .get<Iproject>(
-        `${
-          environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
-        }/${id}`
-      )
+      .get<IApiResponse>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
   // POST new user
-  createProject(project: CreateProject): Observable<Iproject> {
+  createProject(project: CreateProject): Observable<IApiResponse> {
     return this._http
-      .post<Iproject>(
-        environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS,
-        project
-      )
+      .post<IApiResponse>(this._apiUrl, project)
       .pipe(catchError(this.handleError));
   }
 
   // PUT update user
-  updateProject(id: number, project: Iproject): Observable<Iproject> {
+  updateProject(id: number, project: Iproject): Observable<IApiResponse> {
     return this._http
+<<<<<<< HEAD
       .put<Iproject>(
         `${
          this.apiUrl
         }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
+=======
+      .put<IApiResponse>(
+        `${this._apiUrl}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
+>>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
         project
       )
       .pipe(catchError(this.handleError));
@@ -75,11 +79,7 @@ export class ProjectService {
   // DELETE user
   deleteProject(id: number): Observable<void> {
     return this._http
-      .delete<void>(
-        `${
-          environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
-        }/${id}`
-      )
+      .delete<void>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 

@@ -154,6 +154,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../pages/users/settings/settings').then((m) => m.Settings),
       },
+      {
+        path: 'user/favoris',
+        loadComponent: () =>
+          import('../pages/users/favoris/favoris').then((m) => m.Favoris),
+      },
     ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
@@ -296,9 +301,9 @@ export const routes: Routes = [
   {
     path: 'shared/pop-up',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/pop-up/pop-up'
-      ).then((m) => m.PopUp),
+      import('../shared/reusablesComponents/pop-up/pop-up').then(
+        (m) => m.PopUp
+      ),
   },
 
   {
@@ -320,25 +325,25 @@ export const routes: Routes = [
   {
     path: 'shared/sidebar',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/sidebar/sidebar.component'
-      ).then((m) => m.SidebarComponent),
+      import('../shared/reusablesComponents/sidebar/sidebar.component').then(
+        (m) => m.SidebarComponent
+      ),
   },
 
   {
     path: 'shared/snackbar',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/snackbar/snackbar.component'
-      ).then((m) => m.SnackbarComponent),
+      import('../shared/reusablesComponents/snackbar/snackbar.component').then(
+        (m) => m.SnackbarComponent
+      ),
   },
 
   {
     path: 'shared/table',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/table/table.component'
-      ).then((m) => m.TableComponent),
+      import('../shared/reusablesComponents/table/table.component').then(
+        (m) => m.TableComponent
+      ),
   },
 
   {
@@ -348,7 +353,7 @@ export const routes: Routes = [
         '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
       ).then((m) => m.UserSidebarComponent),
   },
-  
+
   //------------------------------------------------------------------------
   {
     path: 'user/add-team',
@@ -368,9 +373,9 @@ export const routes: Routes = [
   {
     path: 'shared/pop-up',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/pop-up/pop-up'
-      ).then((m) => m.PopUp),
+      import('../shared/reusablesComponents/pop-up/pop-up').then(
+        (m) => m.PopUp
+      ),
   },
 
   {
@@ -392,25 +397,25 @@ export const routes: Routes = [
   {
     path: 'shared/sidebar',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/sidebar/sidebar.component'
-      ).then((m) => m.SidebarComponent),
+      import('../shared/reusablesComponents/sidebar/sidebar.component').then(
+        (m) => m.SidebarComponent
+      ),
   },
 
   {
     path: 'shared/snackbar',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/snackbar/snackbar.component'
-      ).then((m) => m.SnackbarComponent),
+      import('../shared/reusablesComponents/snackbar/snackbar.component').then(
+        (m) => m.SnackbarComponent
+      ),
   },
 
   {
     path: 'shared/table',
     loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/table/table.component'
-      ).then((m) => m.TableComponent),
+      import('../shared/reusablesComponents/table/table.component').then(
+        (m) => m.TableComponent
+      ),
   },
 
   {
@@ -420,6 +425,7 @@ export const routes: Routes = [
         '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
       ).then((m) => m.UserSidebarComponent),
   },
+<<<<<<< HEAD
     {
     path: 'user/manager-submit-form',
     loadComponent: () =>
@@ -428,4 +434,6 @@ export const routes: Routes = [
       ).then((m) => m.AdminFormComponent),
   },
 
+=======
+>>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
 ];

@@ -8,10 +8,11 @@ import { AdminFormComponent } from '../pages/users/admin-form/admin-form.compone
 
 import { CookieService } from 'ngx-cookie-service';
 
-import { LoginComponent } from '../components/login/login.component';
-import { SignupComponent } from '../components/signup/signup';
+import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
+import { GestionUserCoteAdminComponent } from '../pages/admin/gestion-user-cote-admin/gestion-user-cote-admin.component';
 import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
 import { CreerTache } from '../pages/users/creer-tache/creer-tache';
+<<<<<<< HEAD
 import { JoinProject } from '../../service/join-project';
 import { Project } from '../core/classes/project';
 import { Projects } from "../pages/users/projects/projects";
@@ -19,10 +20,15 @@ import { DetailProjetComponent } from "../pages/users/detail-projet/detail-proje
 import { SidebarComponent } from "../shared/reusablesComponents/sidebar/sidebar.component";
 import { PopUp } from "../shared/reusablesComponents/pop-up/pop-up";
 import { ViewProjectsComponent } from "../pages/users/view-projects/view-projects";
+=======
+import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+import { VoirDetailsProjetComponent } from '../pages/users/voir-details-projet/voir-details-projet.component';
+>>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
 
 @Component({
   selector: 'app-root',
   standalone: true,
+<<<<<<< HEAD
 imports: [
     ///ConfigurationDuProjet,
     //CreerTache,
@@ -31,6 +37,17 @@ imports: [
    ViewProjectsComponent
 
 ],
+=======
+  imports: [
+    RouterOutlet,
+    ConfigurationDuProjet,
+    CreerTache,
+    DashboardComponent,
+    VoirDetailsProjetComponent,
+    GestionUserCoteAdminComponent,
+    LandingPageTwo,
+  ],
+>>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
   templateUrl: './app.component.html',
   providers: [CookieService, JoinProject],
   styleUrl: './app.component.css',
