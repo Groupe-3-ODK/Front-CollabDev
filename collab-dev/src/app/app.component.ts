@@ -3,11 +3,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
+import { CreationTaches } from '../pages/users/creation-taches/creation-taches';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, AdminFormComponent],
+  imports: [CommonModule, RouterOutlet, AdminFormComponent, CreationTaches],
 
   templateUrl: './app.component.html',
   providers: [CookieService],
