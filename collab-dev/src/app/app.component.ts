@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
 import { CreerTache } from '../pages/users/creer-tache/creer-tache';
+import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 import { ViewProjectsComponent } from '../pages/users/view-projects/view-projects';
 
 
@@ -18,7 +19,7 @@ import { ViewProjectsComponent } from '../pages/users/view-projects/view-project
   standalone: true,
 
 
-  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent,ViewProjectsComponent ],
+  imports: [RouterOutlet, AjoutEquipe, ConfigurationDuProjet, CreerTache, DashboardComponent,ViewProjectsComponent, DashboardAdmin],
 
   templateUrl: './app.component.html',
   providers: [CookieService],
