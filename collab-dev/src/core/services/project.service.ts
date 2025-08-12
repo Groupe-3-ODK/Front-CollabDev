@@ -26,12 +26,9 @@ export class CreateProject {
 export class ProjectService {
   private _http = inject(HttpClient);
 
-<<<<<<< HEAD
+
   private apiUrl = environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
-=======
-  private _apiUrl =
-    environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
->>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
+
 
   getProjects(): Observable<IApiResponse> {
     return this._http
@@ -54,27 +51,39 @@ export class ProjectService {
   }
 
   // PUT update user
-  updateProject(id: number, project: Iproject): Observable<IApiResponse> {
-    return this._http
-<<<<<<< HEAD
-      .put<Iproject>(
-        `${
-         this.apiUrl
-        }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
-=======
-      .put<IApiResponse>(
-        `${this._apiUrl}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
->>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
-        project
-      )
-      .pipe(catchError(this.handleError));
+
+  // updateProject(id: number, project: Iproject): Observable<Iproject> {
+  //   return this._http
+  //     .put<Iproject>(
+  //       `${
+  //         environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
+  //       }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
+  //       project
+  //     )
+  //     .pipe(catchError(this.handleError));
+  // }
+  updateProjects(
+  id: number,
+  project: { level: string; githubLink: string; specification?: string },
+  managerProfilId: number
+  ): Observable<Iproject> {
+  return this._http
+    .put<Iproject>(
+      `${environment.API_BASE_URL}${CONSTANT.PROJECT_RESSOURCES.PROJECTS}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}?managerProfilId=${managerProfilId}`,
+      project
+    )
+    .pipe(catchError(this.handleError));
   }
+
+
+
 
    joinProject(projectId:number ,profilId:number){
     return this._http.post(
       `{this.API_URL}${this.apiUrl}/${projectId}/${CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`,profilId
     )
   }
+
 
   // DELETE user
   deleteProject(id: number): Observable<void> {

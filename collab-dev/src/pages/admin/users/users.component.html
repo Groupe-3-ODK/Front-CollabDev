@@ -49,10 +49,8 @@
         <tr class="table-row" data-status="active" *ngFor="let user of users">
           <td class="user-name-cell">{{ user.speudo }}</td>
           <td class="roles-cell">
-            <span class="role-badge developer">DÉVELOPPEUR</span>
-            <span class="role-badge manager">MANAGER</span>
-            <span class="role-badge designer">DESIGNNEUR</span>
-          </td>
+            <span class="role-badge developer" *ngFor="let profil of user.profils">{{profil.profilName}}</span>
+            
           <td class="status-cell active">
             <span class="status-dot"></span>
             <span class="status-text">Actif</span>
