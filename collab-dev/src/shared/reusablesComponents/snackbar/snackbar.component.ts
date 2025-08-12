@@ -5,9 +5,10 @@ import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-snackbar',
+  standalone:true ,
   imports: [ToastModule, ButtonModule],
   templateUrl: './snackbar.component.html',
-  styleUrl: './snackbar.component.css',
+  styleUrls:[ './snackbar.component.css'],
   providers: [MessageService],
 })
 export class SnackbarComponent {

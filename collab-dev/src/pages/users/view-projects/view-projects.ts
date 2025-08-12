@@ -2,11 +2,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ProfilType, UsersService } from '../../../core/services/users.service';
+
 import { forkJoin } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
+
 import { UsersService } from '../../../core/services/users.service';
 import { project } from '../../../core/classes/project/project';
 import { Iproject } from '../../../core/interfaces/project';
+
 
 interface Project {
   id: number;
@@ -40,9 +44,19 @@ export class ViewProjectsComponent implements OnInit {
   //   this.router.navigate(['/projects/view-details', project.id]);
   // }
 
+
   
  
   filteredProjects: Iproject[] = [];
+
+  constructor(private userService: UsersService) {}
+
+  userId: number = 1;
+  profilType: ProfilType = 2;
+
+  projects: Project[] = [];
+
+
   searchTerm: string = '';
   selectedFilter: string = 'title';
   filterOptions: { [key: string]: string[] } = {
@@ -196,6 +210,20 @@ export class ViewProjectsComponent implements OnInit {
     event.stopPropagation();
   }
 
+  joinProject(id: number): void {
+    if (this.profilType == 2) {
+      this.router.navigate(['/shared/user-sidebar']);
+    }
+    this.userService.joinProjectWithProfilType(
+      id,
+      this.userId,
+      this.profilType
+    );
+    console.log(
+      `ça marche vous avez rejoin le projet ${id}, 
+      avec votre id ${this.userId} et avec le profil ${this.profilType}`
+    );
+  }
   getProjects() {
     this._projectService.getProjects().subscribe({
       next: (response) => {

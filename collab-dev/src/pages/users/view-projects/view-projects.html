@@ -90,8 +90,13 @@
           (click)="toggleFavorite(project)"
           [ngClass]="{'favorite': project.isFavorite}"
           >★</span
+
         > -->
-        <button class="join-btn" [disabled]="project.status === 'Terminé'">
+      
+
+        >
+        <button class="join-btn" [disabled]="project.status === 'Terminé'" (click)="joinProject(project.id)">
+
           Rejoindre
         </button>
       </div>

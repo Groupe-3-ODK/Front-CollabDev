@@ -1,10 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
 import { IApiResponse } from '../interfaces/api-response';
+import { PopUp } from '../../shared/reusablesComponents/pop-up/pop-up';
 
 export interface IUser {
   id: number;
@@ -12,6 +13,11 @@ export interface IUser {
   email: string;
   profils: any;
   role: string;
+}
+export enum ProfilType {
+    DEVELOPER,
+    DESIGNER,
+    MANAGER
 }
 
 export class updatePassword {
@@ -82,6 +88,23 @@ export class UsersService {
       )
       .pipe(catchError(this.handleError));
   }
+  /*joinProject(projectId: number, profileId: number) {
+    return this.httpClient.post(
+      `${this.API_URL}${this.ENDPOINT_JOIN_PROJECT}/${projectId}/join`,
+      profileId
+    );
+  }*/
+
+  //Joindre un projet par profile
+  joinProjectWithProfilType(projectId: number , userId: number ,profilType : ProfilType ) :Observable<string>{
+      let params = new  HttpParams()
+      .append("projectId", projectId)
+      .append("userId", userId)
+      .append("profilType", profilType);
+      return this._http.post<string>(
+        `${environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`, {params}
+      ).pipe(catchError(this.handleError));
+  }
 
   updatePassword(
     id: number,
@@ -96,6 +119,8 @@ export class UsersService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  
 
   // DELETE user
   deleteUser(id: number): Observable<void> {

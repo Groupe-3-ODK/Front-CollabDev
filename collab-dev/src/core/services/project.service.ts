@@ -26,8 +26,9 @@ export class CreateProject {
 export class ProjectService {
   private _http = inject(HttpClient);
 
-  private _apiUrl =
-    environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
+
+  private apiUrl = environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
+
 
   getProjects(): Observable<IApiResponse> {
     return this._http
@@ -50,6 +51,7 @@ export class ProjectService {
   }
 
   // PUT update user
+
   // updateProject(id: number, project: Iproject): Observable<Iproject> {
   //   return this._http
   //     .put<Iproject>(
@@ -60,7 +62,7 @@ export class ProjectService {
   //     )
   //     .pipe(catchError(this.handleError));
   // }
-  updateProject(
+  updateProjects(
   id: number,
   project: { level: string; githubLink: string; specification?: string },
   managerProfilId: number
@@ -71,6 +73,15 @@ export class ProjectService {
       project
     )
     .pipe(catchError(this.handleError));
+  }
+
+
+
+
+   joinProject(projectId:number ,profilId:number){
+    return this._http.post(
+      `{this.API_URL}${this.apiUrl}/${projectId}/${CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`,profilId
+    )
   }
 
 
