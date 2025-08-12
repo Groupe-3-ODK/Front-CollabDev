@@ -1,3 +1,4 @@
+
 import { Component, inject, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
@@ -6,6 +7,7 @@ import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
   selector: 'app-root',
   standalone: true,
   imports: [PopUp],
+
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',

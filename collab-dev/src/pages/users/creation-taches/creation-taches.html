@@ -1,0 +1,47 @@
+<div class="task-creation-container">
+    <div class="task-creation-card">
+        <div class="card-header">
+            Création d’une nouvelle tâche
+        </div>
+
+        <div class="card-body">
+            <div class="form-group">
+                <label for="taskName">Nom de la tâche *</label>
+                <input type="text" id="taskName" class="input-text">
+            </div>
+
+            <div class="form-group">
+                <label for="taskDescription">Description de la tâche *</label>
+                <textarea id="taskDescription" class="textarea-large"></textarea>
+            </div>
+
+            <hr class="divider">
+
+            <div class="form-group-grid">
+                <div class="form-group">
+                    <label for="deadline">Date limite *</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="deadline" placeholder="jj/mm/aaaa" class="input-date">
+                        <img src="assets\images\tdesign_calendar.png" alt="Calendrier" class="calendar-icon">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="assignee">Tâche attribuée à *</label>
+                    <div class="collaborators-list">
+                        <span>Liste des collaborateurs</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="action-buttons">
+                <button class="btn btn-cancel">Annuler</button>
+                <button class="btn btn-validate" (click)="onSubmit()">
+                    Valider
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
