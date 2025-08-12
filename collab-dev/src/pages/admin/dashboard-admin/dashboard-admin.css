@@ -173,9 +173,7 @@ body {
     transition: transform 0.3s ease;
 }
 
-.metric-item:hover {
-    transform: translateY(-3px);
-}
+
 
 .metric-icon-img {
     width: 40px;
@@ -202,12 +200,16 @@ body {
 }
 
 .metric-value {
-    font-size: 1.8rem;
+    position: absolute;
+    left: 52%;
+    font-size: 1.2rem;
     font-weight: bold;
     color: #333;
 }
 
 .metric-change {
+    position: absolute;
+    left: 56%;
     font-size: 0.8rem;
     color: #4caf50;
     font-weight: bold;
