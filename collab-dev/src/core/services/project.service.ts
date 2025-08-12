@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -26,9 +30,8 @@ export class CreateProject {
 export class ProjectService {
   private _http = inject(HttpClient);
 
-
-  private apiUrl = environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
-
+  private _apiUrl =
+    environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
 
   getProjects(): Observable<IApiResponse> {
     return this._http
@@ -63,27 +66,52 @@ export class ProjectService {
   //     .pipe(catchError(this.handleError));
   // }
   updateProjects(
-  id: number,
-  project: { level: string; githubLink: string; specification?: string },
-  managerProfilId: number
+    id: number,
+    project: { level: string; githubLink: string; specification?: string },
+    managerProfilId: number
   ): Observable<Iproject> {
-  return this._http
-    .put<Iproject>(
-      `${environment.API_BASE_URL}${CONSTANT.PROJECT_RESSOURCES.PROJECTS}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}?managerProfilId=${managerProfilId}`,
-      project
-    )
-    .pipe(catchError(this.handleError));
+    return this._http
+      .put<Iproject>(
+        `${environment.API_BASE_URL}${CONSTANT.PROJECT_RESSOURCES.PROJECTS}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}?managerProfilId=${managerProfilId}`,
+        project
+      )
+      .pipe(catchError(this.handleError));
   }
 
+  joinProjectWithProfileName(
+    projectId: number,
+    profilId: number,
+    profilType: string
+  ) {
+    let params = new HttpParams()
+      .set('profilId', profilId.toString())
+      .set('profilType', profilType);
 
-
-
-   joinProject(projectId:number ,profilId:number){
     return this._http.post(
-      `{this.API_URL}${this.apiUrl}/${projectId}/${CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`,profilId
-    )
+      `${this._apiUrl}/${projectId}/${CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`,
+      { params }
+    );
   }
 
+  joinProjectAsManager(
+    userId: number,
+    projectId: number,
+    profilType: string,
+    githubLink: string,
+    file?: File
+  ) {
+    const formData = new FormData();
+    formData.append('userId', userId.toString());
+    formData.append('projectId', projectId.toString());
+    formData.append('profilType', profilType);
+    formData.append('githubLink', githubLink);
+
+    if (file) {
+      formData.append('file', file);
+    }
+
+    return this._http.post(`${this._apiUrl}/joinProjectAsManager`, formData);
+  }
 
   // DELETE user
   deleteProject(id: number): Observable<void> {

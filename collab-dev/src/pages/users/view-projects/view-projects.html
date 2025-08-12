@@ -3,14 +3,8 @@
   <div class="header-section">
     <div class="title-intro">
       <h1>Projets</h1>
-      <p>Seul, on va plus vite.</p>
-      <p>Ensemble, on va plus loin.</p>
     </div>
-    <div class="actions">
-      <button class="my-projects-btn" [routerLink]="['/my-projects']">
-        Mes projets
-      </button>
-    </div>
+    <div class="actions"></div>
     <div class="search-filter-section">
       <input
         type="text"
@@ -28,7 +22,7 @@
     </div>
   </div>
   <div class="projects-grid">
-    <div class="project-card" *ngFor="let project of projectsData">
+    <div class="project-card" *ngFor="let project of filteredProjects">
       <div class="project-header">
         <span class="date">{{ getRelativeDate(project.createdDate) }}</span>
       </div>
@@ -44,7 +38,6 @@
                   : project.level === 'ADVANCED' ? '#906E90' 
                   : ''
               }"
-
             >
               {{ project.level }}
             </span>
@@ -52,26 +45,21 @@
           <p class="project-description">{{ project.description }}</p>
         </div>
         <div class="domain-column">
-          <span
-            class="domain-tag"
-        
-          >
-            {{ project.domain }}
-          </span>
+          <span class="domain-tag"> {{ project.domain }} </span>
         </div>
         <div class="contributors">
           <span
             class="avatar"
-            *ngFor="let contributor of project.members.slice(0, 3)"
+            *ngFor="let contributor of membersSpeudos[project.id]?.slice(0, 3)"
             [ngStyle]="{'background-color': getAvatarColor(contributor)}"
             (click)="showContributors(project)"
             >{{ contributor.charAt(0) }}</span
           >
           <span
             class="contributor-count"
-            *ngIf="project.members.length > 3"
+            *ngIf="membersSpeudos[project.id].length > 3"
           >
-            +{{ project.members.length - 3 }}
+            +{{ membersSpeudos[project.id].length - 3 }}
           </span>
         </div>
         <div class="status-actions">
@@ -92,16 +80,17 @@
           >★</span
 
         > -->
-      
 
+        <button
+          class="join-btn"
+          [disabled]="project.status === 'DONE'"
+          (click)="openModal()"
         >
-        <button class="join-btn" [disabled]="project.status === 'Terminé'" (click)="joinProject(project.id)">
-
           Rejoindre
         </button>
       </div>
     </div>
-    <div *ngIf="projectsData.length === 0" class="no-projects">
+    <div *ngIf="filteredProjects.length === 0" class="no-projects">
       <p>Aucun projet trouvé.</p>
     </div>
   </div>
@@ -111,7 +100,7 @@
     <div class="modal-content" (click)="stopPropagation($event)">
       <h2>Contributeurs de {{ selectedProject.title }}</h2>
       <ul class="contributors-list">
-        <li *ngFor="let contributor of selectedProject.contributors">
+        <li *ngFor="let contributor of membersSpeudos[selectedProject.id]">
           <span
             class="avatar"
             [ngStyle]="{'background-color': getAvatarColor(contributor)}"
@@ -123,3 +112,9 @@
     </div>
   </div>
 </div>
+
+<app-pop
+  *ngIf="showModal"
+  (submitted)="onSubmit($event)"
+  (closed)="showModal = false"
+></app-pop>
