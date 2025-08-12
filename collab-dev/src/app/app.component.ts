@@ -1,21 +1,45 @@
-import { Component } from '@angular/core';
 
-import { RouterOutlet } from '@angular/router';
-
-import { ProfilComponent } from '../pages/users/profil/profil.component';
-import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
-import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
-import { GestionUserCoteAdminComponent } from '../pages/admin/gestion-user-cote-admin/gestion-user-cote-admin.component';
-import { AccepterManager } from '../pages/admin/accepter-manager/accepter-manager';
-import { CreationTaches } from '../pages/users/creation-taches/creation-taches';
+import { Component, inject, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
 
 @Component({
   selector: 'app-root',
-  imports: [DetailProjetComponent,GestionUserCoteAdminComponent,AccepterManager,CreationTaches],
+  standalone: true,
+  imports: [PopUp],
 
   templateUrl: './app.component.html',
+  providers: [CookieService],
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private cookieService = inject(CookieService);
+
+  ngOnInit(): void {
+    this.cookieService.deleteAll('/');
+  }
+
   title = 'collab-dev';
+
+  // Variable qui contrôle l'affichage du modal
+  isModalVisible: boolean = true;
+
+  // Méthode pour ouvrir le modal
+  openModal(): void {
+    this.isModalVisible = true;
+  }
+
+  // Méthode appelée lorsque le modal émet l'événement 'closeModal'
+  onModalClose(): void {
+    this.isModalVisible = false;
+  }
+
+  // Méthode appelée lorsque le modal émet l'événement 'saveData'
+  onProjectSave(data: any): void {
+    console.log('Données du projet enregistrées:', data);
+    // Ici, vous pouvez ajouter la logique pour traiter les données
+    this.isModalVisible = false;
+    const projectId = data.projectId;
+    const profilId = data.profilId;
+  }
 }

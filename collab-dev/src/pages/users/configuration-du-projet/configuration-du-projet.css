@@ -1,0 +1,216 @@
+/* Styles globaux pour la police et le corps */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Conteneur principal */
+  .main-container {
+    padding: 1rem;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Conteneurs de carte avec ombre et bordures arrondies */
+  .card-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+
+  /* Styles de l'en-tête de progression */
+  .progression-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .progression-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .steps-counter {
+    background-color: #ff9900;
+    color: #ffffff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 0.875rem;
+  }
+  
+  /* Styles pour les onglets de progression (disposition horizontale) */
+  .progression-tabs-container.horizontal-tabs {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  .tab-item:hover {
+    background-color: #f3f4f6;
+  }
+  .tab-item.active {
+    /* Style actif pour les onglets, basé sur l'image fournie */
+    background-color: #ffffff;
+    border-color: #ff9900;
+  }
+  .tab-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-bottom: 0.25rem;
+    color: #4b5563;
+  }
+  .tab-item.active .tab-icon {
+    /* Couleur de l'icône de l'onglet actif, basée sur l'image */
+    color: #ff9900;
+  }
+  .tab-label {
+    font-size: 0.75rem;
+    text-align: center;
+    color: #4b5563;
+  }
+
+  /* Styles pour les sections du formulaire */
+  .form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-header .icon {
+    height: 1.25rem;
+    width: 1.25rem;
+    /* Couleur de l'icône de l'en-tête de section, basée sur l'image */
+    color: #ff9900;
+  }
+  .section-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .input-group,
+  .date-input-group {
+    width: 100%;
+  }
+  .form-input {
+    width: 94%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus {
+    border-color: #f5901c;
+  }
+  .hint-text {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+  }
+  .level-buttons-container {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .level-button {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+  }
+  .level-button:hover {
+    background-color: #f3f4f6;
+  }
+  .level-button.active {
+    background-color: #FF6F00;
+    color: #ffffff;
+    border-color: #FF6F00;
+  }
+  .file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Ajout d'un espace entre l'icône et le nom du fichier */
+  }
+  .file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border: 2px dashed #9ca3af;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .file-upload-label:hover {
+    border-color: #3b82f6;
+  }
+  .upload-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: #9ca3af;
+  }
+  
+  /* Ajout du style pour le nom du fichier */
+  .file-name {
+    font-size: 0.875rem;
+    color: #4b5563;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 4rem); /* S'assure que le nom ne dépasse pas de la carte */
+  }
+
+  /* Bouton Valider et message */
+  .validation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .completion-message {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  .validation-container button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #d1d5db;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: not-allowed;
+    transition: background-color 0.2s;
+  }
+  .validation-container button.active-button {
+    background-color: #FF6F00;
+    cursor: pointer;
+  }

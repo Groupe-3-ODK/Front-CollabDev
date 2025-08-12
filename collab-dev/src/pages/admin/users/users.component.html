@@ -1,1 +1,363 @@
-<p>users works!</p>
+<div class="page-container">
+  <header class="header">
+    <div class="user-profile">
+      <div class="profile-icon">
+        <i class="bx bxs-user-circle"></i>
+      </div>
+      <div class="profile-info">
+        <span class="user-name">Seydou Dembele</span>
+        <span class="user-role">ADMIN</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="dashboard-header">
+      <h1 class="page-title">Gestion des utilisateurs</h1>
+      <p class="user-count">20 utilisateurs actifs sur 40 au total</p>
+    </div>
+
+    <div class="controls-bar">
+      <div class="search-box">
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Recherche un utilisateur" />
+      </div>
+      <div class="filter-roles-container">
+        <div class="filter-roles-button" id="filter-button">
+          <span>Tous les rôles</span>
+          <i class="bx bx-filter"></i>
+        </div>
+        <div class="filter-dropdown" id="filter-dropdown">
+          <span class="filter-option" data-filter="all">Tous</span>
+          <span class="filter-option" data-filter="active">Actif</span>
+          <span class="filter-option" data-filter="inactive">Inactif</span>
+        </div>
+      </div>
+    </div>
+
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>UTILISATEURS</th>
+          <th>RÔLES</th>
+          <th>ÉTAT</th>
+          <th>ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Les attributs data-status sont utilisés pour le filtrage -->
+        <tr class="table-row" data-status="active" *ngFor="let user of users">
+          <td class="user-name-cell">{{ user.speudo }}</td>
+          <td class="roles-cell">
+            <span class="role-badge developer" *ngFor="let profil of user.profils">{{profil.profilName}}</span>
+            
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class="bx bx-user-x"></i>
+              Désactiver
+            </button>
+          </td>
+        </tr>
+        <!-- <tr class="table-row" data-status="active">
+          <td class="user-name-cell">Jean Dupont</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class="bx bx-user-x"></i>
+              Désactiver
+            </button>
+          </td>
+        </tr> -->
+        <!-- <tr class="table-row" data-status="inactive">
+          <td class="user-name-cell">Marie Curie</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell inactive">
+            <span class="status-dot"></span>
+            <span class="status-text">Inactif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button activate-button">
+              <i class="bx bx-user-check"></i>
+              Activer
+            </button>
+          </td>
+        </tr> -->
+        <!-- <tr class="table-row" data-status="active">
+          <td class="user-name-cell">Pierre Richard</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class="bx bx-user-x"></i>
+              Désactiver
+            </button>
+          </td>
+        </tr> -->
+        <!-- <tr class="table-row" data-status="inactive">
+          <td class="user-name-cell">Alice Dubois</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell inactive">
+            <span class="status-dot"></span>
+            <span class="status-text">Inactif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button activate-button">
+              <i class="bx bx-user-check"></i>
+              Activer
+            </button>
+          </td>
+        </tr> -->
+        <!-- <tr class="table-row" data-status="active">
+          <td class="user-name-cell">Marc Lefevre</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class="bx bx-user-x"></i>
+              Désactiver
+            </button>
+          </td>
+        </tr> -->
+        <!-- <tr class="table-row" data-status="inactive">
+          <td class="user-name-cell">Sophie Moreau</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell inactive">
+            <span class="status-dot"></span>
+            <span class="status-text">Inactif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button activate-button">
+              <i class="bx bx-user-check"></i>
+              Activer
+            </button>
+          </td>
+        </tr> -->
+        <!-- <tr class="table-row" data-status="active">
+          <td class="user-name-cell">David Martin</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class="bx bx-user-x"></i>
+              Désactiver
+            </button>
+          </td>
+        </tr> -->
+      </tbody>
+    </table>
+    <!-- Contrôles de pagination -->
+    <div class="pagination-container">
+      <button id="prev-btn" class="pagination-button disabled">
+        Précédent
+      </button>
+      <div id="page-numbers"></div>
+      <button id="next-btn" class="pagination-button">Suivant</button>
+    </div>
+  </main>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tableBody = document.querySelector(".user-table tbody");
+    const allRows = Array.from(tableBody.querySelectorAll(".table-row"));
+    const rowsPerPage = 5;
+    let currentPage = 1;
+
+    const prevButton = document.getElementById("prev-btn");
+    const nextButton = document.getElementById("next-btn");
+    const pageNumbersContainer = document.getElementById("page-numbers");
+
+    const filterButton = document.getElementById("filter-button");
+    const filterDropdown = document.getElementById("filter-dropdown");
+    const filterOptions = document.querySelectorAll(".filter-option");
+    let currentFilter = "all";
+
+    // Fonction pour basculer l'état Actif/Inactif
+    function toggleStatus(event) {
+      const button = event.currentTarget;
+      const row = button.closest(".table-row");
+      const statusCell = row.querySelector(".status-cell");
+
+      if (statusCell.classList.contains("active")) {
+        // Passage à l'état Inactif
+        statusCell.classList.remove("active");
+        statusCell.classList.add("inactive");
+        row.setAttribute("data-status", "inactive");
+        statusCell.querySelector(".status-text").textContent = "Inactif";
+
+        button.classList.remove("deactivate-button");
+        button.classList.add("activate-button");
+        button.innerHTML = "<i class='bx bx-user-check'></i> Activer";
+      } else {
+        // Passage à l'état Actif
+        statusCell.classList.remove("inactive");
+        statusCell.classList.add("active");
+        row.setAttribute("data-status", "active");
+        statusCell.querySelector(".status-text").textContent = "Actif";
+
+        button.classList.remove("activate-button");
+        button.classList.add("deactivate-button");
+        button.innerHTML = "<i class='bx bx-user-x'></i> Désactiver";
+      }
+
+      // Réappliquer le filtre et la pagination après le changement de statut
+      filterAndPaginate(currentFilter);
+    }
+
+    // Ajout des écouteurs d'événements pour les boutons d'action
+    document.querySelectorAll(".action-button").forEach((button) => {
+      button.addEventListener("click", toggleStatus);
+    });
+
+    // Fonction pour filtrer et paginer les lignes du tableau
+    function filterAndPaginate(filter) {
+      currentFilter = filter;
+      let filteredRows = allRows.filter((row) => {
+        if (filter === "all") {
+          return true;
+        }
+        return row.getAttribute("data-status") === filter;
+      });
+
+      const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+      currentPage = 1; // Toujours revenir à la première page après un filtrage
+      updatePaginationControls(filteredRows, totalPages);
+      displayRows(currentPage, filteredRows);
+    }
+
+    // Fonction d'affichage des lignes pour la page actuelle
+    function displayRows(page, rowsToDisplay) {
+      const start = (page - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+
+      allRows.forEach((row) => (row.style.display = "none"));
+
+      rowsToDisplay.slice(start, end).forEach((row) => {
+        row.style.display = "table-row";
+      });
+    }
+
+    // Fonction de mise à jour des contrôles de pagination
+    function updatePaginationControls(filteredRows, totalPages) {
+      prevButton.classList.toggle("disabled", currentPage === 1);
+      nextButton.classList.toggle("disabled", currentPage === totalPages);
+
+      pageNumbersContainer.innerHTML = "";
+      for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement("button");
+        button.textContent = i;
+        button.classList.add("pagination-button");
+        if (i === currentPage) {
+          button.classList.add("active");
+        }
+        button.addEventListener("click", () => {
+          currentPage = i;
+          displayRows(currentPage, filteredRows);
+          updatePaginationControls(filteredRows, totalPages);
+        });
+        pageNumbersContainer.appendChild(button);
+      }
+    }
+
+    // Gestion de l'affichage du menu déroulant de filtrage
+    filterButton.addEventListener("click", () => {
+      filterDropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !filterButton.contains(event.target) &&
+        !filterDropdown.contains(event.target)
+      ) {
+        filterDropdown.classList.remove("show");
+      }
+    });
+
+    // Gestion des options de filtre
+    filterOptions.forEach((option) => {
+      option.addEventListener("click", (e) => {
+        const filterValue = e.target.getAttribute("data-filter");
+        filterAndPaginate(filterValue);
+        filterButton.querySelector("span").textContent = e.target.textContent;
+        filterDropdown.classList.remove("show");
+      });
+    });
+
+    // Écouteurs d'événements pour la pagination
+    prevButton.addEventListener("click", () => {
+      let filteredRows = allRows.filter((row) => {
+        if (currentFilter === "all") return true;
+        return row.getAttribute("data-status") === currentFilter;
+      });
+      if (currentPage > 1) {
+        currentPage--;
+        displayRows(currentPage, filteredRows);
+        updatePaginationControls(
+          filteredRows,
+          Math.ceil(filteredRows.length / rowsPerPage)
+        );
+      }
+    });
+
+    nextButton.addEventListener("click", () => {
+      let filteredRows = allRows.filter((row) => {
+        if (currentFilter === "all") return true;
+        return row.getAttribute("data-status") === currentFilter;
+      });
+      const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        displayRows(currentPage, filteredRows);
+        updatePaginationControls(filteredRows, totalPages);
+      }
+    });
+
+    // Configuration initiale
+    filterAndPaginate(currentFilter);
+  });
+</script>

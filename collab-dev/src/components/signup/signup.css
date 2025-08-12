@@ -118,7 +118,7 @@
 }
 
 .signup-btn:hover {
-  background-color: #e65c00;
+  background-color: var(--primary-color);
 }
 .signup-btn:disabled {
   background-color: #ccc;
