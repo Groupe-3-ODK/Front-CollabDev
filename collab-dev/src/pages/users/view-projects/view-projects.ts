@@ -193,12 +193,12 @@ export class ViewProjectsComponent implements OnInit {
     });
   }
 
-  showModal = true;
+  showModal = false;
 
   onSubmit(profile: string) {
     console.log('Profil choisi :', profile);
-    if (profile === 'Développeur' || profile === 'Designer') {
-    } else {
+    if (profile === 'Gestionnaire') {
+      this.router.navigate(['/user/manager-submit-form']);
     }
 
     this.showModal = false; // ferme aussi après soumission
