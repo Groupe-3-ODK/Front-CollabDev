@@ -136,7 +136,7 @@ export class ConfigurationDuProjet implements OnInit {
       const projectId = 1;
       const managerProfilId = 2;
 
-      this.projectService.updateProject(projectId, project, managerProfilId,)
+      this.projectService.updateProject(1, project, 1)
         .subscribe({
           next: (res) => {
             console.log('Projet configuré avec succès', res);

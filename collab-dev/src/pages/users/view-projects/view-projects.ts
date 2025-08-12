@@ -5,6 +5,8 @@ import { Router, RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
 import { UsersService } from '../../../core/services/users.service';
+import { project } from '../../../core/classes/project/project';
+import { Iproject } from '../../../core/interfaces/project';
 
 interface Project {
   id: number;
@@ -38,8 +40,9 @@ export class ViewProjectsComponent implements OnInit {
   //   this.router.navigate(['/projects/view-details', project.id]);
   // }
 
-  projects: Project[] = [];
-  filteredProjects: Project[] = [];
+  
+ 
+  filteredProjects: Iproject[] = [];
   searchTerm: string = '';
   selectedFilter: string = 'title';
   filterOptions: { [key: string]: string[] } = {
@@ -55,74 +58,74 @@ export class ViewProjectsComponent implements OnInit {
   ngOnInit() {
     this.getProjects();
     console.warn(this.projectsData);
-    this.projects = [
-      {
-        id: 1,
-        title: 'Projet Tech 1',
-        description: "Développement d'une application mobile.",
-        level: 'Intermédiaire',
-        domain: 'Technologie',
-        status: 'En cours',
-        contributors: [
-          'Jean',
-          'Marie',
-          'Paul',
-          'Jean',
-          'Marie',
-          'Paul',
-          'Jean',
-          'Marie',
-          'Paul',
-          'Jean',
-          'Marie',
-          'Paul',
-        ],
-        createdDate: new Date('2025-08-05'),
-        isFavorite: false,
-        domainColor: this.getRandomColor(),
-      },
-      {
-        id: 2,
-        title: 'Design Créatif',
-        description: "Conception d'une interface utilisateur.",
-        level: 'Débutant',
-        domain: 'Design',
-        status: 'Terminé',
-        contributors: ['Sophie', 'Luc', 'Emma', 'Thomas'],
-        createdDate: new Date('2025-07-15'),
-        isFavorite: false,
-        domainColor: this.getRandomColor(),
-      },
-      {
-        id: 3,
-        title: 'Campagne Marketing',
-        description: "Lancement d'une campagne digitale.",
-        level: 'Avancé',
-        domain: 'Marketing',
-        status: 'Planifié',
-        contributors: ['Alex', 'Clara'],
-        createdDate: new Date('2025-07-01'),
-        isFavorite: false,
-        domainColor: this.getRandomColor(),
-      },
-      {
-        id: 4,
-        title: 'Intelligence artificielle',
-        description: "Lancement d'une campagne digitale.",
-        level: 'Avancé',
-        domain: 'IA',
-        status: 'En cours',
-        contributors: ['Alex', 'Clara'],
-        createdDate: new Date('2025-07-01'),
-        isFavorite: false,
-        domainColor: this.getRandomColor(),
-      },
-    ];
+    // this.projects = [
+    //   {
+    //     id: 1,
+    //     title: 'Projet Tech 1',
+    //     description: "Développement d'une application mobile.",
+    //     level: 'Intermédiaire',
+    //     domain: 'Technologie',
+    //     status: 'En cours',
+    //     contributors: [
+    //       'Jean',
+    //       'Marie',
+    //       'Paul',
+    //       'Jean',
+    //       'Marie',
+    //       'Paul',
+    //       'Jean',
+    //       'Marie',
+    //       'Paul',
+    //       'Jean',
+    //       'Marie',
+    //       'Paul',
+    //     ],
+    //     createdDate: new Date('2025-08-05'),
+    //     isFavorite: false,
+    //     domainColor: this.getRandomColor(),
+    //   },
+    //   {
+    //     id: 2,
+    //     title: 'Design Créatif',
+    //     description: "Conception d'une interface utilisateur.",
+    //     level: 'Débutant',
+    //     domain: 'Design',
+    //     status: 'Terminé',
+    //     contributors: ['Sophie', 'Luc', 'Emma', 'Thomas'],
+    //     createdDate: new Date('2025-07-15'),
+    //     isFavorite: false,
+    //     domainColor: this.getRandomColor(),
+    //   },
+    //   {
+    //     id: 3,
+    //     title: 'Campagne Marketing',
+    //     description: "Lancement d'une campagne digitale.",
+    //     level: 'Avancé',
+    //     domain: 'Marketing',
+    //     status: 'Planifié',
+    //     contributors: ['Alex', 'Clara'],
+    //     createdDate: new Date('2025-07-01'),
+    //     isFavorite: false,
+    //     domainColor: this.getRandomColor(),
+    //   },
+    //   {
+    //     id: 4,
+    //     title: 'Intelligence artificielle',
+    //     description: "Lancement d'une campagne digitale.",
+    //     level: 'Avancé',
+    //     domain: 'IA',
+    //     status: 'En cours',
+    //     contributors: ['Alex', 'Clara'],
+    //     createdDate: new Date('2025-07-01'),
+    //     isFavorite: false,
+    //     domainColor: this.getRandomColor(),
+    //   },
+    // ];
     this.filterProjects();
   }
 
   filterProjects() {
-    let result = [...this.projects];
+    let result = [...this.projectsData];
     if (this.searchTerm) {
       result = result.filter((project) => {
         const value =
