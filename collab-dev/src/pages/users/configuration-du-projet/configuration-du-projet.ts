@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importez le CommonModule
 import { FormsModule } from '@angular/forms'; // Importez le FormsModule
+import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
   selector: 'app-configuration-du-projet',
@@ -49,7 +50,7 @@ export class ConfigurationDuProjet implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private projectService: ProjectService) { }
 
   ngOnInit(): void {
     this.updateValidation();
@@ -126,8 +127,25 @@ export class ConfigurationDuProjet implements OnInit {
    */
   onValidate(): void {
     if (this.isFormValid) {
-      console.log('Formulaire validé avec succès:', this.projectData);
-      // Logique de soumission de formulaire ici
+      const project = {
+        level: this.projectData.projectLevel,
+        githubLink: this.projectData.githubLink,
+        specification: this.projectData.fileName 
+      };
+
+      const projectId = 1;
+      const managerProfilId = 2;
+
+      this.projectService.updateProject(projectId, project, managerProfilId,)
+        .subscribe({
+          next: (res) => {
+            console.log('Projet configuré avec succès', res);
+          },
+          error: (err) => {
+            console.error('Erreur lors de la configuration', err);
+          }
+        });
+
     } else {
       console.log('Veuillez compléter tous les champs.');
     }

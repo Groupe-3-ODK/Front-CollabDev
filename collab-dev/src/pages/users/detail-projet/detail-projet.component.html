@@ -17,6 +17,17 @@
           />
           Ajouter collaborateur
         </button>
+        <button
+          [routerLink]="['/users/configure-project/:id']"
+          class="btn-update-project"
+        >
+          <img
+            src="bi_people (1).png"
+            alt="Ajouter un collaborateur"
+            class="icon-btn"
+          />
+          Configurer projet
+        </button>
         <button [routerLink]="['/users/create-task/:id']" class="btn-new-task">
           <img src="Add.png" alt="Ajouter une tâche" class="icon-btn" />
           Nouvelle tâche
