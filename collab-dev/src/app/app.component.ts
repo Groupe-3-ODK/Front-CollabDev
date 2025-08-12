@@ -4,12 +4,13 @@ import { ProjectDoneComponent } from '../pages/users/project-done/project-done.c
 import { SignupComponent } from '../components/signup/signup';
 import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password';
 import { ViewProjectsComponent } from '../pages/users/view-projects/view-projects';
+import { PopUp } from "../pages/users/pop-up/pop-up";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProjectDoneComponent, SignupComponent, ForgotPasswordComponent, ViewProjectsComponent],
+  imports: [ProjectDoneComponent, SignupComponent, ForgotPasswordComponent, ViewProjectsComponent, PopUp],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
