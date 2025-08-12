@@ -2,7 +2,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
+import { UsersService } from '../../../core/services/users.service';
 
 interface Project {
   id: number;
@@ -27,10 +29,14 @@ interface Project {
 export class ViewProjectsComponent implements OnInit {
   router = inject(Router);
   private _projectService = inject(ProjectService);
+  private _userService = inject(UsersService);
 
-  showProjectDetails(project: Project) {
-    this.router.navigate(['/projects/view-details', project.id]);
-  }
+  projectsData: any[] = [];
+  membersSpeudos: { [projectId: number]: string[] } = {};
+
+  // showProjectDetails(project: Project) {
+  //   this.router.navigate(['/projects/view-details', project.id]);
+  // }
 
   projects: Project[] = [];
   filteredProjects: Project[] = [];
@@ -47,6 +53,8 @@ export class ViewProjectsComponent implements OnInit {
   selectedProject: Project | null = null; // Pour suivre le projet sélectionné dans la modale
 
   ngOnInit() {
+    this.getProjects();
+    console.warn(this.projectsData);
     this.projects = [
       {
         id: 1,
@@ -185,16 +193,39 @@ export class ViewProjectsComponent implements OnInit {
     event.stopPropagation();
   }
 
-  //   getProjects() {
-  // this._projectService.getProjects().subscribe({
-  //   next: (response) =>{
-  //     this.projects = response.data;
-  //     console.warn(this.projects);
-  //   },
-  //   error: (error) =>{
-  //     console.error("Error lors de la recuperation des projects", error);
-  //   }
-  // })
+  getProjects() {
+    this._projectService.getProjects().subscribe({
+      next: (response) => {
+        this.projectsData = Array.isArray(response.data)
+          ? response.data
+          : [response.data];
+        console.log(this.projectsData);
 
-  //   }
+        this.projectsData.forEach((project: any) => {
+          const memberUserIds =
+            project.members?.map((m: any) => m.userId) || [];
+          const userObservables = memberUserIds.map((id: number) =>
+            this._userService.getUserById(id)
+          );
+
+          if (userObservables.length > 0) {
+            forkJoin<any[]>(userObservables).subscribe((users: any[]) => {
+              console.log('users récupérés:', users);
+              this.membersSpeudos[project.id] = users.map((u) => u.data.speudo);
+              console.log(
+                `Speudos du projet ${project.id}:`,
+                this.membersSpeudos[project.id]
+              );
+              console.warn(this.membersSpeudos);
+            });
+          } else {
+            this.membersSpeudos[project.id] = [];
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des projets', error);
+      },
+    });
+  }
 }

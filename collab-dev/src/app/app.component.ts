@@ -5,6 +5,7 @@ import { inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
+import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
 import { GestionUserCoteAdminComponent } from '../pages/admin/gestion-user-cote-admin/gestion-user-cote-admin.component';
 import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
 import { CreerTache } from '../pages/users/creer-tache/creer-tache';
@@ -21,6 +22,7 @@ import { VoirDetailsProjetComponent } from '../pages/users/voir-details-projet/v
     DashboardComponent,
     VoirDetailsProjetComponent,
     GestionUserCoteAdminComponent,
+    LandingPageTwo,
   ],
   templateUrl: './app.component.html',
   providers: [CookieService],
