@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pop',
@@ -65,11 +66,14 @@ export class Pop {
   @Output() submitted = new EventEmitter<string>();
   @Output() closed = new EventEmitter<void>();
 
+  router = inject(Router);
+
   selectProfile(profile: string): void {
     this.selectedProfile = profile;
 
-    if (profile === 'Gestionnaire') {
-    }
+    // if (profile === 'Gestionnaire') {
+    //   this.router.navigate(['/user/manager-submit-form']);
+    // }
   }
 
   submitAndClose(): void {
