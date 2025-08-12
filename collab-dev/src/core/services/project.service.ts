@@ -25,7 +25,7 @@ export class CreateProject {
 export class ProjectService {
   private _http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl = environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
 
   getProjects(): Observable<Iproject[]> {
     return this._http
@@ -59,11 +59,17 @@ export class ProjectService {
     return this._http
       .put<Iproject>(
         `${
-          environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
+         this.apiUrl
         }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
         project
       )
       .pipe(catchError(this.handleError));
+  }
+
+   joinProject(projectId:number ,profilId:number){
+    return this._http.post(
+      `{this.API_URL}${this.apiUrl}/${projectId}/${CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`,profilId
+    )
   }
 
   // DELETE user

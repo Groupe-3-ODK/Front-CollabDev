@@ -1,5 +1,6 @@
+
 <div class="main-container">
-  <!-- Conteneur pour la section de progression -->
+  <!-- Conteneur pour la section de progression -->er
   <div class="card-container">
     
     <!-- En-tête de la carte avec la progression -->
@@ -11,7 +12,8 @@
     <!-- Onglets de progression -->
     <div class="progression-tabs-container horizontal-tabs">
       <div *ngFor="let tab of tabs" 
-           class="tab-item">
+            class="tab-item"
+            [ngClass]="{'active': tab.completed}">
         <svg class="tab-icon" fill="currentColor" viewBox="0 0 24 24">
           <path [attr.d]="tab.iconPath" />
         </svg>
@@ -34,10 +36,10 @@
         </div>
         <div class="input-group">
           <input type="text"
-                 placeholder="EX: https://github.com/..."
-                 class="form-input"
-                 [(ngModel)]="projectData.githubLink"
-                 (ngModelChange)="updateValidation()">
+                  placeholder="EX: https://github.com/..."
+                  class="form-input"
+                  [(ngModel)]="projectData.githubLink"
+                  (ngModelChange)="updateValidation()">
         </div>
       </div>
 
@@ -69,9 +71,9 @@
         </div>
         <div class="date-input-group">
           <input type="date"
-                 class="form-input date-field"
-                 [(ngModel)]="projectData.deadline"
-                 (ngModelChange)="updateValidation()">
+                  class="form-input date-field"
+                  [(ngModel)]="projectData.deadline"
+                  (ngModelChange)="updateValidation()">
           <span class="hint-text">Date de livraison prévue</span>
         </div>
       </div>
@@ -85,12 +87,16 @@
           <span class="section-title">Cahier de charge</span>
         </div>
         <div class="file-upload-container">
-          <input type="file" style="display: none;" #fileInput (change)="onFileSelected($event)">
+          <!-- Correction ici : J'ai ajouté l'id="fileInput" pour lier l'input au label -->
+          <input type="file" id="fileInput" style="display: none;" (change)="onFileSelected($event)">
+          <!-- Le for="fileInput" du label pointe maintenant vers l'id de l'input -->
           <label for="fileInput" class="file-upload-label">
             <svg class="upload-icon" fill="currentColor" viewBox="0 0 24 24">
               <path d="M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l5-5 5 5h-4v4H11V9H7z" />
             </svg>
           </label>
+          <!-- Ajout de l'élément pour afficher le nom du fichier -->
+          <span class="file-name" *ngIf="projectData.fileName">{{ projectData.fileName }}</span>
         </div>
       </div>
     </div>

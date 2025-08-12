@@ -12,22 +12,31 @@
             alt="Search icon"
             class="search-icon"
           />
-          <input type="text" placeholder="Recherche" />
+          <input
+            type="text"
+            placeholder="Recherche"
+            [(ngModel)]="searchQuery"
+            (input)="onSearchChange($event)"
+          />
         </div>
-        <button class="filter-btn">
+        <button class="filter-btn" (click)="resetFilter()">
           <img src="FunnelFiltre.png" alt="Filter icon" class="filter-icon" />
-          Filtre
+          filtrer
         </button>
       </div>
     </header>
 
     <section class="stat-cards">
-      <div class="stat-card">
+      <div
+        class="stat-card"
+        (click)="setFilter('todo')"
+        [class.active]="currentFilter === 'todo'"
+      >
         <div class="stat-content">
           <h2>Projets à faire</h2>
-          <p class="stat-number">01</p>
+          <p class="stat-number">{{ todoCount }}</p>
         </div>
-        <div class="stat-icon-wrapper">
+        <div class="stat-icon-wrapper todo-icon">
           <img
             src="icomoon-free_clockProjets à faire.png"
             alt="Projets à faire icon"
@@ -35,12 +44,16 @@
           />
         </div>
       </div>
-      <div class="stat-card">
+      <div
+        class="stat-card"
+        (click)="setFilter('in-progress')"
+        [class.active]="currentFilter === 'in-progress'"
+      >
         <div class="stat-content">
           <h2>Projets en cours</h2>
-          <p class="stat-number">02</p>
+          <p class="stat-number">{{ inProgressCount }}</p>
         </div>
-        <div class="stat-icon-wrapper">
+        <div class="stat-icon-wrapper inprogress-icon">
           <img
             src="bi_folderProjets en cours.png"
             alt="Projets en cours icon"
@@ -48,12 +61,16 @@
           />
         </div>
       </div>
-      <div class="stat-card">
+      <div
+        class="stat-card"
+        (click)="setFilter('completed')"
+        [class.active]="currentFilter === 'completed'"
+      >
         <div class="stat-content">
           <h2>Projets terminés</h2>
-          <p class="stat-number">01</p>
+          <p class="stat-number">{{ completedCount }}</p>
         </div>
-        <div class="stat-icon-wrapper">
+        <div class="stat-icon-wrapper completed-icon">
           <img
             src="VectorProjets terminés.png"
             alt="Projets terminés icon"
@@ -64,119 +81,59 @@
     </section>
 
     <section class="project-cards">
-      <div class="project-card">
+      <div class="project-card" *ngFor="let project of filteredProjects">
         <div class="project-header">
-          <h3>ALP</h3>
-          <span class="status in-progress">En cours</span>
+          <h3>{{ project.title }}</h3>
+          <span
+            class="status"
+            [ngClass]="{
+              'in-progress': project.status === 'in-progress',
+              completed: project.status === 'completed',
+              todo: project.status === 'todo'
+            }"
+          >
+            {{
+              project.status === "in-progress"
+                ? "En cours"
+                : project.status === "completed"
+                ? "Terminé"
+                : "A faire"
+            }}
+          </span>
         </div>
         <p class="project-description">
-          Api de gestion de projets collaboratifs
+          {{ project.description }}
         </p>
         <div class="project-tech-stack">
-          <span class="tech-tag">Spring boot</span>
-          <span class="tech-tag">Angular</span>
-          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag" *ngFor="let tech of project.technologies">{{
+            tech
+          }}</span>
         </div>
         <div class="project-footer">
           <div class="collaborators-progress">
             <div class="progress-bar-container">
-              <div class="progress-bar" style="width: 70%"></div>
+              <div
+                class="progress-bar"
+                [style.width.%]="project.progress"
+              ></div>
             </div>
-            <span>70%</span>
+            <span>{{ project.progress }}%</span>
           </div>
           <div class="content">
             <div class="avatar bg"></div>
             <div class="avatar bl"></div>
-            <div class="avatar bc"></div>
-            <p class="collaborators-count">3 Collaborateurs</p>
+            <div class="avatar bc" *ngIf="project.collaborators > 2"></div>
+            <p class="collaborators-count">
+              {{ project.collaborators }} Collaborateur{{
+                project.collaborators > 1 ? "s" : ""
+              }}
+            </p>
           </div>
         </div>
       </div>
 
-      <div class="project-card">
-        <div class="project-header">
-          <h3>Appli de santé</h3>
-          <span class="status in-progress">En cours</span>
-        </div>
-        <p class="project-description">
-          Api de gestion de projets collaboratifs
-        </p>
-        <div class="project-tech-stack">
-          <span class="tech-tag">Spring boot</span>
-          <span class="tech-tag">Angular</span>
-          <span class="tech-tag">TypeScript</span>
-        </div>
-        <div class="project-footer">
-          <div class="collaborators-progress">
-            <div class="progress-bar-container">
-              <div class="progress-bar" style="width: 30%"></div>
-            </div>
-            <span>30%</span>
-          </div>
-          <div class="content">
-            <div class="avatar bg"></div>
-            <div class="avatar bl"></div>
-            <p class="collaborators-count">2 Collaborateurs</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <h3>E-learning</h3>
-          <span class="status completed">Terminé</span>
-        </div>
-        <p class="project-description">
-          Api de gestion de projets collaboratifs
-        </p>
-        <div class="project-tech-stack">
-          <span class="tech-tag">Spring boot</span>
-          <span class="tech-tag">Angular</span>
-          <span class="tech-tag">TypeScript</span>
-        </div>
-        <div class="project-footer">
-          <div class="collaborators-progress">
-            <div class="progress-bar-container">
-              <div class="progress-bar" style="width: 100%"></div>
-            </div>
-            <span>100%</span>
-          </div>
-          <div class="content">
-            <div class="avatar bg"></div>
-            <div class="avatar bl"></div>
-            <div class="avatar bc"></div>
-            <p class="collaborators-count">3 Collaborateurs</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <h3>Good tech</h3>
-          <span class="status todo">A faire</span>
-        </div>
-        <p class="project-description">
-          Api de gestion de projets collaboratifs
-        </p>
-        <div class="project-tech-stack">
-          <span class="tech-tag">Spring boot</span>
-          <span class="tech-tag">Angular</span>
-          <span class="tech-tag">TypeScript</span>
-        </div>
-        <div class="project-footer">
-          <div class="collaborators-progress">
-            <div class="progress-bar-container">
-              <div class="progress-bar" style="width: 0%"></div>
-            </div>
-            <span>0%</span>
-          </div>
-          <div class="content">
-            <div class="avatar bg"></div>
-            <div class="avatar bl"></div>
-            <div class="avatar bc"></div>
-            <p class="collaborators-count">3 Collaborateurs</p>
-          </div>
-        </div>
+      <div class="no-projects" *ngIf="filteredProjects.length === 0">
+        <p>Aucun projet trouvé pour cette catégorie.</p>
       </div>
     </section>
   </main>

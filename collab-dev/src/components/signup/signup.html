@@ -72,11 +72,11 @@
                                 Les mots de passe ne correspondent pas.
                             </div>
                         </div>
-                        <button type="submit" class="signup-btn" [disabled]="signupForm.invalid">
+                        <button click()="onSubmit()" type="submit" class="signup-btn" [disabled]="signupForm.invalid">
                         S'inscrire
                         </button>
                         <p class="login-link">
-                        Vous avez déjà un compte ? <a href="#">Se connecter</a>
+                        Vous avez déjà un compte ? <a [routerLink]="['/login']">Se connecter</a>
                         </p>
                     </form>
                 </div>

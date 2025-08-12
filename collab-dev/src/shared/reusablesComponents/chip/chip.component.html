@@ -1,1 +1,15 @@
-<p>chip works!</p>
+<div class="header-right">
+  <div class="search-box">
+    <img src="SearchRecherche.png" alt="Search icon" class="search-icon" />
+    <input
+      type="text"
+      placeholder="Recherche"
+      [(ngModel)]="searchQuery"
+      (input)="onSearchChange($event)"
+    />
+  </div>
+  <button class="filter-btn" (click)="resetFilter()">
+    <img src="FunnelFiltre.png" alt="Filter icon" class="filter-icon" />
+    filtrer
+  </button>
+</div>

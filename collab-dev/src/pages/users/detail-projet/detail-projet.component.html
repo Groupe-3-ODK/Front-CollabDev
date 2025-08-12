@@ -1,3 +1,4 @@
+
 <div class="dashboard-container">
     <main class="main-content">
         <header class="main-header">
@@ -6,10 +7,10 @@
                 <p class="header-subtitle">Plateforme d'apprentissage</p>
             </div>
             <div class="header-right">
-                <button class="btn-add-collaborator">
+                <button [routerLink]="['user/contribution-ask']" class="btn-add-collaborator">
                     <img src="bi_people (1).png" alt="Ajouter un collaborateur" class="icon-btn"> Ajouter collaborateur
                 </button>
-                <button class="btn-new-task">
+                <button [routerLink]="['users/create-task/:id']" class="btn-new-task">
                     <img src="Add.png" alt="Ajouter une tâche" class="icon-btn"> Nouvelle tâche
                 </button>
             </div>
@@ -135,7 +136,7 @@
                 <div class="progress-bar-container">
                     <div class="progress-bar" [style.width.%]="progressPercent"></div>
                 </div>
-                <button class="btn-status-completed">Terminé</button>
+                <button class="btn-status-completed" (click)="sendToAdmin()"> Terminé</button>
             </div>
         </section>
     </main>

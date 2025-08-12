@@ -20,5 +20,6 @@ export class SubmitProjectFormComponent {
 
   onSubmit() {
     console.log(this.projectForm.value);
+    alert('Projet soumis avec succès!');
   }
 }

@@ -3,16 +3,16 @@
     <h2>Choose Role</h2>
     <p>Select a role to start organizing your content.</p>
     <div class="role-options">
-      <div class="role-option" [class.selected]="isSelected('designer')" (click)="onRoleSelect('designer')">
+      <div class="role-option" [class.selected]="isSelected('DESIGNER')" (click)="onRoleSelect('designer')">
         <span>Designer</span>
         <p>Create and design visually appealing content</p>
       </div>
-      <div class="role-option" [class.selected]="isSelected('developer')" (click)="onRoleSelect('developer')">
-        <span>Developer</span>
+      <div class="role-option" [class.selected]="isSelected('DEVELOPER')" (click)="onRoleSelect('developer')">
+        <span>Developpeur</span>
         <p>Build and code functional applications</p>
       </div>
-      <div class="role-option" [class.selected]="isSelected('manager')" (click)="onRoleSelect('manager')">
-        <span>Manager</span>
+      <div class="role-option" [class.selected]="isSelected('MAGAGER')" (click)="onRoleSelect('manager')">
+        <span>Gestinnairer</span>
         <p>Organize and manage projects efficiently</p>
       </div>
     </div>
