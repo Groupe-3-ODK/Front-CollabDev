@@ -55,16 +55,29 @@ export class ProjectService {
   }
 
   // PUT update user
-  updateProject(id: number, project: Iproject): Observable<Iproject> {
-    return this._http
-      .put<Iproject>(
-        `${
-          environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
-        }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
-        project
-      )
-      .pipe(catchError(this.handleError));
+  // updateProject(id: number, project: Iproject): Observable<Iproject> {
+  //   return this._http
+  //     .put<Iproject>(
+  //       `${
+  //         environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
+  //       }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
+  //       project
+  //     )
+  //     .pipe(catchError(this.handleError));
+  // }
+  updateProject(
+  id: number,
+  project: { level: string; githubLink: string; specification?: string },
+  managerProfilId: number
+  ): Observable<Iproject> {
+  return this._http
+    .put<Iproject>(
+      `${environment.API_BASE_URL}${CONSTANT.PROJECT_RESSOURCES.PROJECTS}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}?managerProfilId=${managerProfilId}`,
+      project
+    )
+    .pipe(catchError(this.handleError));
   }
+
 
   // DELETE user
   deleteProject(id: number): Observable<void> {
