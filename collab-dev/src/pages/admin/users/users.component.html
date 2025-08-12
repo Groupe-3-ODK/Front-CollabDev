@@ -46,8 +46,8 @@
       </thead>
       <tbody>
         <!-- Les attributs data-status sont utilisés pour le filtrage -->
-        <tr class="table-row" data-status="active">
-          <td class="user-name-cell">Fatoumata Diawara</td>
+        <tr class="table-row" data-status="active" *ngFor="let user of users">
+          <td class="user-name-cell">{{ user.speudo }}</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
             <span class="role-badge manager">MANAGER</span>
@@ -64,7 +64,7 @@
             </button>
           </td>
         </tr>
-        <tr class="table-row" data-status="active">
+        <!-- <tr class="table-row" data-status="active">
           <td class="user-name-cell">Jean Dupont</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
@@ -81,8 +81,8 @@
               Désactiver
             </button>
           </td>
-        </tr>
-        <tr class="table-row" data-status="inactive">
+        </tr> -->
+        <!-- <tr class="table-row" data-status="inactive">
           <td class="user-name-cell">Marie Curie</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
@@ -99,8 +99,8 @@
               Activer
             </button>
           </td>
-        </tr>
-        <tr class="table-row" data-status="active">
+        </tr> -->
+        <!-- <tr class="table-row" data-status="active">
           <td class="user-name-cell">Pierre Richard</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
@@ -117,8 +117,8 @@
               Désactiver
             </button>
           </td>
-        </tr>
-        <tr class="table-row" data-status="inactive">
+        </tr> -->
+        <!-- <tr class="table-row" data-status="inactive">
           <td class="user-name-cell">Alice Dubois</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
@@ -135,8 +135,8 @@
               Activer
             </button>
           </td>
-        </tr>
-        <tr class="table-row" data-status="active">
+        </tr> -->
+        <!-- <tr class="table-row" data-status="active">
           <td class="user-name-cell">Marc Lefevre</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
@@ -153,8 +153,8 @@
               Désactiver
             </button>
           </td>
-        </tr>
-        <tr class="table-row" data-status="inactive">
+        </tr> -->
+        <!-- <tr class="table-row" data-status="inactive">
           <td class="user-name-cell">Sophie Moreau</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
@@ -171,8 +171,8 @@
               Activer
             </button>
           </td>
-        </tr>
-        <tr class="table-row" data-status="active">
+        </tr> -->
+        <!-- <tr class="table-row" data-status="active">
           <td class="user-name-cell">David Martin</td>
           <td class="roles-cell">
             <span class="role-badge developer">DÉVELOPPEUR</span>
@@ -189,7 +189,7 @@
               Désactiver
             </button>
           </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
     <!-- Contrôles de pagination -->
