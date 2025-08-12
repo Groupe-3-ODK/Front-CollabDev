@@ -247,6 +247,7 @@
         .status-cell {
             display: flex;
             align-items: center;
+            margin-top: 40px;
         }
 
         .status-dot {
@@ -341,3 +342,4 @@
             cursor: not-allowed;
             opacity: 0.5;
         }
+        
