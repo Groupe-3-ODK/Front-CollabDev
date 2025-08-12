@@ -1,1 +1,3 @@
-export const environment = {};
+export const environment = {
+  API_BASE_URL: 'http://localhost:8080/api/collab-dev/v1/',
+};

@@ -7,7 +7,9 @@
       <p>Ensemble, on va plus loin.</p>
     </div>
     <div class="actions">
-      <button class="my-projects-btn" [routerLink]="['/my-projects']">Mes projets</button>
+      <button class="my-projects-btn" [routerLink]="['/my-projects']">
+        Mes projets
+      </button>
     </div>
     <div class="search-filter-section">
       <input
@@ -26,7 +28,7 @@
     </div>
   </div>
   <div class="projects-grid">
-    <div class="project-card" *ngFor="let project of filteredProjects">
+    <div class="project-card" *ngFor="let project of projectsData">
       <div class="project-header">
         <span class="date">{{ getRelativeDate(project.createdDate) }}</span>
       </div>
@@ -34,33 +36,72 @@
         <div class="project-info">
           <div class="title-level">
             <h2 class="project-title">{{ project.title }}</h2>
-            <span class="level-tag" [ngStyle]="{'background-color': project.level === 'Débutant' ? '#90EE90' : project.level === 'Intermédiaire' ? '#87CEEB' : '#FF6347'}">
+            <span
+              class="level-tag"
+              [ngStyle]="{
+                'background-color': project.level === 'BEGINNER' ? '#90EE90' 
+                  : project.level === 'INTERMEDIATE' ? '#87CEEB' 
+                  : project.level === 'ADVANCED' ? '#906E90' 
+                  : ''
+              }"
+
+            >
               {{ project.level }}
             </span>
           </div>
           <p class="project-description">{{ project.description }}</p>
         </div>
         <div class="domain-column">
-          <span class="domain-tag" [ngStyle]="{'background-color': project.domainColor}">
+          <span
+            class="domain-tag"
+        
+          >
             {{ project.domain }}
           </span>
         </div>
         <div class="contributors">
-          <span class="avatar" *ngFor="let contributor of project.contributors.slice(0, 3)" [ngStyle]="{'background-color': getAvatarColor(contributor)}" (click)="showContributors(project)">{{ contributor.charAt(0) }}</span>
-          <span class="contributor-count" *ngIf="project.contributors.length > 3">
-            +{{ project.contributors.length - 3 }}
+          <span
+            class="avatar"
+            *ngFor="let contributor of project.members.slice(0, 3)"
+            [ngStyle]="{'background-color': getAvatarColor(contributor)}"
+            (click)="showContributors(project)"
+            >{{ contributor.charAt(0) }}</span
+          >
+          <span
+            class="contributor-count"
+            *ngIf="project.members.length > 3"
+          >
+            +{{ project.members.length - 3 }}
           </span>
         </div>
         <div class="status-actions">
-          <span class="status-tag" [ngStyle]="{'background-color': project.status === 'En cours' ? '#90EE90' : project.status === 'Planifié' ? '#FFA500' : '#D3D3D3'}">
+          <span
+            class="status-tag"
+            [ngStyle]="{'background-color': project.status === 'IN_PROGRESS' ? '#90EE90'
+            : project.status === 'TODO' ? '#FFA500'
+            : project.status === 'DONE' ? '#D3D3D3'
+            : ''}"
+          >
             {{ project.status }}
           </span>
         </div>
-        <span class="favorite-star" (click)="toggleFavorite(project)" [ngClass]="{'favorite': project.isFavorite}">★</span>
-        <button class="join-btn" [disabled]="project.status === 'Terminé'">Rejoindre</button>
+        <!-- <span
+          class="favorite-star"
+          (click)="toggleFavorite(project)"
+          [ngClass]="{'favorite': project.isFavorite}"
+          >★</span
+
+        > -->
+      
+
+        >
+        <button class="join-btn" [disabled]="project.status === 'Terminé'" (click)="joinProject(project.id)">
+
+          Rejoindre
+        </button>
       </div>
     </div>
-    <div *ngIf="filteredProjects.length === 0" class="no-projects">
+    <div *ngIf="projectsData.length === 0" class="no-projects">
       <p>Aucun projet trouvé.</p>
     </div>
   </div>
@@ -71,7 +112,11 @@
       <h2>Contributeurs de {{ selectedProject.title }}</h2>
       <ul class="contributors-list">
         <li *ngFor="let contributor of selectedProject.contributors">
-          <span class="avatar" [ngStyle]="{'background-color': getAvatarColor(contributor)}">{{ contributor.charAt(0) }}</span>
+          <span
+            class="avatar"
+            [ngStyle]="{'background-color': getAvatarColor(contributor)}"
+            >{{ contributor.charAt(0) }}</span
+          >
           <span class="contributor-name">{{ contributor }}</span>
         </li>
       </ul>

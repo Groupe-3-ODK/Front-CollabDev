@@ -1,17 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PendingList } from './pending-list';
+import { AjoutEquipe } from './ajout-equipe';
 
-describe('Pending', () => {
-  let component: PendingList;
-  let fixture: ComponentFixture<PendingList>;
+describe('AjoutEquipe', () => {
+  let component: AjoutEquipe;
+  let fixture: ComponentFixture<AjoutEquipe>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PendingList],
-    }).compileComponents();
+      imports: [AjoutEquipe]
+    })
+    .compileComponents();
 
-    fixture = TestBed.createComponent(PendingList);
+    fixture = TestBed.createComponent(AjoutEquipe);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

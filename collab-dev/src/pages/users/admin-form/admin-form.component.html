@@ -1,0 +1,21 @@
+<div class="background-animation">
+  <div class="form-container">
+    <h2>Soumettre vos informations</h2>
+    <p>Partagez votre passion  avec notre communauté de managers, designers et développeurs</p>
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="managerName">Pseudo <span>*</span></label>
+        <input type="text" id="managerName" formControlName="managerName" placeholder="Veillez saisir votre pseudo...">
+      </div>
+      <div class="form-group">
+        <label for="gitHubLink">Lien GitHub <span>*</span></label>
+        <input type="url" id="gitHubLink" formControlName="gitHubLink" placeholder="https://github.com/username/repository">
+      </div>
+      <div class="form-group-doc">
+        <label for="documentation">Documentation PDF </label>
+        <input type="file" id="documentation" formControlName="documentation" accept="application/pdf">
+      </div>
+      <button type="submit">Soumettre</button>
+    </form>
+  </div>
+</div> 

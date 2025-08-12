@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MesContribution } from './mes-contribution';
+import { DashboardAdmin } from './dashboard-admin';
 
-describe('MesContribution', () => {
-  let component: MesContribution;
-  let fixture: ComponentFixture<MesContribution>;
+describe('DashboardAdmin', () => {
+  let component: DashboardAdmin;
+  let fixture: ComponentFixture<DashboardAdmin>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MesContribution]
+      imports: [DashboardAdmin]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MesContribution);
+    fixture = TestBed.createComponent(DashboardAdmin);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,21 +1,22 @@
-import { Component } from '@angular/core';
-
-import { ProjectDoneComponent } from '../pages/users/project-done/project-done.component';
-import { SignupComponent } from '../components/signup/signup';
-import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password';
-import { ViewProjectsComponent } from '../pages/users/view-projects/view-projects';
-import { PopUp } from "../pages/users/pop-up/pop-up";
-
+import { Component, inject, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProjectDoneComponent, SignupComponent, ForgotPasswordComponent, ViewProjectsComponent, PopUp],
-
+  imports: [PopUp],
   templateUrl: './app.component.html',
+  providers: [CookieService],
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  private cookieService = inject(CookieService);
+
+  ngOnInit(): void {
+    this.cookieService.deleteAll('/');
+  }
+
   title = 'collab-dev';
 
   // Variable qui contrôle l'affichage du modal
@@ -36,5 +37,7 @@ export class AppComponent {
     console.log('Données du projet enregistrées:', data);
     // Ici, vous pouvez ajouter la logique pour traiter les données
     this.isModalVisible = false;
+    const projectId = data.projectId;
+    const profilId = data.profilId;
   }
 }

@@ -2,16 +2,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { catchError, Observable, throwError } from 'rxjs';
-type Tlogin = {
+import { environment } from '../../environments/environment';
+import { CONSTANT } from '../constants/contant';
+import { IApiResponse } from '../interfaces/api-response';
+import { User } from './users.service';
+export class Login {
   email: string;
   password: string;
-};
 
-type Tuser = {
-  speudo: string;
-  email: string;
-  password: string;
-};
+  constructor() {
+    this.email = '';
+    this.password = '';
+  }
+}
 
 @Injectable({
   providedIn: 'root',
@@ -19,17 +22,23 @@ type Tuser = {
 export class Auth {
   private _http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:8080/api/users';
-
-  login(email: string, password: string): Observable<Tlogin> {
+  login(login: Login): Observable<IApiResponse> {
     return this._http
-      .post<Tlogin>(this.apiUrl, { email, password })
+      .post<IApiResponse>(
+        environment.API_BASE_URL +
+          CONSTANT.USER_RESSOURCES.USERS + // users
+          CONSTANT.USER_RESSOURCES.LOGIN, // login
+        login
+      )
       .pipe(catchError(this.handleError));
   }
 
-  signup(user: Tuser): Observable<Tuser> {
+  signup(user: User): Observable<IApiResponse> {
     return this._http
-      .post<Tuser>(this.apiUrl, user)
+      .post<IApiResponse>(
+        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS,
+        user
+      )
       .pipe(catchError(this.handleError));
   }
 

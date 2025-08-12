@@ -46,7 +46,7 @@ body {
   gap: 1rem;
 }
 
-.btn-add-collaborator {
+.btn-add-collaborator, .btn-update-project {
   background-color: #FFFFFF;
   color: #000000;
   border: 1px solid #E0E0E0;
@@ -60,7 +60,7 @@ body {
   transition: background-color 0.2s;
 }
 
-.btn-add-collaborator:hover {
+.btn-add-collaborator:hover, .btn-update-project:hover {
   background-color: #D9D9D9;
 }
 

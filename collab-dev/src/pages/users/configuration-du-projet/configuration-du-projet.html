@@ -52,7 +52,7 @@
           <span class="section-title">Niveau du Projet</span>
         </div>
         <div class="level-buttons-container">
-          <button *ngFor="let level of ['DEBUTANT', 'INTERMÉDIAIRE', 'AVANCÉ']"
+          <button *ngFor="let level of ['BEGINNER', 'INTERMEDIATE', 'ADVANCED']"
                   (click)="selectLevel(level)"
                   [ngClass]="{'active': selectedLevel === level}"
                   class="level-button">
