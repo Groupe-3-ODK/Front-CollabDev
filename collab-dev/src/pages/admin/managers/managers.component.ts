@@ -9,8 +9,14 @@ interface User {
 }
 @Component({
   selector: 'app-managers',
+
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,
+    //ManagerCardComponent, 
+    //TableComponent,
+    
+    //SearchbarComponent,
+  ],
   templateUrl: './managers.component.html',
   styleUrl: './managers.component.css',
 })

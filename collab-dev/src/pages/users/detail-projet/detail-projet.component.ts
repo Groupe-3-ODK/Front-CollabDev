@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 enum TaskStatus {
   Todo = 'todo',
@@ -25,7 +26,7 @@ interface TeamMember {
 @Component({
   selector: 'app-detail-projet',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './detail-projet.component.html',
   styleUrls: ['./detail-projet.component.css']
 })
@@ -87,5 +88,9 @@ export class DetailProjetComponent {
     this.inProgressTasks = this.tasks[TaskStatus.InProgress].length;
     this.totalTasks = this.tasks[TaskStatus.Todo].length + this.inProgressTasks + this.doneTasks;
     this.progressPercent = this.totalTasks > 0 ? Math.round((this.doneTasks / this.totalTasks) * 100) : 0;
+  }
+
+  sendToAdmin(){
+    alert('Envoyé à l\'administrateur');
   }
 }

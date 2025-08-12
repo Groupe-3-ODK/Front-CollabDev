@@ -11,7 +11,7 @@
         <label for="gitHubLink">Lien github <span>*</span></label>
         <input type="url" id="gitHubLink" formControlName="gitHubLink" placeholder="https://github.com/username/repository">
       </div>
-      <button type="submit">Soumettre</button>
+      <button (click)="onSubmit()" type="submit">Soumettre</button>
     </form>
   </div>
 </div> 

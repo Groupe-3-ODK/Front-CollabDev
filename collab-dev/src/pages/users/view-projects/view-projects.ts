@@ -2,6 +2,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+<<<<<<< HEAD
+import { ProfilType, UsersService } from '../../../core/services/users.service';
+import { log } from 'console';
+
+=======
+import { forkJoin } from 'rxjs';
+import { ProjectService } from '../../../core/services/project.service';
+import { UsersService } from '../../../core/services/users.service';
+>>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
 
 interface Project {
   id: number;
@@ -19,16 +28,26 @@ interface Project {
 @Component({
   selector: 'app-view-projects',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule,],
   templateUrl: './view-projects.html',
   styleUrl: './view-projects.css',
 })
 export class ViewProjectsComponent implements OnInit {
-  router = inject(Router); // Injecter le Router si nécessaire
+  router = inject(Router);
+  private _projectService = inject(ProjectService);
+  private _userService = inject(UsersService);
 
-  showProjectDetails(project: Project) {
-    this.router.navigate(['/projects/view-details', project.id]);
-  }
+  projectsData: any[] = [];
+  membersSpeudos: { [projectId: number]: string[] } = {};
+
+  // showProjectDetails(project: Project) {
+  //   this.router.navigate(['/projects/view-details', project.id]);
+  // }
+
+  constructor( private userService:UsersService){}
+
+  userId:number = 1
+  profilType : ProfilType = 2
 
   projects: Project[] = [];
   filteredProjects: Project[] = [];
@@ -45,6 +64,8 @@ export class ViewProjectsComponent implements OnInit {
   selectedProject: Project | null = null; // Pour suivre le projet sélectionné dans la modale
 
   ngOnInit() {
+    this.getProjects();
+    console.warn(this.projectsData);
     this.projects = [
       {
         id: 1,
@@ -181,5 +202,54 @@ export class ViewProjectsComponent implements OnInit {
 
   stopPropagation(event: Event) {
     event.stopPropagation();
+  }
+
+<<<<<<< HEAD
+  joinProject( id: number) : void {
+    if(this.profilType == 2){
+      this.router.navigate(["/shared/user-sidebar"])
+      
+    }
+    this.userService.joinProjectWithProfilType(id, this.userId, this.profilType)
+    console.log(
+      `ça marche vous avez rejoin le projet ${id}, 
+      avec votre id ${this.userId} et avec le profil ${this.profilType}`
+    );  
+=======
+  getProjects() {
+    this._projectService.getProjects().subscribe({
+      next: (response) => {
+        this.projectsData = Array.isArray(response.data)
+          ? response.data
+          : [response.data];
+        console.log(this.projectsData);
+
+        this.projectsData.forEach((project: any) => {
+          const memberUserIds =
+            project.members?.map((m: any) => m.userId) || [];
+          const userObservables = memberUserIds.map((id: number) =>
+            this._userService.getUserById(id)
+          );
+
+          if (userObservables.length > 0) {
+            forkJoin<any[]>(userObservables).subscribe((users: any[]) => {
+              console.log('users récupérés:', users);
+              this.membersSpeudos[project.id] = users.map((u) => u.data.speudo);
+              console.log(
+                `Speudos du projet ${project.id}:`,
+                this.membersSpeudos[project.id]
+              );
+              console.warn(this.membersSpeudos);
+            });
+          } else {
+            this.membersSpeudos[project.id] = [];
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des projets', error);
+      },
+    });
+>>>>>>> 00982b1558f4d7ae8cd638f872558e6c623946f6
   }
 }

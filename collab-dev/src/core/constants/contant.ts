@@ -7,6 +7,7 @@ export const CONSTANT = {
     JOIN_PROJECT_AS_MANAGER: '/joinProjectAsManager',
     CONTRIBUTION_ASK: 'contributionAsk',
     MY_CONTRIBUTIONS: 'myContributions',
+    MAKE_COMMENT: 'makeComment'
   },
   USER_RESSOURCES: {
     USERS: 'users',
@@ -17,8 +18,16 @@ export const CONSTANT = {
   },
   BADGE_RESSOURCES: {
     BADGES: 'badges',
-
     UPDATE_BADGE: 'updateBadge',
+  },
+
+  TASK_RESSOURCES: {
+    TASKS: 'tasks',
+    CREATE: 'create-Tasks',
+    ASSIGN_TASK: 'assignTask',
+    SUBMIT_TASK: 'submitTask',
+    TASKS_COMMENT: 'tasksComment',
+    COMMENT_TASK: 'comment-tasks',
   },
 
   CURRENT_USER: {
@@ -27,4 +36,26 @@ export const CONSTANT = {
     PASSWORD: 'password123',
     ROLE: 'USER',
   },
+
+  ADMIN_RESSOURCES: {
+    ADMIN: 'admin',
+    ATTRIBUT_MANAGER: 'attributeManagerToProject',
+    ATTRIBUT_COINS: 'attributeCoinsToManager',
+    TRUST_PROJECT: 'trustProject',
+  },
+
+  MANAGER_RESSOURCES: {
+    ADD_MANAGER_INFO: 'managerInfo',
+    SELECT_CONTRIBUTOR: 'selectProfilAndAddToProject',
+    FILES: 'files',
+    UPLOAD: 'upload',
+    VALIDATE_TASK: 'validateTask',
+    VALIDATE_PROJECT: 'validateProject',
+  },
+
+  SYSTEM_RESSOURCES: {
+    SYSTEM: 'systems',
+    PROJECT_RECOMMANDATION: 'projectRecommendation',
+    PROJECT_FILTER_BYLEVEL: 'filterProjectsByLevel',
+  }
 };

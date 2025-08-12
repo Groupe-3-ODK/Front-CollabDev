@@ -32,7 +32,7 @@
       <div class="project-header">
         <span class="date">{{ getRelativeDate(project.createdDate) }}</span>
       </div>
-      <div class="project-content" (click)="showProjectDetails(project)">
+      <div class="project-content">
         <div class="project-info">
           <div class="title-level">
             <h2 class="project-title">{{ project.title }}</h2>
@@ -82,7 +82,7 @@
           [ngClass]="{'favorite': project.isFavorite}"
           >★</span
         >
-        <button class="join-btn" [disabled]="project.status === 'Terminé'">
+        <button class="join-btn" [disabled]="project.status === 'Terminé'" (click)="joinProject(project.id)">
           Rejoindre
         </button>
       </div>

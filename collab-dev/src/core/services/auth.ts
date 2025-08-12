@@ -4,7 +4,8 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
-import { IUser, User } from './users.service';
+import { IApiResponse } from '../interfaces/api-response';
+import { User } from './users.service';
 export class Login {
   email: string;
   password: string;
@@ -21,20 +22,20 @@ export class Login {
 export class Auth {
   private _http = inject(HttpClient);
 
-  login(login: Login): Observable<IUser> {
+  login(login: Login): Observable<IApiResponse> {
     return this._http
-      .post<IUser>(
+      .post<IApiResponse>(
         environment.API_BASE_URL +
-          CONSTANT.USER_RESSOURCES.USERS +
-          CONSTANT.USER_RESSOURCES.LOGIN,
+          CONSTANT.USER_RESSOURCES.USERS + // users
+          CONSTANT.USER_RESSOURCES.LOGIN, // login
         login
       )
       .pipe(catchError(this.handleError));
   }
 
-  signup(user: User): Observable<IUser> {
+  signup(user: User): Observable<IApiResponse> {
     return this._http
-      .post<IUser>(
+      .post<IApiResponse>(
         environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS,
         user
       )

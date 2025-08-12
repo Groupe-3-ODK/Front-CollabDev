@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Router } from 'express';
 
 interface User {
   id: number;
@@ -10,7 +12,7 @@ interface User {
 
 @Component({
   selector: 'app-contribution-ask',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './contribution-ask.html',
   styleUrl: './contribution-ask.css',
 })
