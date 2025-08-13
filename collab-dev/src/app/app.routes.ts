@@ -426,7 +426,7 @@ export const routes: Routes = [
       ).then((m) => m.UserSidebarComponent),
   },
   {
-    path: 'user/manager-submit-form',
+    path: 'user/manager-submit-form/:id',
     loadComponent: () =>
       import('../pages/users/admin-form/admin-form.component').then(
         (m) => m.AdminFormComponent

@@ -10,6 +10,23 @@ import { CONSTANT } from '../constants/contant';
 import { IApiResponse } from '../interfaces/api-response';
 import { Iproject } from '../interfaces/project';
 
+export class ManagerInfo {
+  userId: number;
+  projectId: number;
+  profilType: string;
+  githubLink: string;
+  file?: File;
+
+  constructor() {
+    this.userId = 0;             // Valeur par défaut numérique
+    this.projectId = 0;          // Valeur par défaut numérique
+    this.profilType = '';        // Chaîne vide
+    this.githubLink = '';        // Chaîne vide
+    this.file = undefined;       // Fichier optionnel
+  }
+}
+
+
 export class CreateProject {
   title: string;
   description: string;
