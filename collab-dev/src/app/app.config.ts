@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import {
+  Bookmark,
   BookMarked,
   ChartNoAxesCombined,
   CircleCheckBig,
@@ -58,6 +59,7 @@ export const appConfig: ApplicationConfig = {
         LogIn,
         UserRoundPen,
         ScanSearch,
+        Bookmark,
       })
     ),
     provideHttpClient(withFetch()),

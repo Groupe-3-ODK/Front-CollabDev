@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MesContribution } from './mes-contribution';
+import { AdminFormComponent } from './admin-form.component';
 
-describe('MesContribution', () => {
-  let component: MesContribution;
-  let fixture: ComponentFixture<MesContribution>;
+describe('AdminFormComponent', () => {
+  let component: AdminFormComponent;
+  let fixture: ComponentFixture<AdminFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MesContribution]
+      imports: [AdminFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MesContribution);
+    fixture = TestBed.createComponent(AdminFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

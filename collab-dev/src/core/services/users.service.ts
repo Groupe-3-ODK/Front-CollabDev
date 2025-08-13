@@ -1,9 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
+import { IApiResponse } from '../interfaces/api-response';
+import { PopUp } from '../../shared/reusablesComponents/pop-up/pop-up';
 
 export interface IUser {
   id: number;
@@ -11,6 +13,11 @@ export interface IUser {
   email: string;
   profils: any;
   role: string;
+}
+export enum ProfilType {
+    DEVELOPER,
+    DESIGNER,
+    MANAGER
 }
 
 export class updatePassword {
@@ -43,25 +50,27 @@ export class User {
 export class UsersService {
   private _http = inject(HttpClient);
 
-  getUsers(): Observable<IUser[]> {
+  getUsers(): Observable<IApiResponse> {
     return this._http
-      .get<IUser[]>(environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS)
+      .get<IApiResponse>(
+        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS
+      )
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
-  getUserById(id: number): Observable<User> {
+  getUserById(id: number): Observable<IApiResponse> {
     return this._http
-      .get<User>(
+      .get<IApiResponse>(
         `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}`
       )
       .pipe(catchError(this.handleError));
   }
 
   // POST new user
-  createUser(user: User): Observable<IUser> {
+  createUser(user: User): Observable<IApiResponse> {
     return this._http
-      .post<IUser>(
+      .post<IApiResponse>(
         environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS,
         user
       )
@@ -69,9 +78,9 @@ export class UsersService {
   }
 
   // PUT update user
-  updateUserInFo(id: number, user: User): Observable<string> {
+  updateUserInFo(id: number, user: User): Observable<IApiResponse> {
     return this._http
-      .put<string>(
+      .put<IApiResponse>(
         `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
           CONSTANT.USER_RESSOURCES.UPDATE
         }`,
@@ -79,10 +88,30 @@ export class UsersService {
       )
       .pipe(catchError(this.handleError));
   }
+  /*joinProject(projectId: number, profileId: number) {
+    return this.httpClient.post(
+      `${this.API_URL}${this.ENDPOINT_JOIN_PROJECT}/${projectId}/join`,
+      profileId
+    );
+  }*/
 
-  updatePassword(id: number, passwordObj: updatePassword): Observable<string> {
+  //Joindre un projet par profile
+  joinProjectWithProfilType(projectId: number , userId: number ,profilType : ProfilType ) :Observable<string>{
+      let params = new  HttpParams()
+      .append("projectId", projectId)
+      .append("userId", userId)
+      .append("profilType", profilType);
+      return this._http.post<string>(
+        `${environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`, {params}
+      ).pipe(catchError(this.handleError));
+  }
+
+  updatePassword(
+    id: number,
+    passwordObj: updatePassword
+  ): Observable<IApiResponse> {
     return this._http
-      .put<string>(
+      .put<IApiResponse>(
         `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
           CONSTANT.USER_RESSOURCES.UPDATE_PASSWORD
         }`,
@@ -90,6 +119,8 @@ export class UsersService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  
 
   // DELETE user
   deleteUser(id: number): Observable<void> {
