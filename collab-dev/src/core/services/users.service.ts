@@ -53,28 +53,33 @@ export class User {
 export class UsersService {
   private _http = inject(HttpClient);
 
-  // changePassword(userId: number, passwordDTO: { oldPassword: string; newPassword: string }): Observable<any> {
-  //   return this.http.put(
-  //     `${this._apiUrl}/${userId}/changePassword`,
-  //     passwordDTO
-  //   );
-  // }
+  private _apiUrl = environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS;
 
-  // updateUserInfo(userId: number, updateDTO: any): Observable<any> {
-  //   return this._http.put(
-  //     `${this._apiUrl}/${userId}/updateUserInfo`,
-  //     updateDTO
-  //   );
-  // }
+  changePassword(
+    userId: number,
+    passwordDTO: { oldPassword: string; newPassword: string }
+  ): Observable<any> {
+    return this._http.put(
+      `${this._apiUrl}/${userId}/changePassword`,
+      passwordDTO
+    );
+  }
+
+  updateUserInfo(userId: number, updateDTO: any): Observable<any> {
+    return this._http.put(
+      `${this._apiUrl}/${userId}/updateUserInfo`,
+      updateDTO
+    );
+  }
 
   //-----------------------------------------------------
 
-  //   createManagerInfo(managerInfo: any): Observable<any> {
-  //   return this.http.post(
-  //     `${this._apiUrl}`, // adapte si nécessaire
-  //     managerInfo
-  //   );
-  // }
+  createManagerInfo(managerInfo: any): Observable<any> {
+    return this._http.post(
+      `${environment.API_BASE_URL}/managerInfo`,
+      managerInfo
+    );
+  }
 
   // const newManagerInfo = {
   //   name: 'Jean Dupont',
@@ -90,17 +95,20 @@ export class UsersService {
 
   //-------------------------------------
 
-  // selectProfilAndAddToProject(profilId: number, projectId: number): Observable<any> {
-  //   const params = new HttpParams()
-  //     .set('profilId', profilId.toString())
-  //     .set('projectId', projectId.toString());
+  selectProfilAndAddToProject(
+    profilId: number,
+    projectId: number
+  ): Observable<any> {
+    const params = new HttpParams()
+      .set('profilId', profilId.toString())
+      .set('projectId', projectId.toString());
 
-  //   return this.http.put(
-  //     `${this._apiUrl}/selectProfilAndAddToProject`,
-  //     null, // pas de body
-  //     { params }
-  //   );
-  // }
+    return this._http.put(
+      `${environment.API_BASE_URL}/managerInfo/selectProfilAndAddToProject`,
+      null, // pas de body
+      { params }
+    );
+  }
 
   // this.myService.selectProfilAndAddToProject(15, 123).subscribe({
   //   next: res => console.log('Profil ajouté au projet', res),
@@ -109,28 +117,21 @@ export class UsersService {
 
   getUsers(): Observable<IApiResponse> {
     return this._http
-      .get<IApiResponse>(
-        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS
-      )
+      .get<IApiResponse>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
   getUserById(id: number): Observable<IApiResponse> {
     return this._http
-      .get<IApiResponse>(
-        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}`
-      )
+      .get<IApiResponse>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
   // POST new user
   createUser(user: User): Observable<IApiResponse> {
     return this._http
-      .post<IApiResponse>(
-        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS,
-        user
-      )
+      .post<IApiResponse>(this._apiUrl, user)
       .pipe(catchError(this.handleError));
   }
 
@@ -138,19 +139,11 @@ export class UsersService {
   updateUserInFo(id: number, user: User): Observable<IApiResponse> {
     return this._http
       .put<IApiResponse>(
-        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
-          CONSTANT.USER_RESSOURCES.UPDATE
-        }`,
+        `${this._apiUrl}/${id}/${CONSTANT.USER_RESSOURCES.UPDATE}`,
         user
       )
       .pipe(catchError(this.handleError));
   }
-  /*joinProject(projectId: number, profileId: number) {
-    return this.httpClient.post(
-      `${this.API_URL}${this.ENDPOINT_JOIN_PROJECT}/${projectId}/join`,
-      profileId
-    );
-  }*/
 
   //Joindre un projet par profile
   joinProjectWithProfilType(

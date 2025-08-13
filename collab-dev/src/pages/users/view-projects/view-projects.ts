@@ -4,6 +4,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ProfilType, UsersService } from '../../../core/services/users.service';
 
+import { CookieService } from 'ngx-cookie-service';
 import { forkJoin } from 'rxjs';
 import { Iproject } from '../../../core/interfaces/project';
 import { ProjectService } from '../../../core/services/project.service';
@@ -26,6 +27,7 @@ interface Project {
   selector: 'app-view-projects',
   standalone: true,
   imports: [CommonModule, RouterModule, Pop],
+  providers: [CookieService],
   templateUrl: './view-projects.html',
   styleUrl: './view-projects.css',
 })
@@ -34,8 +36,11 @@ export class ViewProjectsComponent implements OnInit {
   private _projectService = inject(ProjectService);
   private _userService = inject(UsersService);
 
+  public currentUser: any = null;
+
   projectsData: any[] = [];
   membersSpeudos: { [projectId: number]: string[] } = {};
+  private cookieService = inject(CookieService);
 
   // showProjectDetails(project: Project) {
   //   this.router.navigate(['/projects/view-details', project.id]);
@@ -61,6 +66,8 @@ export class ViewProjectsComponent implements OnInit {
   selectedProject: Iproject | null = null; // Pour suivre le projet sélectionné dans la modale
 
   ngOnInit() {
+    const cookieValue = this.cookieService.get('currentUser');
+    this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
     this.getProjects();
   }
 
@@ -199,6 +206,27 @@ export class ViewProjectsComponent implements OnInit {
     console.log('Profil choisi :', profile);
     if (profile === 'Gestionnaire') {
       this.router.navigate(['/user/manager-submit-form']);
+    } else if (profile === 'Designer') {
+      if (
+        this.selectedProject &&
+        this.selectedProject.id &&
+        this.currentUser &&
+        this.currentUser.id
+      ) {
+        this.joinProjectWithProfilType(
+          this.selectedProject.id,
+          this.currentUser.id,
+          'DESIGNER'
+        );
+      } else {
+        console.error('selectedProject or currentUser is null');
+      }
+    } else {
+      if (this.currentUser && this.currentUser.id) {
+        this.joinProjectWithProfilType(1, this.currentUser.id, 'DEVELOPER');
+      } else {
+        console.error('currentUser is null');
+      }
     }
 
     this.showModal = false; // ferme aussi après soumission
@@ -211,6 +239,20 @@ export class ViewProjectsComponent implements OnInit {
   // Méthode appelée lorsque le modal émet l'événement 'closeModal'
   onModalClose(): void {
     this.showModal = false;
+  }
+
+  joinProjectWithProfilType(
+    projectId: number,
+    userId: number,
+    profilType: string
+  ) {
+    this._projectService
+      .joinProjectWithProfilName(projectId, userId, profilType)
+      .subscribe({
+        //12, 5, 'DESIGNER'
+        next: (res) => console.log('Rejoint projet avec profil', res),
+        error: (err) => console.error('Erreur join project', err),
+      });
   }
 
   // this.projectService

@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Task {
-  //   createTasks(managerId: number, tasksDTO: any): Observable<any> {
-  //   const params = new HttpParams().set('managerId', managerId.toString());
-  //   return this.http.post(
-  //     `${this._apiUrl}/create-Tasks`,
-  //     tasksDTO,
-  //     { params }
-  //   );
-  // }
+  private _http = inject(HttpClient);
+  private _apiUrl = environment.API_BASE_URL;
+
+  createTasks(managerId: number, tasksDTO: any): Observable<any> {
+    const params = new HttpParams().set('managerId', managerId.toString());
+    return this._http.post(`${this._apiUrl}/tasks/create-Tasks`, tasksDTO, {
+      params,
+    });
+  }
   // const tasksDTO = {
   //   projectId: 123,
   //   tasks: [
@@ -24,14 +28,12 @@ export class Task {
   //   error: err => console.error('Erreur création tâches', err)
   // });
   //-------------------------------------------------------
-  //   assignTasksToProfil(managerId: number, assignDTO: any): Observable<any> {
-  //   const params = new HttpParams().set('managerId', managerId.toString());
-  //   return this.http.post(
-  //     `${this._apiUrl}/assignTask`,
-  //     assignDTO,
-  //     { params }
-  //   );
-  // }
+  assignTasksToProfil(managerId: number, assignDTO: any): Observable<any> {
+    const params = new HttpParams().set('managerId', managerId.toString());
+    return this._http.post(`${this._apiUrl}/tasks/assignTask`, assignDTO, {
+      params,
+    });
+  }
   // const assignDTO = {
   //   projectId: 123,
   //   profilIdCible: 45,
@@ -42,29 +44,32 @@ export class Task {
   //   error: err => console.error('Erreur assignation tâches', err)
   // });
   //-----------------------------------------------
-  // submitTask(taskId: number, contributorId: number): Observable<any> {
-  //   const params = new HttpParams().set('contributorId', contributorId.toString());
-  //   return this.http.put(
-  //     `${this._apiUrl}/${taskId}/submitTask`,
-  //     null, // pas de body
-  //     { params }
-  //   );
-  // }
+  submitTask(taskId: number, contributorId: number): Observable<any> {
+    const params = new HttpParams().set(
+      'contributorId',
+      contributorId.toString()
+    );
+    return this._http.put(
+      `${this._apiUrl}/tasks/${taskId}/submitTask`,
+      null, // pas de body
+      { params }
+    );
+  }
   // this.myService.submitTask(12, 5).subscribe({
   //   next: res => console.log('Tâche soumise', res),
   //   error: err => console.error('Erreur soumission tâche', err)
   // });
   //-----------------------------------------------
-  // assignPoints(taskId: number, managerId: number): Observable<string> {
-  //   const params = new HttpParams()
-  //     .set('taskId', taskId.toString())
-  //     .set('managerId', managerId.toString());
-  //   return this.http.post<string>(
-  //     `${this._apiUrl}/validateTask`,
-  //     null,  // pas de body
-  //     { params }
-  //   );
-  // }
+  assignPoints(taskId: number, managerId: number): Observable<string> {
+    const params = new HttpParams()
+      .set('taskId', taskId.toString())
+      .set('managerId', managerId.toString());
+    return this._http.post<string>(
+      `${this._apiUrl}/managerInfo/validateTask`,
+      null, // pas de body
+      { params }
+    );
+  }
   // Attribution des points
   // this.myService.assignPoints(10, 5).subscribe({
   //   next: res => console.log(res),  // "Points attribués avec succès"
