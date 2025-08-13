@@ -262,11 +262,4 @@ export class ViewProjectsComponent implements OnInit {
         error: (err) => console.error('Erreur join project', err),
       });
   }
-
-  // this.projectService
-  // .joinProjectAsManager(2, 10, 'MANAGER', 'https://github.com/monrepo', this.selectedFile)
-  // .subscribe({
-  //   next: (res) => console.log('Réponse backend:', res),
-  //   error: (err) => console.error('Erreur:', err)
-  // });
 }

@@ -3,12 +3,19 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
+import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, AdminFormComponent, LandingPageTwo],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    AdminFormComponent,
+    LandingPageTwo,
+    SignupComponent,
+  ],
 
   templateUrl: './app.component.html',
   providers: [CookieService],
