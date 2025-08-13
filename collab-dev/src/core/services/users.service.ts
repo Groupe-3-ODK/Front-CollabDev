@@ -1,11 +1,14 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
 import { IApiResponse } from '../interfaces/api-response';
-import { PopUp } from '../../shared/reusablesComponents/pop-up/pop-up';
 
 export interface IUser {
   id: number;
@@ -15,9 +18,9 @@ export interface IUser {
   role: string;
 }
 export enum ProfilType {
-    DEVELOPER,
-    DESIGNER,
-    MANAGER
+  DEVELOPER,
+  DESIGNER,
+  MANAGER,
 }
 
 export class updatePassword {
@@ -49,6 +52,60 @@ export class User {
 })
 export class UsersService {
   private _http = inject(HttpClient);
+
+  // changePassword(userId: number, passwordDTO: { oldPassword: string; newPassword: string }): Observable<any> {
+  //   return this.http.put(
+  //     `${this._apiUrl}/${userId}/changePassword`,
+  //     passwordDTO
+  //   );
+  // }
+
+  // updateUserInfo(userId: number, updateDTO: any): Observable<any> {
+  //   return this._http.put(
+  //     `${this._apiUrl}/${userId}/updateUserInfo`,
+  //     updateDTO
+  //   );
+  // }
+
+  //-----------------------------------------------------
+
+  //   createManagerInfo(managerInfo: any): Observable<any> {
+  //   return this.http.post(
+  //     `${this._apiUrl}`, // adapte si nécessaire
+  //     managerInfo
+  //   );
+  // }
+
+  // const newManagerInfo = {
+  //   name: 'Jean Dupont',
+  //   department: 'Informatique',
+  //   email: 'jean.dupont@example.com'
+  //   // ... autres champs selon ManagerInfo
+  // };
+
+  // this.myService.createManagerInfo(newManagerInfo).subscribe({
+  //   next: res => console.log('Manager créé', res),
+  //   error: err => console.error('Erreur création manager', err)
+  // });
+
+  //-------------------------------------
+
+  // selectProfilAndAddToProject(profilId: number, projectId: number): Observable<any> {
+  //   const params = new HttpParams()
+  //     .set('profilId', profilId.toString())
+  //     .set('projectId', projectId.toString());
+
+  //   return this.http.put(
+  //     `${this._apiUrl}/selectProfilAndAddToProject`,
+  //     null, // pas de body
+  //     { params }
+  //   );
+  // }
+
+  // this.myService.selectProfilAndAddToProject(15, 123).subscribe({
+  //   next: res => console.log('Profil ajouté au projet', res),
+  //   error: err => console.error('Erreur ajout profil au projet', err)
+  // });
 
   getUsers(): Observable<IApiResponse> {
     return this._http
@@ -96,14 +153,24 @@ export class UsersService {
   }*/
 
   //Joindre un projet par profile
-  joinProjectWithProfilType(projectId: number , userId: number ,profilType : ProfilType ) :Observable<string>{
-      let params = new  HttpParams()
-      .append("projectId", projectId)
-      .append("userId", userId)
-      .append("profilType", profilType);
-      return this._http.post<string>(
-        `${environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`, {params}
-      ).pipe(catchError(this.handleError));
+  joinProjectWithProfilType(
+    projectId: number,
+    userId: number,
+    profilType: ProfilType
+  ): Observable<string> {
+    let params = new HttpParams()
+      .append('projectId', projectId)
+      .append('userId', userId)
+      .append('profilType', profilType);
+    return this._http
+      .post<string>(
+        `${
+          environment.API_BASE_URL +
+          CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME
+        }`,
+        { params }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   updatePassword(
@@ -119,8 +186,6 @@ export class UsersService {
       )
       .pipe(catchError(this.handleError));
   }
-
-  
 
   // DELETE user
   deleteUser(id: number): Observable<void> {

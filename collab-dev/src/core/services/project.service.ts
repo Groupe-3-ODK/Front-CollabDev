@@ -46,6 +46,24 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
+  //   validateProject(managerId: number, projectId: number): Observable<string> {
+  //   const params = new HttpParams()
+  //     .set('managerId', managerId.toString())
+  //     .set('projectId', projectId.toString());
+
+  //   return this.http.put<string>(
+  //     `${this._apiUrl}/validateProject`,
+  //     null,  // pas de body
+  //     { params }
+  //   );
+  // }
+
+  // Validation projet
+  // this.myService.validateProject(5, 123).subscribe({
+  //   next: res => console.log(res),  // "Projet Terminé :) 🥳"
+  //   error: err => console.error(err)
+  // });
+
   // POST new user
   createProject(project: CreateProject): Observable<IApiResponse> {
     return this._http
@@ -78,17 +96,24 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  joinProjectWithProfileName(
+  joinProjectWithProfilName(
     projectId: number,
-    profilId: number,
+    userId: number,
     profilType: string
-  ) {
-    let params = new HttpParams()
-      .set('profilId', profilId.toString())
+  ): Observable<any> {
+    const params = new HttpParams()
+      .set('projectId', projectId.toString())
+      .set('userId', userId.toString())
       .set('profilType', profilType);
 
+    // this.myService.joinProjectWithProfilName(12, 5, 'DESIGNER').subscribe({
+    //   next: res => console.log('Rejoint projet avec profil', res),
+    //   error: err => console.error('Erreur join project', err)
+    // });
+
     return this._http.post(
-      `${this._apiUrl}/${projectId}/${CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`,
+      `${this._apiUrl}/joinProjectWithProfilName`,
+      null, // pas de body
       { params }
     );
   }
@@ -105,6 +130,22 @@ export class ProjectService {
     formData.append('projectId', projectId.toString());
     formData.append('profilType', profilType);
     formData.append('githubLink', githubLink);
+
+    // const request = {
+    //   userId: 5,
+    //   projectId: 12,
+    //   profilType: 'MANAGER'
+    // };
+
+    // const githubLink = 'https://github.com/monrepo/projet';
+
+    // const fileInput = this.fileInput.nativeElement; // exemple avec un input file
+    // const file = fileInput.files.length > 0 ? fileInput.files[0] : undefined;
+
+    // this.myService.joinProjectAsManager(request, githubLink, file).subscribe({
+    //   next: res => console.log('Rejoint projet en manager', res),
+    //   error: err => console.error('Erreur join project manager', err)
+    // });
 
     if (file) {
       formData.append('file', file);
@@ -125,4 +166,47 @@ export class ProjectService {
     console.error('Une erreur est servenue :', error);
     return throwError(() => new Error(error.message || 'Erreur inconnue'));
   }
+
+  //   addToPendingProfiles(projectId: number, profileId: number): Observable<Project> {
+  //   return this.http.post<Project>(
+  //     `${this._apiUrl}/${projectId}/join`,
+  //     profileId
+  //   );
+  // }
+
+  // this.myService.addToPendingProfiles(12, 45).subscribe({
+  //   next: project => console.log('Profil ajouté en attente', project),
+  //   error: err => console.error('Erreur ajout profil', err)
+  // });
+
+  //--------------------------------------
+
+  // makeComment(projectId: number, userId: number, comment: any): Observable<any> {
+  //   return this.http.put(
+  //     `${this._apiUrl}/${projectId}/${userId}/makeComment`,
+  //     comment
+  //   );
+  // }
+
+  // const comment = {
+  //   text: "Super projet !",
+  //   // autres champs selon CommentDto
+  // };
+
+  // this.myService.makeComment(12, 5, comment).subscribe({
+  //   next: res => console.log('Commentaire ajouté', res),
+  //   error: err => console.error('Erreur ajout commentaire', err)
+  // });
+  //----------------------------
+
+  // getPendingProfil(projectId: number): Observable<any> {
+  //   return this.http.get(
+  //     `${this._apiUrl}/${projectId}/pendingProfil`
+  //   );
+  // }
+
+  // this.myService.getPendingProfil(123).subscribe({
+  //   next: profils => console.log('Profils en attente DESIGNER', profils),
+  //   error: err => console.error('Erreur récupération profils', err)
+  // });
 }
