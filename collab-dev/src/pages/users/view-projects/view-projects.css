@@ -271,6 +271,15 @@
   color: #333;
 }
 
+.voir-details a{
+  color: black;
+}
+.voir-details a:hover {
+  opacity: 0.3;
+  transition: 0.3s;
+  text-decoration: underline;
+}
+
 /* Media query pour petits écrans */
 @media (max-width: 768px) {
   .header-section {

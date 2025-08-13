@@ -18,7 +18,7 @@
                     <div class="profile-image-container">
                         <i class='bx bxs-user'></i>
                     </div>
-                    <span class="owner-name">Fatoumata Diawara</span>
+                    <span class="owner-name">{{projectRecup.author.speudo}}</span>
                     <span class="projects-participated">A participé à 20 projets</span>
                     <span class="user-since">Utilisatrice depuis 2024</span>
                 </div>
@@ -26,17 +26,12 @@
 
             <div class="project-description-card">
                 <div class="project-status-header">
-                    <h2 class="project-name">ALP</h2>
-                    <div class="status-badge on-going">En cours</div>
+                    <h2 class="project-name">{{projectRecup.title}}</h2>
+                    <div class="status-badge on-going">{{projectRecup.status}}</div>
                 </div>
-                <span class="project-level">INTERMEDIAIRE</span>
+                <span class="project-level">{{projectRecup.level}}</span>
                 <p class="project-description">
-                    Une app application web innovante conçue pour optimiser le suivi, la planification et la gestion
-                    collaborative de projets en temps réel. Grâce à une interface intuitive et une architecture
-                    modulaire, la plateforme permet aux équipes de visualiser l'avancement des tâches, d'automatiser les
-                    rappels, et de générer des rapports personnalisés. L’objectif principal de NovaTrack est de
-                    centraliser les échanges et les documents tout en offrant un tableau de bord dynamique permettant
-                    aux responsables de projet de prendre des décisions éclairées.
+                    {{projectRecup.description}}
                 </p>
                 <div class="progress-bar-container">
                     <div class="progress-bar-fill" style="width: 50%;"></div>
@@ -67,7 +62,7 @@
                         <div class="step-details">
                             <h4 class="step-title">Etat du projet</h4>
                             <p class="step-description">Phase de développement du projet</p>
-                            <span class="step-status">En cours</span>
+                            <span class="step-status">{{projectRecup.status}}</span>
                         </div>
                     </div>
                 </div>

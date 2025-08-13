@@ -255,6 +255,15 @@ export class ViewProjectsComponent implements OnInit {
       });
   }
 
+  viewDetails(project: Project) {
+  if (project) {
+    this.router.navigate(['users/view-details', project.id]);
+  } else {
+    console.error('Aucun projet sélectionné pour afficher les détails.');
+  }
+}
+
+
   // this.projectService
   // .joinProjectAsManager(2, 10, 'MANAGER', 'https://github.com/monrepo', this.selectedFile)
   // .subscribe({

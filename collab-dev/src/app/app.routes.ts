@@ -129,7 +129,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'user/projects-views',
+        path: 'user/projects-views/:id',
         loadComponent: () =>
           import('../pages/users/view-projects/view-projects').then(
             (m) => m.ViewProjectsComponent
