@@ -1,27 +1,16 @@
-import { Component } from '@angular/core';
 
-import { inject, OnInit } from '@angular/core';
-
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
+import { RouterOutlet } from '@angular/router';
+import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 
-import { GestionUserCoteAdminComponent } from '../pages/admin/gestion-user-cote-admin/gestion-user-cote-admin.component';
-import { ConfigurationDuProjet } from '../pages/users/configuration-du-projet/configuration-du-projet';
-import { CreerTache } from '../pages/users/creer-tache/creer-tache';
-import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
-import { VoirDetailsProjetComponent } from '../pages/users/voir-details-projet/voir-details-projet.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    ConfigurationDuProjet,
-    CreerTache,
-    DashboardComponent,
-    VoirDetailsProjetComponent,
-    GestionUserCoteAdminComponent,
-  ],
+  imports: [PopUp, RouterOutlet, ContributionAsk],
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',
@@ -53,5 +42,7 @@ export class AppComponent implements OnInit {
     console.log('Données du projet enregistrées:', data);
     // Ici, vous pouvez ajouter la logique pour traiter les données
     this.isModalVisible = false;
+    const projectId = data.projectId;
+    const profilId = data.profilId;
   }
 }

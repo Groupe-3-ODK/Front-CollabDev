@@ -5,6 +5,7 @@ export interface IApiResponse {
 }
 
 export interface UserData {
+  designers: never[];
   id: number;
   speudo: string;
   email: string;

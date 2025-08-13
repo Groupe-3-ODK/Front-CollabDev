@@ -66,6 +66,26 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
+  getProjectRecommendations(projectId: number): Observable<IApiResponse> {
+  const baseUrl = environment.API_BASE_URL.endsWith('/')
+    ? environment.API_BASE_URL.slice(0, -1)
+    : environment.API_BASE_URL;
+
+  const url = `${baseUrl}/systems/projectRecommendation?projectId=${projectId}`;
+  return this._http
+    .get<IApiResponse>(url)
+    .pipe(catchError(this.handleError));
+}
+
+getPendingContributors(projectId: number): Observable<IApiResponse> {
+  const baseUrl = environment.API_BASE_URL.endsWith('/')
+    ? environment.API_BASE_URL.slice(0, -1)
+    : environment.API_BASE_URL;
+
+  const url = `${baseUrl}/projects/${projectId}/contributors/pending`;
+  return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+}
+
   // Error handling
   private handleError(error: HttpErrorResponse) {
     console.error('Une erreur est servenue :', error);
