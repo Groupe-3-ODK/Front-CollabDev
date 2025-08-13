@@ -1,24 +1,38 @@
 <div class="popup-overlay">
   <div class="popup-content">
-    <h2>Choose Role</h2>
-    <p>Select a role to start organizing your content.</p>
+    <h2>Choisissez un rôle</h2>
+    <p>Sélectionnez un rôle pour commencer le projet.</p>
     <div class="role-options">
-      <div class="role-option" [class.selected]="isSelected('designer')" (click)="onRoleSelect('designer')">
+      <div
+        class="role-option"
+        [class.selected]="isSelected('DESIGNER')"
+        (click)="onRoleSelect('DESIGNER')"
+      >
         <span>Designer</span>
-        <p>Create and design visually appealing content</p>
+        <p>Créez et concevez du contenu visuellement attrayant</p>
       </div>
-      <div class="role-option" [class.selected]="isSelected('developer')" (click)="onRoleSelect('developer')">
-        <span>Developer</span>
-        <p>Build and code functional applications</p>
+      <div
+        class="role-option"
+        [class.selected]="isSelected('DEVELOPER')"
+        (click)="onRoleSelect('DEVELOPER')"
+      >
+        <span>Développeur</span>
+        <p>Développez et codez des applications fonctionnelles</p>
       </div>
-      <div class="role-option" [class.selected]="isSelected('manager')" (click)="onRoleSelect('manager')">
-        <span>Manager</span>
-        <p>Organize and manage projects efficiently</p>
+      <div
+        class="role-option"
+        [class.selected]="isSelected('MANAGER')"
+        (click)="onRoleSelect('MANAGER')"
+      >
+        <span>Gestionnaire</span>
+        <p>Organisez et gérez les projets efficacement</p>
       </div>
     </div>
     <div class="popup-actions">
-      <button (click)="closePopup()">Cancel</button>
-      <button [disabled]="!selectedRole" (click)="confirmRole()">Next</button>
+      <button (click)="closePopup()">Annuler</button>
+      <button [disabled]="!selectedRole" (click)="confirmRole()">
+        Suivant
+      </button>
     </div>
   </div>
 </div>

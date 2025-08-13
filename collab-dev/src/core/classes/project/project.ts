@@ -8,7 +8,7 @@ export class project {
     this.title = ''
     this.description = ''
     this.domain = ''
-    this.author = 
+    this.author = {id: 0}
   }
 }
 

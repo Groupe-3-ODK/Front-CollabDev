@@ -12,3 +12,4 @@ export interface UserData {
   profils: any[]; // Si tu connais le type des profils, remplace `any` par l'interface correspondante
   role: string;
 }
+

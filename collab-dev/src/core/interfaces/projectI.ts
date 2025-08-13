@@ -10,7 +10,7 @@ export interface Iproject {
   status: Status;
   level: Level;
   githubLink?: string;
-  tasks: Task[];
+  tasks: taskI[];
   members: Profil[];
   pendingProfiles: Profil[];
   coins: number;
@@ -39,7 +39,7 @@ export interface Profil {
   skills?: string[];
 }
 
-export interface Task {
+export interface taskI {
   id: number;
   title: string;
   description?: string;

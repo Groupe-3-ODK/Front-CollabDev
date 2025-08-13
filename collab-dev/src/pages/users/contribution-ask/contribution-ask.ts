@@ -35,7 +35,7 @@ export class ContributionAsk implements OnInit {
   }
 
   loadUsers() {
-  this.projectService.getProjectRecommendations(1).subscribe({
+  this.projectService.getProjectRecommendations(2).subscribe({
     next: (res: IApiResponse) => {
       const rawData = res.data as unknown;
 

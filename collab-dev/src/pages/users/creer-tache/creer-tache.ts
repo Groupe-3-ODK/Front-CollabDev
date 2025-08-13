@@ -1,48 +1,76 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importez le CommonModule
-import { FormsModule } from '@angular/forms'; // Importez le FormsModule
+// creer-tache.component.ts
+import { Component, OnInit } from '@angular/core';
+
+import { HttpErrorResponse } from '@angular/common/http';
+import { ProjectService } from '../../../core/services/project.service';
+import { Iproject, taskI } from '../../../core/interfaces/projectI';
+import { TaskService } from '../../../core/services/taskService';
+
+
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-creer-tache',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './creer-tache.html',
-  styleUrl: './creer-tache.css'
+  styleUrls: ['./creer-tache.scss'],
+  imports :[ FormsModule]
 })
-export class CreerTache {
-  
-  // Propriétés du composant pour la gestion des données du formulaire
-  task = {
-    name: '',
-    description: '',
-    deadline: '',
-    collaborators: []
-  };
+export class CreerTacheComponent implements OnInit {
+  currentProject!: Iproject;
+  taskTitle = '';
+  selectedMemberId: number | null = null;
+  isLoading = false;
 
-  constructor() { }
+  constructor(
+    private projectService: ProjectService,
+    private taskService: TaskService
+  ) {}
 
-  // Méthode appelée lorsque l'utilisateur clique sur le bouton "Annuler"
-  onCancel(): void {
-    // Réinitialise le formulaire à ses valeurs initiales
-    this.task = {
-      name: '',
-      description: '',
-      deadline: '',
-      collaborators: []
-    };
-    console.log('Formulaire annulé. Les données ont été réinitialisées.');
-  }
-
-  // Méthode appelée lorsque le formulaire est soumis et valide
-  onValidate(): void {
-    if (this.task.name && this.task.description && this.task.deadline) {
-      console.log('Formulaire valide ! Données à envoyer :', this.task);
-      // Ici, vous pouvez ajouter la logique pour envoyer les données à votre backend.
-      // Une fois l'opération terminée, vous pouvez réinitialiser le formulaire.
-      this.onCancel();
-    } else {
-      console.log('Le formulaire est invalide. Veuillez remplir tous les champs requis.');
+  ngOnInit(): void {
+    const project = this.projectService.getCurrentProject();
+    if (!project) {
+      alert("Aucun projet trouvé en session.");
+      return;
     }
+    this.currentProject = project;
   }
 
+  createAndAssignTask(): void {
+    if (!this.taskTitle || !this.selectedMemberId) {
+      alert("Veuillez saisir un titre et sélectionner un membre.");
+      return;
+    }
+
+    this.isLoading = true;
+
+  
+    this.taskService.createTask({
+      title: this.taskTitle,
+      projectId: this.currentProject.id
+    }).subscribe({
+      next: (task) => {
+
+        taskData:any = task.data
+       
+        this.taskService.assignTask(task.id, this.selectedMemberId!).subscribe({
+          next: (res) => {
+            alert("Tâche créée et assignée avec succès !");
+            
+            this.isLoading = false;
+          },
+          error: (err: HttpErrorResponse) => {
+            console.error(err);
+            alert("Une erreur est survenue lors de l'assignation.");
+            this.isLoading = false;
+          }
+        });
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err);
+        alert("Une erreur est survenue lors de la création de la tâche.");
+        this.isLoading = false;
+      }
+    });
+  }
 }

@@ -170,4 +170,22 @@ export class Settings {
     console.log('Ouvrir le menu profil');
     // Implémentez la logique pour ouvrir un menu profil si nécessaire
   }
+
+  //   this.userService.changePassword(5, {
+  //   oldPassword: 'ancien123',
+  //   newPassword: 'nouveau456'
+  // }).subscribe({
+  //   next: res => console.log('Mot de passe changé', res),
+  //   error: err => console.error('Erreur changement mdp', err)
+  // });
+
+  // // Mettre à jour les infos
+  // this.userService.updateUserInfo(5, {
+  //   firstname: 'Jean',
+  //   lastname: 'Dupont',
+  //   email: 'jean.dupont@example.com'
+  // }).subscribe({
+  //   next: res => console.log('Infos mises à jour', res),
+  //   error: err => console.error('Erreur mise à jour infos', err)
+  // });
 }

@@ -3,14 +3,8 @@
   <div class="header-section">
     <div class="title-intro">
       <h1>Projets</h1>
-      <p>Seul, on va plus vite.</p>
-      <p>Ensemble, on va plus loin.</p>
     </div>
-    <div class="actions">
-      <button class="my-projects-btn" [routerLink]="['/my-projects']">
-        Mes projets
-      </button>
-    </div>
+    <div class="actions"></div>
     <div class="search-filter-section">
       <input
         type="text"
@@ -32,13 +26,18 @@
       <div class="project-header">
         <span class="date">{{ getRelativeDate(project.createdDate) }}</span>
       </div>
-      <div class="project-content" (click)="showProjectDetails(project)">
+      <div class="project-content">
         <div class="project-info">
           <div class="title-level">
             <h2 class="project-title">{{ project.title }}</h2>
             <span
               class="level-tag"
-              [ngStyle]="{'background-color': project.level === 'Débutant' ? '#90EE90' : project.level === 'Intermédiaire' ? '#87CEEB' : '#FF6347'}"
+              [ngStyle]="{
+                'background-color': project.level === 'BEGINNER' ? '#90EE90' 
+                  : project.level === 'INTERMEDIATE' ? '#87CEEB' 
+                  : project.level === 'ADVANCED' ? '#906E90' 
+                  : ''
+              }"
             >
               {{ project.level }}
             </span>
@@ -46,43 +45,47 @@
           <p class="project-description">{{ project.description }}</p>
         </div>
         <div class="domain-column">
-          <span
-            class="domain-tag"
-            [ngStyle]="{'background-color': project.domainColor}"
-          >
-            {{ project.domain }}
-          </span>
+          <span class="domain-tag"> {{ project.domain }} </span>
         </div>
         <div class="contributors">
           <span
             class="avatar"
-            *ngFor="let contributor of project.contributors.slice(0, 3)"
+            *ngFor="let contributor of membersSpeudos[project.id]?.slice(0, 3)"
             [ngStyle]="{'background-color': getAvatarColor(contributor)}"
             (click)="showContributors(project)"
             >{{ contributor.charAt(0) }}</span
           >
           <span
             class="contributor-count"
-            *ngIf="project.contributors.length > 3"
+            *ngIf="membersSpeudos[project.id].length > 3"
           >
-            +{{ project.contributors.length - 3 }}
+            +{{ membersSpeudos[project.id].length - 3 }}
           </span>
         </div>
         <div class="status-actions">
           <span
             class="status-tag"
-            [ngStyle]="{'background-color': project.status === 'En cours' ? '#90EE90' : project.status === 'Planifié' ? '#FFA500' : '#D3D3D3'}"
+            [ngStyle]="{'background-color': project.status === 'IN_PROGRESS' ? '#90EE90'
+            : project.status === 'TODO' ? '#FFA500'
+            : project.status === 'DONE' ? '#D3D3D3'
+            : ''}"
           >
             {{ project.status }}
           </span>
         </div>
-        <span
+        <!-- <span
           class="favorite-star"
           (click)="toggleFavorite(project)"
           [ngClass]="{'favorite': project.isFavorite}"
           >★</span
+
+        > -->
+
+        <button
+          class="join-btn"
+          [disabled]="project.status === 'DONE'"
+          (click)="openModal()"
         >
-        <button class="join-btn" [disabled]="project.status === 'Terminé'">
           Rejoindre
         </button>
       </div>
@@ -97,7 +100,7 @@
     <div class="modal-content" (click)="stopPropagation($event)">
       <h2>Contributeurs de {{ selectedProject.title }}</h2>
       <ul class="contributors-list">
-        <li *ngFor="let contributor of selectedProject.contributors">
+        <li *ngFor="let contributor of membersSpeudos[selectedProject.id]">
           <span
             class="avatar"
             [ngStyle]="{'background-color': getAvatarColor(contributor)}"
@@ -109,3 +112,9 @@
     </div>
   </div>
 </div>
+
+<app-pop
+  *ngIf="showModal"
+  (submitted)="onSubmit($event)"
+  (closed)="showModal = false"
+></app-pop>
