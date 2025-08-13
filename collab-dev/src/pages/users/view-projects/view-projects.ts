@@ -149,20 +149,20 @@ export class ViewProjectsComponent implements OnInit {
     event.stopPropagation();
   }
 
-  joinProject(id: number): void {
-    if (this.profilType == 2) {
-      this.router.navigate(['/shared/user-sidebar']);
-    }
-    this.userService.joinProjectWithProfilType(
-      id,
-      this.userId,
-      this.profilType
-    );
-    console.log(
-      `ça marche vous avez rejoin le projet ${id}, 
-      avec votre id ${this.userId} et avec le profil ${this.profilType}`
-    );
-  }
+  // joinProject(id: number): void {
+  //   if (this.profilType == 2) {
+  //     this.router.navigate(['/shared/user-sidebar']);
+  //   }
+  //   this.userService.joinProjectWithProfilType(
+  //     id,
+  //     this.userId,
+  //     this.profilType
+  //   );
+  //   console.log(
+  //     `ça marche vous avez rejoin le projet ${id},
+  //     avec votre id ${this.userId} et avec le profil ${this.profilType}`
+  //   );
+  // }
   getProjects() {
     this._projectService.getProjects().subscribe({
       next: (response) => {
@@ -208,6 +208,19 @@ export class ViewProjectsComponent implements OnInit {
       this.router.navigate(['/user/manager-submit-form']);
     } else if (profile === 'Designer') {
       if (
+        1 === 1
+        // this.selectedProject &&
+        // this.selectedProject.id
+        // &&
+        // this.currentUser &&
+        // this.currentUser.id
+      ) {
+        this.joinProjectWithProfilType(5, 5, 'DESIGNER');
+      } else {
+        console.error('selectedProject or currentUser is null');
+      }
+    } else {
+      if (
         this.selectedProject &&
         this.selectedProject.id &&
         this.currentUser &&
@@ -216,14 +229,9 @@ export class ViewProjectsComponent implements OnInit {
         this.joinProjectWithProfilType(
           this.selectedProject.id,
           this.currentUser.id,
-          'DESIGNER'
+          'DEVELOPER'
         );
-      } else {
-        console.error('selectedProject or currentUser is null');
-      }
-    } else {
-      if (this.currentUser && this.currentUser.id) {
-        this.joinProjectWithProfilType(1, this.currentUser.id, 'DEVELOPER');
+        alert('mercu vous etre dev');
       } else {
         console.error('currentUser is null');
       }
