@@ -33,6 +33,11 @@ export class ProjectService {
   private _apiUrl =
     environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
 
+  private apiUserUrl =
+    environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS;
+
+  private apiUrl = environment.API_BASE_URL;
+
   getProjects(): Observable<IApiResponse> {
     return this._http
       .get<IApiResponse>(this._apiUrl)
@@ -46,6 +51,24 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
+  validateProject(managerId: number, projectId: number): Observable<string> {
+    const params = new HttpParams()
+      .set('managerId', managerId.toString())
+      .set('projectId', projectId.toString());
+
+    return this._http.put<string>(
+      `${this.apiUrl}/managerInfo/validateProject`,
+      null, // pas de body
+      { params }
+    );
+  }
+
+  // Validation projet
+  // this.myService.validateProject(5, 123).subscribe({
+  //   next: res => console.log(res),  // "Projet Terminé :) 🥳"
+  //   error: err => console.error(err)
+  // });
+
   // POST new user
   createProject(project: CreateProject): Observable<IApiResponse> {
     return this._http
@@ -55,16 +78,6 @@ export class ProjectService {
 
   // PUT update user
 
-  // updateProject(id: number, project: Iproject): Observable<Iproject> {
-  //   return this._http
-  //     .put<Iproject>(
-  //       `${
-  //         environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS
-  //       }/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
-  //       project
-  //     )
-  //     .pipe(catchError(this.handleError));
-  // }
   updateProjects(
     id: number,
     project: { level: string; githubLink: string; specification?: string },
@@ -78,17 +91,19 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  joinProjectWithProfileName(
+  joinProjectWithProfilName(
     projectId: number,
-    profilId: number,
+    userId: number,
     profilType: string
-  ) {
-    let params = new HttpParams()
-      .set('profilId', profilId.toString())
+  ): Observable<any> {
+    const params = new HttpParams()
+      .set('projectId', projectId.toString())
+      .set('userId', userId.toString())
       .set('profilType', profilType);
 
     return this._http.post(
-      `${this._apiUrl}/${projectId}/${CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME}`,
+      `${this.apiUserUrl}/joinProjectWithProfilName`,
+      null, // pas de body
       { params }
     );
   }
@@ -106,11 +121,27 @@ export class ProjectService {
     formData.append('profilType', profilType);
     formData.append('githubLink', githubLink);
 
+    // const request = {
+    //   userId: 5,
+    //   projectId: 12,
+    //   profilType: 'MANAGER'
+    // };
+
+    // const githubLink = 'https://github.com/monrepo/projet';
+
+    // const fileInput = this.fileInput.nativeElement; // exemple avec un input file
+    // const file = fileInput.files.length > 0 ? fileInput.files[0] : undefined;
+
+    // this.myService.joinProjectAsManager(request, githubLink, file).subscribe({
+    //   next: res => console.log('Rejoint projet en manager', res),
+    //   error: err => console.error('Erreur join project manager', err)
+    // });
+
     if (file) {
       formData.append('file', file);
     }
 
-    return this._http.post(`${this._apiUrl}/joinProjectAsManager`, formData);
+    return this._http.post(`${this.apiUserUrl}/joinProjectAsManager`, formData);
   }
 
   // DELETE user
@@ -125,4 +156,54 @@ export class ProjectService {
     console.error('Une erreur est servenue :', error);
     return throwError(() => new Error(error.message || 'Erreur inconnue'));
   }
+
+  selectProfilAndAddToProject(
+    projectId: number,
+    profileId: number
+  ): Observable<any> {
+    const params = new HttpParams()
+      .set('profileId', projectId.toString())
+      .set('projectId', projectId.toString());
+
+    return this._http.post<any>(
+      `${this.apiUrl}/managerInfo/selectProfilAndAddToProject`,
+      { params }
+    );
+  }
+
+  // this.myService.selectProfilAndAddToProject(12, 45).subscribe({
+  //   next: response => console.log('Profil ajouté en attente', response),
+  //   error: err => console.error('Erreur ajout profil', err)
+  // });
+
+  //--------------------------------------
+
+  // makeComment(projectId: number, userId: number, comment: any): Observable<any> {
+  //   return this.http.put(
+  //     `${this._apiUrl}/${projectId}/${userId}/makeComment`,
+  //     comment
+  //   );
+  // }
+
+  // const comment = {
+  //   text: "Super projet !",
+  //   // autres champs selon CommentDto
+  // };
+
+  // this.myService.makeComment(12, 5, comment).subscribe({
+  //   next: res => console.log('Commentaire ajouté', res),
+  //   error: err => console.error('Erreur ajout commentaire', err)
+  // });
+  //----------------------------
+
+  getPendingProfil(projectId: number): Observable<any> {
+    return this._http.get(
+      `${this.apiUrl}/systems/projectRecommendation?projectId=${projectId}`
+    );
+  }
+
+  // this.myService.getPendingProfil(123).subscribe({
+  //   next: profils => console.log('Profils en attente DESIGNER', profils),
+  //   error: err => console.error('Erreur récupération profils', err)
+  // });
 }
