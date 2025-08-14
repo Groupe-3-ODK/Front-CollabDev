@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
 import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
+import { MyContributions } from '../pages/users/my-contributions/my-contributions';
 
 import { GestionDesUsersCoteAdmin } from '../pages/admin/gestion-des-users-cote-admin/gestion-des-users-cote-admin';
 
@@ -19,9 +20,11 @@ import { GestionDesUsersCoteAdmin } from '../pages/admin/gestion-des-users-cote-
     RouterOutlet,
     AdminFormComponent,
     LandingPageTwo,
+
     SignupComponent,
 
     GestionDesUsersCoteAdmin
+
 
   ],
 
