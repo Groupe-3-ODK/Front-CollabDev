@@ -1,1 +1,165 @@
-<p>configuration works!</p>
+<header class="header" style="position: relative; right: 16%;">
+    <div class="user-profile">
+        <img src="Group 671.png" alt="User Avatar" class="user-avatar">
+        <div class="user-info">
+            <span class="user-name">Seydou Dembele</span>
+            <span class="user-role">ADMIN</span>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <h1>Configuration de Collab<span class="orange-text">dev</span></h1>
+
+    <section class="card coins-section">
+        <div class="card-header">
+            <img src="lucide_coins.png" alt="Coins Icon" class="header-icon">
+            <div class="header-text">
+                <h2>Coins par projet</h2>
+                <p>Définissez le nombre de coins attribués par projet</p>
+            </div>
+        </div>
+        <table class="coins-table">
+            <thead>
+                <tr>
+                    <th>Niveau des Projets</th>
+                    <th>Coins pour débloquer les projets</th>
+                    <th>Coins à gagner par projet</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Débutant</td>
+                    <td>
+                        <div class="coin-input">
+                            <button class="minus" (click)="decrement('beginner', 'unlock')">-</button>
+                            <span>{{ beginnerUnlock }}</span>
+                            <button class="plus" (click)="increment('beginner', 'unlock')">+</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="coin-input">
+                            <button class="minus" (click)="decrement('beginner', 'earn')">-</button>
+                            <span>{{ beginnerEarn }}</span>
+                            <button class="plus" (click)="increment('beginner', 'earn')">+</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Intermediaire</td>
+                    <td>
+                        <div class="coin-input">
+                            <button class="minus" (click)="decrement('intermediate', 'unlock')">-</button>
+                            <span>{{ intermediateUnlock }}</span>
+                            <button class="plus" (click)="increment('intermediate', 'unlock')">+</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="coin-input">
+                            <button class="minus" (click)="decrement('intermediate', 'earn')">-</button>
+                            <span>{{ intermediateEarn }}</span>
+                            <button class="plus" (click)="increment('intermediate', 'earn')">+</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Avancée</td>
+                    <td>
+                        <div class="coin-input">
+                            <button class="minus" (click)="decrement('advanced', 'unlock')">-</button>
+                            <span>{{ advancedUnlock }}</span>
+                            <button class="plus" (click)="increment('advanced', 'unlock')">+</button>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="coin-input">
+                            <button class="minus" (click)="decrement('advanced', 'earn')">-</button>
+                            <span>{{ advancedEarn }}</span>
+                            <button class="plus" (click)="increment('advanced', 'earn')">+</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="card badges-section">
+        <div class="card-header" style="background-color: #FFA040;">
+            <img src="oi_badge.png" alt="Badge Icon" class="header-icon">
+            <div class="header-text">
+                <h2>Gestion des badges</h2>
+                <p>Modifier, activer et désactiver les badges</p>
+            </div>
+        </div>
+
+        <div class="badge-item">
+            <div class="badge-content">
+                <div class="badge-info">
+                    <h3>Badge niveau débutant</h3>
+                </div>
+                <img src="streamline-flex-color_star-badge-flat.png" alt="Beginner Badge" class="badge-icon">
+                <div class="badge-actions">
+                    <div class="badge-buttons">
+                        <button class="btn-modify">Modifier</button>
+                        <button class="btn-delete">Supprimer</button>
+                    </div>
+                    <div class="toggle-container">
+                        <span class="badge-status">Activer</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="badge-item">
+            <div class="badge-content">
+                <div class="badge-info">
+                    <h3>Badge niveau intermediaire</h3>
+                </div>
+                <img src="streamline-flex-color_star-badge-flat (1).png" alt="Intermediate Badge" class="badge-icon">
+                <div class="badge-actions">
+                    <div class="badge-buttons">
+                        <button class="btn-modify">Modifier</button>
+                        <button class="btn-delete">Supprimer</button>
+                    </div>
+                    <div class="toggle-container">
+                        <span class="badge-status">Activer</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="badge-item">
+            <div class="badge-content">
+                <div class="badge-info">
+                    <h3>Badge niveau Avancé</h3>
+                </div>
+                <img src="Group 571.png" alt="Advanced Badge" class="badge-icon">
+                <div class="badge-actions">
+                    <div class="badge-buttons">
+                        <button class="btn-modify">Modifier</button>
+                        <button class="btn-delete">Supprimer</button>
+                    </div>
+                    <div class="toggle-container">
+                        <span class="badge-status">Activer</span>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
