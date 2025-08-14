@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
 import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
+import { MyContributions } from '../pages/users/my-contributions/my-contributions';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ import { AdminFormComponent } from '../pages/users/admin-form/admin-form.compone
     RouterOutlet,
     AdminFormComponent,
     LandingPageTwo,
-    SignupComponent,
+    SignupComponent,MyContributions
   ],
 
   templateUrl: './app.component.html',

@@ -1,14 +1,55 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProjectService } from '../../../core/services/project.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-contributions',
   imports: [CommonModule, FormsModule],
   templateUrl: './my-contributions.html',
   styleUrl: './my-contributions.css',
+  providers:[CookieService]
 })
 export class MyContributions {
+  contributions: any[] = [];
+  userId: number = 0; // ID de l'utilisateur connecté
+
+  private cookieService = inject(CookieService);
+  private router = inject(Router);
+  public currentUser: any = null;
+  constructor(private projectService: ProjectService) {}
+
+  ngOnInit(): void {
+    const cookieValue = this.cookieService.get('currentUser');
+    this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
+    if (this.currentUser) {
+      this.userId = this.currentUser.id;
+    }
+    this.projectService.getUserContributions(this.userId).subscribe({
+      next:(res)=>{
+        console.log(res);
+        this.contributions = res;
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+    
+  }
+
+  // loadContributionsByRole(role: 'DEVELOPER' | 'MANAGER' | 'DESIGNER') {
+  //   this.projectService.getUserContributions(this.userId, role).subscribe({
+  //     next: (res: MyContributions[]) => {
+  //       this.contributions = res;
+  //       console.log(this.contributions);
+  //     },
+  //     error: (err: any) => console.error('Erreur récupération contributions', err)
+  //   });
+  // }
+
+
   // Filtre actuel pour les projets
   filter: string = 'all';
 
