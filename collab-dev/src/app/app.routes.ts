@@ -425,11 +425,13 @@ export const routes: Routes = [
         '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
       ).then((m) => m.UserSidebarComponent),
   },
-    {
+
+  {
+
     path: 'user/manager-submit-form',
     loadComponent: () =>
-      import(
-        '../pages/users/admin-form/admin-form.component'      
-      ).then((m) => m.AdminFormComponent),
+      import('../pages/users/admin-form/admin-form.component').then(
+        (m) => m.AdminFormComponent
+      ),
   },
 ];

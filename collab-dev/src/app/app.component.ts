@@ -1,13 +1,25 @@
-
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
-import { GestionUserCoteAdminComponent } from '../pages/admin/gestion-user-cote-admin/gestion-user-cote-admin.component';
+
+import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
+import { SignupComponent } from '../components/signup/signup';
+import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PopUp,GestionUserCoteAdminComponent],
+
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    AdminFormComponent,
+    LandingPageTwo,
+    SignupComponent,
+  ],
+
 
   templateUrl: './app.component.html',
   providers: [CookieService],
@@ -42,5 +54,12 @@ export class AppComponent implements OnInit {
     this.isModalVisible = false;
     const projectId = data.projectId;
     const profilId = data.profilId;
+  }
+  //------------------------------------------------------
+  showModal = true;
+
+  onSubmit(profile: string) {
+    console.log('Profil choisi :', profile);
+    this.showModal = false; // ferme aussi après soumission
   }
 }
