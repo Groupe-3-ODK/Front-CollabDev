@@ -1,10 +1,9 @@
 // Interface pour une demande de contribution (candidature de manager)
 export interface IContributionRequest {
-  id: number;
+  id: number; // Ceci est l'ID de la demande elle-même
+  candidateProfileId: number; // NOUVEAU : L'ID du Profil du candidat
   candidateName: string; // Nom du candidat
   requestDate: string;   // Date de la demande (ISO 8601 string)
-  // Ajoutez d'autres propriétés pertinentes pour une demande si nécessaire,
-  // par exemple un lien vers le profil du candidat, son CV, etc.
 }
 
 export interface Iproject {
@@ -22,7 +21,7 @@ export interface Iproject {
   tasks: Task[];
   members: Profil[];
   pendingProfiles: Profil[];
-  contributionRequests: IContributionRequest[]; // Utilise la nouvelle interface pour les demandes
+  contributionRequests: IContributionRequest[]; // Utilise la nouvelle interface
   coins: number;
   comments: Comment[];
   createdDate: string; // LocalDate → string ISO
@@ -42,11 +41,10 @@ export interface UserResponseDTO {
 }
 
 export interface Profil {
-  id: number;
+  id: number; // L'ID du profil
   name: string;
   bio?: string;
   skills?: string[];
-  // Ajoutez d'autres propriétés de Profil si nécessaire
 }
 
 export interface Task {
