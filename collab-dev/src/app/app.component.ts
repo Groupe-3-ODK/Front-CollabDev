@@ -2,11 +2,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
+import { GestionUserCoteAdminComponent } from '../pages/admin/gestion-user-cote-admin/gestion-user-cote-admin.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PopUp],
+  imports: [PopUp,GestionUserCoteAdminComponent],
 
   templateUrl: './app.component.html',
   providers: [CookieService],
