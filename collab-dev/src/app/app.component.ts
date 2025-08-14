@@ -8,7 +8,6 @@ import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
 import { ConfigurationComponent } from '../pages/admin/configuration/configuration.component';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -22,7 +21,6 @@ import { ConfigurationComponent } from '../pages/admin/configuration/configurati
     ConfigurationComponent,
    
   ],
-
 
   templateUrl: './app.component.html',
   providers: [CookieService],

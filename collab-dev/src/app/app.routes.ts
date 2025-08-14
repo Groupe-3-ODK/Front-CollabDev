@@ -427,8 +427,8 @@ export const routes: Routes = [
   },
 
   {
+    path: 'user/manager-submit-form/:id',
 
-    path: 'user/manager-submit-form',
     loadComponent: () =>
       import('../pages/users/admin-form/admin-form.component').then(
         (m) => m.AdminFormComponent
