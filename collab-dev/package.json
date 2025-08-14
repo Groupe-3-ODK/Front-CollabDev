@@ -8,7 +8,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:collab-dev": "node dist/collab-dev/server/server.mjs"
-    
   },
   "private": true,
   "dependencies": {
