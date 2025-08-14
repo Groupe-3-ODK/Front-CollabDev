@@ -100,13 +100,13 @@
                 <img src="streamline-flex-color_star-badge-flat.png" alt="Beginner Badge" class="badge-icon">
                 <div class="badge-actions">
                     <div class="badge-buttons">
-                        <button class="btn-modify">Modifier</button>
-                        <button class="btn-delete">Supprimer</button>
+                        <button class="btn-modify" (click)="modifyBadge('beginner')">Modifier</button>
+                        <button class="btn-delete" (click)="deleteBadge('beginner')">Supprimer</button>
                     </div>
                     <div class="toggle-container">
-                        <span class="badge-status">Activer</span>
+                        <span class="badge-status">{{ badges.beginner.active ? 'Activer' : 'Désactiver' }}</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" [checked]="badges.beginner.active" (change)="toggleBadge('beginner')">
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -124,13 +124,13 @@
                 <img src="streamline-flex-color_star-badge-flat (1).png" alt="Intermediate Badge" class="badge-icon">
                 <div class="badge-actions">
                     <div class="badge-buttons">
-                        <button class="btn-modify">Modifier</button>
-                        <button class="btn-delete">Supprimer</button>
+                        <button class="btn-modify" (click)="modifyBadge('intermediate')">Modifier</button>
+                        <button class="btn-delete" (click)="deleteBadge('intermediate')">Supprimer</button>
                     </div>
                     <div class="toggle-container">
-                        <span class="badge-status">Activer</span>
+                        <span class="badge-status">{{ badges.intermediate.active ? 'Activer' : 'Désactiver' }}</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" [checked]="badges.intermediate.active" (change)="toggleBadge('intermediate')">
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -148,13 +148,13 @@
                 <img src="Group 571.png" alt="Advanced Badge" class="badge-icon">
                 <div class="badge-actions">
                     <div class="badge-buttons">
-                        <button class="btn-modify">Modifier</button>
-                        <button class="btn-delete">Supprimer</button>
+                        <button class="btn-modify" (click)="modifyBadge('advanced')">Modifier</button>
+                        <button class="btn-delete" (click)="deleteBadge('advanced')">Supprimer</button>
                     </div>
                     <div class="toggle-container">
-                        <span class="badge-status">Activer</span>
+                        <span class="badge-status">{{ badges.advanced.active ? 'Activer' : 'Désactiver' }}</span>
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input type="checkbox" [checked]="badges.advanced.active" (change)="toggleBadge('advanced')">
                             <span class="slider round"></span>
                         </label>
                     </div>

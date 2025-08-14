@@ -258,7 +258,7 @@ h1 {
 }
 
 .btn-modify:hover {
-    background-color: #c0e0e6;
+    background-color: #e65c00;
 }
 
 .btn-delete {
@@ -268,12 +268,14 @@ h1 {
 }
 
 .btn-delete:hover {
-    background-color: #f1b0b7;
+    background-color: #c9c9c9;
 }
 
 .badge-status {
     font-size: 14px;
     color: #555;
+    min-width: 70px;
+    display: inline-block;
 }
 
 /* Switch Toggle */
@@ -330,4 +332,14 @@ input:checked + .slider:before {
 .divider {
     border-top: 1px solid #eee;
     margin: 0;
+}
+
+/* Animation for badge actions */
+.badge-item {
+    transition: all 0.3s ease;
+}
+
+.badge-item.deleting {
+    opacity: 0;
+    transform: translateX(-100%);
 }

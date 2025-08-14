@@ -1,24 +1,50 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+type LevelKey = 'beginner' | 'intermediate' | 'advanced';
+
+interface Badge {
+  name: string;
+  active: boolean;
+  icon: string;
+}
 
 @Component({
+  imports:[FormsModule],
   selector: 'app-configuration',
   templateUrl: './configuration.component.html',
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent {
-  // Beginner values
-  beginnerUnlock: number = 10;
-  beginnerEarn: number = 10;
+  // Coin values
+  beginnerUnlock = 10;
+  beginnerEarn = 10;
+  intermediateUnlock = 25;
+  intermediateEarn = 25;
+  advancedUnlock = 35;
+  advancedEarn = 35;
 
-  // Intermediate values
-  intermediateUnlock: number = 25;
-  intermediateEarn: number = 25;
+  // Badges data (typé)
+  badges: Record<LevelKey, Badge> = {
+    beginner: {
+      name: 'Badge niveau débutant',
+      active: true,
+      icon: 'streamline-flex-color_star-badge-flat.png'
+    },
+    intermediate: {
+      name: 'Badge niveau intermediaire',
+      active: true,
+      icon: 'streamline-flex-color_star-badge-flat (1).png'
+    },
+    advanced: {
+      name: 'Badge niveau Avancé',
+      active: true,
+      icon: 'Group 571.png'
+    }
+  };
 
-  // Advanced values
-  advancedUnlock: number = 35;
-  advancedEarn: number = 35;
-
-  increment(level: string, type: string): void {
+  // Coin methods
+  increment(level: LevelKey, type: string): void {
     switch(level) {
       case 'beginner':
         if (type === 'unlock') this.beginnerUnlock++;
@@ -35,7 +61,7 @@ export class ConfigurationComponent {
     }
   }
 
-  decrement(level: string, type: string): void {
+  decrement(level: LevelKey, type: string): void {
     switch(level) {
       case 'beginner':
         if (type === 'unlock' && this.beginnerUnlock > 0) this.beginnerUnlock--;
@@ -50,5 +76,26 @@ export class ConfigurationComponent {
         else if (type === 'earn' && this.advancedEarn > 0) this.advancedEarn--;
         break;
     }
+  }
+
+  // Badge methods
+  modifyBadge(level: LevelKey): void {
+    const newName = prompt('Entrez le nouveau nom du badge:', this.badges[level].name);
+    if (newName) {
+      this.badges[level].name = newName;
+      console.log(`Badge ${level} modifié: ${newName}`);
+    }
+  }
+
+  deleteBadge(level: LevelKey): void {
+    if (confirm(`Êtes-vous sûr de vouloir supprimer le ${this.badges[level].name}?`)) {
+      console.log(`Badge ${level} supprimé: ${this.badges[level].name}`);
+      this.badges[level].active = false;
+    }
+  }
+
+  toggleBadge(level: LevelKey): void {
+    this.badges[level].active = !this.badges[level].active;
+    console.log(`Badge ${level} ${this.badges[level].active ? 'activé' : 'désactivé'}`);
   }
 }
