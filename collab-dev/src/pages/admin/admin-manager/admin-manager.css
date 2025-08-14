@@ -1,0 +1,166 @@
+.project-list-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px; /* Ajout d'une marge inférieure pour la séparation */
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Légère ombre pour un aspect plus moderne */
+}
+
+.search-bar input {
+  flex-grow: 1;
+  border: none;
+  padding: 10px;
+  outline: none;
+  font-size: 16px; /* Taille de police légèrement plus grande */
+  color: #555;
+}
+
+.search-bar button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: background-color 0.2s ease-in-out; /* Transition douce au survol */
+}
+
+.search-bar button:hover {
+  background-color: #e0e0e0; /* Effet de survol */
+}
+
+.project-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Transitions pour les effets de survol */
+}
+
+.project-card:hover {
+  transform: translateY(-3px); /* Effet de soulèvement au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée au survol */
+}
+
+.project-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Permet à cette section de prendre plus d'espace */
+}
+
+.project-icon {
+  font-size: 28px; /* Icône légèrement plus grande */
+  margin-right: 15px;
+  color: #666; /* Couleur de l'icône */
+}
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-name {
+  font-weight: bold;
+  font-size: 18px; /* Taille de police légèrement plus grande */
+  color: #333;
+}
+
+.creation-date {
+  font-size: 13px; /* Taille de police légèrement plus petite */
+  color: #888;
+  margin-top: 2px; /* Espacement avec le nom du projet */
+}
+
+.view-requests-btn {
+  background-color: #ff7f00; /* Orange vif */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.1s ease; /* Transitions pour les effets de survol/clic */
+  box-shadow: 0 2px 4px rgba(255,127,0,0.3); /* Ombre légère pour le bouton */
+}
+
+.view-requests-btn:hover {
+  background-color: #e66f00; /* Orange plus foncé au survol */
+  transform: translateY(-1px); /* Léger effet de soulèvement au survol */
+}
+
+.view-requests-btn:active {
+  transform: translateY(1px); /* Effet d'enfoncement au clic */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .project-list-container {
+    margin: 20px auto;
+    padding: 15px;
+  }
+  .search-bar {
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
+    padding: 10px;
+  }
+  .search-bar input {
+    margin-bottom: 10px; /* Espace sous l'input sur mobile */
+    width: 100%;
+  }
+  .search-bar button {
+    width: 100%;
+    text-align: center;
+  }
+  .project-card {
+    flex-direction: column; /* Empile les éléments verticalement */
+    align-items: flex-start; /* Aligne les éléments à gauche */
+    padding: 15px;
+  }
+  .project-info {
+    margin-bottom: 15px; /* Espacement entre les infos et le bouton */
+    width: 100%;
+  }
+  .view-requests-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 20px;
+  }
+  .project-name {
+    font-size: 16px;
+  }
+  .creation-date {
+    font-size: 12px;
+  }
+  .project-icon {
+    font-size: 24px;
+  }
+}

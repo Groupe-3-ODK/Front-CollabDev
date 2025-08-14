@@ -1,0 +1,64 @@
+<div class="project-list-container">
+  <h2>Administrations des gestionnaires</h2>
+  <div class="search-bar">
+    <!-- Input lié à searchQuery via ngModel pour permettre la recherche interactive -->
+    <input type="text" placeholder="Recherche un utilisateur" [(ngModel)]="searchQuery" (input)="filterProjects()">
+    <button>Tous les rôles</button>
+  </div>
+  <!-- Utilisation de filteredProjects pour afficher la liste après filtrage -->
+  <!-- Le *ngFor itérera sur les données réelles de `filteredProjects` -->
+  <div class="project-card" *ngFor="let project of filteredProjects">
+    <div class="project-info">
+      <span class="project-icon">📁</span>
+      <div class="project-details">
+        <!-- Affichage dynamique du titre du projet et de la date de création -->
+        <span class="project-name">{{ project.title }}</span>
+        <span class="creation-date">Créer le {{ project.createdDate }}</span>
+      </div>
+    </div>
+    <!-- Le bouton déclenche la méthode viewManagementRequests du composant, qui gère la navigation -->
+    <button class="view-requests-btn" (click)="viewManagementRequests(project.id)">
+      Voir les demandes de gestion
+    </button>
+  </div>
+
+  <!-- Exemples statiques pour montrer la structure et le style, ne sont pas liés aux données réelles -->
+  <div class="project-card">
+    <div class="project-info">
+      <span class="project-icon">📁</span>
+      <div class="project-details">
+        <span class="project-name">Projet Alpha - Exemple</span>
+        <span class="creation-date">Créer le 01/01/2026</span>
+      </div>
+    </div>
+    <button class="view-requests-btn">
+      Voir les demandes de gestion
+    </button>
+  </div>
+
+  <div class="project-card">
+    <div class="project-info">
+      <span class="project-icon">📁</span>
+      <div class="project-details">
+        <span class="project-name">Projet Beta - Exemple</span>
+        <span class="creation-date">Créer le 15/02/2026</span>
+      </div>
+    </div>
+    <button class="view-requests-btn">
+      Voir les demandes de gestion
+    </button>
+  </div>
+
+  <div class="project-card">
+    <div class="project-info">
+      <span class="project-icon">📁</span>
+      <div class="project-details">
+        <span class="project-name">Projet Gamma - Exemple</span>
+        <span class="creation-date">Créer le 20/03/2026</span>
+      </div>
+    </div>
+    <button class="view-requests-btn">
+      Voir les demandes de gestion
+    </button>
+  </div>
+</div>
