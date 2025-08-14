@@ -6,6 +6,7 @@ import { LandingPageTwo } from '../components/landing-page-two/landing-page-two'
 import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
 import { ConfigurationComponent } from '../pages/admin/configuration/configuration.component';
+import { GestionProjetAdmin } from '../pages/admin/gestion-projet-admin/gestion-projet-admin';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { ConfigurationComponent } from '../pages/admin/configuration/configurati
     LandingPageTwo,
     SignupComponent,
     ConfigurationComponent,
+    GestionProjetAdmin,
    
   ],
 
