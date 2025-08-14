@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
 import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
+import { ConfigurationComponent } from '../pages/admin/configuration/configuration.component';
 
 
 @Component({
@@ -18,6 +19,8 @@ import { AdminFormComponent } from '../pages/users/admin-form/admin-form.compone
     AdminFormComponent,
     LandingPageTwo,
     SignupComponent,
+    ConfigurationComponent,
+   
   ],
 
 

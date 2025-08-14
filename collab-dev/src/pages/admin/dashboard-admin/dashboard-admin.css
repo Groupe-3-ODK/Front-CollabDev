@@ -50,7 +50,8 @@ body {
     flex-wrap: wrap;
 }
 
-.search-box,.filter-box {
+.search-box,
+.filter-box {
     display: flex;
     align-items: center;
     background-color: #fff;
@@ -62,7 +63,8 @@ body {
     min-width: 250px;
 }
 
-.search-box:hover,.filter-box:hover {
+.search-box:hover,
+.filter-box:hover {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
@@ -83,9 +85,15 @@ body {
 }
 
 .user-info {
+    border: 1px solid #ccc;
     display: flex;
     align-items: center;
     gap: 10px;
+    float: right;
+    position: relative;
+    /* position: relative; */
+    /* right: -52px; */
+    width: 200px;
 }
 
 .user-icon-img {
