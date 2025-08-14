@@ -43,6 +43,15 @@ export class ProjectService {
       .get<IApiResponse>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
+  
+  getUserContributions(userId: number, role?: string): Observable<any[]> {
+  let url = `${this.apiUrl}/contributions/user/${userId}`;
+  if (role) {
+    url += `?role=${role}`;
+  }
+  return this._http.get<any[]>(url).pipe(catchError(this.handleError));
+}
+
 
   // GET user by id
   getProjectById(id: number): Observable<IApiResponse> {
