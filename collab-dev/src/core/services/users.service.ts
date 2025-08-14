@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 
@@ -12,6 +16,11 @@ export interface IUser {
   email: string;
   profils: any;
   role: string;
+}
+export enum ProfilType {
+  DEVELOPER,
+  DESIGNER,
+  MANAGER,
 }
 
 export class updatePassword {
@@ -44,30 +53,85 @@ export class User {
 export class UsersService {
   private _http = inject(HttpClient);
 
+  private _apiUrl = environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS;
+
+  changePassword(
+    userId: number,
+    passwordDTO: { oldPassword: string; newPassword: string }
+  ): Observable<any> {
+    return this._http.put(
+      `${this._apiUrl}/${userId}/changePassword`,
+      passwordDTO
+    );
+  }
+
+  updateUserInfo(userId: number, updateDTO: any): Observable<any> {
+    return this._http.put(
+      `${this._apiUrl}/${userId}/updateUserInfo`,
+      updateDTO
+    );
+  }
+
+  //-----------------------------------------------------
+
+  createManagerInfo(managerInfo: any): Observable<any> {
+    return this._http.post(
+      `${environment.API_BASE_URL}/managerInfo`,
+      managerInfo
+    );
+  }
+
+  // const newManagerInfo = {
+  //   name: 'Jean Dupont',
+  //   department: 'Informatique',
+  //   email: 'jean.dupont@example.com'
+  //   // ... autres champs selon ManagerInfo
+  // };
+
+  // this.myService.createManagerInfo(newManagerInfo).subscribe({
+  //   next: res => console.log('Manager créé', res),
+  //   error: err => console.error('Erreur création manager', err)
+  // });
+
+  //-------------------------------------
+
+  selectProfilAndAddToProject(
+    profilId: number,
+    projectId: number
+  ): Observable<any> {
+    const params = new HttpParams()
+      .set('profilId', profilId.toString())
+      .set('projectId', projectId.toString());
+
+    return this._http.put(
+      `${environment.API_BASE_URL}/managerInfo/selectProfilAndAddToProject`,
+      null, // pas de body
+      { params }
+    );
+  }
+
+  // this.myService.selectProfilAndAddToProject(15, 123).subscribe({
+  //   next: res => console.log('Profil ajouté au projet', res),
+  //   error: err => console.error('Erreur ajout profil au projet', err)
+  // });
+
   getUsers(): Observable<IApiResponse> {
     return this._http
-      .get<IApiResponse>(
-        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS
-      )
+      .get<IApiResponse>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
 
   // GET user by id
   getUserById(id: number): Observable<IApiResponse> {
     return this._http
-      .get<IApiResponse>(
-        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}`
-      )
+      .get<IApiResponse>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
   // POST new user
   createUser(user: User): Observable<IApiResponse> {
     return this._http
-      .post<IApiResponse>(
-        environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS,
-        user
-      )
+      .post<IApiResponse>(this._apiUrl, user)
       .pipe(catchError(this.handleError));
   }
 
@@ -75,10 +139,29 @@ export class UsersService {
   updateUserInFo(id: number, user: User): Observable<IApiResponse> {
     return this._http
       .put<IApiResponse>(
-        `${environment.API_BASE_URL + CONSTANT.USER_RESSOURCES.USERS}/${id}/${
-          CONSTANT.USER_RESSOURCES.UPDATE
-        }`,
+        `${this._apiUrl}/${id}/${CONSTANT.USER_RESSOURCES.UPDATE}`,
         user
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  //Joindre un projet par profile
+  joinProjectWithProfilType(
+    projectId: number,
+    userId: number,
+    profilType: ProfilType
+  ): Observable<string> {
+    let params = new HttpParams()
+      .append('projectId', projectId)
+      .append('userId', userId)
+      .append('profilType', profilType);
+    return this._http
+      .post<string>(
+        `${
+          environment.API_BASE_URL +
+          CONSTANT.PROJECT_RESSOURCES.JION_PROJECT_WITH_PROFILE_NAME
+        }`,
+        { params }
       )
       .pipe(catchError(this.handleError));
   }

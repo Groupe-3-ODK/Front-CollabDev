@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:collab-dev": "node dist/collab-dev/server/server.mjs"
+    
   },
   "private": true,
   "dependencies": {
@@ -21,10 +22,15 @@
     "@angular/platform-server": "^20.1.4",
     "@angular/router": "^20.1.4",
     "@angular/ssr": "^20.1.4",
+    "@fortawesome/angular-fontawesome": "^3.0.0",
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-brands-svg-icons": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@tailwindcss/postcss": "^4.1.11",
     "angular": "^1.6.10",
     "chart.js": "^4.5.0",
     "express": "^4.18.2",
+    "flatpickr": "^4.6.13",
     "lucide": "^0.536.0",
     "lucide-angular": "^0.536.0",
     "ngx-bootstrap": "^20.0.0",
@@ -42,6 +48,7 @@
     "@angular/cli": "^20.1.4",
     "@angular/compiler-cli": "^20.1.4",
     "@types/express": "^4.17.17",
+    "@types/flatpickr": "^3.0.2",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
     "jasmine-core": "~5.4.0",

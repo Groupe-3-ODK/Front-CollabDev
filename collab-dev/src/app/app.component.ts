@@ -4,13 +4,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
 import { RouterOutlet } from '@angular/router';
 import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
+import { Projects } from "../pages/users/projects/projects";
+import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
 
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PopUp, RouterOutlet, ContributionAsk],
+  imports: [PopUp, RouterOutlet, DashboardComponent],
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',

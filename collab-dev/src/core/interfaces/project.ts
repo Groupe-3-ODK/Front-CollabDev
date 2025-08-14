@@ -17,6 +17,7 @@ export interface Iproject {
   comments: Comment[];
   contributionRequests: Profil[];
   createdDate: string; // LocalDate → string ISO
+  progress?: number;
 }
 
 /** ENUMS (même valeurs que côté Java) */
