@@ -51,7 +51,7 @@ export class CreerTacheComponent implements OnInit {
     }).subscribe({
       next: (task) => {
 
-        taskData:any = task.data
+        //taskData:any = task.data
        
         this.taskService.assignTask(task.id, this.selectedMemberId!).subscribe({
           next: (res) => {

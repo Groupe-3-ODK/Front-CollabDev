@@ -1,4 +1,5 @@
-import { Iproject } from "./project";
+import { Iproject } from "./projectI";
+
 
 export interface IApiResponse {
   code: string;

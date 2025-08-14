@@ -224,13 +224,13 @@ export const routes: Routes = [
       ).then((m) => m.ConfigurationDuProjet),
   },
 
-  {
-    path: 'users/create-task/:id',
-    loadComponent: () =>
-      import('../pages/users/creer-tache/creer-tache').then(
-        (m) => m.CreerTache
-      ),
-  },
+  // {
+  //   path: 'users/create-task/:id',
+  //   loadComponent: () =>
+  //     import('../pages/users/creer-tache/creer-tache').then(
+  //       (m) => m.CreerTache
+  //     ),
+  // },
 
   {
     path: 'users/project-detail/:id',

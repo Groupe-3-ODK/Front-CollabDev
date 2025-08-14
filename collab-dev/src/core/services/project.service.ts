@@ -165,7 +165,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserDesigner`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserDesigner`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 
@@ -174,7 +174,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserDesigner`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserDevelopper`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 
@@ -183,7 +183,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserManager`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserManager`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
   getAllProjectsByUser(userId: number): Observable<IApiResponse> {
@@ -191,7 +191,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserAll`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserAll`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 

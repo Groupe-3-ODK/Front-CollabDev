@@ -4,21 +4,26 @@ export interface Iproject {
   description: string;
   domain: Domain;
   specification?: string;
-
   author: UserResponseDTO;
   managerId: Profil;
   status: Status;
   level: Level;
   githubLink?: string;
   tasks: taskI[];
-  members: Profil[];
+  members?: {
+    id: number;
+    pseudo: string;
+    profilName: string;
+  }[];
   pendingProfiles: Profil[];
   coins: number;
   comments: Comment[];
   contributionRequests: Profil[];
   createdDate: string; // LocalDate → string ISO
   progress?: number;
+  technologies?: string[];
 }
+ 
 
 /** ENUMS (même valeurs que côté Java) */
 export type Domain = 'TECH' | 'DESIGN' | 'MARKETING' | 'OTHER'; // à adapter selon ton enum Domain Java
@@ -43,6 +48,7 @@ export interface Profil {
 export interface taskI {
   id: number;
   title: string;
+  status:'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
   description?: string;
   completed: boolean;
 }

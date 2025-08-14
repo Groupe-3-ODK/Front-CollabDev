@@ -6,8 +6,8 @@ import { NgClass } from '@angular/common';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
 import { IApiResponse } from '../../../core/interfaces/api-response';
-import { Iproject } from '../../../core/interfaces/project';
 import { SessionService } from '../../../core/services/session-service';
+import { Iproject } from '../../../core/interfaces/projectI';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     
     /* TEST START */
-    this.userId = 5; // ID en dur pour les tests
+    this.userId = 8; // ID en dur pour les tests
     console.warn('MODE TEST ACTIVÉ - UTILISATEUR ID:', this.userId);
     this.loadUserProjects();
     /* TEST END */
