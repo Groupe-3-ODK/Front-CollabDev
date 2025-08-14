@@ -24,7 +24,7 @@ export class ValiderFinProjet implements OnInit  {
   approvedCount = 0;
   rejectedCount = 0;
 
-  constructor() { }
+  constructor() { } 
 
   ngOnInit(): void {
     this.updateMetrics();
