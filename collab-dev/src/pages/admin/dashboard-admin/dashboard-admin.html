@@ -7,14 +7,14 @@
         <div class="header-right">
             <div class="search-box">
                 <img src="SearchRecherche.png" alt="Icône de recherche" class="header-icon-img">
-                <input type="text" placeholder="Recherche" [(ngModel)]="searchQuery" (input)="searchProjects()">
+                <input type="text" placeholder="Recherche" [(ngModel)]="searchQuery" (keyup)="searchProjects()">
             </div>
             <div class="filter-box">
                 <img src="FunnelFiltre.png" alt="Icône de filtre" class="header-icon-img">
                 <span>Filtrer</span>
             </div>
             <div class="user-info">
-                <img src="octicon_person-24Profil1.png" alt="Icône de profil" class="user-icon-img">
+                <img src="Group 671.png" alt="Icône de profil" class="user-icon-img">
                 <div class="user-details">
                     <span class="user-name">Seydou Dembele</span>
                     <span class="user-role">ADMIN</span>
@@ -45,7 +45,8 @@
                         </div>
                     </div>
                     <div class="metric-item">
-                        <img src="icomoon-free_clockProjets à faire1.png" alt="Projets en attente" class="metric-icon-img">
+                        <img src="icomoon-free_clockProjets à faire1.png" alt="Projets en attente"
+                            class="metric-icon-img">
                         <div class="metric-content">
                             <span class="metric-name">Projets en attente de validation</span>
                             <div class="metric-value-container">

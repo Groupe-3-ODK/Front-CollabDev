@@ -24,6 +24,22 @@ export class CreateProject {
   }
 }
 
+export class ManagerInfo {
+  userId: number;
+  projectId: number;
+  profilType: string;
+  githubLink: string;
+  file?: File;
+
+  constructor() {
+    this.userId = 0;
+    this.projectId = 0;
+    this.profilType = '';
+    this.githubLink = '';
+    this.file = undefined;
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -43,9 +59,11 @@ export class ProjectService {
       .get<IApiResponse>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
+
   getUserContributions(userId: number): Observable<any[]> {
   let url = `${this.apiUrl}contributions/user/${userId}`;
   return this._http.get<any[]>(url);
+
 }
 
 

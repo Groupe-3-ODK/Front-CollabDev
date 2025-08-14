@@ -1,0 +1,345 @@
+/* Import Google Fonts (Poppins) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.main-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.orange-text {
+    color: #FF6F00;
+}
+
+.card {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.header-icon {
+    margin-right: 15px;
+    width: 24px;
+    height: 24px;
+}
+
+.card-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.card-header p {
+    font-size: 14px;
+    color: #777;
+    margin: 5px 0 0;
+}
+
+/* Header User Profile */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user-role {
+    font-size: 12px;
+    color: #ff6f00;
+    font-weight: 500;
+}
+
+/* Coins Section */
+.coins-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.coins-table th, .coins-table td {
+    padding: 15px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.coins-table th {
+    font-weight: 600;
+    color: #555;
+    background-color: #f9f9f9;
+}
+
+.coins-table td {
+    color: #333;
+}
+
+.coin-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    width: 120px;
+    height: 35px;
+    margin: 0 auto;
+}
+
+.coin-input button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+    padding: 0 10px;
+}
+
+.coin-input span {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0 10px;
+    flex-grow: 1;
+    text-align: center;
+    position: relative;
+}
+
+.coin-input span::before,
+.coin-input span::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 70%;
+    background-color: #ddd;
+}
+
+.coin-input span::before {
+    left: 0;
+}
+
+.coin-input span::after {
+    right: 0;
+}
+
+.coin-input .minus, 
+.coin-input .plus {
+    width: 30px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e49110;
+}
+
+/* Badges Section */
+.badges-section {
+    padding: 0 !important;
+}
+
+.badges-section .card-header {
+    margin-bottom: 0;
+    background-color: #FFA040;
+    color: white;
+}
+
+.badges-section .card-header p {
+    color: #f0f0f0;
+}
+
+.badge-item {
+    padding: 15px 25px;
+}
+
+.badge-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.badge-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.badge-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.badge-text h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.badge-actions {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.badge-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-modify, 
+.btn-delete {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+    width: 80px;
+    text-align: center;
+}
+
+.btn-modify {
+    background-color: #ff6f00;
+    color: #ffffff;
+    border: 1px solid #bee5eb;
+}
+
+.btn-modify:hover {
+    background-color: #e65c00;
+}
+
+.btn-delete {
+    background-color: #D9D9D9;
+    color: #808080;
+    border: 1px solid #f5c6cb;
+}
+
+.btn-delete:hover {
+    background-color: #c9c9c9;
+}
+
+.badge-status {
+    font-size: 14px;
+    color: #555;
+    min-width: 70px;
+    display: inline-block;
+}
+
+/* Switch Toggle */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 25px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #ff6f00;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(19px);
+}
+
+/* Divider */
+.divider {
+    border-top: 1px solid #eee;
+    margin: 0;
+}
+
+/* Animation for badge actions */
+.badge-item {
+    transition: all 0.3s ease;
+}
+
+.badge-item.deleting {
+    opacity: 0;
+    transform: translateX(-100%);
+}

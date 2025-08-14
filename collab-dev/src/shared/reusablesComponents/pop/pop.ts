@@ -1,89 +1,81 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pop',
   template: `
+    <!-- Backdrop -->
     <div
-      class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4"
+      class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
       (click)="closePopup()"
     >
+      <!-- Contenu du popup -->
       <div
-        class="bg-white rounded-lg shadow-xl max-w-lg w-full transform transition-all duration-300 scale-95 hover:scale-100"
+        class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 border-2 border-gray-300"
         (click)="$event.stopPropagation()"
       >
-        <div class="p-6">
-          <div class="border-b-4 border-orange-500 rounded-md p-4 mb-6">
-            <h2
-              class="text-2xl md:text-3xl font-semibold text-center text-gray-800"
-            >
-              Voulez-vous joindre le Projet E-learning avec quel profil ?
-            </h2>
+        <h2 class="text-xl font-semibold mb-4 text-center">
+          Voulez-vous joindre le projet avec quel profil ?
+        </h2>
+
+        <div class="space-y-4">
+          <div
+            class="cursor-pointer p-3 rounded-lg border-2 hover:bg-orange-100"
+            [class.border-orange-500]="selectedProfile === 'DEVELOPER'"
+            (click)="selectProfile('DEVELOPER')"
+          >
+            Développeur
           </div>
 
-          <div class="space-y-4">
-            <div
-              class="bg-gray-50 hover:bg-orange-100 cursor-pointer p-4 rounded-lg border-2 transition-colors duration-200"
-              [class.border-orange-500]="selectedProfile === 'Développeur'"
-              (click)="selectProfile('Développeur')"
-            >
-              <p class="text-xl text-gray-700 font-medium">Développeur</p>
-            </div>
-            <div
-              class="bg-gray-50 hover:bg-orange-100 cursor-pointer p-4 rounded-lg border-2 transition-colors duration-200"
-              [class.border-orange-500]="selectedProfile === 'Designer'"
-              (click)="selectProfile('Designer')"
-            >
-              <p class="text-xl text-gray-700 font-medium">Designer</p>
-            </div>
-            <div
-              class="bg-gray-50 hover:bg-orange-100 cursor-pointer p-4 rounded-lg border-2 transition-colors duration-200"
-              [class.border-orange-500]="selectedProfile === 'Gestionnaire'"
-              (click)="selectProfile('Gestionnaire')"
-            >
-              <p class="text-xl text-gray-700 font-medium">Gestionnaire</p>
-            </div>
+          <div
+            class="cursor-pointer p-3 rounded-lg border-2 hover:bg-orange-100"
+            [class.border-orange-500]="selectedProfile === 'DESIGNER'"
+            (click)="selectProfile('DESIGNER')"
+          >
+            Designer
           </div>
+        </div>
 
-          <div class="mt-8 flex justify-center">
-            <button
-              class="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition-colors duration-200 shadow-md transform hover:scale-105"
-              [disabled]="!selectedProfile"
-              [class.opacity-50]="!selectedProfile"
-              (click)="submitAndClose()"
-            >
-              Soumettre
-            </button>
-          </div>
+        <!-- Boutons Soumettre et Fermer -->
+        <div class="mt-6 flex space-x-4">
+          <button
+            class="flex-1 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg"
+            [disabled]="!selectedProfile"
+            [class.opacity-50]="!selectedProfile"
+            (click)="submitAndClose()"
+          >
+            Soumettre
+          </button>
+
+          <button
+            class="flex-1 py-3 bg-gray-400 hover:bg-gray-500 text-white font-bold rounded-lg"
+            (click)="closePopup()"
+          >
+            Fermer
+          </button>
         </div>
       </div>
     </div>
   `,
-  styleUrl: './pop.css',
+  styleUrls: ['./pop.css'], // note le s à styleUrls
 })
 export class Pop {
   selectedProfile: string | null = null;
+
   @Output() submitted = new EventEmitter<string>();
   @Output() closed = new EventEmitter<void>();
 
-  router = inject(Router);
-
-  selectProfile(profile: string): void {
+  selectProfile(profile: string) {
     this.selectedProfile = profile;
-
-    // if (profile === 'Gestionnaire') {
-    //   this.router.navigate(['/user/manager-submit-form']);
-    // }
   }
 
-  submitAndClose(): void {
+  submitAndClose() {
     if (this.selectedProfile) {
       this.submitted.emit(this.selectedProfile);
       this.closePopup();
     }
   }
 
-  closePopup(): void {
+  closePopup() {
     this.closed.emit();
   }
 }
