@@ -1,12 +1,26 @@
 
 import { Component, inject, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
+
+import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
+import { SignupComponent } from '../components/signup/signup';
+import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
+import { VoirDetailsProjetComponent } from '../pages/users/voir-details-projet/voir-details-projet.component';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PopUp],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    AdminFormComponent,
+    LandingPageTwo,
+    SignupComponent,
+    VoirDetailsProjetComponent
+  ],
+
 
   templateUrl: './app.component.html',
   providers: [CookieService],

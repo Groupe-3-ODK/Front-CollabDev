@@ -1,41 +1,48 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { ActivatedRoute } from '@angular/router';
-import { Iproject } from '../../../core/interfaces/project';
-import { ProjectService } from '../../../core/services/project.service';
+interface Member {
+  initials: string;
+  name: string;
+  badge?: string;
+}
 
 @Component({
   selector: 'app-voir-details-projet',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './voir-details-projet.component.html',
   styleUrl: './voir-details-projet.component.css',
 })
 export class VoirDetailsProjetComponent {
-  project?: Iproject;
-  loading = true;
-  errorMessage = '';
+showModal = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private _projectsService: ProjectService
-  ) {
-    this.route.params.subscribe((params) => {
-      const projectId = +params['id'];
-      // this.loadProjectDetails(projectId);
-    });
+
+  members: Member[] = [
+    { initials: 'FD', name: 'Fatoumata Diawara', badge: '🏅' },
+    { initials: 'MS', name: 'Modibo Sangaré', badge: '🏅' },
+    { initials: 'HS', name: 'Hamza Sanmo', badge: '🏅' },
+    { initials: 'AC', name: 'Aichatou Coulibaly', badge: '🏅' },
+    { initials: 'SD', name: 'Seydou Dembele', badge: '🏅' },
+    { initials: 'YS', name: 'Yacouba Sanogo', badge: '🏅' },
+    { initials: 'SK', name: 'Sekou Keita', badge: '🏅' },
+    { initials: 'EL', name: 'Elinka Lika', badge: '🏅' }
+  ];
+
+
+  openModal() {
+    this.showModal = true;
   }
 
-  // loadProjectDetails(projectId: number) {
-  //   this._projectsService.getProjectById(projectId).subscribe({
-  //     next: (project) => {
-  //       this.project = project.data[1];
-  //       this.loading = false;
-  //     },
-  //     error: (error: any) => {
-  //       this.errorMessage = 'Erreur lors du chargement des détails du projet.';
-  //       console.error(error);
-  //       this.loading = false;
-  //     },
-  //   });
-  // }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+
+  onOverlayClick(event: MouseEvent) {
+    if ((<HTMLElement>event.target).classList.contains('modal-overlay')) {
+      this.closeModal();
+    }
+  }
+
 }
