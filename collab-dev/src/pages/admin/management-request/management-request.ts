@@ -1,3 +1,4 @@
+        // Assurez-vous que contributionRequests est toujours un tableau, même s'il est null ou undefined de l'API.
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -29,7 +30,16 @@ export class ManagementRequest implements OnInit {
     const projectId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.projectManagerService.getProjectById(projectId).subscribe(project => {
-      this.project = project;
+      if (project) {
+        // --- Correction pour l'erreur *ngFor ---
+        // Assurez-vous que contributionRequests est toujours un tableau, même s'il est null ou undefined de l'API.
+        project.contributionRequests = project.contributionRequests || [];
+        // ------------------------------------
+        this.project = project;
+      } else {
+        console.warn(`Projet avec l'ID ${projectId} non trouvé.`);
+        // Gérer le cas où le projet n'est pas trouvé (par exemple, rediriger l'utilisateur)
+      }
     });
   }
 
@@ -37,6 +47,7 @@ export class ManagementRequest implements OnInit {
     if (!name) return '';
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
+
   accept(requestId: number): void {
     if (this.project) {
       const currentProject = this.project;
