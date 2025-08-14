@@ -8,7 +8,7 @@ import { UserSidebarComponent } from '../../shared/reusablesComponents/user-side
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, UserSidebarComponent, SidebarComponent, LandingPage],
+  imports: [RouterOutlet, SidebarComponent, UserSidebarComponent, LandingPage],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
   providers: [CookieService], // Fournisseur de CookieService
