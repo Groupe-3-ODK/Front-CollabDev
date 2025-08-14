@@ -72,9 +72,9 @@ export const routes: Routes = [
       {
         path: 'admin/users',
         loadComponent: () =>
-          import('../pages/admin/users/users.component').then(
-            (m) => m.UsersComponent
-          ),
+          import(
+            '../pages/admin/gestion-des-users-cote-admin/gestion-des-users-cote-admin'
+          ).then((m) => m.GestionDesUsersCoteAdmin),
       },
       {
         path: 'admin/configuration',
