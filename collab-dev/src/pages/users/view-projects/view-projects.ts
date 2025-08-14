@@ -64,7 +64,7 @@ export class ViewProjectsComponent implements OnInit {
 
   domainColors = ['#8A2BE2', '#FFD700', '#40E0D0', '#FF4500', '#ADFF2F'];
   selectedProject: Iproject | null = null; // Pour suivre le projet sélectionné dans la modale
-
+  selectedProjectId: number = 0;
   ngOnInit() {
     const cookieValue = this.cookieService.get('currentUser');
     this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
@@ -149,20 +149,6 @@ export class ViewProjectsComponent implements OnInit {
     event.stopPropagation();
   }
 
-  // joinProject(id: number): void {
-  //   if (this.profilType == 2) {
-  //     this.router.navigate(['/shared/user-sidebar']);
-  //   }
-  //   this.userService.joinProjectWithProfilType(
-  //     id,
-  //     this.userId,
-  //     this.profilType
-  //   );
-  //   console.log(
-  //     `ça marche vous avez rejoin le projet ${id},
-  //     avec votre id ${this.userId} et avec le profil ${this.profilType}`
-  //   );
-  // }
   getProjects() {
     this._projectService.getProjects().subscribe({
       next: (response) => {
@@ -202,51 +188,36 @@ export class ViewProjectsComponent implements OnInit {
 
   showModal = false;
 
-  onSubmit(profile: string) {
-    console.log('Profil choisi :', profile);
-    if (profile === 'Gestionnaire') {
-      this.router.navigate(['/user/manager-submit-form']);
-    } else if (profile === 'Designer') {
-      if (
-        1 === 1
-        // this.selectedProject &&
-        // this.selectedProject.id
-        // &&
-        // this.currentUser &&
-        // this.currentUser.id
-      ) {
-        this.joinProjectWithProfilType(5, 5, 'DESIGNER');
-      } else {
-        console.error('selectedProject or currentUser is null');
-      }
-    } else {
-      if (
-        this.selectedProject &&
-        this.selectedProject.id &&
-        this.currentUser &&
-        this.currentUser.id
-      ) {
-        this.joinProjectWithProfilType(
-          this.selectedProject.id,
-          this.currentUser.id,
-          'DEVELOPER'
-        );
-        alert('mercu vous etre dev');
-      } else {
-        console.error('currentUser is null');
-      }
-    }
-
-    this.showModal = false; // ferme aussi après soumission
-  }
-
-  openModal(): void {
+  openModal(projectId: number): void {
+    this.selectedProjectId = projectId;
     this.showModal = true;
   }
 
-  // Méthode appelée lorsque le modal émet l'événement 'closeModal'
   onModalClose(): void {
     this.showModal = false;
+  }
+
+  onPopupSubmit(profile: string): void {
+    console.log('Profil choisi :', profile);
+    if (profile === 'DEVELOPER') {
+      this.joinProjectWithProfilType(
+        this.selectedProjectId,
+        this.currentUser.id,
+        'DEVELOPER'
+      );
+    } else {
+      this.joinProjectWithProfilType(
+        this.selectedProjectId,
+        this.currentUser.id,
+        'DESIGNER'
+      );
+    }
+
+    this.showModal = false;
+  }
+
+  joinAsManager(projectId: number) {
+    this.router.navigate(['/user/manager-submit-form', projectId]);
   }
 
   joinProjectWithProfilType(
@@ -257,9 +228,18 @@ export class ViewProjectsComponent implements OnInit {
     this._projectService
       .joinProjectWithProfilName(projectId, userId, profilType)
       .subscribe({
-        //12, 5, 'DESIGNER'
         next: (res) => console.log('Rejoint projet avec profil', res),
         error: (err) => console.error('Erreur join project', err),
       });
+  }
+
+  filter = 'all';
+
+  onSearch(query: string) {
+    this.searchTerm = query;
+  }
+
+  onFilter(filter: string) {
+    // this.filter = filter;
   }
 }

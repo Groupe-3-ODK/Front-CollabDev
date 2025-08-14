@@ -24,6 +24,22 @@ export class CreateProject {
   }
 }
 
+export class ManagerInfo {
+  userId: number;
+  projectId: number;
+  profilType: string;
+  githubLink: string;
+  file?: File;
+
+  constructor() {
+    this.userId = 0;
+    this.projectId = 0;
+    this.profilType = '';
+    this.githubLink = '';
+    this.file = undefined;
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
