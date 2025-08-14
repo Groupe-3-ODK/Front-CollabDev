@@ -6,7 +6,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
 import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
-import { ConfigurationComponent } from '../pages/admin/configuration/configuration.component';
+
+import { GestionDesUsersCoteAdmin } from '../pages/admin/gestion-des-users-cote-admin/gestion-des-users-cote-admin';
+
 
 @Component({
   selector: 'app-root',
@@ -18,8 +20,9 @@ import { ConfigurationComponent } from '../pages/admin/configuration/configurati
     AdminFormComponent,
     LandingPageTwo,
     SignupComponent,
-    ConfigurationComponent,
-   
+
+    GestionDesUsersCoteAdmin
+
   ],
 
   templateUrl: './app.component.html',
