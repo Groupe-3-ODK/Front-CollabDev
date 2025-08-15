@@ -434,4 +434,11 @@ export const routes: Routes = [
         (m) => m.AdminFormComponent
       ),
   },
+   {
+        path: 'admin/management-requests/:id', // Cette route capture l'ID du projet
+        loadComponent: () =>
+          import('../pages/admin/management-request/management-request').then(
+            (m) => m.ManagementRequest // Charge le composant ManagementRequest
+          ),
+      },
 ];
