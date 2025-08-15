@@ -12,7 +12,7 @@ export interface Iproject {
   description: string;
   domain: Domain;
   specification?: string;
-  status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
+  // status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
   author: UserResponseDTO;
 
   managerId: Profil | null; // Peut être null si aucun manager n'est assigné
