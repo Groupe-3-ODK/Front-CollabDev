@@ -1,12 +1,12 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'app-gestion-user-cote-admin',
-  templateUrl: './gestion-user-cote-admin.component.html',
-  styleUrls: ['./gestion-user-cote-admin.component.css']
+  selector: 'app-gestion-des-users-cote-admin',
+  imports: [],
+  templateUrl: './gestion-des-users-cote-admin.html',
+  styleUrl: './gestion-des-users-cote-admin.css'
 })
-export class GestionUserCoteAdminComponent implements AfterViewInit {
-
+export class GestionDesUsersCoteAdmin {
   @ViewChild('tableBody', { static: false }) tableBody!: ElementRef<HTMLTableSectionElement>;
   @ViewChild('userCount', { static: false }) userCountElement!: ElementRef<HTMLElement>;
   @ViewChild('prevBtn', { static: false }) prevButton!: ElementRef<HTMLButtonElement>;
@@ -177,3 +177,4 @@ export class GestionUserCoteAdminComponent implements AfterViewInit {
     this.updateUserCounts();
   }
 }
+

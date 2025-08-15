@@ -73,11 +73,13 @@
 
   <!-- Liste des projets -->
   <div class="project-list" >
-    <div class="project-card" *ngFor="let project of filteredProjects">
+    
+    @for (contribution of contributions; track $index) {
+    <div class="project-card">
       <div class="project-info">
-        <div class="project-avatar" [ngClass]="project.category">
+        <div class="project-avatar" [ngClass]="contribution.role">
           <svg
-            *ngIf="project.category === 'code'"
+            *ngIf="contribution.role === 'code'"
             fill="currentColor"
             viewBox="0 0 24 24"
             class="h-8 w-8"
@@ -87,7 +89,7 @@
             />
           </svg>
           <svg
-            *ngIf="project.category === 'design'"
+            *ngIf="contribution.role === 'design'"
             fill="currentColor"
             viewBox="0 0 24 24"
             class="h-8 w-8"
@@ -97,7 +99,7 @@
             />
           </svg>
           <svg
-            *ngIf="project.category === 'management'"
+            *ngIf="contribution.role === 'management'"
             fill="currentColor"
             viewBox="0 0 24 24"
             class="h-8 w-8"
@@ -109,11 +111,11 @@
           </svg>
         </div>
         <div class="project-details">
-          <span class="project-name">{{ project.name }}</span>
+          <span class="project-name">{{ contribution.name  || "" }}</span>
           <span
             class="project-level"
-            [style.background-color]="getLevelColor(project.level)"
-            >{{ project.level }}</span
+            [style.background-color]="getLevelColor(contribution.level)"
+            >{{ contribution.level  || ""}}</span
           >
           <span class="project-date">
             <svg fill="currentColor" viewBox="0 0 24 24" class="h-4 w-4">
@@ -121,7 +123,7 @@
                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.5-5h1V8h-1v7zm.5-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
               />
             </svg>
-            Se termine le {{ project.endDate }}
+            Se termine le {{ contribution.endDate || ""}}
           </span>
         </div>
       </div>
@@ -133,15 +135,16 @@
             />
           </svg>
           <span class="collaborators-count"
-            >{{ project.collaborators }} Collaborateurs</span
+            >{{ contribution.collaborators  || "" }} Collaborateurs</span
           >
         </div>
         <span
           class="project-status"
-          [ngClass]="{'status-en-cours': project.status === 'En cours', 'status-ferme': project.status === 'Fermé'}"
-          >{{ project.status }}</span
+          [ngClass]="{'status-en-cours': contribution.statut === 'En cours', 'status-ferme': contribution.statut === 'Fermé'}"
+          >{{ contribution.statut  || ""}}</span
         >
       </div>
     </div>
+      }
   </div>
 </div>

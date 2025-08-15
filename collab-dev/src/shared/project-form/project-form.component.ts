@@ -55,12 +55,12 @@ export class ProjectFormComponent {
       // console.warn(this.fromData.author);
       this._projectService.createProject(this.fromData).subscribe({
         next: (response) => {
-          console.log('Connexion projet creer:', response);
+          console.log(' projet creer:', response);
         },
         complete: () => {
           // Rediriger vers la page d'accueil ou une autre page après la connexion réussie
           //
-          this.router.navigate(['user/dashboard']);
+          this.router.navigate(['/user/projects-views']);
         },
         error: (error) => {
           console.error('Erreur lors de la creation:', error);

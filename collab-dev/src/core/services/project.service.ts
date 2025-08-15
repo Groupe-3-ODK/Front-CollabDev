@@ -24,6 +24,22 @@ export class CreateProject {
   }
 }
 
+export class ManagerInfo {
+  userId: number;
+  projectId: number;
+  profilType: string;
+  githubLink: string;
+  file?: File;
+
+  constructor() {
+    this.userId = 0;
+    this.projectId = 0;
+    this.profilType = '';
+    this.githubLink = '';
+    this.file = undefined;
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -44,6 +60,15 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
+  getUserContributions(userId: number): Observable<any[]> {
+    let url = `${this.apiUrl}contributions/user/${userId}`;
+    return this._http.get<any[]>(url);
+  }
+
+  getProjectByStatus(status: string): Observable<IApiResponse> {
+    let url = `${this.apiUrl}projects/getByStatus?status=${status}`;
+    return this._http.get<IApiResponse>(url);
+  }
   // GET user by id
   getProjectById(id: number): Observable<IApiResponse> {
     return this._http
@@ -58,7 +83,6 @@ export class ProjectService {
 
     return this._http.put<string>(
       `${this.apiUrl}/managerInfo/validateProject`,
-      null, // pas de body
       { params }
     );
   }

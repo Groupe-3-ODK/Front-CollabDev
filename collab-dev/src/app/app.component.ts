@@ -1,36 +1,23 @@
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
-import { SignupComponent } from '../components/signup/signup';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
-import { AdminManager } from '../pages/admin/admin-manager/admin-manager';
-import { AccepterManager } from "../pages/admin/accepter-manager/accepter-manager";
+
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    ReactiveFormsModule,
-    AccepterManager,
-    AdminManager,
-],
+
+
+  imports: [CommonModule, RouterOutlet],
+
 
   templateUrl: './app.component.html',
-  providers: [CookieService],
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  private cookieService = inject(CookieService);
-
-  ngOnInit(): void {
-    this.cookieService.deleteAll('/');
-  }
+  ngOnInit(): void {}
 
   title = 'collab-dev';
 

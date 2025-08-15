@@ -72,9 +72,9 @@ export const routes: Routes = [
       {
         path: 'admin/users',
         loadComponent: () =>
-          import('../pages/admin/users/users.component').then(
-            (m) => m.UsersComponent
-          ),
+          import(
+            '../pages/admin/gestion-des-users-cote-admin/gestion-des-users-cote-admin'
+          ).then((m) => m.GestionDesUsersCoteAdmin),
       },
       {
         path: 'admin/configuration',
@@ -425,8 +425,10 @@ export const routes: Routes = [
         '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
       ).then((m) => m.UserSidebarComponent),
   },
+
   {
-    path: 'user/manager-submit-form',
+    path: 'user/manager-submit-form/:id',
+
     loadComponent: () =>
       import('../pages/users/admin-form/admin-form.component').then(
         (m) => m.AdminFormComponent

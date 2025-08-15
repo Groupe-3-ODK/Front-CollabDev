@@ -139,6 +139,7 @@ export class ConfigurationDuProjet implements OnInit {
       const projectId = 1;
       const managerProfilId = 2;
 
+
       // this.projectService.updateProject(1, project, 1)
       //   .subscribe({
       //     next: (res) => {
@@ -148,6 +149,7 @@ export class ConfigurationDuProjet implements OnInit {
       //       console.error('Erreur lors de la configuration', err);
       //     }
       //   });
+
     } else {
       console.log('Veuillez compléter tous les champs.');
     }
