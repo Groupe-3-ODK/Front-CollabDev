@@ -4,6 +4,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
 import { RouterOutlet } from '@angular/router';
 import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProfilComponent } from "../pages/users/profil/profil.component";
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -11,7 +14,7 @@ import { DashboardComponent } from '../pages/users/dashboard/dashboard.component
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PopUp, RouterOutlet, DashboardComponent],
+  imports: [MatSnackBarModule, ReactiveFormsModule, ProfilComponent],
   templateUrl: './app.component.html',
   providers: [CookieService],
   styleUrl: './app.component.css',
