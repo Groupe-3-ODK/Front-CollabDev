@@ -14,7 +14,7 @@ import {
   imports: [ReactiveFormsModule, CommonModule],
   providers: [CookieService],
   templateUrl: './admin-form.component.html',
-  styleUrl: './admin-form.component.css',
+  styleUrls: ['./admin-form.component.css'], // <-- correction ici
 })
 export class AdminFormComponent implements OnInit {
   projectForm: FormGroup;
@@ -23,6 +23,8 @@ export class AdminFormComponent implements OnInit {
   projectId!: number;
   public currentUser: any = null;
 
+  selectedFile: File | null = null;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -30,40 +32,50 @@ export class AdminFormComponent implements OnInit {
     private router: Router
   ) {
     this.projectForm = this.fb.group({
-      // managerName: [''],
       gitHubLink: [''],
-      documentation: [null],
+      // documentation ne doit plus être un FormControl
     });
   }
+
   ngOnInit(): void {
     const cookieValue = this.cookieService.get('currentUser');
     this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
     console.log('Project ID récupéré :', this.projectId);
-    console.log('User ID récupéré :', this.currentUser.id);
+    if (this.currentUser)
+      console.log('User ID récupéré :', this.currentUser.id);
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      if (file.size <= 10 * 1024 * 1024) {
+        this.selectedFile = file; // stocke le fichier ici
+      } else {
+        alert('Le fichier dépasse la taille maximale de 10MB.');
+      }
+    }
   }
 
   onSubmit() {
     console.log(this.projectForm.value);
-    if (this.projectForm.valid) {
-      if (this.currentUser !== null) {
-        this.manager.githubLink = this.projectForm.value.gitHubLink;
-        this.manager.file = this.projectForm.value.documentation;
-        (this.manager.projectId = this.projectId),
-          (this.manager.profilType = 'MANAGER');
-        this.manager.userId = this.currentUser.id;
+    if (this.projectForm.valid && this.currentUser) {
+      this.manager.githubLink = this.projectForm.value.gitHubLink;
+      this.manager.projectId = this.projectId;
+      this.manager.profilType = 'MANAGER';
+      this.manager.userId = this.currentUser.id;
 
-        this.joinAsManager(
-          this.manager.userId,
-          this.manager.projectId,
-          this.manager.profilType,
-          this.manager.githubLink,
-          this.manager.file
-        );
-        this.router.navigate(['/user/projects-views']);
-      } else {
-        console.log('Utilisateur courant est vide ');
-      }
+      // envoie le fichier sélectionné
+      this.joinAsManager(
+        this.manager.userId,
+        this.manager.projectId,
+        this.manager.profilType,
+        this.manager.githubLink,
+        this.selectedFile || undefined
+      );
+    } else {
+      console.log('Formulaire invalide ou utilisateur non connecté');
     }
   }
 
@@ -77,21 +89,11 @@ export class AdminFormComponent implements OnInit {
     this._projectService
       .joinProjectAsManager(userId, projectId, profilType, githubLink, file)
       .subscribe({
-        next: (res) => console.log('Rejoint projet en manager', res),
+        next: (res) => {
+          console.log('Rejoint projet en manager', res);
+          this.router.navigate(['/user/projects-views']);
+        },
         error: (err) => console.error('Erreur join project manager', err),
       });
-  }
-
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      if (file.size <= 10 * 1024 * 1024) {
-        // 10MB in bytes
-        this.projectForm.get('documentation')?.setValue(file);
-      } else {
-        alert('Le fichier dépasse la taille maximale de 10MB.');
-      }
-    }
   }
 }

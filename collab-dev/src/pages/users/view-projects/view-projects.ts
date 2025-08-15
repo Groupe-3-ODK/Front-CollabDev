@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { ProfilType, UsersService } from '../../../core/services/users.service';
 
 import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
 import { forkJoin } from 'rxjs';
 import { Iproject } from '../../../core/interfaces/project';
 import { ProjectService } from '../../../core/services/project.service';
@@ -27,7 +28,7 @@ interface Project {
   selector: 'app-view-projects',
   standalone: true,
   imports: [CommonModule, RouterModule, Pop],
-  providers: [CookieService],
+  providers: [CookieService, MessageService],
   templateUrl: './view-projects.html',
   styleUrl: './view-projects.css',
 })
@@ -35,6 +36,7 @@ export class ViewProjectsComponent implements OnInit {
   router = inject(Router);
   private _projectService = inject(ProjectService);
   private _userService = inject(UsersService);
+  private messageService = inject(MessageService);
 
   public currentUser: any = null;
 
@@ -215,6 +217,38 @@ export class ViewProjectsComponent implements OnInit {
 
     this.showModal = false;
   }
+
+  // onPopupSubmit(profile: string): void {
+  //   console.log('Profil choisi :', profile);
+
+  //   const profilType = profile === 'DEVELOPER' ? 'DEVELOPER' : 'DESIGNER';
+
+  //   this._projectService
+  //     .joinProjectWithProfilName(
+  //       this.selectedProjectId,
+  //       this.currentUser.id,
+  //       profilType
+  //     )
+  //     .subscribe({
+  //       next: () => {
+  //         // 200 OK → succès
+  //         this.messageService.add({
+  //           severity: 'success',
+  //           summary: 'Succès',
+  //           detail: `Vous avez rejoint le projet en tant que ${profilType}!`,
+  //         });
+  //         this.showModal = false; // ferme le popup après succès
+  //       },
+  //       error: (err) => {
+  //         // 400 ou autre → erreur
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Erreur',
+  //           detail: 'Impossible de rejoindre le projet. Veuillez réessayer.',
+  //         });
+  //       },
+  //     });
+  // }
 
   joinAsManager(projectId: number) {
     this.router.navigate(['/user/manager-submit-form', projectId]);

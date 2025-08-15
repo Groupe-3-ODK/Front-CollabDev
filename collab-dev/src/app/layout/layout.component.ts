@@ -27,16 +27,4 @@ export class LayoutComponent implements OnInit {
       this.role = this.currentUser.role;
     }
   }
-
-  logout() {
-    // 1. Supprimer le cookie
-    this.cookieService.delete('currentUser', '/');
-
-    // 2. Nettoyer les variables
-    this.currentUser = null;
-    this.role = null;
-
-    // 3. Redirection
-    this.router.navigate(['/login']);
-  }
 }
