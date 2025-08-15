@@ -1,16 +1,62 @@
-<div *ngIf="currentProject">
-  <h2>Créer une tâche pour le projet : {{ currentProject.title }}</h2>
+<div class="task-creation-container">
+  <div class="form-card">
+    <div class="form-header">
+      <h2>Créer une tâche pour {{currentProject?.title}}</h2>
+    </div>
 
-  <input type="text" placeholder="Titre de la tâche" [(ngModel)]="taskTitle" />
+    <div class="form-body">
+      <div class="form-group">
+        <label>Titre *</label>
+        <input 
+          type="text" 
+          [(ngModel)]="task.title"
+          placeholder="Nom de la tâche"
+          required
+        >
+      </div>
 
-  <select [(ngModel)]="selectedMemberId">
-    <option value="">-- Sélectionner un membre --</option>
-    <option *ngFor="let member of currentProject.members" [value]="member.id">
-      {{ member.firstName }} {{ member.lastName }}
-    </option>
-  </select>
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea
+          [(ngModel)]="task.description"
+          placeholder="Description de la tâche"
+          rows="5"
+        ></textarea>
+      </div>
 
-  <button (click)="createAndAssignTask()" [disabled]="isLoading">
-    {{ isLoading ? 'En cours...' : 'Créer et assigner' }}
-  </button>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date limite *</label>
+          <input
+            type="date"
+            [(ngModel)]="task.deadLine"
+            [min]="minDate"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label>Assigner à</label>
+          <select [(ngModel)]="task.assignee">
+            <option [value]="undefined">-- Non assigné --</option>
+            <option *ngFor="let member of membersWithPseudos" [value]="member.id">
+              {{member.pseudo}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      
+
+      <div class="form-actions">
+        <button (click)="cancel()" [disabled]="isLoading">
+          Annuler
+        </button>
+        <button (click)="createAndAssignTask()" 
+                [disabled]="isLoading || !task.title || !task.deadLine">
+          {{isLoading ? 'En cours...' : 'Valider'}}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

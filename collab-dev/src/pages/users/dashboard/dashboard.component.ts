@@ -176,13 +176,13 @@ viewProjectDetails(project: Iproject): void {
   }
 
   // Vérification dans les membres du projet
-  const userProfilesInProject = project.members.filter(member => 
-    member.id === currentUserId
-  );
+  const userProfilesInProject = project.members?.filter(member => 
+  member.id === currentUserId
+) ?? [];
 
   const hasManagerProfile = userProfilesInProject.some(profile =>
-    profile.name === 'MANAGER'
-  );
+  profile.name === 'MANAGER'
+);
 
   if (hasManagerProfile) {
     this.projectService.getProjectById(project.id);

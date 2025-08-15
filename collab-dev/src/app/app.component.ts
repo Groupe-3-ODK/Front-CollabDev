@@ -1,8 +1,7 @@
 
 import { Component, inject, OnInit } from '@angular/core';
-
-import { ProfilComponent } from "../pages/users/profil/profil.component";
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreerTacheComponent } from "../pages/users/creer-tache/creer-tache";
 
 
 
@@ -10,7 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ReactiveFormsModule, ProfilComponent],
+  imports: [ReactiveFormsModule, CreerTacheComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

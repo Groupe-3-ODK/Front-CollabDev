@@ -10,11 +10,7 @@ export interface Iproject {
   level: Level;
   githubLink?: string;
   tasks: taskI[];
-  members?: {
-    id: number;
-    pseudo: string;
-    profilName: string;
-  }[];
+  members?: Profil[];
   pendingProfiles: Profil[];
   coins: number;
   comments: Comment[];
@@ -51,7 +47,9 @@ export interface taskI {
   title: string;
   description?: string;
   status: Status
-  completed: boolean;
+  deadLine: Date
+  assignee?: number;
+  projectId: number
 }
 
 export interface Comment {

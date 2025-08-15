@@ -1,131 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+.task-creation-container {
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
 
-    /* Conteneur principal */
-    .task-creation-container {
-        font-family: 'Inter', sans-serif;
-        background-color: #f0f2f5;
-        padding: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
+.form-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;
+}
 
-    /* Carte du formulaire */
-    .form-card {
-        background-color: #ffffff;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 600px;
-        overflow: hidden;
-    }
+.form-header {
+  background: #FF6F00;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px 8px 0 0;
+}
 
-    /* En-tête du formulaire */
-    .form-header {
-        background-color: #FF6F00;
-        color: #ffffff;
-        padding: 20px 24px;
-        font-size: 24px;
-        font-weight: 600;
-        text-align: center;
-    }
+.form-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
 
-    /* Corps du formulaire */
-    .form-body {
-        padding: 24px;
-    }
+.form-body {
+  padding: 20px;
+}
 
-    /* Groupe de champs */
-    .form-group {
-        margin-bottom: 20px;
-    }
+.form-group {
+  margin-bottom: 15px;
+}
 
-    /* Étiquettes */
-    label {
-        display: block;
-        font-size: 16px;
-        font-weight: 500;
-        color: #333;
-        margin-bottom: 8px;
-    }
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
 
-    /* Input et textarea */
-    .form-control {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #dcdcdc;
-        border-radius: 8px;
-        font-size: 16px;
-        box-sizing: border-box;
-        transition: border-color 0.3s;
-    }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
-    .form-control:focus {
-        outline: none;
-        border-color: #FF6F00;
-        box-shadow: 0 0 0 3px rgba(255, 111, 0, 0.2);
-    }
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
 
-    /* Mise en page des champs de date et d'assignation */
-    .date-assign-group {
-        display: flex;
-        gap: 20px;
-    }
+.form-row {
+  display: flex;
+  gap: 15px;
+}
 
-    .date-assign-group .form-group {
-        flex: 1;
-    }
+.form-row .form-group {
+  flex: 1;
+}
 
-    /* Champ de date */
-    .date-input-container {
-        position: relative;
-    }
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
 
-    .date-input-container input {
-        padding-right: 40px;
-    }
+.form-actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-    .date-input-container .calendar-icon {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        transform: translateY(-50%);
-        color: #888;
-    }
+.form-actions button:first-child {
+  background: #e0e0e0;
+  border: none;
+}
 
-    /* Boutons */
-    .form-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 30px;
-    }
+.form-actions button:last-child {
+  background: #FF6F00;
+  color: white;
+  border: none;
+}
 
-    .btn {
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s, box-shadow 0.3s;
-    }
-
-    .btn-secondary {
-        background-color: #e0e0e0;
-        color: #666;
-    }
-
-    .btn-secondary:hover {
-        background-color: #d5d5d5;
-    }
-
-    .btn-primary {
-        background-color: #FF6F00;
-        color: #ffffff;
-    }
-
-    .btn-primary:hover {
-        background-color: #e66300;
-    }
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
