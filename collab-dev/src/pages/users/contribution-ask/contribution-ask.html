@@ -85,7 +85,7 @@
         <div class="col-span-1"></div>
       </div>
       <div
-        *ngFor="let user of users"
+        *ngFor="let user of pendingUsers"
         class="grid grid-cols-4 gap-4 p-4 items-center border-b border-gray-300"
       >
         <div class="col-span-1 text-black text-xl">{{ user.pseudo }}</div>
@@ -96,9 +96,9 @@
             viewBox="0 0 24 24"
             fill="currentColor"
             [ngClass]="{
-              'text-green-500': user.badge === 'green',
-              'text-yellow-500': user.badge === 'yellow',
-              'text-red-500': user.badge === 'red'
+              'text-green-500': user.badge === 'GREEN',
+              'text-yellow-500': user.badge === 'YELLOW',
+              'text-red-500': user.badge === 'RED'
             }"
           >
             <path
@@ -110,13 +110,12 @@
           <span
             class="text-lg font-bold px-4 py-2 rounded-lg"
             [ngClass]="{
-              'bg-[#DDEEBB] text-[#4E6F0B] border border-[#4CAF50]':
-                user.profile === 'DESIGNNEUR',
-              'bg-[#92D3FB] text-[#0D2533] border border-[#3A7CA5]':
-                user.profile === 'DEVELOPPEUR'
+            'bg-[#DDEEBB] text-[#4E6F0B] border border-[#4CAF50]': user.profilName === 'DESIGNER',
+            'bg-[#92D3FB] text-[#0D2533] border border-[#3A7CA5]': user.profilName === 'DEVELOPER',
+            'bg-[#FFCC80] text-[#BF360C] border border-[#FF6F00]': user.profilName === 'MANAGER'
             }"
           >
-            {{ user.profile }}
+            {{ user.profilName  }}
           </span>
         </div>
         <div class="col-span-1 flex space-x-2">
