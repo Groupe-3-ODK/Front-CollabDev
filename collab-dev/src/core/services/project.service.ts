@@ -9,7 +9,13 @@ import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
 import { IApiResponse } from '../interfaces/api-response';
 import { Iproject } from '../interfaces/project';
-import { Task } from './task';
+import { TaskStatus } from '../../app/shared/models/task-status.enum';
+
+
+
+@Injectable({
+  providedIn: 'root'
+})
 
 export class ManagerInfo {
   userId: number;
@@ -109,13 +115,11 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  updateTaskStatus(taskId: number, projectId: number, newStatus: string): Observable<Task> {
-    const url = `${this._apiUrl}/tasks/${taskId}/status?projectId=${projectId}`;
-    return this._http.patch<Task>(url, { status: newStatus })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  updateTaskStatus(taskId: number, newStatus: TaskStatus): Observable<any> {
+  const url = `${this.apiUrl}/tasks/${taskId}/status`;
+  const body = { status: newStatus };
+  return this._http.patch(url, body);
+}
 
   joinProjectWithProfilName(
     projectId: number,
