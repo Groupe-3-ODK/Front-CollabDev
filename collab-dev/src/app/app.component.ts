@@ -7,6 +7,7 @@ import { SignupComponent } from '../components/signup/signup';
 import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
 import { ConfigurationComponent } from '../pages/admin/configuration/configuration.component';
 import { GestionProjetAdmin } from '../pages/admin/gestion-projet-admin/gestion-projet-admin';
+import { VoirDetailsProjetComponent } from '../pages/users/voir-details-projet/voir-details-projet.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ import { GestionProjetAdmin } from '../pages/admin/gestion-projet-admin/gestion-
     SignupComponent,
     ConfigurationComponent,
     GestionProjetAdmin,
-   
+    VoirDetailsProjetComponent,
   ],
 
   templateUrl: './app.component.html',
