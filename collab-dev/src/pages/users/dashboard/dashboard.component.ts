@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarComponent } from '../../../shared/reusablesComponents/sidebar/sidebar.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
 import { IApiResponse } from '../../../core/interfaces/api-response';
@@ -12,7 +10,7 @@ import { Iproject } from '../../../core/interfaces/projectI';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SidebarComponent, CommonModule, FormsModule, NgClass],
+  imports: [CommonModule, FormsModule, NgClass],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
@@ -119,6 +117,7 @@ export class DashboardComponent implements OnInit {
 
   get completedCount(): number {
     return this.projects.filter((project) => project.status === 'DONE').length;
+
   }
 
   setFilter(filter: string): void {

@@ -4,12 +4,11 @@ import { CookieService } from 'ngx-cookie-service';
 import { LandingPage } from '../../components/landing-page/landing-page';
 import { SidebarComponent } from '../../shared/reusablesComponents/sidebar/sidebar.component';
 import { UserSidebarComponent } from '../../shared/reusablesComponents/user-sidebar/user-sidebar.component';
-import { DashboardComponent } from '../../pages/users/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, UserSidebarComponent, SidebarComponent, LandingPage, DashboardComponent],
+  imports: [RouterOutlet, SidebarComponent, LandingPage, UserSidebarComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
   providers: [CookieService], // Fournisseur de CookieService
@@ -27,17 +26,5 @@ export class LayoutComponent implements OnInit {
     if (this.currentUser) {
       this.role = this.currentUser.role;
     }
-  }
-
-  logout() {
-    // 1. Supprimer le cookie
-    this.cookieService.delete('currentUser', '/');
-
-    // 2. Nettoyer les variables
-    this.currentUser = null;
-    this.role = null;
-
-    // 3. Redirection
-    this.router.navigate(['/login']);
   }
 }
