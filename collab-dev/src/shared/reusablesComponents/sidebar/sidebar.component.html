@@ -60,6 +60,22 @@
         <span>Configuration</span>
       </a>
     </div>
+    <a
+      routerLink="/admin/teams-and-roles"
+      routerLinkActive="bg-orange-600 text-xl rounded"
+      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
+    >
+      <lucide-angular name="users"></lucide-angular>
+      <span>Équipe & Permissions</span>
+    </a>
+    <a
+      routerLink="/admin/confidentiality-policy"
+      routerLinkActive="bg-orange-600 text-xl rounded"
+      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
+    >
+      <lucide-angular name="scroll-text"></lucide-angular>
+      <span>Politiques de confidentialité</span>
+    </a>
   </div>
 
   <div class="border-t border-white pt-4">
@@ -72,14 +88,7 @@
       <lucide-angular name="cog"></lucide-angular>
       <span>Paramètre compte</span>
     </a>
-    <a
-      routerLink="/admin/teams-and-roles"
-      routerLinkActive="bg-orange-600 text-xl rounded"
-      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
-    >
-      <lucide-angular name="users"></lucide-angular>
-      <span>Équipe & Permissions</span>
-    </a>
+
     <a
       routerLink="/admin/support"
       routerLinkActive="bg-orange-600 text-xl rounded"
@@ -88,13 +97,12 @@
       <lucide-angular name="book-marked"></lucide-angular>
       <span>Support</span>
     </a>
-    <a
-      routerLink="/admin/confidentiality-policy"
-      routerLinkActive="bg-orange-600 text-xl rounded"
-      class="flex items-center gap-2 hover:bg-orange-600 p-2 rounded"
+    <button
+      class="flex items-center gap-3 hover:bg-orange-600 hover:w-60 p-2 rounded"
+      (click)="logout()"
     >
-      <lucide-angular name="scroll-text"></lucide-angular>
-      <span>Politiques de confidentialité</span>
-    </a>
+      <lucide-angular name="log-in"></lucide-angular>
+      <span>Se déconnecter</span>
+    </button>
   </div>
 </aside>

@@ -1,14 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { LandingPage } from '../../components/landing-page/landing-page';
+import { LandingPageTwo } from '../../components/landing-page-two/landing-page-two';
 import { SidebarComponent } from '../../shared/reusablesComponents/sidebar/sidebar.component';
 import { UserSidebarComponent } from '../../shared/reusablesComponents/user-sidebar/user-sidebar.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, LandingPage, UserSidebarComponent],
+  imports: [
+    RouterOutlet,
+    SidebarComponent,
+    LandingPageTwo,
+    UserSidebarComponent,
+  ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
   providers: [CookieService], // Fournisseur de CookieService
