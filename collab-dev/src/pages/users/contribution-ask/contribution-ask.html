@@ -55,7 +55,7 @@
           class="w-full pl-14 pr-4 py-4 border-2 border-gray-300 rounded-2xl focus:outline-none focus:border-[#FF6F00] text-gray-500 text-2xl"
         >
           <option>Tous les rôles</option>
-          <option>DESIGNNEUR</option>
+          <option>DESIGNER</option>
           <option>DEVELOPPEUR</option>
         </select>
         <svg
@@ -85,12 +85,12 @@
         <div class="col-span-1"></div>
       </div>
       <div
-        *ngFor="let user of pendingUsers"
+        *ngFor="let user of users"
         class="grid grid-cols-4 gap-4 p-4 items-center border-b border-gray-300"
       >
         <div class="col-span-1 text-black text-xl">{{ user.pseudo }}</div>
         <div class="col-span-1">
-          <svg
+          <!-- <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-8 w-8"
             viewBox="0 0 24 24"
@@ -104,18 +104,17 @@
             <path
               d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
             ></path>
-          </svg>
+          </svg> -->
         </div>
         <div class="col-span-1">
           <span
             class="text-lg font-bold px-4 py-2 rounded-lg"
             [ngClass]="{
-            'bg-[#DDEEBB] text-[#4E6F0B] border border-[#4CAF50]': user.profilName === 'DESIGNER',
-            'bg-[#92D3FB] text-[#0D2533] border border-[#3A7CA5]': user.profilName === 'DEVELOPER',
-            'bg-[#FFCC80] text-[#BF360C] border border-[#FF6F00]': user.profilName === 'MANAGER'
-            }"
-          >
-            {{ user.profilName  }}
+                  'bg-[#DDEEBB] text-[#4E6F0B] border border-[#4CAF50]': user.profilName === 'DESIGNER',
+                  'bg-[#92D3FB] text-[#0D2533] border border-[#3A7CA5]': user.profilName === 'DEVELOPER'
+                }"
+                >
+  {{ user.profilName }}
           </span>
         </div>
         <div class="col-span-1 flex space-x-2">

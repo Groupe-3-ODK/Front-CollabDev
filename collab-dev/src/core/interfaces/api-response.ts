@@ -1,10 +1,13 @@
+import { Iproject } from "./project";
+
 export interface IApiResponse {
   code: string;
   message: string;
-  data: UserData;
+  data: Iproject | Iproject[] | UserData;
 }
 
 export interface UserData {
+  designers: never[];
   id: number;
   speudo: string;
   email: string;

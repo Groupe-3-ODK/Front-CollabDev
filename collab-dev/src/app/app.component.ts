@@ -1,26 +1,30 @@
+
+
+
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
-import { AdminFormComponent } from '../pages/users/admin-form/admin-form.component';
+
+
+
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, AdminFormComponent, LandingPageTwo],
+
+
+
+  imports: [CommonModule, RouterOutlet],
+
+
 
   templateUrl: './app.component.html',
-  providers: [CookieService],
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  private cookieService = inject(CookieService);
-
-  ngOnInit(): void {
-    this.cookieService.deleteAll('/');
-  }
+  ngOnInit(): void {}
 
   title = 'collab-dev';
 
@@ -44,12 +48,5 @@ export class AppComponent implements OnInit {
     this.isModalVisible = false;
     const projectId = data.projectId;
     const profilId = data.profilId;
-  }
-  //------------------------------------------------------
-  showModal = true;
-
-  onSubmit(profile: string) {
-    console.log('Profil choisi :', profile);
-    this.showModal = false; // ferme aussi après soumission
   }
 }

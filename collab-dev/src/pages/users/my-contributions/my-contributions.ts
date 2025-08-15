@@ -1,14 +1,45 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
   selector: 'app-my-contributions',
   imports: [CommonModule, FormsModule],
   templateUrl: './my-contributions.html',
   styleUrl: './my-contributions.css',
+  providers: [CookieService],
 })
 export class MyContributions {
+  contributions: any[] = [];
+  userId: number = 0; // ID de l'utilisateur connecté
+
+  private cookieService = inject(CookieService);
+  private router = inject(Router);
+  public currentUser: any = null;
+  constructor(private projectService: ProjectService) {}
+
+  ngOnInit(): void {
+    // const cookieValue = this.cookieService.get('currentUser');
+    // this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
+    // if (this.currentUser) {
+    //   this.userId = this.currentUser.id;
+    // }
+    // this.projectService.getUserContributions(this.userId).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //     this.contributions = res;
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
+
+    this.contributions = this.projects;
+  }
+
   // Filtre actuel pour les projets
   filter: string = 'all';
 
@@ -76,15 +107,12 @@ export class MyContributions {
    */
   get filteredProjects(): any[] {
     if (this.filter === 'all') {
-      return this.projects;
-    } else {
-      // Filtrer les projets par catégorie
-      return this.projects.filter(
-        (project) => project.category === this.filter
-      );
+      return this.contributions;
     }
+    return this.contributions.filter(
+      (project) => project.category === this.filter
+    );
   }
-
   /**
    * Définit le filtre actuel pour les projets.
    * @param filter La valeur du filtre.

@@ -118,8 +118,8 @@ body {
 .filter-button.code.active,
 .filter-button.design.active,
 .filter-button.management.active {
-  background-color: #ffffff;
-  color: #333;
+  background-color: #ff9900;
+  color: #ffffff;
   border-color: #e5e7eb;
 }
 
