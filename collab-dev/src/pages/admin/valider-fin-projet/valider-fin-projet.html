@@ -1,0 +1,75 @@
+
+<div class="container">
+    <div class="header">
+        <div>
+            <h1>Gestion des projets</h1>
+            <p>Gérez les projets terminés en attente de validation</p>
+        </div>
+    </div>
+    
+    <div style="overflow-x:auto;">
+        <table class="projects-table">
+            <thead>
+                <tr>
+                    <th>Nom du projet</th>
+                    <th>Niveau</th>
+                    <th>Lien GitHub</th>
+                    <th>Gestionnaire</th>
+                    <th>État</th>
+                    <th>Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let project of projects">
+                    <td>{{ project.name }}</td>
+                    <td><span class="level-badge" [ngClass]="project.level">{{ project.level }}</span></td>
+                    <td><a [href]="project.githubLink" target="_blank">Voir le code</a></td>
+                    <td>{{ project.manager }}</td>
+                    <td><span class="status-badge" [ngClass]="project.status">{{ project.status }}</span></td>
+                    <td>
+                        <button (click)="approveProject(project)" class="action-btn approve">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </button>
+                        <button (click)="rejectProject(project)" class="action-btn reject">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="metrics-summary">
+        <div class="metric-card">
+            <div class="metric-title">
+                <svg class="metric-icon pending" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <span>en attente</span>
+            </div>
+            <div class="metric-value">{{ pendingCount }}</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">
+                <svg class="metric-icon approved" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <span>Valider</span>
+            </div>
+            <div class="metric-value">{{ approvedCount }}</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-title">
+                <svg class="metric-icon rejected" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                </svg>
+                <span>Réfuser</span>
+            </div>
+            <div class="metric-value">{{ rejectedCount }}</div>
+        </div>
+    </div>
+</div>

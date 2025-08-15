@@ -19,6 +19,6 @@ export class ProjectsToApproveComponent {
       github: 'https://github.com/monprojet',
       contributors: 3,
     },
-    // ... autres projets
+    
   ];
 }
