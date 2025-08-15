@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AdminManager } from "../pages/admin/admin-manager/admin-manager";
 
 
 
@@ -10,7 +11,7 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
 
 
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, AdminManager],
 
 
   templateUrl: './app.component.html',
