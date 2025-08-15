@@ -1,46 +1,94 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Router } from 'express';
+import { ProjectService } from '../../../core/services/project.service';
+import { IApiResponse } from '../../../core/interfaces/api-response';
 
 interface User {
   id: number;
   pseudo: string;
-  badge: 'green' | 'red' | 'yellow';
-  profile: 'DESIGNNEUR' | 'DEVELOPPEUR';
+  level: string;
+  coins: number;
+  validatedProjects: number;
+  profilName: 'DESIGNER' | 'DEVELOPER'; // champ réel API
+}
+
+interface UserData {
+  designers: User[];
+  developers: User[];
 }
 
 @Component({
   selector: 'app-contribution-ask',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './contribution-ask.html',
-  styleUrl: './contribution-ask.css',
+  styleUrls: ['./contribution-ask.css'],
 })
-export class ContributionAsk {
-  users: User[] = [
-    { id: 1, pseudo: 'Aminata', badge: 'green', profile: 'DESIGNNEUR' },
-    { id: 2, pseudo: 'Mariam', badge: 'green', profile: 'DEVELOPPEUR' },
-    { id: 3, pseudo: 'Rose', badge: 'red', profile: 'DESIGNNEUR' },
-    { id: 4, pseudo: 'Pseudo', badge: 'red', profile: 'DEVELOPPEUR' },
-    { id: 5, pseudo: 'Pseudo', badge: 'yellow', profile: 'DEVELOPPEUR' },
-    { id: 6, pseudo: 'Pseudo', badge: 'green', profile: 'DEVELOPPEUR' },
-    { id: 7, pseudo: 'Pseudo', badge: 'yellow', profile: 'DESIGNNEUR' },
-    { id: 8, pseudo: 'Pseudo', badge: 'yellow', profile: 'DESIGNNEUR' },
-  ];
+export class ContributionAsk implements OnInit {
+  private projectService = inject(ProjectService);
 
-  constructor() {}
+  users: User[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers() {
+  this.projectService.getProjectRecommendations(1).subscribe({
+    next: (res: IApiResponse) => {
+      const rawData = res.data as unknown;
+
+        // On cast localement en objet qui contient designers et developers (optionnellement)
+        const data = rawData as { designers?: User[]; developers?: User[] };
+
+        // On concatène les deux tableaux s'ils existent
+        this.users = [
+          ...(data.designers ?? []),
+          ...(data.developers ?? [])
+        ];
+    },
+    error: (err) => {
+      console.error('Erreur chargement utilisateurs', err);
+    },
+  });
+}
 
   acceptUser(userId: number) {
     console.log(`User with ID ${userId} accepted.`);
-    // Add logic here to remove the user from the list or update their status
-    this.users = this.users.filter((user) => user.id !== userId);
+    this.users = this.users.filter(user => user.id !== userId);
   }
 
   rejectUser(userId: number) {
     console.log(`User with ID ${userId} rejected.`);
-    // Add logic here to remove the user from the list or update their status
-    this.users = this.users.filter((user) => user.id !== userId);
+    this.users = this.users.filter(user => user.id !== userId);
   }
+
+  getBadgeColor(level: string): string {
+  switch(level.toLowerCase()) {
+    case 'beginner': return 'text-green-500';
+    case 'intermediate': return 'text-yellow-500';
+    case 'advanced': return 'text-red-500';
+    default: return 'text-gray-500';
+  }
+}
+
+loadPendingContributors() {
+  this.projectService.getPendingContributors(1).subscribe({
+    next: (res) => {
+      const rawData = res.data as unknown;
+
+        // On cast localement en objet qui contient designers et developers (optionnellement)
+        const data = rawData as { designers?: User[]; developers?: User[] };
+
+        // On concatène les deux tableaux s'ils existent
+        this.users = [
+          ...(data.designers ?? []),
+          ...(data.developers ?? [])
+        ];
+    },
+    error: (err) => console.error('Erreur chargement contributeurs', err)
+  });
+}
+
 }

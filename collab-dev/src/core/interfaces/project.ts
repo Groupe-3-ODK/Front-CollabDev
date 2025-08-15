@@ -12,10 +12,12 @@ export interface Iproject {
   description: string;
   domain: Domain;
   specification?: string;
-
+  status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
   author: UserResponseDTO;
+
   managerId: Profil | null; // Peut être null si aucun manager n'est assigné
   status: Status;
+
   level: Level;
   githubLink?: string;
   tasks: Task[];
@@ -25,6 +27,9 @@ export interface Iproject {
   coins: number;
   comments: Comment[];
   createdDate: string; // LocalDate → string ISO
+  progress?: number;
+  technologies?: String[]
+  
 }
 
 /** ENUMS (même valeurs que côté Java) */
@@ -51,6 +56,7 @@ export interface Task {
   id: number;
   title: string;
   description?: string;
+  status: Status
   completed: boolean;
 }
 

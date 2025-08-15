@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { CONSTANT } from '../core/constants/contant';
 import { LayoutComponent } from './layout/layout.component';
 import { Redirect } from './redirect/redirect';
+import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 
 export const routes: Routes = [
   {
@@ -121,6 +122,8 @@ export const routes: Routes = [
             (m) => m.DashboardComponent
           ),
       },
+
+      
       {
         path: 'user/profil',
         loadComponent: () =>
@@ -159,6 +162,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../pages/users/favoris/favoris').then((m) => m.Favoris),
       },
+
+      {
+    path: 'redirect/user/dashboard',
+    component: ContributionAsk
+  },
+  // route par défaut qui redirige vers dashboard :
+  { path: '', redirectTo: 'redirect/user/dashboard', pathMatch: 'full' }
     ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },

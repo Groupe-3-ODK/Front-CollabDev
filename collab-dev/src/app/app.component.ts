@@ -1,7 +1,11 @@
 
+
+
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 
 
 
@@ -10,7 +14,9 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
 
 
+
   imports: [CommonModule, RouterOutlet],
+
 
 
   templateUrl: './app.component.html',
@@ -41,12 +47,5 @@ export class AppComponent implements OnInit {
     this.isModalVisible = false;
     const projectId = data.projectId;
     const profilId = data.profilId;
-  }
-  //------------------------------------------------------
-  showModal = true;
-
-  onSubmit(profile: string) {
-    console.log('Profil choisi :', profile);
-    this.showModal = false; // ferme aussi après soumission
   }
 }
