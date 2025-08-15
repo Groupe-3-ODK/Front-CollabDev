@@ -1,0 +1,233 @@
+/* Conteneur principal de la page */
+.requests-container {
+  max-width: 1200px; /* Largeur maximale pour les grands écrans */
+  margin: 40px auto; /* Centrage horizontal et marge verticale */
+  padding: 20px;
+  font-family: 'Inter', sans-serif; /* Utilisation de la police Inter */
+  color: #333; /* Couleur de texte par défaut */
+}
+
+/* Style de l'en-tête du projet */
+.project-header {
+  background-color: #FFFFFF; /* Fond blanc comme dans Figma */
+  border: 2px solid #D9D9D9; /* Bordure grise légère */
+  border-radius: 20px 20px 0px 0px; /* Bords supérieurs arrondis */
+  padding: 25px 30px; /* Rembourrage intérieur */
+  margin-bottom: 20px; /* Marge en bas pour séparer de la liste des demandes */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Légère ombre pour la profondeur */
+}
+
+.project-name-display {
+  font-size: 36px; /* Grande taille de police pour le titre du projet */
+  font-weight: 700; /* Gras */
+  color: #000000; /* Noir pur */
+  margin-bottom: 5px; /* Espacement avec la date de création */
+}
+
+.project-creation-date {
+  font-size: 24px; /* Taille de police pour la date */
+  font-weight: 400; /* Normal */
+  color: #666; /* Gris légèrement plus clair */
+}
+
+/* Liste des candidatures */
+.request-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacement entre chaque élément de demande */
+  border-width: 0px 4px 4px 4px; /* Bordures latérales et inférieures */
+  border-style: solid;
+  border-color: #D9D9D9;
+  border-radius: 0px 0px 20px 20px; /* Bords inférieurs arrondis */
+  padding: 10px 0; /* Rembourrage interne */
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Ombre pour l'ensemble de la liste */
+}
+
+/* Style pour chaque élément de demande */
+.request-item {
+  display: flex;
+  justify-content: space-between; /* Espacement égal entre les infos et les actions */
+  align-items: center; /* Alignement vertical */
+  padding: 15px 30px; /* Rembourrage interne */
+  border-bottom: 1px solid #eee; /* Ligne de séparation légère */
+  transition: background-color 0.2s ease-in-out; /* Transition au survol */
+}
+
+.request-item:last-child {
+  border-bottom: none; /* Pas de bordure pour le dernier élément */
+}
+
+.request-item:hover {
+  background-color: #f9f9f9; /* Changement de couleur au survol */
+}
+
+.candidate-info {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espacement entre les initiales et les détails du candidat */
+}
+
+.candidate-initials {
+  width: 50px; /* Taille du cercle d'initiales */
+  height: 50px;
+  background-color: #FF6F00; /* Couleur orange comme dans Figma */
+  color: #FFFFFF;
+  border-radius: 50%; /* Forme circulaire */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.candidate-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.candidate-name {
+  font-size: 24px; /* Taille de police pour le nom du candidat */
+  font-weight: 600; /* Semi-gras */
+  color: #000000;
+  margin-bottom: 2px;
+}
+
+.request-date {
+  font-size: 18px; /* Taille de police pour la date de la demande */
+  color: #888; /* Gris clair */
+}
+
+/* Conteneur des boutons d'action (accepter/refuser) */
+.request-actions {
+  display: flex;
+  gap: 15px; /* Espacement entre les boutons */
+}
+
+/* Style de base des boutons d'action */
+.action-btn {
+  width: 45px; /* Taille fixe pour les boutons */
+  height: 45px;
+  border: none;
+  border-radius: 50%; /* Rendre les boutons circulaires */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre pour les boutons */
+}
+
+.action-btn svg {
+  width: 28px; /* Taille de l'icône SVG */
+  height: 28px;
+  color: white; /* Couleur de l'icône */
+}
+
+/* Accepter manager */
+.accept-btn {
+  background-color: #4CAF50; /* Vert comme dans Figma */
+}
+
+.accept-btn:hover {
+  background-color: #45a049; /* Vert plus foncé au survol */
+  transform: translateY(-2px); /* Léger effet de soulèvement */
+}
+
+.accept-btn:active {
+  transform: translateY(0); /* Retour à la position normale au clic */
+}
+
+.reject-btn {
+  background-color: #F44336; /* Rouge comme dans Figma */
+}
+
+.reject-btn:hover {
+  background-color: #da190b; /* Rouge plus foncé au survol */
+  transform: translateY(-2px);
+}
+
+.reject-btn:active {
+  transform: translateY(0);
+}
+
+/* Media Queries pour le responsive design */
+@media (max-width: 768px) {
+  .requests-container {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .project-header {
+    padding: 20px;
+  }
+
+  .project-name-display {
+    font-size: 30px;
+  }
+
+  .project-creation-date {
+    font-size: 20px;
+  }
+
+  .request-item {
+    flex-direction: column; /* Empile les éléments verticalement sur mobile */
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .candidate-info {
+    margin-bottom: 15px; /* Espacement entre info candidat et actions */
+    width: 100%; /* Occupe toute la largeur */
+  }
+
+  .candidate-name {
+    font-size: 20px;
+  }
+
+  .request-date {
+    font-size: 16px;
+  }
+
+  .request-actions {
+    width: 100%; /* Les boutons prennent toute la largeur disponible */
+    justify-content: flex-end; /* Aligne les boutons à droite */
+  }
+
+  .action-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .action-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-name-display {
+    font-size: 24px;
+  }
+
+  .project-creation-date {
+    font-size: 16px;
+  }
+
+  .candidate-initials {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .candidate-name {
+    font-size: 18px;
+  }
+
+  .request-date {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,71 @@
+<div class="project-list-container">
+  <h2>Administrations des gestionnaires</h2>
+  <div class="search-bar">
+    <input type="text" placeholder="Recherche un utilisateur" [(ngModel)]="searchQuery" (input)="filterProjects()">
+    <button>Tous les rôles</button>
+  </div>
+
+  <div class="project-table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nom du Projet</th>
+          <th>Date de Création</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Utilisation de filteredProjects pour afficher la liste après filtrage -->
+        <tr *ngFor="let project of filteredProjects">
+          <td>
+            <div class="project-info-cell">
+              <span class="project-icon">📁</span>
+              <span class="project-name">{{ project.title }}</span>
+            </div>
+          </td>
+          <td>
+            <span class="creation-date">{{ project.createdDate }}</span>
+          </td>
+          <td>
+            <button class="view-requests-btn" (click)="viewManagementRequests(project.id)">
+              Voir les demandes de gestion
+            </button>
+          </td>
+        </tr>
+        <!-- Exemples statiques pour montrer la structure et le style, ne sont pas liés aux données réelles -->
+        <tr>
+          <td>
+            <div class="project-info-cell">
+              <span class="project-icon">📁</span>
+              <span class="project-name">Projet Alpha - Exemple</span>
+            </div>
+          </td>
+          <td>
+            <span class="creation-date">01/01/2026</span>
+          </td>
+          <td>
+            <button class="view-requests-btn">
+              Voir les demandes de gestion
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="project-info-cell">
+              <span class="project-icon">📁</span>
+              <span class="project-name">Projet Beta - Exemple</span>
+            </div>
+          </td>
+          <td>
+            <span class="creation-date">15/02/2026</span>
+          </td>
+          <td>
+            <button class="view-requests-btn">
+              Voir les demandes de gestion
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
