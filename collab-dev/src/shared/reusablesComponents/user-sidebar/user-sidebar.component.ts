@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import { Router, RouterLinkActive, RouterModule } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -12,10 +12,18 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserSidebarComponent implements OnInit {
   private cookieService = inject(CookieService);
+  private router = inject(Router);
   public currentUser: any = null;
 
   ngOnInit(): void {
     const cookieValue = this.cookieService.get('currentUser');
     this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
+  }
+
+  logout() {
+    // 1. Supprimer le cookie
+    this.cookieService.delete('currentUser', '/');
+
+    this.router.navigate(['/login']);
   }
 }

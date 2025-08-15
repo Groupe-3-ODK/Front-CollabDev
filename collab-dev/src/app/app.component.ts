@@ -1,9 +1,10 @@
 
-import { Component, inject, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
+
+
+
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
 
 
 
@@ -11,17 +12,18 @@ import { DashboardComponent } from '../pages/users/dashboard/dashboard.component
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PopUp, RouterOutlet, DashboardComponent],
+
+
+
+  imports: [CommonModule, RouterOutlet],
+
+
+
   templateUrl: './app.component.html',
-  providers: [CookieService],
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  private cookieService = inject(CookieService);
-
-  ngOnInit(): void {
-    this.cookieService.deleteAll('/');
-  }
+  ngOnInit(): void {}
 
   title = 'collab-dev';
 

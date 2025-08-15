@@ -73,9 +73,9 @@ export const routes: Routes = [
       {
         path: 'admin/users',
         loadComponent: () =>
-          import('../pages/admin/users/users.component').then(
-            (m) => m.UsersComponent
-          ),
+          import(
+            '../pages/admin/gestion-des-users-cote-admin/gestion-des-users-cote-admin'
+          ).then((m) => m.GestionDesUsersCoteAdmin),
       },
       {
         path: 'admin/configuration',
@@ -444,4 +444,11 @@ export const routes: Routes = [
         (m) => m.AdminFormComponent
       ),
   },
+   {
+        path: 'admin/management-requests/:id', // Cette route capture l'ID du projet
+        loadComponent: () =>
+          import('../pages/admin/management-request/management-request').then(
+            (m) => m.ManagementRequest // Charge le composant ManagementRequest
+          ),
+      },
 ];

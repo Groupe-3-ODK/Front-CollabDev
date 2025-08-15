@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ProjectService } from '../../../core/services/project.service';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
   selector: 'app-my-contributions',
   imports: [CommonModule, FormsModule],
   templateUrl: './my-contributions.html',
   styleUrl: './my-contributions.css',
-  providers:[CookieService]
+  providers: [CookieService],
 })
 export class MyContributions {
   contributions: any[] = [];
@@ -22,21 +22,22 @@ export class MyContributions {
   constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    const cookieValue = this.cookieService.get('currentUser');
-    this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
-    if (this.currentUser) {
-      this.userId = this.currentUser.id;
-    }
-    this.projectService.getUserContributions(this.userId).subscribe({
-      next:(res)=>{
-        console.log(res);
-        this.contributions = res;
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    })
-    
+    // const cookieValue = this.cookieService.get('currentUser');
+    // this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
+    // if (this.currentUser) {
+    //   this.userId = this.currentUser.id;
+    // }
+    // this.projectService.getUserContributions(this.userId).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //     this.contributions = res;
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
+
+    this.contributions = this.projects;
   }
 
   // loadContributionsByRole(role: 'DEVELOPER' | 'MANAGER' | 'DESIGNER') {
@@ -48,7 +49,6 @@ export class MyContributions {
   //     error: (err: any) => console.error('Erreur récupération contributions', err)
   //   });
   // }
-
 
   // Filtre actuel pour les projets
   filter: string = 'all';

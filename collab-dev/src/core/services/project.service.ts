@@ -61,12 +61,14 @@ export class ProjectService {
   }
 
   getUserContributions(userId: number): Observable<any[]> {
-  let url = `${this.apiUrl}contributions/user/${userId}`;
-  return this._http.get<any[]>(url);
+    let url = `${this.apiUrl}contributions/user/${userId}`;
+    return this._http.get<any[]>(url);
+  }
 
-}
-
-
+  getProjectByStatus(status: string): Observable<IApiResponse> {
+    let url = `${this.apiUrl}projects/getByStatus?status=${status}`;
+    return this._http.get<IApiResponse>(url);
+  }
   // GET user by id
   getProjectById(id: number): Observable<IApiResponse> {
     return this._http
@@ -81,7 +83,6 @@ export class ProjectService {
 
     return this._http.put<string>(
       `${this.apiUrl}/managerInfo/validateProject`,
-      null, // pas de body
       { params }
     );
   }
