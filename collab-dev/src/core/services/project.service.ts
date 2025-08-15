@@ -24,6 +24,22 @@ export class CreateProject {
   }
 }
 
+export class ManagerInfo {
+  userId: number;
+  projectId: number;
+  profilType: string;
+  githubLink: string;
+  file?: File;
+
+  constructor() {
+    this.userId = 0;
+    this.projectId = 0;
+    this.profilType = '';
+    this.githubLink = '';
+    this.file = undefined;
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -43,6 +59,13 @@ export class ProjectService {
       .get<IApiResponse>(this._apiUrl)
       .pipe(catchError(this.handleError));
   }
+
+  getUserContributions(userId: number): Observable<any[]> {
+  let url = `${this.apiUrl}contributions/user/${userId}`;
+  return this._http.get<any[]>(url);
+
+}
+
 
   // GET user by id
   getProjectById(id: number): Observable<IApiResponse> {
@@ -165,7 +188,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserDesigner`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserDesigner`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 
@@ -174,7 +197,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserDesigner`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserDesigner`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 
@@ -183,7 +206,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserManager`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserManager`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
   getAllProjectsByUser(userId: number): Observable<IApiResponse> {
@@ -191,7 +214,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/${userId}/projectsUserAll`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserAll`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 

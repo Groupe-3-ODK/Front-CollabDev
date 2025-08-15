@@ -6,7 +6,7 @@
     </div>
     <div class="actions"></div>
     <div class="search-filter-section">
-      <input
+      <!-- <input
         type="text"
         placeholder="Rechercher..."
         (input)="onSearchChange($event)"
@@ -18,7 +18,14 @@
         <option value="level">Niveau du projet</option>
         <option value="domain">Domaine</option>
         <option value="status">Statut</option>
-      </select>
+      </select> -->
+      <!-- <app-chip
+        [searchQuery]="searchTerm"
+        [currentFilter]="filter"
+        (searchChange)="onSearch($event)"
+        (filterChange)="onFilter($event)"
+      >
+      </app-chip> -->
     </div>
   </div>
   <div class="projects-grid">
@@ -80,14 +87,34 @@
           >★</span
 
         > -->
-
+        @if (project.managerId === null) {
         <button
           class="join-btn"
           [disabled]="project.status === 'DONE'"
-          (click)="openModal()"
+          (click)="joinAsManager(project.id)"
         >
-          Rejoindre
+          Rejoindre Gestionnaire
         </button>
+
+        }@else {
+        <div class="relative">
+          <button
+            class="join-btn"
+            [disabled]="project.status === 'DONE'"
+            (click)="openModal(project.id)"
+          >
+            Rejoindre Contributeur
+          </button>
+
+          <app-pop
+            *ngIf="showModal"
+            (submitted)="onPopupSubmit($event)"
+            (closed)="showModal = false"
+            class="fixed inset-0 flex items-center justify-center z-50"
+          ></app-pop>
+        </div>
+
+        }
       </div>
     </div>
     <div *ngIf="filteredProjects.length === 0" class="no-projects">
@@ -113,8 +140,17 @@
   </div>
 </div>
 
-<app-pop
+<!-- <app-pop
   *ngIf="showModal"
   (submitted)="onSubmit($event)"
   (closed)="showModal = false"
-></app-pop>
+></app-pop> -->
+
+<!-- <div class="relative">
+  <app-pop
+    *ngIf="showModal"
+    (submitted)="onPopupSubmit($event)"
+    (closed)="showModal = false"
+    class="absolute top-full mt-2 left-0 z-50"
+  ></app-pop>
+</div> -->

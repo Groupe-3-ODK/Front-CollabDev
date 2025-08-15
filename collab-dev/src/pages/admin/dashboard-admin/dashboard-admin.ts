@@ -79,7 +79,7 @@ export class DashboardAdmin {
       author: 'K. Traoré',
       date: '01/11/2025',
       category: 'Santé',
-      role: 'Architecte',
+      role: 'Designer',
       githubLink: 'https://github.com/example3',
       status: 'pending'
     }
@@ -108,19 +108,20 @@ export class DashboardAdmin {
     return progress;
   }
 
-  searchProjects(): void {
+searchProjects(): void {
     if (!this.searchQuery) {
-      this.filteredProjects = [...this.projects];
-      return;
+        this.filteredProjects = this.projects.filter(p => p.status === 'pending');
+        return;
     }
     
     const query = this.searchQuery.toLowerCase();
     this.filteredProjects = this.projects.filter(project => 
-      project.name.toLowerCase().includes(query) || 
-      project.author.toLowerCase().includes(query) ||
-      project.category.toLowerCase().includes(query)
+        (project.name.toLowerCase().includes(query) || 
+         project.author.toLowerCase().includes(query) ||
+         project.category.toLowerCase().includes(query)) &&
+        project.status === 'pending'
     );
-  }
+}
 
   openGithubLink(url: string): void {
     window.open(url, '_blank');

@@ -3,9 +3,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
 import { RouterOutlet } from '@angular/router';
-import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
-import { Projects } from "../pages/users/projects/projects";
 import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+
 
 
 
