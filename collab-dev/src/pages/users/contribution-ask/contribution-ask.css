@@ -182,10 +182,14 @@ body {
 }
 
 .project-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.75rem;
   font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
+  padding: 0.25rem 10px;
+  border-radius: 25px;
+  width: fit-content;
 }
 
 .project-date {
@@ -211,6 +215,10 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 10px 20px;
+  background-color: #f97316;
+  border-radius: 50px;
+  color: white;
 }
 
 .collaborators svg {

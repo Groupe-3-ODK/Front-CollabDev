@@ -3,7 +3,7 @@ export interface IContributionRequest {
   id: number; // Ceci est l'ID de la demande elle-même
   candidateProfileId: number; // NOUVEAU : L'ID du Profil du candidat
   candidateName: string; // Nom du candidat
-  requestDate: string;   // Date de la demande (ISO 8601 string)
+  requestDate: string; // Date de la demande (ISO 8601 string)
 }
 
 export interface Iproject {
@@ -16,7 +16,6 @@ export interface Iproject {
   author: UserResponseDTO;
 
   managerId: Profil | null; // Peut être null si aucun manager n'est assigné
-  status: Status;
 
   level: Level;
   githubLink?: string;
@@ -28,8 +27,7 @@ export interface Iproject {
   comments: Comment[];
   createdDate: string; // LocalDate → string ISO
   progress?: number;
-  technologies?: String[]
-  
+  technologies?: String[];
 }
 
 /** ENUMS (même valeurs que côté Java) */
@@ -56,7 +54,7 @@ export interface Task {
   id: number;
   title: string;
   description?: string;
-  status: Status
+  status: Status;
   completed: boolean;
 }
 
