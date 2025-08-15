@@ -4,9 +4,9 @@ export interface Iproject {
   description: string;
   domain: Domain;
   specification?: string;
+  status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
   author: UserResponseDTO;
   managerId: Profil;
-  status: Status;
   level: Level;
   githubLink?: string;
   tasks: taskI[];
@@ -21,7 +21,8 @@ export interface Iproject {
   contributionRequests: Profil[];
   createdDate: string; // LocalDate → string ISO
   progress?: number;
-  technologies?: string[];
+  technologies?: String[]
+  
 }
  
 
@@ -48,8 +49,8 @@ export interface Profil {
 export interface taskI {
   id: number;
   title: string;
-  status:'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
   description?: string;
+  status: Status
   completed: boolean;
 }
 

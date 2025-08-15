@@ -1,15 +1,16 @@
 
 import { Component, inject, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
-import { RouterOutlet } from '@angular/router';
-import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+
+import { ProfilComponent } from "../pages/users/profil/profil.component";
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
-
-  imports: [PopUp, RouterOutlet, DashboardComponent],
+  imports: [ReactiveFormsModule, ProfilComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

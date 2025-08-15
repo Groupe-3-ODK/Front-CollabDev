@@ -42,35 +42,13 @@ export class CreerTacheComponent implements OnInit {
       return;
     }
 
-    this.isLoading = true;
-
-  
-    this.taskService.createTask({
-      title: this.taskTitle,
-      projectId: this.currentProject.id
-    }).subscribe({
-      next: (task) => {
-
-        //taskData:any = task.data
-       
-        this.taskService.assignTask(task.id, this.selectedMemberId!).subscribe({
-          next: (res) => {
-            alert("Tâche créée et assignée avec succès !");
-            
-            this.isLoading = false;
-          },
-          error: (err: HttpErrorResponse) => {
-            console.error(err);
-            alert("Une erreur est survenue lors de l'assignation.");
-            this.isLoading = false;
-          }
-        });
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error(err);
-        alert("Une erreur est survenue lors de la création de la tâche.");
-        this.isLoading = false;
-      }
-    });
+  // Réinitialise le formulaire
+  resetForm(): void {
+    this.task = {
+      name: '',
+      description: '',
+      dueDate: '',
+      assignee: ''
+    }
   }
-}
+}}

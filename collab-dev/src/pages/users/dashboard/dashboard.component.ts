@@ -5,6 +5,7 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
 import { IApiResponse } from '../../../core/interfaces/api-response';
 import { SessionService } from '../../../core/services/session-service';
+import { Router } from '@angular/router';
 import { Iproject } from '../../../core/interfaces/projectI';
 
 @Component({
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit {
   userId: number = 0;
 
   constructor(
+    private router: Router,
     private projectService: ProjectService,
     private sessionService: SessionService
   ) {
@@ -70,7 +72,8 @@ export class DashboardComponent implements OnInit {
           console.log(`Projets chargés: ${this.projects.length}`, {
             TODO: this.todoCount,
             IN_PROGRESS: this.inProgressCount,
-            DONE: this.completedCount
+            DONE: this.completedCount,
+            VALIDATED: this.validatedCount
           });
         }
       },
@@ -119,6 +122,10 @@ export class DashboardComponent implements OnInit {
     return this.projects.filter((project) => project.status === 'DONE').length;
 
   }
+  get validatedCount(): number {
+    return this.projects.filter((project) => project.status === 'VALIDATED').length;
+
+  }
 
   setFilter(filter: string): void {
     this.currentFilter = filter;
@@ -135,4 +142,55 @@ export class DashboardComponent implements OnInit {
     const inputElement = event.target as HTMLInputElement;
     this.searchSubject.next(inputElement.value);
   }
+
+  // Méthode pour calculer la progression basée sur les tâches
+calculateProjectProgress(project: Iproject): number {
+  if (project.status === 'VALIDATED') return 100;
+  if (project.status === 'DONE') return 100;
+  if (project.status === 'TODO') return 0;
+  
+  if (project.tasks && project.tasks.length > 0) {
+    const completedTasks = project.tasks.filter(task => task.status === 'DONE' || task.status === 'VALIDATED').length;
+    return Math.round((completedTasks / project.tasks.length) * 100);
+  }
+  
+  // Fallback pour les projets sans tâches
+  if (project.status === 'IN_PROGRESS') return 50;
+  return 0;
+}
+
+// Méthode pour obtenir les initiales des collaborateurs
+getInitials(name: string): string {
+  if (!name) return '?';
+  const parts = name.split(' ');
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+  return `${parts[0].charAt(0)}${parts[parts.length - 1].charAt(0)}`.toUpperCase();
+}
+
+// Méthode pour naviguer vers les détails du projet
+viewProjectDetails(project: Iproject): void {
+  const currentUserId = this.sessionService.getUserId();
+  if (!currentUserId) {
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  // Vérification dans les membres du projet
+  const userProfilesInProject = project.members.filter(member => 
+    member.id === currentUserId
+  );
+
+  const hasManagerProfile = userProfilesInProject.some(profile =>
+    profile.name === 'MANAGER'
+  );
+
+  if (hasManagerProfile) {
+    this.projectService.getProjectById(project.id);
+    this.router.navigate(['/users/voir-details-projet', project.id]);
+  } else if (userProfilesInProject.length > 0) {
+    this.router.navigate(['/users/project-limited-view', project.id]);
+  } else {
+    this.router.navigate(['/access-denied']);
+  }
+}
 }

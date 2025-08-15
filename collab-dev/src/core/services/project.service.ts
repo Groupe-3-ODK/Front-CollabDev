@@ -99,7 +99,6 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  // PUT update user
 
   updateProjects(
     id: number,
@@ -197,7 +196,7 @@ export class ProjectService {
       ? environment.API_BASE_URL.slice(0, -1)
       : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/projects/${userId}/projectsUserDevelopper`;
+    const url = `${baseUrl}/projects/${userId}/projectsUserDesigner`;
     return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 
