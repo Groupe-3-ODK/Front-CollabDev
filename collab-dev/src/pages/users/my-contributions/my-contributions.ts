@@ -40,16 +40,6 @@ export class MyContributions {
     this.contributions = this.projects;
   }
 
-  // loadContributionsByRole(role: 'DEVELOPER' | 'MANAGER' | 'DESIGNER') {
-  //   this.projectService.getUserContributions(this.userId, role).subscribe({
-  //     next: (res: MyContributions[]) => {
-  //       this.contributions = res;
-  //       console.log(this.contributions);
-  //     },
-  //     error: (err: any) => console.error('Erreur récupération contributions', err)
-  //   });
-  // }
-
   // Filtre actuel pour les projets
   filter: string = 'all';
 
@@ -117,15 +107,12 @@ export class MyContributions {
    */
   get filteredProjects(): any[] {
     if (this.filter === 'all') {
-      return this.projects;
-    } else {
-      // Filtrer les projets par catégorie
-      return this.projects.filter(
-        (project) => project.category === this.filter
-      );
+      return this.contributions;
     }
+    return this.contributions.filter(
+      (project) => project.category === this.filter
+    );
   }
-
   /**
    * Définit le filtre actuel pour les projets.
    * @param filter La valeur du filtre.
