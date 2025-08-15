@@ -1,21 +1,21 @@
-import { Component } from '@angular/core';
 
-import { ProjectDoneComponent } from '../pages/users/project-done/project-done.component';
-import { SignupComponent } from '../components/signup/signup';
-import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password';
-import { ViewProjectsComponent } from '../pages/users/view-projects/view-projects';
-import { ValiderFinProjet } from "../pages/admin/valider-fin-projet/valider-fin-projet";
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProjectDoneComponent, SignupComponent, ForgotPasswordComponent, ViewProjectsComponent, ValiderFinProjet],
+
+  imports: [CommonModule, RouterOutlet],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  ngOnInit(): void {}
+
   title = 'collab-dev';
 
   // Variable qui contrôle l'affichage du modal
@@ -36,5 +36,14 @@ export class AppComponent {
     console.log('Données du projet enregistrées:', data);
     // Ici, vous pouvez ajouter la logique pour traiter les données
     this.isModalVisible = false;
+    const projectId = data.projectId;
+    const profilId = data.profilId;
+  }
+  //------------------------------------------------------
+  showModal = true;
+
+  onSubmit(profile: string) {
+    console.log('Profil choisi :', profile);
+    this.showModal = false; // ferme aussi après soumission
   }
 }

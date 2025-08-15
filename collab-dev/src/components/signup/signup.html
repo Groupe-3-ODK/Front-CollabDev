@@ -1,86 +1,113 @@
 <div class="page">
-    <div class="signup-container">
-        <div class="support-panel-left">
-            <div class="left-panel">
-                <h1>Inscription</h1>
-                <div class="illustration">
-                    <img src="assets/images/Hand coding-bro.png" alt="Illustration d'inscription" />
-                </div>
-            </div>
+  <div class="signup-container">
+    <div class="support-panel-left">
+      <div class="left-panel">
+        <h1>Inscription</h1>
+        <div class="illustration">
+          <img
+            src="assets/images/Hand coding-bro.png"
+            alt="Illustration d'inscription"
+          />
         </div>
-
-        <div class="support-panel-rigth">
-            <div class="right-panel">
-                <img src="assets/images/logoV11.png" alt="Logo CollabDev" class="logo" />
-                <div class="signup-form">
-                    
-                    <p class="signup-form-p">Bienvenue</p>
-                    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                        <div class="form-group">
-                        
-                            <input
-                                type="text"
-                                id="pseudo"
-                                formControlName="pseudo"
-                                placeholder="Choisissez un pseudo"
-                            />
-                            <div *ngIf="signupForm.get('pseudo')?.invalid && signupForm.get('pseudo')?.touched" class="error">
-                                Le pseudo est requis et doit contenir au moins 3 caractères.
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input
-                                type="email"
-                                id="email"
-                                formControlName="email"
-                                placeholder="Entrez votre email"
-                            />
-                            <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error">
-                                Veuillez entrer un email valide.
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input
-                                type="tel"
-                                id="telephone"
-                                formControlName="telephone"
-                                placeholder="Entrez votre numéro"
-                            />
-                            <div *ngIf="signupForm.get('telephone')?.invalid && signupForm.get('telephone')?.touched" class="error">
-                                Veuillez entrer un numéro valide (8 à 10 chiffres).
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input
-                                type="password"
-                                id="password"
-                                formControlName="password"
-                                placeholder="Choisissez un mot de passe"
-                            />
-                            <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error">
-                                Le mot de passe est requis et doit contenir au moins 6 caractères.
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                formControlName="confirmPassword"
-                                placeholder="Confirmez le mot de passe"
-                            />
-                            <div *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmPassword')?.touched" class="error">
-                                Les mots de passe ne correspondent pas.
-                            </div>
-                        </div>
-                        <button type="submit" class="signup-btn" [disabled]="signupForm.invalid">
-                        S'inscrire
-                        </button>
-                        <p class="login-link">
-                        Vous avez déjà un compte ? <a href="#">Se connecter</a>
-                        </p>
-                    </form>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <div class="support-panel-rigth">
+      <div class="right-panel">
+        <img
+          src="assets/images/logoV11.png"
+          alt="Logo CollabDev"
+          class="logo"
+        />
+        <div class="signup-form">
+          <p class="signup-form-p">Bienvenue</p>
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <input
+                type="text"
+                id="pseudo"
+                formControlName="pseudo"
+                placeholder="Choisissez un pseudo"
+              />
+              <div
+                *ngIf="signupForm.get('pseudo')?.invalid && signupForm.get('pseudo')?.touched"
+                class="error"
+              >
+                Le pseudo est requis et doit contenir au moins 3 caractères.
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                placeholder="Entrez votre email"
+              />
+              <div
+                *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+                class="error"
+              >
+                Veuillez entrer un email valide.
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                type="tel"
+                id="telephone"
+                formControlName="telephone"
+                placeholder="Entrez votre numéro"
+              />
+              <div
+                *ngIf="signupForm.get('telephone')?.invalid && signupForm.get('telephone')?.touched"
+                class="error"
+              >
+                Veuillez entrer un numéro valide (8 à 10 chiffres).
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="password"
+                formControlName="password"
+                placeholder="Choisissez un mot de passe"
+              />
+              <div
+                *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+                class="error"
+              >
+                Le mot de passe est requis et doit contenir au moins 6
+                caractères.
+              </div>
+            </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                placeholder="Confirmez le mot de passe"
+              />
+              <div
+                *ngIf="signupForm.hasError('mismatch') && signupForm.get('confirmPassword')?.touched"
+                class="error"
+              >
+                Les mots de passe ne correspondent pas.
+              </div>
+            </div>
+            <button
+              (click)="onSubmit()"
+              type="submit"
+              class="signup-btn"
+              [disabled]="signupForm.invalid"
+            >
+              S'inscrire
+            </button>
+            <p class="login-link">
+              Vous avez déjà un compte ?
+              <a [routerLink]="['/login']">Se connecter</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

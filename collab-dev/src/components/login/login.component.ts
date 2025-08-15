@@ -7,27 +7,29 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CONSTANT } from '../../core/constants/contant';
+import { Router, RouterModule } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Auth, Login } from '../../core/services/auth';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule], // Importe ReactiveFormsModule pour ce composant
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  providers: [CookieService],
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  private router = inject(Router); // Injecter le Router si nécessaire
+  private loginData: Login = new Login();
 
-  private loginData = {
-    email: '',
-    password: '',
-    rememberMe: false,
-  };
+  private router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private _authService: Auth,
+    private cookieService: CookieService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -37,29 +39,26 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Formulaire soumis', this.loginForm.value);
       // Ajoutez ici la logique pour envoyer les données au backend
       this.loginData.email = this.loginForm.value.email;
       this.loginData.password = this.loginForm.value.password;
-      this.loginData.rememberMe = this.loginForm.value.rememberMe;
-
-      if (
-        CONSTANT.CURRENT_USER.EMAIL === this.loginData.email &&
-        CONSTANT.CURRENT_USER.PASSWORD === this.loginData.password
-      ) {
-        localStorage.setItem(
-          'currentUser',
-          JSON.stringify(CONSTANT.CURRENT_USER)
-        );
-        alert(
-          'Connexion réussie ! Bienvenue ' + CONSTANT.CURRENT_USER.USERNAME
-        );
-        // Rediriger vers la page d'accueil oau une autre page après la connexion réussie
-        this.router.navigate(['/redirect']);
-      }
+      this._authService.login(this.loginData).subscribe({
+        next: (response) => {
+          this.cookieService.set('currentUser', JSON.stringify(response.data), {
+            path: '/', // cookie disponible partout
+            expires: 7, // 7 jours
+          });
+        },
+        complete: () => {
+          // Rediriger vers la page d'accueil ou une autre page après la connexion réussie
+          this.router.navigate(['/redirect']);
+        },
+        error: (error) => {
+          console.error('Erreur lors de la connexion:', error);
+        },
+      });
     } else {
       console.error('Formulaire invalide');
-      alert('Veuillez remplir correctement le formulaire.');
     }
   }
 }

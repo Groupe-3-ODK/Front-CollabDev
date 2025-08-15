@@ -1,23 +1,23 @@
-@import "tailwindcss"; /* You can add global styles to this file, and also import other style files */
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'); */
+@import "tailwindcss";
+
 :root {
-    --primary-color: #FF6F00; /* Orange from the logo */
-    --secondary-color: #2c3e50; /* Dark blue/grey for text */
-    --background-light: #f4f7f6;
-    --card-background: #ffffff;
-    --text-dark: #333333;
-    --text-medium: #666666;
-    --text-light: #999999;
-    --border-color: #e0e0e0;
-    --shadow-light: rgba(0, 0, 0, 0.05);
-    --online-color: #28a745; /* Green */
-    --available-color: #ffc107; /* Yellow/Orange */
-    --busy-color: #dc3545; /* Red */
-    --status-in-progress: #FF6F00; /* Orange de la palette */
-    --status-completed: #4CAF50; /* Vert pour terminé */
-    --status-todo: #000000; /* Gris pour à faire */
-      /* Couleurs spécifiques pour les icônes de stats des cercles de fond */
-    --stat-icon-todo-circle-bg: #67B6E9; /* Bleu clair pour "Projets à faire" (conforme à l'image) */
-    --stat-icon-inprogress-circle-bg: #FEF9E1; /* Jaune pâle/crème pour "Projets en cours" (conforme à l'image) */
-    --stat-icon-completed-circle-bg: #4CAF50; /* Vert pour "Projets terminés" (conforme à l'image) */
+  --primary-color: #ff6f00; /* Orange from the logo */
+  --secondary-color: #2c3e50; /* Dark blue/grey for text */
+  --background-light: #f4f7f6;
+  --card-background: #ffffff;
+  --text-dark: #333333;
+  --text-medium: #666666;
+  --text-light: #999999;
+  --border-color: #e0e0e0;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --online-color: #28a745; /* Green */
+  --available-color: #ffc107; /* Yellow/Orange */
+  --busy-color: #dc3545; /* Red */
+  --status-in-progress: #ff6f00; /* Orange de la palette */
+  --status-completed: #4caf50; /* Vert pour terminé */
+  --status-todo: #000000; /* Gris pour à faire */
+  /* Couleurs spécifiques pour les icônes de stats des cercles de fond */
+  --stat-icon-todo-circle-bg: #67b6e9; /* Bleu clair pour "Projets à faire" (conforme à l'image) */
+  --stat-icon-inprogress-circle-bg: #fef9e1; /* Jaune pâle/crème pour "Projets en cours" (conforme à l'image) */
+  --stat-icon-completed-circle-bg: #4caf50; /* Vert pour "Projets terminés" (conforme à l'image) */
 }

@@ -1,0 +1,17 @@
+<div class="background-animation">
+  <div class="form-container">
+    <h1>Soumission d'un projet</h1>
+    <p>Partagez votre passion  avec notre communauté de managers, designers et développeurs</p>
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="projectName">Nom du projet <span>*</span></label>
+        <input type="text" id="projectName" formControlName="projectName" placeholder="Veillez saisir le nom du projet...">
+      </div>
+      <div class="form-group">
+        <label for="gitHubLink">Lien github <span>*</span></label>
+        <input type="url" id="gitHubLink" formControlName="gitHubLink" placeholder="https://github.com/username/repository">
+      </div>
+      <button (click)="onSubmit()" type="submit">Soumettre</button>
+    </form>
+  </div>
+</div> 

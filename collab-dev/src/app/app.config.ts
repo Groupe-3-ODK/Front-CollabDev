@@ -4,7 +4,9 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
+
 import {
+  Bookmark,
   BookMarked,
   ChartNoAxesCombined,
   CircleCheckBig,
@@ -27,11 +29,13 @@ import {
   UserRoundPen,
 } from 'lucide-angular';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimations(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     importProvidersFrom(
@@ -55,8 +59,9 @@ export const appConfig: ApplicationConfig = {
         LogIn,
         UserRoundPen,
         ScanSearch,
+        Bookmark,
       })
     ),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
   ],
 };

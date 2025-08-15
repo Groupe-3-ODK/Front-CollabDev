@@ -1,0 +1,205 @@
+
+<div class="page-container">
+  <header class="header">
+    <div class="user-profile">
+      <div class="profile-icon">
+        <i class='bx bxs-user-circle'></i>
+      </div>
+      <div class="profile-info">
+        <span class="user-name">Seydou Dembele</span>
+        <span class="user-role">ADMIN</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="dashboard-header">
+      <h1 class="page-title">Gestion des utilisateurs</h1>
+      <p class="user-count" #userCount>20 utilisateurs actifs sur 40 au total</p>
+    </div>
+
+    <div class="controls-bar">
+      <div class="search-box">
+        <i class='bx bx-search'></i>
+        <input type="text" placeholder="Recherche un utilisateur" #searchInput>
+      </div>
+      <div class="filter-roles-container">
+        <div class="filter-roles-button" id="filter-button" #filterButton>
+          <span>Filtrer</span>
+          <i class='bx bx-filter'></i>
+        </div>
+        <div class="filter-dropdown" id="filter-dropdown" #filterDropdown>
+          <span class="filter-option" data-filter="all">Tous</span>
+          <span class="filter-option" data-filter="active">Actif</span>
+          <span class="filter-option" data-filter="inactive">Inactif</span>
+        </div>
+      </div>
+    </div>
+
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>UTILISATEURS</th>
+          <th>RÔLES</th>
+          <th>ÉTAT</th>
+          <th>ACTION</th>
+        </tr>
+      </thead>
+      <tbody #tableBody>
+        <!-- Les attributs data-status sont utilisés pour le filtrage -->
+        <tr class="table-row" data-status="active">
+          <td class="user-name-cell">Fatoumata Diawara</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class='bx bx-user-x'></i>
+              Désactiver
+            </button>
+          </td>
+        </tr>
+        <tr class="table-row" data-status="active">
+          <td class="user-name-cell">Jean Dupont</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class='bx bx-user-x'></i>
+              Désactiver
+            </button>
+          </td>
+        </tr>
+        <tr class="table-row" data-status="inactive">
+          <td class="user-name-cell">Marie Curie</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell inactive">
+            <span class="status-dot"></span>
+            <span class="status-text">Inactif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button activate-button">
+              <i class='bx bx-user-check'></i>
+              Activer
+            </button>
+          </td>
+        </tr>
+        <tr class="table-row" data-status="active">
+          <td class="user-name-cell">Pierre Richard</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class='bx bx-user-x'></i>
+              Désactiver
+            </button>
+          </td>
+        </tr>
+        <tr class="table-row" data-status="inactive">
+          <td class="user-name-cell">Alice Dubois</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell inactive">
+            <span class="status-dot"></span>
+            <span class="status-text">Inactif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button activate-button">
+              <i class='bx bx-user-check'></i>
+              Activer
+            </button>
+          </td>
+        </tr>
+        <tr class="table-row" data-status="active">
+          <td class="user-name-cell">Marc Lefevre</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class='bx bx-user-x'></i>
+              Désactiver
+            </button>
+          </td>
+        </tr>
+        <tr class="table-row" data-status="inactive">
+          <td class="user-name-cell">Sophie Moreau</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell inactive">
+            <span class="status-dot"></span>
+            <span class="status-text">Inactif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button activate-button">
+              <i class='bx bx-user-check'></i>
+              Activer
+            </button>
+          </td>
+        </tr>
+        <tr class="table-row" data-status="active">
+          <td class="user-name-cell">David Martin</td>
+          <td class="roles-cell">
+            <span class="role-badge developer">DÉVELOPPEUR</span>
+            <span class="role-badge manager">MANAGER</span>
+            <span class="role-badge designer">DESIGNNEUR</span>
+          </td>
+          <td class="status-cell active">
+            <span class="status-dot"></span>
+            <span class="status-text">Actif</span>
+          </td>
+          <td class="action-cell">
+            <button class="action-button deactivate-button">
+              <i class='bx bx-user-x'></i>
+              Désactiver
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Contrôles de pagination -->
+    <div class="pagination-container">
+      <button id="prev-btn" class="pagination-button disabled" #prevBtn>Précédent</button>
+      <div id="page-numbers" #pageNumbers></div>
+      <button id="next-btn" class="pagination-button" #nextBtn>Suivant</button>
+    </div>
+  </main>
+</div>
+

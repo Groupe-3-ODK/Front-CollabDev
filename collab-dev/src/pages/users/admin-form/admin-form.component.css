@@ -1,0 +1,218 @@
+.background-animation {
+  position: relative;
+  min-height: 100vh;
+  background: #fff;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 204, 153, 0.5);
+    border-radius: 50%;
+    animation: float 15s infinite ease-in-out;
+    top: 10%;
+    left: 10%;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 204, 153, 0.3);
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out;
+    bottom: 15%;
+    right: 15%;
+  }
+
+  .form-container {
+    position: relative;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #fffcf5;
+    border-radius: 10px;
+    border-top: 3px solid #FF6F00 ;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+
+    h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #D9D9D9;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: border-color 0.9s ease, box-shadow 0.9s ease;
+        background: #fff;
+        outline: none;
+
+        &:focus {
+          border-color: rgba(255, 111, 0, 0.4);
+          box-shadow: 2px 3px 5px rgba(255, 111, 0, 0.4);
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+      span{
+        color:#e76f51 ;
+      }
+      .file-upload {
+        width: 100%;
+        padding: 30px;
+        border: 2px dashed #f4a261;
+        border-radius: 8px;
+        text-align: center;
+        background: #fafafa;
+        cursor: pointer;
+        transition: border-color 0.3s ease, background 0.3s ease;
+
+        &:hover {
+          border-color: #e76f51;
+          background: #f9f9f9;
+        }
+
+        img {
+          display: block;
+          margin: 0 auto 10px;
+          width: 40px;
+          height: 40px;
+        }
+
+        p {
+          margin: 5px 0;
+          color: #333;
+        }
+
+        .file-size-limit {
+          color: #666;
+          font-size: 14px;
+        }
+      }
+    }
+
+     .form-group-doc {
+      margin-bottom: 15px;
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+        font-weight: 500;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px 15px;
+        border: dashed  #f4a261;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background: #fff;
+        outline: none;
+
+        &:focus {
+          border-color: #e76f51;
+          box-shadow: 0 0 5px rgba(228, 111, 81, 0.5);
+        }
+
+        &::placeholder {
+          color: #999;
+        }
+      }
+
+      .file-upload {
+        width: 100%;
+        padding: 30px;
+        border: 2px dashed #f4a261;
+        border-radius: 8px;
+        text-align: center;
+        background: #fafafa;
+        cursor: pointer;
+        transition: border-color 0.3s ease, background 0.3s ease;
+
+        &:hover {
+          border-color: #e76f51;
+          background: #f9f9f9;
+        }
+
+        img {
+          display: block;
+          margin: 0 auto 10px;
+          width: 40px;
+          height: 40px;
+        }
+        .upload-icon {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.2s ease;
+}
+
+.upload-icon:hover {
+  transform: scale(1.1);
+}
+
+
+        p {
+          margin: 5px 0;
+          color: #333;
+        }
+
+        .file-size-limit {
+          color: #666;
+          font-size: 14px;
+        }
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #f4a261;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: #e76f51;
+      }
+    }
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }}
