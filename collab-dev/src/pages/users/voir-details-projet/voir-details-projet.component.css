@@ -251,6 +251,7 @@
     background: #FFFFFF;
     box-shadow: 3px 3px 14px 2px rgba(255, 111, 0, 0.3);
     border-radius: 4px;
+    padding: 15px;
 }
 
 .team-members {
@@ -259,6 +260,7 @@
     background: #FFFFFF;
     box-shadow: 3px 3px 14px 2px rgba(255, 111, 0, 0.3);
     border-radius: 4px;
+    padding: 15px;
 }
 
 .tech-item,
