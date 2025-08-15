@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Ajout de CommonModule pour *ngFor
+import { CommonModule } from '@angular/common'; 
 
 import { Iproject } from '../../../core/interfaces/project';
 import { ProjectManagerService } from '../../../core/services/project-manager-service';
@@ -12,14 +12,13 @@ import { ProjectManagerService } from '../../../core/services/project-manager-se
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule // CommonModule est nécessaire pour les directives structurelles comme *ngFor
-  ],
+    CommonModule ],
   templateUrl: './admin-manager.html',
   styleUrl: './admin-manager.css'
 })
 export class AdminManager implements OnInit {
-  projects: Iproject[] = [];
-  filteredProjects: Iproject[] = [];
+  projects: any = [];
+  filteredProjects: any = [];
   searchQuery: string = '';
 
   constructor(
@@ -28,15 +27,24 @@ export class AdminManager implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.projectManagerService.getProjects().subscribe(data => {
-      this.projects = data;
-      this.filteredProjects = data;
+    this.projectManagerService.getProjects().subscribe(res => {
+      this.projects = res.data;
+      this.filteredProjects = res.data;
     });
+  }
+  getPendingProject(){
+
   }
 
   filterProjects(): void {
     const query = this.searchQuery.toLowerCase();
-    this.filteredProjects = this.projects.filter(project =>
+    interface Project {
+      title: string;
+      createdDate: string;
+      // add other properties as needed
+    }
+
+    this.filteredProjects = this.projects.filter((project: Project) =>
       project.title.toLowerCase().includes(query) ||
       project.createdDate.includes(query)
     );
@@ -44,7 +52,6 @@ export class AdminManager implements OnInit {
 
   viewManagementRequests(projectId: number): void {
     console.log(`Naviguer vers les demandes de gestion pour le projet ID: ${projectId}`);
-    // Le chemin de navigation doit correspondre à celui défini dans vos routes
     this.router.navigate(['/admin/management-requests', projectId]);
   }
 }
