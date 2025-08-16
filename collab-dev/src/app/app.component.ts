@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
+
 import { RouterOutlet } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -16,6 +17,7 @@ import { DetailProjetComponent } from '../pages/users/detail-projet/detail-proje
 
   providers: [MessageService, ConfirmationService],
 
+
   imports: [
     CommonModule,
     RouterOutlet,
@@ -26,6 +28,7 @@ import { DetailProjetComponent } from '../pages/users/detail-projet/detail-proje
     RippleModule,
     DetailProjetComponent,
   ],
+
 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],

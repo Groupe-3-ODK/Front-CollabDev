@@ -1,10 +1,10 @@
-    import { Injectable, inject } from '@angular/core'; // Importer 'inject' et 'HttpClient'
-    import { HttpClient } from '@angular/common/http'; // Importer HttpClient
-    import { Observable, of } from 'rxjs'; // 'of' est toujours utile pour les mocks de test si besoin, mais 'HttpClient' retourne des Observables.
+    import { Injectable, inject } from '@angular/core'; 
+    import { HttpClient } from '@angular/common/http'; 
+    import { Observable, of } from 'rxjs'; 
     import { Iproject, IContributionRequest } from '../interfaces/project';
     import { environment } from '../../environments/environment';
-    import { CONSTANT } from '../../core/constants/contant'; // Importer les constantes pour les chemins d'API
-
+    import { CONSTANT } from '../../core/constants/contant'; 
+import { IApiResponse } from '../interfaces/api-response';
     @Injectable({
       providedIn: 'root'
     })
@@ -12,12 +12,13 @@
       private _http = inject(HttpClient);
       private apiProjectsUrl = environment.API_BASE_URL + CONSTANT.PROJECT_RESSOURCES.PROJECTS;
       private projects: Iproject[] = [];
-      getProjects(): Observable<Iproject[]> {
+      getProjects(): Observable<IApiResponse> {
         console.log(`Appel API: GET ${this.apiProjectsUrl}`);
-        return this._http.get<Iproject[]>(this.apiProjectsUrl);
+        return this._http.get<IApiResponse>(this.apiProjectsUrl);
       }
       getProjectById(id: number): Observable<Iproject | undefined> {
         const url = `${this.apiProjectsUrl}/${id}`; 
+
         console.log(`Appel API: GET ${url}`);
         return this._http.get<Iproject>(url);
       }
