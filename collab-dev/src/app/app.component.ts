@@ -9,6 +9,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
+import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { DetailProjetComponent } from '../pages/users/detail-projet/detail-proje
     ButtonModule,
     RippleModule,
     DetailProjetComponent,
+    DashboardAdmin,
   ],
 
   templateUrl: './app.component.html',
