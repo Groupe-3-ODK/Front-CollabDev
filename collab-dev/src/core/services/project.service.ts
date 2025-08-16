@@ -60,9 +60,9 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  getUserContributions(userId: number): Observable<any[]> {
-    let url = `${this.apiUrl}contributions/user/${userId}`;
-    return this._http.get<any[]>(url);
+  getUserContributions(userId: number): Observable<IApiResponse> {
+    let url = `${this.apiUrl}projects/${userId}/projectsUserAll`;
+    return this._http.get<IApiResponse>(url);
   }
 
   getProjectByStatus(status: string): Observable<IApiResponse> {

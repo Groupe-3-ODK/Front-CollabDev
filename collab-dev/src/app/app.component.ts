@@ -8,6 +8,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
+import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
     ConfirmDialogModule,
     ButtonModule,
     RippleModule,
+    DetailProjetComponent,
   ],
 
   templateUrl: './app.component.html',
