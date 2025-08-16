@@ -147,7 +147,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Méthode pour calculer la progression basée sur les tâches
-calculateProjectProgress(project: Iproject): number {
+calculateProjectProgress(project: any): number {
   if (project.status === 'VALIDATED') return 100;
   if (project.status === 'DONE') return 100;
   if (project.status === 'TODO') return 0;
