@@ -1,14 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importez le CommonModule
 import { FormsModule } from '@angular/forms'; // Importez le FormsModule
+import { Toast, ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-mes-contribution',
 standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ToastModule],
+   providers: [MessageService], // <--- C'est ici qu'on l'ajoute !
   templateUrl: './mes-contribution.html',
   styleUrl: './mes-contribution.css'
 })
 export class MesContribution {
+      constructor (private toast: MessageService){}
+      showSuccess() {
+    this.toast.add({severity:'success', summary: 'Succès', detail:'Le projet a été validé avec succès !'});
+}
+
   
   // Filtre actuel pour les projets
   filter: string = 'all';

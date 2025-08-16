@@ -1,0 +1,40 @@
+<div class="container" *ngIf="!isClosed">
+    <div class="comments-card">
+        <div class="comments-header">
+            <h2>Commentaires</h2>
+            <button class="close-btn" (click)="closeComments()">X</button>
+        </div>
+        
+        <div class="comments-list">
+            <ng-container *ngFor="let comment of comments">
+                <div class="comment-item">
+                    <div class="avatar">{{ getInitials(comment.author) }}</div>
+                    <div class="comment-content">
+                        <span class="comment-author">{{ comment.author }}</span>
+                        <p class="comment-text">{{ comment.text }}</p>
+                        <button class="reply-btn" (click)="replyToComment(comment.id)">Répondre</button>
+                    </div>
+                </div>
+                <!-- Afficher les réponses -->
+                <div *ngIf="comment.replies && comment.replies.length > 0" class="replies">
+                    <div *ngFor="let reply of comment.replies" class="comment-item">
+                        <div class="avatar">{{ getInitials(reply.author) }}</div>
+                        <div class="comment-content">
+                            <span class="comment-author">{{ reply.author }}</span>
+                            <p class="comment-text">{{ reply.text }}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+
+        <div class="comment-input-area">
+            <input type="text" class="comment-input" placeholder="Ajouter un commentaire" [(ngModel)]="newCommentText">
+            <button class="send-btn" (click)="addComment()" [disabled]="!newCommentText">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" fill="white"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
