@@ -118,8 +118,8 @@ body {
 .filter-button.code.active,
 .filter-button.design.active,
 .filter-button.management.active {
-  background-color: #ffffff;
-  color: #333;
+  background-color: #ff9900;
+  color: #ffffff;
   border-color: #e5e7eb;
 }
 
@@ -182,10 +182,14 @@ body {
 }
 
 .project-level {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
+  width: fit-content;
 }
 
 .project-date {

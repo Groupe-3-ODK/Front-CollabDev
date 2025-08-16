@@ -60,9 +60,9 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  getUserContributions(userId: number): Observable<any[]> {
-    let url = `${this.apiUrl}contributions/user/${userId}`;
-    return this._http.get<any[]>(url);
+  getUserContributions(userId: number): Observable<IApiResponse> {
+    let url = `${this.apiUrl}projects/${userId}/projectsUserAll`;
+    return this._http.get<IApiResponse>(url);
   }
 
   getProjectByStatus(status: string): Observable<IApiResponse> {
@@ -173,6 +173,59 @@ export class ProjectService {
     return this._http
       .delete<void>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
+  }
+
+  getProjectRecommendations(projectId: number): Observable<IApiResponse> {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+
+    const url = `${baseUrl}/systems/projectRecommendation?projectId=${projectId}`;
+    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+  }
+
+  getProjectsByUserAsDesigner(userId: number): Observable<IApiResponse> {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+
+    const url = `${baseUrl}/projects/${userId}/projectsUserDesigner`;
+    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+  }
+
+  getProjectsByUserAsDevelopper(userId: number): Observable<IApiResponse> {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+
+    const url = `${baseUrl}/projects/${userId}/projectsUserDesigner`;
+    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+  }
+
+  getProjectsByUserAsManager(userId: number): Observable<IApiResponse> {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+
+    const url = `${baseUrl}/projects/${userId}/projectsUserManager`;
+    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+  }
+  getAllProjectsByUser(userId: number): Observable<IApiResponse> {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+
+    const url = `${baseUrl}/projects/${userId}/projectsUserAll`;
+    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+  }
+
+  getPendingContributors(projectId: number): Observable<IApiResponse> {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+
+    const url = `${baseUrl}/projects/${projectId}/contributors/pending`;
+    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
   }
 
   // Error handling

@@ -1,0 +1,288 @@
+.status.validated {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.status.refused {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.role {
+    color: #ff6f00;
+}
+
+.project-header {
+    margin-bottom: 20px;
+}
+
+.project-header h2 {
+    font-size: 2em;
+    margin: 0;
+    font-weight: 700;
+}
+
+.project-header p {
+    color: #777;
+    margin: 5px 0 0;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #f8f9fa;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Styles pour les badges de niveau et d'état */
+.level, .status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85em;
+    display: inline-block;
+}
+
+.level.beginner {
+    background-color: #d1e7dd; /* Couleur de fond vert clair */
+    color: #0f5132; /* Couleur de texte vert foncé */
+}
+
+.level.intermediate {
+    background-color: #cff4fc; /* Couleur de fond bleu clair */
+    color: #055160; /* Couleur de texte bleu foncé */
+}
+
+.level.advanced {
+    background-color: #f8d7da; /* Couleur de fond rouge clair */
+    color: #842029; /* Couleur de texte rouge foncé */
+}
+
+.status.pending {
+    background-color: #ffedcc; /* Couleur de fond jaune */
+    color: #664d03; /* Couleur de texte marron */
+}
+
+/* Styles pour les icônes et les boutons */
+.github-link {
+    color: #337ab7;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.github-link:hover {
+    text-decoration: underline;
+}
+
+.icon-link {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.action-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 5px;
+}
+
+.action-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Styles pour les cartes de résumé */
+.summary-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 2.05);
+}
+
+.card .icon {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.card-icon {
+    width: 35px; /* Ajuste la taille pour correspondre à la maquette */
+    height: auto;
+}
+
+.card .text .label {
+    font-size: 0.9em;
+    color: #666;
+    text-transform: capitalize;
+}
+
+.card .text .count {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+/* -------------------- Media Queries -------------------- */
+
+/* Pour les tablettes et les petits écrans d'ordinateur (max 992px) */
+@media (max-width: 992px) {
+    .container {
+        padding: 20px;
+    }
+
+    .project-header h2 {
+        font-size: 1.8em;
+    }
+
+    .summary-cards {
+        flex-direction: column; /* Les cartes passent en mode colonne */
+    }
+
+    .card {
+        padding: 15px;
+    }
+}
+
+/* Pour les téléphones portables (max 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header {
+        flex-direction: column; /* L'en-tête passe en mode colonne */
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .user-info {
+        gap: 10px;
+    }
+
+    .project-header h2 {
+        font-size: 1.5em;
+    }
+
+    .project-header p {
+        font-size: 0.9em;
+    }
+
+    /* Le tableau est géré par 'overflow-x: auto' mais on peut améliorer la lisibilité */
+    table th, table td {
+        padding: 10px;
+        font-size: 0.85em;
+    }
+}
+
+/* Pour les très petits écrans (max 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+
+    .summary-cards {
+        gap: 10px;
+    }
+
+    .card .icon {
+        margin-right: 10px;
+    }
+
+    .card-icon {
+        width: 30px;
+    }
+
+    .card .text .count {
+        font-size: 2em;
+    }
+
+    .action-icon {
+        width: 20px;
+        height: 20px;
+    }
+}

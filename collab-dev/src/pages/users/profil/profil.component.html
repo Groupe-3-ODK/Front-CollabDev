@@ -4,12 +4,17 @@
 
     <section class="card profile-overview-card">
       <div class="profile-overview">
-        <div class="profile-avatar">{{ personalInfo.firstName.charAt(0) }}{{ personalInfo.lastName.charAt(0) }}</div>
+        <div class="profile-avatar">
+          {{ personalInfo.firstName.charAt(0)
+          }}{{ personalInfo.lastName.charAt(0) }}
+        </div>
         <div class="profile-info">
           <h2>{{ personalInfo.firstName }} {{ personalInfo.lastName }}</h2>
           <p class="role">Utilisateur</p>
           <span class="coins-badge">50 coins</span>
-          <p class="location">{{ addressInfo.city }}, {{ addressInfo.country }}</p>
+          <p class="location">
+            {{ addressInfo.city }}, {{ addressInfo.country }}
+          </p>
         </div>
         <div class="profile-status-icons">
           <span class="status-icon online">
@@ -29,43 +34,70 @@
       <div class="card-header">
         <h3>Information personnelle</h3>
         <button class="edit-btn" (click)="togglePersonalInfoEdit()">
-          {{ isEditingPersonalInfo ? 'Cancel' : 'Edit' }}<img src="stylo 1.png" alt="Edit icon" />
+          {{ isEditingPersonalInfo ? "Cancel" : "Edit"
+          }}<img src="stylo 1.png" alt="Edit icon" />
         </button>
       </div>
       <div class="info-grid">
         <div class="info-item">
           <label>Prénom</label>
           <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.firstName }}</p>
-          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.firstName" type="text">
+          <input
+            *ngIf="isEditingPersonalInfo"
+            [(ngModel)]="personalInfo.firstName"
+            type="text"
+          />
         </div>
         <div class="info-item">
           <label>Nom</label>
           <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.lastName }}</p>
-          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.lastName" type="text">
+          <input
+            *ngIf="isEditingPersonalInfo"
+            [(ngModel)]="personalInfo.lastName"
+            type="text"
+          />
         </div>
         <div class="info-item">
           <label>Date de naissance</label>
           <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.birthDate }}</p>
-          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.birthDate" type="date">
+          <input
+            *ngIf="isEditingPersonalInfo"
+            [(ngModel)]="personalInfo.birthDate"
+            type="date"
+          />
         </div>
         <div class="info-item">
           <label>Email Adress</label>
           <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.email }}</p>
-          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.email" type="email">
+          <input
+            *ngIf="isEditingPersonalInfo"
+            [(ngModel)]="personalInfo.email"
+            type="email"
+          />
         </div>
         <div class="info-item">
           <label>Téléphone</label>
           <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.phone }}</p>
-          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.phone" type="tel">
+          <input
+            *ngIf="isEditingPersonalInfo"
+            [(ngModel)]="personalInfo.phone"
+            type="tel"
+          />
         </div>
         <div class="info-item">
           <label>Profil</label>
           <p *ngIf="!isEditingPersonalInfo">{{ personalInfo.profile }}</p>
-          <input *ngIf="isEditingPersonalInfo" [(ngModel)]="personalInfo.profile" type="text">
+          <input
+            *ngIf="isEditingPersonalInfo"
+            [(ngModel)]="personalInfo.profile"
+            type="text"
+          />
         </div>
       </div>
       <div *ngIf="isEditingPersonalInfo" class="save-btn-container">
-        <button class="save-btn" (click)="savePersonalInfo()">Save Changes</button>
+        <button class="save-btn" (click)="savePersonalInfo()">
+          Save Changes
+        </button>
       </div>
     </section>
 
@@ -73,24 +105,37 @@
       <div class="card-header">
         <h3>Adresse</h3>
         <button class="edit-btn" (click)="toggleAddressEdit()">
-          {{ isEditingAddress ? 'Cancel' : 'Edit' }}<img src="stylo 1.png" alt="Edit icon" />
+          {{ isEditingAddress ? "Cancel" : "Edit"
+          }}<img src="stylo 1.png" alt="Edit icon" />
         </button>
       </div>
       <div class="info-grid">
         <div class="info-item">
           <label>Pays</label>
           <p *ngIf="!isEditingAddress">{{ addressInfo.country }}</p>
-          <input *ngIf="isEditingAddress" [(ngModel)]="addressInfo.country" type="text">
+          <input
+            *ngIf="isEditingAddress"
+            [(ngModel)]="addressInfo.country"
+            type="text"
+          />
         </div>
         <div class="info-item">
           <label>Ville</label>
           <p *ngIf="!isEditingAddress">{{ addressInfo.city }}</p>
-          <input *ngIf="isEditingAddress" [(ngModel)]="addressInfo.city" type="text">
+          <input
+            *ngIf="isEditingAddress"
+            [(ngModel)]="addressInfo.city"
+            type="text"
+          />
         </div>
         <div class="info-item">
           <label>Code Postal</label>
           <p *ngIf="!isEditingAddress">{{ addressInfo.postalCode }}</p>
-          <input *ngIf="isEditingAddress" [(ngModel)]="addressInfo.postalCode" type="text">
+          <input
+            *ngIf="isEditingAddress"
+            [(ngModel)]="addressInfo.postalCode"
+            type="text"
+          />
         </div>
       </div>
       <div *ngIf="isEditingAddress" class="save-btn-container">
