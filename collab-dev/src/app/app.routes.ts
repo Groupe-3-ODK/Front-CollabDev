@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { CONSTANT } from '../core/constants/contant';
 import { LayoutComponent } from './layout/layout.component';
 import { Redirect } from './redirect/redirect';
+import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 
 export const routes: Routes = [
   {
@@ -28,8 +29,8 @@ export const routes: Routes = [
           {
             path: 'admin/statistics',
             loadComponent: () =>
-              import('../pages/admin/statistics/statistics.component').then(
-                (m) => m.StatisticsComponent
+              import('../pages/admin/dashboard-admin/dashboard-admin').then(
+                (m) => m.DashboardAdmin
               ),
           },
           {
@@ -44,8 +45,8 @@ export const routes: Routes = [
       {
         path: 'admin/statistics',
         loadComponent: () =>
-          import('../pages/admin/statistics/statistics.component').then(
-            (m) => m.StatisticsComponent
+          import('../pages/admin/dashboard-admin/dashboard-admin').then(
+            (m) => m.DashboardAdmin
           ),
       },
       {
@@ -58,8 +59,8 @@ export const routes: Routes = [
       {
         path: 'admin/managers',
         loadComponent: () =>
-          import('../pages/admin/managers/managers.component').then(
-            (m) => m.ManagersComponent
+          import('../pages/admin/admin-manager/admin-manager').then(
+            (m) => m.AdminManager
           ),
       },
       {
@@ -121,6 +122,8 @@ export const routes: Routes = [
             (m) => m.DashboardComponent
           ),
       },
+
+      
       {
         path: 'user/profil',
         loadComponent: () =>
@@ -159,6 +162,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../pages/users/favoris/favoris').then((m) => m.Favoris),
       },
+
+      {
+    path: 'redirect/user/dashboard',
+    component: ContributionAsk
+  },
+  // route par défaut qui redirige vers dashboard :
+  { path: '', redirectTo: 'redirect/user/dashboard', pathMatch: 'full' }
     ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
@@ -434,11 +444,11 @@ export const routes: Routes = [
         (m) => m.AdminFormComponent
       ),
   },
-   {
-        path: 'admin/management-requests/:id', // Cette route capture l'ID du projet
-        loadComponent: () =>
-          import('../pages/admin/management-request/management-request').then(
-            (m) => m.ManagementRequest // Charge le composant ManagementRequest
-          ),
-      },
+  {
+    path: 'admin/management-requests/:id',
+    loadComponent: () =>
+      import('../pages/admin/management-request/management-request').then(
+        (m) => m.ManagementRequest
+      ),
+  },
 ];

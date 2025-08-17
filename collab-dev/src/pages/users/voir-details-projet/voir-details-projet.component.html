@@ -1,169 +1,133 @@
+<main class="project-details-container">
+    <!-- Bouton Commentaire -->
 
-    <header class="top-bar">
-        <div class="search-box">
-            <i class='bx bx-search'></i>
-            <input type="text" placeholder="Recherche">
-        </div>
-        <div class="filter-box">
-            <span>Filtrer</span>
-            <i class='bx bx-filter-alt'></i>
-        </div>
-    </header>
 
-    <main class="project-details-container">
-        <section class="project-summary-section">
-            <div class="project-owner-card">
-                <h3 class="card-title">Porteur d’idée</h3>
-                <div class="owner-info">
-                    <div class="profile-image-container">
-                        <i class='bx bxs-user'></i>
-                    </div>
-                    <span class="owner-name">Fatoumata Diawara</span>
-                    <span class="projects-participated">A participé à 20 projets</span>
-                    <span class="user-since">Utilisatrice depuis 2024</span>
+    <section class="project-summary-section">
+        <div class="project-owner-card">
+            <h3 class="card-title">Porteur d'idée</h3>
+            <div class="owner-info">
+                <div class="profile-image-container">
+                    <img src="Group 671.png" alt="">
+                </div>
+                <span class="owner-name">{{ project?.owner?.name || 'Fatoumata Diawara' }}</span>
+                <span class="projects-participated">A participé à {{ project?.owner?.projectsCount || 20 }}
+                    projets</span>
+                <span class="user-since">Utilisateur depuis {{ project?.owner?.memberSince || '2024' }}</span>
+            </div>
+        </div>
+        <div class="project-description-card">
+            <div class="project-status-header">
+                <h2 class="project-name">{{ project?.name || 'ALP' }}</h2>
+                <div class="status-badge" [ngClass]="{'on-going': project?.status === 'En cours'}">
+                    {{ project?.status || 'En cours' }}
                 </div>
             </div>
-
-            <div class="project-description-card">
-                <div class="project-status-header">
-                    <h2 class="project-name">ALP</h2>
-                    <div class="status-badge on-going">En cours</div>
-                </div>
-                <span class="project-level">INTERMEDIAIRE</span>
-                <p class="project-description">
-                    Une app application web innovante conçue pour optimiser le suivi, la planification et la gestion
-                    collaborative de projets en temps réel. Grâce à une interface intuitive et une architecture
-                    modulaire, la plateforme permet aux équipes de visualiser l'avancement des tâches, d'automatiser les
-                    rappels, et de générer des rapports personnalisés. L’objectif principal de NovaTrack est de
-                    centraliser les échanges et les documents tout en offrant un tableau de bord dynamique permettant
-                    aux responsables de projet de prendre des décisions éclairées.
-                </p>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill" style="width: 50%;"></div>
-                    <span class="progress-percentage">50%</span>
-                </div>
+            <span class="project-level">{{ project?.level || 'INTERMEDIAIRE' }}</span>
+            <p class="project-description">
+                {{ project?.description || 'Une app application web innovante conçue pour optimiser le suivi...' }}
+            </p>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" [style.width.%]="project?.progress || 50"></div>
+                <span class="progress-percentage">{{ project?.progress || 50 }}%</span>
+            </div>
+            <div style="display: flex;justify-content: space-between;align-items: center;">
                 <button class="join-button">Rejoindre</button>
+                <button class="comment-btn" (click)="toggleCommentModal()">
+                    <img src="fa6-regular_message.png" alt="commentaire">
+                </button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="project-timeline-section">
-            <h3 class="section-title"><i class='bx bx-git-branch'></i>Timeline du projet</h3>
-            <div class="timeline-content">
-                <div class="timeline-steps">
-                    <div class="timeline-step">
-                        <div class="step-icon blue-icon">
-                            <i class='bx bx-calendar'></i>
-                        </div>
-                        <div class="step-details">
-                            <h4 class="step-title">Création du projet</h4>
-                            <p class="step-description">Initialisation et définition des objectifs</p>
-                            <span class="step-date">Créer le 6 Août 2025</span>
-                        </div>
+    <section class="project-timeline-section">
+        <h3 class="section-title">
+            <img src="fa7-solid_code-pull-request.png" alt="Timeline"> Timeline du projet
+        </h3>
+        <div class="timeline-content">
+            <div class="timeline-steps">
+                <div class="timeline-step">
+                    <div class="step-icon blue-icon">
+                        <img src="Group 687.png" alt="Création">
                     </div>
-                    <div class="timeline-step">
-                        <div class="step-icon purple-icon">
-                            <i class='bx bx-check-circle'></i>
-                        </div>
-                        <div class="step-details">
-                            <h4 class="step-title">Etat du projet</h4>
-                            <p class="step-description">Phase de développement du projet</p>
-                            <span class="step-status">En cours</span>
-                        </div>
+                    <div class="step-details">
+                        <h4 class="step-title">Création du projet</h4>
+                        <p class="step-description">Initialisation et définition des objectifs</p>
+                        <span class="step-date">Créé le {{ project?.creationDate || '6 Août 2025' }}</span>
                     </div>
                 </div>
-
-                <div class="project-technologies">
-                    <div class="tech-item">
-                        <div class="tech-icon"><i class='bx bx-code-alt'></i></div>
-                        <span>Angular</span>
+                <div class="timeline-step">
+                    <div class="step-icon purple-icon">
+                        <img src="Group 686.png" alt="Etat">
                     </div>
-                    <div class="tech-item">
-                        <div class="tech-icon"><i class='bx bx-code-alt'></i></div>
-                        <span>Typescript</span>
-                    </div>
-                    <div class="tech-item">
-                        <div class="tech-icon"><i class='bx bx-code-alt'></i></div>
-                        <span>Spring boot</span>
+                    <div class="step-details">
+                        <h4 class="step-title">État du projet</h4>
+                        <p class="step-description">Phase de développement du projet</p>
+                        <span class="step-status">{{ project?.currentPhase || 'En cours' }}</span>
                     </div>
                 </div>
+            </div>
 
-                <div class="team-members">
-                    <div class="member-item">
-                        <div class="member-avatar">FD</div>
-                        <span class="member-name">Fatoumata Diawara</span>
-                    </div>
-                    <div class="member-item">
-                        <div class="member-avatar">FD</div>
-                        <span class="member-name">Fatoumata Diawara</span>
-                    </div>
-                    <div class="member-item">
-                        <div class="member-avatar">FD</div>
-                        <span class="member-name">Fatoumata Diawara</span>
-                    </div>
-                    <button class="view-all-members" id="openModalBtn">Voir tous les membres</button>
+            <div class="project-technologies">
+                <div class="tech-item"
+                    *ngFor="let tech of project?.technologies || ['Angular', 'Typescript', 'Spring boot']">
+                    <div class="tech-icon"><i class='bx bx-code-alt'></i></div>
+                    <span>{{ tech }}</span>
                 </div>
-                <!-- === 💬 MODALE (cachée au départ) === -->
-                <div class="modal-overlay" id="modalOverlay">
-                    <div class="modal">
-                        <span class="close-btn" id="closeModalBtn">&times;</span>
-                        <h2>Membres du Projet</h2>
+            </div>
 
-                        <div class="modal-content">
-                            <div class="member-item">
-                                <div class="initials-circle">FD</div>
-                                <div class="member-name">Fatoumata Diawara</div>
-                                <div class="badge">🏅</div>
-                            </div>
-                            <div class="member-item">
-                                <div class="initials-circle">MS</div>
-                                <div class="member-name">Modibo Sangaré</div>
-                                <div class="badge">🏅</div>
-                            </div>
-                            <div class="member-item">
-                                <div class="initials-circle">FD</div>
-                                <div class="member-name">Hamza sanmo</div>
-                                <div class="badge">🏅</div>
-                            </div>
-                            <div class="member-item">
-                                <div class="initials-circle">MS</div>
-                                <div class="member-name">Aichatou coulibaly</div>
-                                <div class="badge">🏅</div>
-                            </div>
-                            <div class="member-item">
-                                <div class="initials-circle">FD</div>
-                                <div class="member-name">Seydou dembele</div>
-                                <div class="badge">🏅</div>
-                            </div>
-                            <div class="member-item">
-                                <div class="initials-circle">MS</div>
-                                <div class="member-name">Yacouba sanogo</div>
-                                <div class="badge">🏅</div>
-                            </div>
-                            <div class="member-item">
-                                <div class="initials-circle">FD</div>
-                                <div class="member-name">Sekou keita</div>
-                                <div class="badge">🏅</div>
-                            </div>
-                            <div class="member-item">
-                                <div class="initials-circle">MS</div>
-                                <div class="member-name">elinka lika</div>
-                                <div class="badge">🏅</div>
-                            </div>
+            <div class="team-members">
+                <div class="member-item"
+                    *ngFor="let member of project?.members?.slice(0, 3) || defaultMembers.slice(0, 3)">
+                    <div class="member-avatar">{{ getInitials(member.name) }}</div>
+                    <span class="member-name">{{ member.name }}</span>
+                </div>
+                <button class="view-all-members" (click)="toggleMemberModal()">Voir tous les membres</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modale Commentaires -->
+    <div class="modal-overlay" *ngIf="showCommentModal" (click)="toggleCommentModal()">
+        <div class="modal" (click)="$event.stopPropagation()">
+            <span class="close-btn" (click)="toggleCommentModal()">&times;</span>
+            <h2>Commentaires</h2>
+
+            <div class="modal-content">
+                <div class="comment-input-area">
+                    <textarea [(ngModel)]="newComment" placeholder="Ajouter un commentaire..."></textarea>
+                    <button class="submit-comment-btn" (click)="addComment()">Envoyer</button>
+                </div>
+
+                <div class="comment-list">
+                    <div class="comment-item" *ngFor="let comment of comments">
+                        <div class="comment-author">
+                            <div class="initials-circle">{{ getInitials(comment.author) }}</div>
+                            <span>{{ comment.author }}</span>
                         </div>
+                        <div class="comment-text">
+                            {{ comment.text }}
+                        </div>
+                        <div class="comment-date">{{ comment.date }}</div>
 
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-    <script>
-        const modal = document.getElementById("modalOverlay");
-        const openBtn = document.getElementById("openModalBtn");
-        const closeBtn = document.getElementById("closeModalBtn");
+        </div>
+    </div>
 
-        openBtn.onclick = () => modal.style.display = "flex";
-        closeBtn.onclick = () => modal.style.display = "none";
-        window.onclick = e => {
-            if (e.target === modal) modal.style.display = "none";
-        };
-    </script>
+    <!-- Modale Membres -->
+    <div class="modal-overlay" *ngIf="showMemberModal" (click)="toggleMemberModal()">
+        <div class="modal" (click)="$event.stopPropagation()">
+            <span class="close-btn" (click)="toggleMemberModal()">&times;</span>
+            <h2>Membres du Projet</h2>
+
+            <div class="modal-content">
+                <div class="member-item" *ngFor="let member of project?.members || defaultMembers">
+                    <div class="initials-circle">{{ getInitials(member.name) }}</div>
+                    <div class="member-name">{{ member.name }}</div>
+                    <div class="badge">🏅</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

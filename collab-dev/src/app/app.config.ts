@@ -30,7 +30,10 @@ import {
 } from 'lucide-angular';
 
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -39,6 +42,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     importProvidersFrom(
+      BrowserAnimationsModule,
       LucideAngularModule.pick({
         House,
         Settings,

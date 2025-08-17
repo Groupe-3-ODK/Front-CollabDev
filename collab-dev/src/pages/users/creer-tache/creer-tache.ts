@@ -57,5 +57,4 @@ export class CreerTache implements OnInit {
       assignee: ''
     };
   }
-
 }
