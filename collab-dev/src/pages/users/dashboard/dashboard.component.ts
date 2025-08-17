@@ -21,8 +21,8 @@ export class DashboardComponent implements OnInit {
   searchQuery: string = '';
   private searchSubject = new Subject<string>();
 
-  projects: Iproject[] = [];
-  filteredProjects: Iproject[] = [];
+  projects: any = [];
+  filteredProjects: any = [];
   userId: number = 0;
 
   constructor(
@@ -114,19 +114,19 @@ export class DashboardComponent implements OnInit {
   }
 
   get todoCount(): number {
-    return this.projects.filter((project) => project.status === 'TODO').length;
+    return this.projects.filter((project: { status: string; }) => project.status === 'TODO').length;
   }
 
   get inProgressCount(): number {
-    return this.projects.filter((project) => project.status === 'IN_PROGRESS').length;
+    return this.projects.filter((project: { status: string; }) => project.status === 'IN_PROGRESS').length;
   }
 
   get completedCount(): number {
-    return this.projects.filter((project) => project.status === 'DONE').length;
+    return this.projects.filter((project: { status: string; }) => project.status === 'DONE').length;
 
   }
   get validatedCount(): number {
-    return this.projects.filter((project) => project.status === 'VALIDATED').length;
+    return this.projects.filter((project: { status: string; }) => project.status === 'VALIDATED').length;
 
   }
 
@@ -153,7 +153,7 @@ calculateProjectProgress(project: any): number {
   if (project.status === 'TODO') return 0;
   
   if (project.tasks && project.tasks.length > 0) {
-    const completedTasks = project.tasks.filter(task => task.status === 'DONE' || task.status === 'VALIDATED').length;
+    const completedTasks = project.tasks.filter((task: { status: string; }) => task.status === 'DONE' || task.status === 'VALIDATED').length;
     return Math.round((completedTasks / project.tasks.length) * 100);
   }
   
