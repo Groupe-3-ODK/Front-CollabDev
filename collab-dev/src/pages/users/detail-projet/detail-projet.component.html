@@ -7,7 +7,7 @@
         </h1>
         <p class="header-subtitle">{{ projectDetails?.description || "" }}</p>
       </div>
-      <div class="header-right" *ngIf="!isManager">
+      <div class="header-right" *ngIf="isManager">
         <button
           (click)="navigateToAddTeamSection()"
           class="btn-add-collaborator"

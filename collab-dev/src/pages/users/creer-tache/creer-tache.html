@@ -62,11 +62,14 @@
               [(ngModel)]="task.assignee"
               name="assignee"
             >
+              <option value="" disabled selected>
+                -- Choisir un membre --
+              </option>
               <option
-                *ngFor="let collaborator of collaborators"
-                [value]="collaborator.id"
+                *ngFor="let member of membersWithPseudo"
+                [value]="member.profilId"
               >
-                {{ collaborator.name }}
+                {{ member.pseudo }}
               </option>
             </select>
           </div>
