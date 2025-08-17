@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
+
 import { RouterOutlet } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -8,6 +9,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
+import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
+import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 
 
 
@@ -18,6 +21,7 @@ import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 
   providers: [MessageService, ConfirmationService],
 
+
   imports: [
     CommonModule,
     RouterOutlet,
@@ -26,7 +30,10 @@ import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
     ConfirmDialogModule,
     ButtonModule,
     RippleModule,
+    DetailProjetComponent,
+    DashboardAdmin,
   ],
+
 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],

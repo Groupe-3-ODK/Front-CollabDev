@@ -1,143 +1,148 @@
 <div class="dashboard-container">
     <header class="dashboard-header">
-        <div class="header-left">
-            <h1 class="dashboard-title">Tableau de bord</h1>
-            <p><span class="admin-title">administrateur</span></p>
-        </div>
-        <div class="header-right">
-            <div class="search-box">
-                <img src="SearchRecherche.png" alt="Icône de recherche" class="header-icon-img">
-                <input type="text" placeholder="Recherche" [(ngModel)]="searchQuery" (keyup)="searchProjects()">
-            </div>
-            <div class="filter-box">
-                <img src="FunnelFiltre.png" alt="Icône de filtre" class="header-icon-img">
-                <span>Filtrer</span>
-            </div>
-            <div class="user-info">
-                <img src="Group 671.png" alt="Icône de profil" class="user-icon-img">
-                <div class="user-details">
-                    <span class="user-name">Seydou Dembele</span>
-                    <span class="user-role">ADMIN</span>
-                </div>
+        <div class="user-info">
+            <img src="Group 671.png" alt="Icône de profil" class="user-icon-img">
+            <div class="user-details">
+                <span class="user-name">Seydou Dembele</span>
+                <span class="user-role">ADMIN</span>
             </div>
         </div>
     </header>
 
     <main class="dashboard-main">
-        <div class="metrics-stats-section">
-            <section class="main-metrics card">
-                <div class="section-header">
-                    <div class="circle"></div>
-                    <h2 style="position: absolute; top: 24.3%; left: 6%;">Métriques Principales</h2>
+        <div class="header-section">
+            <div class="header-left">
+                <h1 class="dashboard-title">Tableau de bord</h1>
+                <p><span class="admin-title">administrateur</span></p>
+            </div>
+            <div class="header-right">
+                <div class="search-box">
+                    <img src="SearchRecherche.png" alt="Icône de recherche" class="header-icon-img">
+                    <input type="text" placeholder="Recherche" [(ngModel)]="searchQuery" (keyup)="searchProjects()">
                 </div>
-                <div class="metrics-list">
-                    <div class="metric-item">
-                        <img src="bi_folderProjets en cours1.png" alt="Projets Total" class="metric-icon-img">
-                        <div class="metric-content">
-                            <span class="metric-name">Projets Total</span>
-                            <div class="metric-value-container">
-                                <span class="metric-value">{{metrics[0].value}}</span>
-                                <span class="metric-change">{{metrics[0].change}}</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar progress-orange" [style.width.%]="metrics[0].progress"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="metric-item">
-                        <img src="icomoon-free_clockProjets à faire1.png" alt="Projets en attente"
-                            class="metric-icon-img">
-                        <div class="metric-content">
-                            <span class="metric-name">Projets en attente de validation</span>
-                            <div class="metric-value-container">
-                                <span class="metric-value">{{metrics[1].value}}</span>
-                                <span class="metric-change">{{metrics[1].change}}</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar progress-orange" [style.width.%]="metrics[1].progress"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="metric-item">
-                        <img src="octicon_person-24Profil1.png" alt="Utilisateurs actifs" class="metric-icon-img">
-                        <div class="metric-content">
-                            <span class="metric-name">Utilisateurs actifs</span>
-                            <div class="metric-value-container">
-                                <span class="metric-value">{{metrics[2].value}}</span>
-                                <span class="metric-change">{{metrics[2].change}}</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar progress-orange" [style.width.%]="metrics[2].progress"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="metric-item">
-                        <img src="VectorProjets terminés1.png" alt="Projets terminés" class="metric-icon-img">
-                        <div class="metric-content">
-                            <span class="metric-name">Complétés ce mois</span>
-                            <div class="metric-value-container">
-                                <span class="metric-value">{{metrics[3].value}}</span>
-                                <span class="metric-change">{{metrics[3].change}}</span>
-                            </div>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar progress-orange" [style.width.%]="metrics[3].progress"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="filter-box">
+                    <img src="FunnelFiltre.png" alt="Icône de filtre" class="header-icon-img">
+                    <span>Filtrer</span>
                 </div>
-            </section>
+            </div>
+        </div>
 
-            <section class="domain-stats card">
-                <h2>Statistiques des domaines les plus sollicités de l'application</h2>
-                <div class="chart-container">
-                    <div class="bar-chart">
-                        <div class="bar bar-gray" style="height: 50%;"></div>
-                        <div class="bar bar-orange" style="height: 90%;"></div>
-                        <div class="bar bar-green" style="height: 70%;"></div>
-                        <div class="bar bar-oran" style="height: 80%;"></div>
+        <div class="dashboard-content">
+            <div class="metrics-stats-section">
+                <section class="main-metrics card">
+                    <div class="section-header">
+                        <div class="circle"></div>
+                        <h2 style="position:relative; top: 24.3%; left: 6%;">Métriques Principales</h2>
                     </div>
-                </div>
-                <div class="chart-legend">
-                    <div class="legend-item"><span class="dot dot-gray"></span> E-commerce</div>
-                    <div class="legend-item"><span class="dot dot-orange"></span> Santé</div>
-                    <div class="legend-item"><span class="dot dot-green"></span> Éducation</div>
-                    <div class="legend-item"><span class="dot dot-oran"></span> Finance</div>
+                    <div class="metrics-list">
+                        <div class="metric-item">
+                            <img src="bi_folderProjets en cours1.png" alt="Projets Total" class="metric-icon-img">
+                            <div class="metric-content">
+                                <span class="metric-name">Projets Total</span>
+                                <div class="metric-value-container">
+                                    <span class="metric-value">{{metrics[0].value}}</span>
+                                    <span class="metric-change">{{metrics[0].change}}</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar progress-orange" [style.width.%]="metrics[0].progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <img src="icomoon-free_clockProjets à faire1.png" alt="Projets en attente"
+                                class="metric-icon-img">
+                            <div class="metric-content">
+                                <span class="metric-name">Projets en attente de validation</span>
+                                <div class="metric-value-container">
+                                    <span class="metric-value">{{metrics[1].value}}</span>
+                                    <span class="metric-change">{{metrics[1].change}}</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar progress-orange" [style.width.%]="metrics[1].progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <img src="octicon_person-24Profil1.png" alt="Utilisateurs actifs" class="metric-icon-img">
+                            <div class="metric-content">
+                                <span class="metric-name">Utilisateurs actifs</span>
+                                <div class="metric-value-container">
+                                    <span class="metric-value">{{metrics[2].value}}</span>
+                                    <span class="metric-change">{{metrics[2].change}}</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar progress-orange" [style.width.%]="metrics[2].progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <img src="VectorProjets terminés1.png" alt="Projets terminés" class="metric-icon-img">
+                            <div class="metric-content">
+                                <span class="metric-name">Complétés ce mois</span>
+                                <div class="metric-value-container">
+                                    <span class="metric-value">{{metrics[3].value}}</span>
+                                    <span class="metric-change">{{metrics[3].change}}</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar progress-orange" [style.width.%]="metrics[3].progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="domain-stats card">
+                    <h2>Statistiques des domaines les plus sollicités de l'application</h2>
+                    <div class="chart-container">
+                        <div class="bar-chart">
+                            <div class="bar bar-gray" style="height: 50%;"></div>
+                            <div class="bar bar-orange" style="height: 90%;"></div>
+                            <div class="bar bar-green" style="height: 70%;"></div>
+                            <div class="bar bar-oran" style="height: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        <div class="legend-item"><span class="dot dot-gray"></span> E-commerce</div>
+                        <div class="legend-item"><span class="dot dot-orange"></span> Santé</div>
+                        <div class="legend-item"><span class="dot dot-green"></span> Éducation</div>
+                        <div class="legend-item"><span class="dot dot-oran"></span> Finance</div>
+                    </div>
+                </section>
+            </div>
+
+            <section class="projects-to-validate card">
+                <h2>Projets à valider ({{filteredProjects.length}})</h2>
+                <div class="projects-list">
+                    <div class="project-item" *ngFor="let project of filteredProjects; let i = index">
+                        <div class="project-details">
+                            <span class="project-id">{{project.id}}</span>
+                            <span class="project-tag tag-debutant">{{project.level}}</span>
+                            <span class="project-name">{{project.name}}</span>
+                            <div class="project-meta">
+                                <div class="meta-item"><fa-icon [icon]="faUserCircle"></fa-icon> {{project.author}}</div>
+                                <div class="meta-item"><fa-icon [icon]="faCalendarAlt"></fa-icon> {{project.date}}</div>
+                                <div class="meta-item"><fa-icon [icon]="faTag"></fa-icon> {{project.category}}</div>
+                            </div>
+                        </div>
+                        <span class="project-role">{{project.role}}</span>
+                        <button class="project-link" (click)="openGithubLink(project.githubLink)">
+                            <fa-icon [icon]="faGithub"></fa-icon> Voir sur GitHub
+                        </button>
+                        <div class="project-actions">
+                            <button class="action-btn accept" (click)="approveProject(i)" title="Approuver le projet">
+                                <img src="Vector.png" alt="Accepter" class="action-icon">
+                            </button>
+                            <button class="action-btn reject" (click)="rejectProject(i)" title="Rejeter le projet">
+                                <img src="X.png" alt="Rejeter" class="action-icon">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="no-projects" *ngIf="filteredProjects.length === 0">
+                        <fa-icon [icon]="faCheckCircle"></fa-icon>
+                        <p>Tous les projets ont été traités</p>
+                    </div>
                 </div>
             </section>
         </div>
-
-        <section class="projects-to-validate card">
-            <h2>Projets à valider ({{filteredProjects.length}})</h2>
-            <div class="projects-list">
-                <div class="project-item" *ngFor="let project of filteredProjects; let i = index">
-                    <div class="project-details">
-                        <span class="project-id">{{project.id}}</span>
-                        <span class="project-tag tag-debutant">{{project.level}}</span>
-                        <span class="project-name">{{project.name}}</span>
-                        <div class="project-meta">
-                            <div class="meta-item"><fa-icon [icon]="faUserCircle"></fa-icon> {{project.author}}</div>
-                            <div class="meta-item"><fa-icon [icon]="faCalendarAlt"></fa-icon> {{project.date}}</div>
-                            <div class="meta-item"><fa-icon [icon]="faTag"></fa-icon> {{project.category}}</div>
-                        </div>
-                    </div>
-                    <span class="project-role">{{project.role}}</span>
-                    <button class="project-link" (click)="openGithubLink(project.githubLink)">
-                        <fa-icon [icon]="faGithub"></fa-icon> Voir sur GitHub
-                    </button>
-                    <div class="project-actions">
-                        <button class="action-btn accept" (click)="approveProject(i)" title="Approuver le projet">
-                            <img src="Vector.png" alt="Accepter" class="action-icon">
-                        </button>
-                        <button class="action-btn reject" (click)="rejectProject(i)" title="Rejeter le projet">
-                            <img src="X.png" alt="Rejeter" class="action-icon">
-                        </button>
-                    </div>
-                </div>
-                <div class="no-projects" *ngIf="filteredProjects.length === 0">
-                    <fa-icon [icon]="faCheckCircle"></fa-icon>
-                    <p>Tous les projets ont été traités</p>
-                </div>
-            </div>
-        </section>
     </main>
 </div>

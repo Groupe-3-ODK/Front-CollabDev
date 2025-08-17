@@ -13,106 +13,95 @@ import { ProjectService } from '../../../core/services/project.service';
   providers: [CookieService],
 })
 export class MyContributions {
-  contributions: any[] = [];
+  contributions: any = [];
+  projetsDesigner: any[] = [];
+  projetsDeveloper: any[] = [];
+  projetsManager: any[] = [];
   userId: number = 0; // ID de l'utilisateur connecté
-
   private cookieService = inject(CookieService);
   private router = inject(Router);
   public currentUser: any = null;
+
   constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    // const cookieValue = this.cookieService.get('currentUser');
-    // this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
-    // if (this.currentUser) {
-    //   this.userId = this.currentUser.id;
-    // }
-    // this.projectService.getUserContributions(this.userId).subscribe({
-    //   next: (res) => {
-    //     console.log(res);
-    //     this.contributions = res;
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   },
-    // });
-
-    this.contributions = this.projects;
+    const cookieValue = this.cookieService.get('currentUser');
+    this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
+    if (this.currentUser) {
+      this.userId = this.currentUser.id;
+      console.log(this.currentUser.id);
+    }
+    this.projectService.getUserContributions(this.userId).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.contributions = res.data;
+        console.warn(this.contributions);
+      },
+      error: (err) => {
+        console.log(err);
+        alert(err.message);
+      },
+    });
   }
 
   // Filtre actuel pour les projets
   filter: string = 'all';
-
-  // Liste des projets avec des données d'exemple
-  projects: any[] = [
-    {
-      avatar: 'assets/avatar1.png',
-      name: 'ALP',
-      level: 'Débutant',
-      endDate: '22/06/2025',
-      collaborators: 10,
-      status: 'En cours',
-      category: 'code', // Ajout de la catégorie pour le filtre et l'icône
-    },
-    {
-      avatar: 'assets/avatar2.png',
-      name: 'ALP',
-      level: 'Intermédiaire',
-      endDate: '22/06/2025',
-      collaborators: 10,
-      status: 'En cours',
-      category: 'design', // Ajout de la catégorie
-    },
-    {
-      avatar: 'assets/avatar3.png',
-      name: 'ALP',
-      level: 'Débutant',
-      endDate: '22/06/2025',
-      collaborators: 10,
-      status: 'Fermé',
-      category: 'code', // Ajout de la catégorie
-    },
-    {
-      avatar: 'assets/avatar4.png',
-      name: 'ALP',
-      level: 'Débutant',
-      endDate: '22/06/2025',
-      collaborators: 0,
-      status: 'En cours',
-      category: 'management', // Ajout de la catégorie
-    },
-    {
-      avatar: 'assets/avatar5.png',
-      name: 'ALP',
-      level: 'Débutant',
-      endDate: '22/06/2025',
-      collaborators: 0,
-      status: 'En cours',
-      category: 'code', // Ajout de la catégorie
-    },
-    {
-      avatar: 'assets/avatar6.png',
-      name: 'ALP',
-      level: 'Intermédiaire',
-      endDate: '22/06/2025',
-      collaborators: 10,
-      status: 'En cours',
-      category: 'design', // Ajout de la catégorie
-    },
-  ];
 
   /**
    * Retourne la liste des projets filtrés en fonction du filtre actuel.
    * @returns {any[]} La liste des projets filtrés.
    */
   get filteredProjects(): any[] {
-    if (this.filter === 'all') {
-      return this.contributions;
+    if (!this.currentUser) return [];
+
+    const userId = this.currentUser.id;
+
+    switch (this.filter) {
+      case 'all':
+        return this.contributions.filter(
+          (project: {
+            members: any[];
+            pendingProfiles: any[];
+            managerId: { userId: any };
+          }) =>
+            project.members?.some((m) => m.userId === userId) ||
+            project.pendingProfiles?.some((p) => p.userId === userId) ||
+            project.managerId?.userId === userId
+        );
+
+      case 'code':
+        return this.contributions.filter(
+          (project: { members: any[]; pendingProfiles: any[] }) =>
+            project.members?.some(
+              (m) => m.userId === userId && m.profilName === 'DEVELOPER'
+            ) ||
+            project.pendingProfiles?.some(
+              (p) => p.userId === userId && p.profilName === 'DEVELOPER'
+            )
+        );
+
+      case 'design':
+        return this.contributions.filter(
+          (project: { members: any[]; pendingProfiles: any[] }) =>
+            project.members?.some(
+              (m) => m.userId === userId && m.profilName === 'DESIGNER'
+            ) ||
+            project.pendingProfiles?.some(
+              (p) => p.userId === userId && p.profilName === 'DESIGNER'
+            )
+        );
+
+      case 'management':
+        return this.contributions.filter(
+          (project: { managerId: { userId: any } }) =>
+            project.managerId?.userId === userId
+        );
+
+      default:
+        return this.contributions;
     }
-    return this.contributions.filter(
-      (project) => project.category === this.filter
-    );
   }
+
   /**
    * Définit le filtre actuel pour les projets.
    * @param filter La valeur du filtre.
