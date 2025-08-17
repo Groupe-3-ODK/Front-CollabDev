@@ -49,6 +49,29 @@ export class VoirDetailsProjetComponent {
       this.loadProjectDetails(projectId);
     });
   }
+  
+
+  
+
+  userDateCreation(date: Date): string {
+    const now = new Date();
+    const creationDate = new Date(date);
+
+    const diffMs = now.getTime() - creationDate.getTime(); // différence en millisecondes
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffH = Math.floor(diffMin / 60);
+    const diffDays = Math.floor(diffH / 24);
+    const diffMonths = Math.floor(diffDays / 30);
+    const diffYears = Math.floor(diffDays / 365);
+
+    if (diffYears > 0) return `il y a ${diffYears} an${diffYears > 1 ? 's' : ''}`;
+    if (diffMonths > 0) return `il y a ${diffMonths} mois`;
+    if (diffDays > 0) return `il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`;
+    if (diffH > 0) return `il y a ${diffH} heure${diffH > 1 ? 's' : ''}`;
+    if (diffMin > 0) return `il y a ${diffMin} minute${diffMin > 1 ? 's' : ''}`;
+    return `il y a quelques secondes`;
+  }
 
   loadProjectDetails(projectId: number) {
     // Simulation de chargement de données

@@ -2,12 +2,12 @@
   <main class="main-content">
     <header class="main-header">
       <div class="header-left">
-        <h1 class="header-title">E-learning</h1>
-        <p class="header-subtitle">Plateforme d'apprentissage</p>
+        <h1 class="header-title">{{ projectDetails?.title || 'Chargement...' }}</h1>
+        <p class="header-subtitle">{{ projectDetails?.description || '' }}</p>
       </div>
       <div class="header-right">
         <button
-          [routerLink]="['/user/contribution-ask']"
+          [routerLink]="['/user/contribution-ask', projectId]"
           class="btn-add-collaborator"
         >
           <img
@@ -18,7 +18,7 @@
           Ajouter collaborateur
         </button>
         <button
-          [routerLink]="['/users/configure-project/:id']"
+          [routerLink]="['/users/configure-project', projectId]"
           class="btn-update-project"
         >
           <img
@@ -28,8 +28,10 @@
           />
           Configurer projet
         </button>
-        <button [routerLink]="['/users/create-task/:id']" class="btn-new-task">
-          <img src="Add.png" alt="Ajouter une tâche" class="icon-btn" />
+        <button 
+          [routerLink]="['/users/create-task', projectId]" 
+          class="btn-new-task"
+        >
           Nouvelle tâche
         </button>
       </div>
@@ -86,20 +88,20 @@
       </div>
     </section>
 
-    <section class="project-team">
-      <h2 class="section-title">Equipe du projet</h2>
-      <div class="team-list">
-        <div class="team-member" *ngFor="let member of teamMembers">
-          <div class="member-avatar" [ngClass]="member.avatarClass">
-            {{ member.initials }}
-          </div>
-          <div class="member-info">
-            <p class="member-name">{{ member.name }}</p>
-            <p class="member-role">{{ member.role }}</p>
-          </div>
-        </div>
+<section class="project-team">
+  <h2 class="section-title">Equipe du projet</h2>
+  <div class="team-list">
+    <div class="team-member" *ngFor="let member of teamMembers">
+      <div class="member-avatar" [ngClass]="member.avatarClass">
+        {{ member.initials }}
       </div>
-    </section>
+      <div class="member-info">
+        <p class="member-name">{{ member.name }}</p>
+        <p class="member-role">{{ member.role }}</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <section class="kanban-board">
       <div class="kanban-column">
@@ -116,11 +118,11 @@
             draggable="true"
             (dragstart)="drag($event, task)"
           >
-            <p class="card-title">{{ task.title }}</p>
+            <p class="card-title">{{ task.taskName }}</p>
             <div class="card-footer">
               <div class="task-assigned">
-                <div class="member-avatar" [ngClass]="task.avatarClass">
-                  {{ task.initials }}
+                <div class="member-avatar blue-bg">
+                  {{ task.assignedTo || '?' }}
                 </div>
               </div>
             </div>
@@ -142,11 +144,11 @@
             draggable="true"
             (dragstart)="drag($event, task)"
           >
-            <p class="card-title">{{ task.title }}</p>
+            <p class="card-title">{{ task.taskName }}</p>
             <div class="card-footer">
               <div class="task-assigned">
-                <div class="member-avatar" [ngClass]="task.avatarClass">
-                  {{ task.initials }}
+                <div class="member-avatar orange-bg">
+                  {{ task.assignedTo || '?' }}
                 </div>
               </div>
             </div>
@@ -168,11 +170,11 @@
             draggable="true"
             (dragstart)="drag($event, task)"
           >
-            <p class="card-title">{{ task.title }}</p>
+            <p class="card-title">{{ task.taskName }}</p>
             <div class="card-footer">
               <div class="task-assigned">
-                <div class="member-avatar" [ngClass]="task.avatarClass">
-                  {{ task.initials }}
+                <div class="member-avatar green-bg">
+                  {{ task.assignedTo || '?' }}
                 </div>
               </div>
             </div>
@@ -187,7 +189,11 @@
         <div class="progress-bar-container">
           <div class="progress-bar" [style.width.%]="progressPercent"></div>
         </div>
-        <button class="btn-status-completed" (click)="sendToAdmin()">
+        <button class="btn-status-completed" 
+        (click)="sendToAdmin()"
+        [disabled]="progressPercent < 100"
+        [ngClass]="{'disabled-btn': progressPercent < 100}"
+        >
           Terminé
         </button>
       </div>

@@ -12,6 +12,9 @@ import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
 import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 
+
+
+
 @Component({
   selector: 'app-root',
   standalone: true,

@@ -9,6 +9,14 @@ import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
 import { IApiResponse } from '../interfaces/api-response';
 import { Iproject } from '../interfaces/project';
+import { TaskStatus } from '../../app/shared/models/task-status.enum';
+
+
+
+@Injectable({
+  providedIn: 'root'
+})
+
 
 export class CreateProject {
   title: string;
@@ -114,6 +122,12 @@ export class ProjectService {
       )
       .pipe(catchError(this.handleError));
   }
+
+  updateTaskStatus(taskId: number, newStatus: TaskStatus): Observable<any> {
+  const url = `${this.apiUrl}/tasks/${taskId}/status`;
+  const body = { status: newStatus };
+  return this._http.patch(url, body);
+}
 
   joinProjectWithProfilName(
     projectId: number,
@@ -234,19 +248,18 @@ export class ProjectService {
     return throwError(() => new Error(error.message || 'Erreur inconnue'));
   }
 
-  selectProfilAndAddToProject(
-    projectId: number,
-    profileId: number
-  ): Observable<any> {
-    const params = new HttpParams()
-      .set('profileId', projectId.toString())
-      .set('projectId', projectId.toString());
+  selectProfilAndAddToProject(profileId: number, projectId: number): Observable<any> {
+  const params = new HttpParams()
+    .set('profilId', profileId.toString())
+    .set('projectId', projectId.toString());
 
-    return this._http.post<any>(
-      `${this.apiUrl}/managerInfo/selectProfilAndAddToProject`,
-      { params }
-    );
-  }
+  return this._http.put<any>(
+    `${this.apiUrl}/managerInfo/selectProfilAndAddToProject`,
+    {}, // corps vide
+    { params }
+  );
+}
+
 
   // this.myService.selectProfilAndAddToProject(12, 45).subscribe({
   //   next: response => console.log('Profil ajouté en attente', response),

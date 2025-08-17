@@ -119,6 +119,9 @@
 
         }
       </div>
+      <div class="voir-details">
+          <a (click)="viewDetails(project)">Voir détails</a>
+      </div>
     </div>
     <div *ngIf="filteredProjects.length === 0" class="no-projects">
       <p>Aucun projet trouvé.</p>
