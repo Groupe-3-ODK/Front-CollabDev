@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { CONSTANT } from '../core/constants/contant';
+import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 import { LayoutComponent } from './layout/layout.component';
 import { Redirect } from './redirect/redirect';
-import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 
 export const routes: Routes = [
   {
@@ -123,7 +123,6 @@ export const routes: Routes = [
           ),
       },
 
-      
       {
         path: 'user/profil',
         loadComponent: () =>
@@ -164,11 +163,11 @@ export const routes: Routes = [
       },
 
       {
-    path: 'redirect/user/dashboard',
-    component: ContributionAsk
-  },
-  // route par défaut qui redirige vers dashboard :
-  { path: '', redirectTo: 'redirect/user/dashboard', pathMatch: 'full' }
+        path: 'redirect/user/dashboard',
+        component: ContributionAsk,
+      },
+      // route par défaut qui redirige vers dashboard :
+      { path: '', redirectTo: 'redirect/user/dashboard', pathMatch: 'full' },
     ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
@@ -450,5 +449,10 @@ export const routes: Routes = [
       import('../pages/admin/management-request/management-request').then(
         (m) => m.ManagementRequest
       ),
+  },
+  {
+    path: 'users/add-team/:id',
+    loadComponent: () =>
+      import('../pages/users/add-team/add-team').then((m) => m.AddTeam),
   },
 ];

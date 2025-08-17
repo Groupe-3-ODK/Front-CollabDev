@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'; // Importez le CommonModule
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Importez le FormsModule
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { ProjectService } from '../../../core/services/project.service';
   styleUrl: './configuration-du-projet.css',
 })
 export class ConfigurationDuProjet implements OnInit {
+  private router = inject(Router);
   // Propriétés du formulaire
   projectData = {
     githubLink: '', // lien GitHub du projet
@@ -146,15 +147,11 @@ export class ConfigurationDuProjet implements OnInit {
         };
 
         this.projectService
-          .updateProjects(
-            this.projectId,
-            project,
-            undefined,
-            this.projectData.file
-          )
+          .updateProjects(this.projectId, project, 0, this.projectData.file)
           .subscribe({
             next: (response) => {
               console.log('Projet mis à jour avec succès ', response);
+              this.router.navigate(['/users/project-detail']);
             },
             error: (err) => {
               console.error('Erreur lors de la mise à jour du projet ', err);

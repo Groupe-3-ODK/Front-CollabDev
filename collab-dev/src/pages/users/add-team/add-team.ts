@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { IApiResponse } from '../../../core/interfaces/api-response';
 import { ProjectService } from '../../../core/services/project.service';
 
@@ -27,10 +27,15 @@ interface UserData {
 export class AddTeam implements OnInit {
   private projectService = inject(ProjectService);
 
+  projectId!: number;
+
+  constructor(private route: ActivatedRoute) {}
+
   users: User[] = [];
 
   ngOnInit(): void {
     this.loadUsers();
+    this.projectId = +this.route.snapshot.paramMap.get('id')!;
   }
 
   loadUsers() {
