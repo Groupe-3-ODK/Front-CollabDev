@@ -7,7 +7,7 @@
         </h1>
         <p class="header-subtitle">{{ projectDetails?.description || "" }}</p>
       </div>
-      <div class="header-right" *ngIf="!isManager">
+      <div class="header-right" *ngIf="isManager">
         <button
           (click)="navigateToAddTeamSection()"
           class="btn-add-collaborator"
@@ -90,12 +90,12 @@
     <section class="project-team">
       <h2 class="section-title">Equipe du projet</h2>
       <div class="team-list">
-        <div class="team-member" *ngFor="let member of teamMembers">
-          <div class="member-avatar" [ngClass]="member.avatarClass">
-            {{ member.initials }}
+        <div class="team-member" *ngFor="let member of membersWithPseudo">
+          <div class="member-avatar" [ngClass]="member.badge ? getAvatarClass(member.badge) : 'blue-bg'">
+            {{ member.pseudo ? (member.pseudo | slice:0:1) : '?' }}
           </div>
           <div class="member-info">
-            <p class="member-name">{{ member.name }}</p>
+            <p class="member-name">{{ member.pseudo }}</p>
             <p class="member-role">{{ member.role }}</p>
           </div>
         </div>
