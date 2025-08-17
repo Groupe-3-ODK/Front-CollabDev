@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AdminManager } from "../pages/admin/admin-manager/admin-manager";
+import { LandingPageTwo } from '../components/landing-page-two/landing-page-two';
 
 
 
@@ -11,7 +12,7 @@ import { AdminManager } from "../pages/admin/admin-manager/admin-manager";
   standalone: true,
 
 
-  imports: [CommonModule, RouterOutlet, AdminManager],
+  imports: [CommonModule, RouterOutlet, LandingPageTwo],
 
 
   templateUrl: './app.component.html',
