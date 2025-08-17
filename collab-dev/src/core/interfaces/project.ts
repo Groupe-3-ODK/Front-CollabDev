@@ -4,7 +4,7 @@ export interface Iproject {
   description: string;
   domain: Domain;
   specification?: string;
-  status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
+  status: Status;
   author: UserResponseDTO;
   managerId: Profil;
   level: Level;

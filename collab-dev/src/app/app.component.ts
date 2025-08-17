@@ -3,10 +3,19 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
 import { RouterOutlet } from '@angular/router';
-import { DashboardComponent } from '../pages/users/dashboard/dashboard.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
+import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
+import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
+import { ProfileComponent } from '../pages/users/profil/profil.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ProfilComponent } from "../pages/users/profil/profil.component";
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
 
 
 
@@ -14,9 +23,29 @@ import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MatSnackBarModule, ReactiveFormsModule, ProfilComponent],
+
+  providers: [MessageService, ConfirmationService],
+
+
+  imports: [
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterOutlet,
+    AjoutEquipe,
+    ToastModule,
+    ConfirmDialogModule,
+    ButtonModule,
+    RippleModule,
+    DetailProjetComponent,
+    DashboardAdmin,
+    ProfileComponent
+  ],
+
+
   templateUrl: './app.component.html',
-  providers: [CookieService],
+  // providers: [CookieService],
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {

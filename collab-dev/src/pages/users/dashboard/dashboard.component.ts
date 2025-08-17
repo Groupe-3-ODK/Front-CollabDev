@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ProjectService } from '../../../core/services/project.service';
 import { IApiResponse } from '../../../core/interfaces/api-response';
-import { Iproject } from '../../../core/interfaces/project';
+import { Iproject, Task } from '../../../core/interfaces/project';
 import { SessionService } from '../../../core/services/session-service';
 import { Router } from '@angular/router';
 
@@ -153,7 +153,7 @@ calculateProjectProgress(project: Iproject): number {
   if (project.status === 'TODO') return 0;
   
   if (project.tasks && project.tasks.length > 0) {
-    const completedTasks = project.tasks.filter(task => task.status === 'DONE' || task.status === 'VALIDATED').length;
+    const completedTasks = project.tasks.filter((task: Task) => task.status === 'DONE' || task.status === 'VALIDATED').length;
     return Math.round((completedTasks / project.tasks.length) * 100);
   }
   
