@@ -70,7 +70,7 @@
   <!-- Liste des projets -->
   <div class="project-list">
     @for (contribution of filteredProjects; track $index) {
-    <div class="project-card">
+    <div class="project-card" (click)="showProjectEnv(contribution)">
       <div class="project-info">
         <div class="project-avatar" [ngClass]="contribution.role">
           <svg

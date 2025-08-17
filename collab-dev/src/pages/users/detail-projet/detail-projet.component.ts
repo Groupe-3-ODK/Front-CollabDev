@@ -1,26 +1,22 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ProjectService } from '../../../core/services/project.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 enum TaskStatus {
-  Todo = 'TODO',
-  InProgress = 'IN_PROGRESS',
-  Done = 'DONE',
-  Validated = 'VALIDATED'
+  Todo = 'todo',
+  InProgress = 'inProgress',
+  Done = 'done',
 }
 
 interface Task {
   id: number;
-  taskName: string;
+  title: string;
+  initials: string;
+  avatarClass: string;
   status: TaskStatus;
-  coins: number;
-  createdDate: string;
-  assignedTo?: string;
 }
 
 interface TeamMember {
-  id: number;
   name: string;
   role: string;
   initials: string;
@@ -32,182 +28,148 @@ interface TeamMember {
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './detail-projet.component.html',
-  styleUrls: ['./detail-projet.component.css']
+  styleUrls: ['./detail-projet.component.css'],
 })
-export class DetailProjetComponent implements OnInit{
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.projectId = +params['id'];
-      this.loadProjectDetails();
-    });
-  }
+export class DetailProjetComponent {
   projectId!: number;
-  projectDetails: any;
-  
-  progressPercent = 0;
-  totalTasks = 0;
-  inProgressTasks = 0;
-  doneTasks = 0;
-  validatedTasks = 0;
-  collaboratorsCount = 0;
+  isManager: boolean = false;
 
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  ngOnInit(): void {
+    this.projectId = +this.route.snapshot.paramMap.get('id')!;
+    this.isManager = this.route.snapshot.queryParams['isManager'] === 'true';
+  }
+
+  progressPercent = 33;
+  totalTasks = 6;
+  inProgressTasks = 2;
+  doneTasks = 2;
+  collaboratorsCount = 3;
 
   TaskStatus = TaskStatus;
 
   tasks: Record<TaskStatus, Task[]> = {
-    [TaskStatus.Todo]: [],
-    [TaskStatus.InProgress]: [],
-    [TaskStatus.Done]: [],
-    [TaskStatus.Validated]: []
+    [TaskStatus.Todo]: [
+      {
+        id: 1,
+        title: 'Interface admin',
+        initials: 'AC',
+        avatarClass: 'blue-bg',
+        status: TaskStatus.Todo,
+      },
+      {
+        id: 2,
+        title: 'Interface utilisateur',
+        initials: 'AC',
+        avatarClass: 'orange-bg',
+        status: TaskStatus.Todo,
+      },
+    ],
+    [TaskStatus.InProgress]: [
+      {
+        id: 3,
+        title: 'API Authentification',
+        initials: 'AC',
+        avatarClass: 'blue-bg',
+        status: TaskStatus.InProgress,
+      },
+      {
+        id: 4,
+        title: 'Base de données',
+        initials: 'AC',
+        avatarClass: 'purple-bg',
+        status: TaskStatus.InProgress,
+      },
+    ],
+    [TaskStatus.Done]: [
+      {
+        id: 5,
+        title: 'Maquettes UI',
+        initials: 'AC',
+        avatarClass: 'orange-bg',
+        status: TaskStatus.Done,
+      },
+      {
+        id: 6,
+        title: 'Configuration serveur',
+        initials: 'AC',
+        avatarClass: 'purple-bg',
+        status: TaskStatus.Done,
+      },
+    ],
   };
 
-  teamMembers: TeamMember[] = [];
-  pendingMembers: any[] = [];
+  teamMembers: TeamMember[] = [
+    {
+      name: 'Aissatou Coulibaly',
+      role: 'Designer',
+      initials: 'AC',
+      avatarClass: 'blue-bg',
+    },
+    {
+      name: 'Aissatou Coulibaly',
+      role: 'Développeur Backend',
+      initials: 'AC',
+      avatarClass: 'orange-bg',
+    },
+    {
+      name: 'Aissatou Coulibaly',
+      role: 'Développeur Frontend',
+      initials: 'AC',
+      avatarClass: 'purple-bg',
+    },
+  ];
 
-  constructor(
-    private projectService: ProjectService,
-    private route: ActivatedRoute
-  ) {}
-  loadProjectDetails(): void {
-    this.projectService.getProjectById(5).subscribe({
-      next: (response) => {
-        this.projectDetails = response.data;
-        console.log('Project Details:', this.projectDetails);
-        this.processProjectData();
-      },
-      error: (err) => console.error('Error loading project:', err)
-    });
-  }
-
-  processProjectData(): void {
-    // Process tasks
-    if (this.projectDetails.tasks) {
-      this.tasks[TaskStatus.Todo] = this.projectDetails.tasks.filter((t: any) => t.status === 'TODO');
-      this.tasks[TaskStatus.InProgress] = this.projectDetails.tasks.filter((t: any) => t.status === 'IN_PROGRESS');
-      this.tasks[TaskStatus.Done] = this.projectDetails.tasks.filter((t: any) => t.status === 'DONE');
-      this.tasks[TaskStatus.Validated] = this.projectDetails.tasks.filter((t: any) => t.status === 'VALIDATED');
-      
-      this.totalTasks = this.projectDetails.tasks.length;
-      this.inProgressTasks = this.tasks[TaskStatus.InProgress].length;
-      this.doneTasks = this.tasks[TaskStatus.Done].length + this.tasks[TaskStatus.Validated].length;
-      
-      this.progressPercent = this.totalTasks > 0 
-        ? Math.round((this.doneTasks / this.totalTasks) * 100)
-        : 0;
-    }
-
-     // Process team members
-    if (this.projectDetails.members) {
-      this.teamMembers = this.projectDetails.members.map((member: any) => ({
-        id: member.id,
-        name: member.userId, // Vous devriez avoir un champ pour le nom complet
-        role: member.profilName,
-        initials: this.getInitials(member.speudo || 'Unknown'), // Adaptez selon vos données
-        avatarClass: this.getAvatarClass(member.badge)
-      }));
-      this.collaboratorsCount = this.teamMembers.length;
-    }
-
-    // Process pending members
-    if (this.projectDetails.pendingProfiles) {
-      this.pendingMembers = this.projectDetails.pendingProfiles;
-    }
-  }
-
-  getInitials(name: string): string {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
-  }
-
-  getAvatarClass(badge: string): string {
-    switch(badge) {
-      case 'RED': return 'red-bg';
-      case 'YELLOW': return 'yellow-bg';
-      case 'GREEN': return 'green-bg';
-      default: return 'blue-bg';
-    }
-  }
-  // draggedTask: Task | null = null;
+  draggedTask: Task | null = null;
 
   allowDrop(event: DragEvent) {
     event.preventDefault();
   }
 
   drag(event: DragEvent, task: Task) {
-    event.dataTransfer?.setData('text/plain', task.id.toString());
+    this.draggedTask = task;
   }
 
   drop(event: DragEvent, newStatus: TaskStatus) {
     event.preventDefault();
-    const taskId = event.dataTransfer?.getData('text/plain');
-    if (!taskId) return;
+    if (!this.draggedTask) return;
 
-    // Trouver la tâche dans n'importe quel statut
-    let task: Task | undefined;
-    let oldStatus: TaskStatus | undefined;
-    
-    for (const status in this.tasks) {
-      const typedStatus = status as TaskStatus;
-      const foundTask = this.tasks[typedStatus].find(t => t.id === +taskId);
-      if (foundTask) {
-        task = foundTask;
-        oldStatus = typedStatus;
-        break;
-      }
+    const oldStatus = this.draggedTask.status;
+    if (oldStatus !== newStatus) {
+      this.tasks[oldStatus] = this.tasks[oldStatus].filter(
+        (t) => t.id !== this.draggedTask!.id
+      );
+      this.draggedTask.status = newStatus;
+      this.tasks[newStatus].push(this.draggedTask);
+      this.updateProgress();
     }
-
-    if (!task || !oldStatus || oldStatus === newStatus) return;
-
-      // Validation des transitions autorisées
-    if (oldStatus === TaskStatus.Todo && newStatus === TaskStatus.Done) {
-      alert('Vous ne pouvez pas passer une tâche directement de "À faire" à "Terminé". Elle doit d\'abord passer par "En cours".');
-      return;
-    }
-
-    // Mettre à jour le statut côté front
-    this.tasks[oldStatus] = this.tasks[oldStatus].filter(t => t.id !== task.id);
-    task.status = newStatus;
-    this.tasks[newStatus].push(task);
-
-    // Mettre à jour les compteurs
-    this.updateTaskCounters();
-
-    // Ici, vous devriez aussi appeler une API pour mettre à jour le statut en backend
-    // this.updateTaskStatus(task.id, newStatus);
   }
 
-  updateTaskCounters(): void {
+  updateProgress() {
+    this.doneTasks = this.tasks[TaskStatus.Done].length;
     this.inProgressTasks = this.tasks[TaskStatus.InProgress].length;
-    this.doneTasks = this.tasks[TaskStatus.Done].length + this.tasks[TaskStatus.Validated].length;
-    this.totalTasks = Object.values(this.tasks).reduce((sum, tasks) => sum + tasks.length, 0);
-    this.progressPercent = this.totalTasks > 0 
-      ? Math.round((this.doneTasks / this.totalTasks) * 100)
-      : 0;
+    this.totalTasks =
+      this.tasks[TaskStatus.Todo].length +
+      this.inProgressTasks +
+      this.doneTasks;
+    this.progressPercent =
+      this.totalTasks > 0
+        ? Math.round((this.doneTasks / this.totalTasks) * 100)
+        : 0;
   }
 
   sendToAdmin() {
-    if (this.projectDetails.managerId?.id) {
-      this.projectService.validateProject(
-        this.projectDetails.managerId.id, 
-        this.projectDetails.id
-      ).subscribe({
-        next: (response) => {
-          alert('Projet envoyé à l\'administrateur pour validation');
-          // Mettre à jour le statut du projet
-          this.projectDetails.status = 'PENDING_VALIDATION';
-        },
-        error: (err) => console.error('Erreur lors de l\'envoi à l\'admin:', err)
-      });
-    }
+    alert("Envoyé à l'administrateur");
   }
 
-  // updateProgress() {
-  //   this.doneTasks = this.tasks[TaskStatus.Done].length;
-  //   this.inProgressTasks = this.tasks[TaskStatus.InProgress].length;
-  //   this.totalTasks = this.tasks[TaskStatus.Todo].length + this.inProgressTasks + this.doneTasks;
-  //   this.progressPercent = this.totalTasks > 0 ? Math.round((this.doneTasks / this.totalTasks) * 100) : 0;
-  // }
-
-  // sendToAdmin(){
-  //   alert('Envoyé à l\'administrateur');
-  // }
+  navigateToConfigurationSection() {
+    this.router.navigate(['/users/configure-project', this.projectId]);
+  }
+  navigateToCreateTaskSection() {
+    this.router.navigate(['/users/create-task', this.projectId]);
+  }
+  navigateToAddTeamSection() {
+    this.router.navigate(['/users/admin/add-team', this.projectId]);
+  }
 }

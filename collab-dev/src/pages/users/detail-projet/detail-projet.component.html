@@ -5,7 +5,7 @@
         <h1 class="header-title">{{ projectDetails?.title || 'Chargement...' }}</h1>
         <p class="header-subtitle">{{ projectDetails?.description || '' }}</p>
       </div>
-      <div class="header-right">
+      <div class="header-right" *ngIf="!isManager">
         <button
           [routerLink]="['/user/contribution-ask', projectId]"
           class="btn-add-collaborator"
@@ -18,7 +18,11 @@
           Ajouter collaborateur
         </button>
         <button
+<<<<<<< HEAD
           [routerLink]="['/users/configure-project', projectId]"
+=======
+          (click)="navigateToConfigurationSection()"
+>>>>>>> fe5bd6f (mise en place de la configuration projet)
           class="btn-update-project"
         >
           <img

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'; // Importez le CommonModule
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Importez le FormsModule
+import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../core/services/project.service';
 
 @Component({
@@ -13,10 +14,11 @@ import { ProjectService } from '../../../core/services/project.service';
 export class ConfigurationDuProjet implements OnInit {
   // Propriétés du formulaire
   projectData = {
-    githubLink: '',
-    projectLevel: '',
-    deadline: '',
-    fileName: '',
+    githubLink: '', // lien GitHub du projet
+    projectLevel: '', // niveau du projet (ex: beginner, intermediate...)
+    deadline: '', // date limite
+    fileName: '', // nom du fichier sélectionné
+    file: undefined as File | undefined, // objet fichier lui-même (nullable au départ)
   };
 
   // État de la validation du formulaire
@@ -52,11 +54,16 @@ export class ConfigurationDuProjet implements OnInit {
       completed: false,
     },
   ];
+  projectId!: number;
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private projectService: ProjectService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.updateValidation();
+    this.projectId = +this.route.snapshot.paramMap.get('id')!;
   }
 
   /**
@@ -73,14 +80,16 @@ export class ConfigurationDuProjet implements OnInit {
    * Gère la sélection d'un fichier et met à jour le nom du fichier dans le modèle.
    * @param event L'événement de changement du champ de fichier.
    */
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    if (file) {
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.projectData.file = file; // 🔹 stocker le fichier pour l’upload
       this.projectData.fileName = file.name;
     } else {
+      this.projectData.file = undefined;
       this.projectData.fileName = '';
     }
-    this.updateValidation();
   }
 
   /**
@@ -130,28 +139,30 @@ export class ConfigurationDuProjet implements OnInit {
    */
   onValidate(): void {
     if (this.isFormValid) {
-      const project = {
-        level: this.projectData.projectLevel,
-        githubLink: this.projectData.githubLink,
-        specification: this.projectData.fileName,
-      };
+      if (this.projectData.githubLink && this.projectData.projectLevel) {
+        const project = {
+          level: this.projectData.projectLevel,
+          githubLink: this.projectData.githubLink,
+        };
 
-      const projectId = 1;
-      const managerProfilId = 2;
-
-
-      // this.projectService.updateProject(1, project, 1)
-      //   .subscribe({
-      //     next: (res) => {
-      //       console.log('Projet configuré avec succès', res);
-      //     },
-      //     error: (err) => {
-      //       console.error('Erreur lors de la configuration', err);
-      //     }
-      //   });
-
-    } else {
-      console.log('Veuillez compléter tous les champs.');
+        this.projectService
+          .updateProjects(
+            this.projectId,
+            project,
+            undefined,
+            this.projectData.file
+          )
+          .subscribe({
+            next: (response) => {
+              console.log('Projet mis à jour avec succès ', response);
+            },
+            error: (err) => {
+              console.error('Erreur lors de la mise à jour du projet ', err);
+            },
+          });
+      } else {
+        console.log('Veuillez compléter tous les champs.');
+      }
     }
   }
 }

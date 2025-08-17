@@ -58,43 +58,32 @@ export class MyContributions {
 
     switch (this.filter) {
       case 'all':
-        return this.contributions.filter(
-          (project: {
-            members: any[];
-            pendingProfiles: any[];
-            managerId: { userId: any };
-          }) =>
-            project.members?.some((m) => m.userId === userId) ||
-            project.pendingProfiles?.some((p) => p.userId === userId) ||
-            project.managerId?.userId === userId
-        );
+        return this.contributions;
 
       case 'code':
-        return this.contributions.filter(
-          (project: { members: any[]; pendingProfiles: any[] }) =>
-            project.members?.some(
-              (m) => m.userId === userId && m.profilName === 'DEVELOPER'
-            ) ||
-            project.pendingProfiles?.some(
-              (p) => p.userId === userId && p.profilName === 'DEVELOPER'
-            )
+        return this.contributions.filter((project: { members: any[] }) =>
+          project.members?.some(
+            (m) => m.userId === userId && m.profilName === 'DEVELOPER'
+          )
         );
 
       case 'design':
-        return this.contributions.filter(
-          (project: { members: any[]; pendingProfiles: any[] }) =>
-            project.members?.some(
-              (m) => m.userId === userId && m.profilName === 'DESIGNER'
-            ) ||
-            project.pendingProfiles?.some(
-              (p) => p.userId === userId && p.profilName === 'DESIGNER'
-            )
+        return this.contributions.filter((project: { members: any[] }) =>
+          project.members?.some(
+            (m) => m.userId === userId && m.profilName === 'DESIGNER'
+          )
         );
 
       case 'management':
+        console.log('filtre gestion ativer');
+        console.log(userId);
         return this.contributions.filter(
-          (project: { managerId: { userId: any } }) =>
-            project.managerId?.userId === userId
+          (project: {
+            managerId: {
+              profilName: string;
+              userId: any;
+            };
+          }) => project.managerId?.userId === userId
         );
 
       default:
@@ -125,6 +114,22 @@ export class MyContributions {
         return '#FBC792'; // J'ai ajouté une couleur pour le niveau avancé
       default:
         return '#FFFFFF';
+    }
+  }
+
+  isManager: boolean = false;
+
+  showProjectEnv(project: any) {
+    if (project.managerId.userId === this.currentUser.id) {
+      this.isManager = true;
+      this.router.navigate(['/users/project-detail', project.id], {
+        queryParams: { isManager: this.isManager },
+      });
+    } else {
+      this.isManager = false;
+      this.router.navigate(['/users/project-detail', project.id], {
+        queryParams: { isManager: this.isManager },
+      });
     }
   }
 }
