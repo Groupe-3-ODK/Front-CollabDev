@@ -127,7 +127,7 @@ export const routes: Routes = [
         path: 'user/profil',
         loadComponent: () =>
           import('../pages/users/profil/profil.component').then(
-            (m) => m.ProfilComponent
+            (m) => m.ProfileComponent
           ),
       },
       {

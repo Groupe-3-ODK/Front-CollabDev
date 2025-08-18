@@ -12,6 +12,12 @@ import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
 import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 
+import { ProfileComponent } from '../pages/users/profil/profil.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+
 
 
 
@@ -23,6 +29,11 @@ import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 
 
   imports: [
+
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    ReactiveFormsModule,
+
     CommonModule,
     RouterOutlet,
     AjoutEquipe,
@@ -32,11 +43,16 @@ import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
     RippleModule,
     DetailProjetComponent,
     DashboardAdmin,
+
+    ProfileComponent
+
   ],
 
 
   templateUrl: './app.component.html',
+
   styleUrls: ['./app.component.css'],
+
 })
 export class AppComponent implements OnInit {
   constructor(

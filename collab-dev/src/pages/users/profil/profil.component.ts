@@ -1,75 +1,186 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UsersService } from '../../../core/services/users.service';
+import { SessionService } from '../../../core/services/session-service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-profil',
+  selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
 })
-export class ProfilComponent {
-  // Personal Information
-  personalInfo = {
-    firstName: 'Mohamed',
-    lastName: 'Touré',
-    birthDate: '12-10-2001',
-    email: 'rjkjk',
-    phone: '+22370672215',
-    profile: 'Développeur'
+export class ProfileComponent implements OnInit {
+  user: any;
+  profileForm: FormGroup;
+  passwordForm: FormGroup;
+  isLoading = true;
+  profileUpdateSuccess = false;
+  passwordUpdateSuccess = false;
+  errorMessage = '';
+
+  /* TEST CONFIG - À MODIFIER SELON VOS BESOINS */
+  private readonly TEST_MODE = true; // Mettre à false pour utiliser le vrai userId
+  private readonly TEST_USER_ID = 5; // ID d'un utilisateur existant dans votre base
+  private readonly TEST_USER_DATA = {
+    speudo: 'TestUser',
+    email: 'test@example.com'
   };
 
-  // Address Information
-  addressInfo = {
-    country: 'Mali',
-    city: 'Bamako',
-    postalCode: '25029'
-  };
+  constructor(
+    private usersService: UsersService,
+    private sessionService: SessionService,
+    private fb: FormBuilder
+  ) {
+    this.profileForm = this.fb.group({
+      pseudo: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
+    });
 
-  // Edit modes
-  isEditingPersonalInfo = false;
-  isEditingAddress = false;
+    this.passwordForm = this.fb.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required]
+    }, { validator: this.passwordMatchValidator });
+  }
 
-  // Original data for canceling edits
-  originalPersonalInfo = { ...this.personalInfo };
-  originalAddressInfo = { ...this.addressInfo };
-
-  // Toggle edit mode for personal info
-  togglePersonalInfoEdit() {
-    if (this.isEditingPersonalInfo) {
-      // Cancel edit - restore original values
-      this.personalInfo = { ...this.originalPersonalInfo };
+  ngOnInit(): void {
+    if (this.TEST_MODE) {
+      console.warn('⚠️ MODE TEST ACTIVÉ - UTILISATION DE L\'ID:', this.TEST_USER_ID);
+      this.testLoadUserData();
     } else {
-      // Start edit - save original values
-      this.originalPersonalInfo = { ...this.personalInfo };
+      this.loadUserData();
     }
-    this.isEditingPersonalInfo = !this.isEditingPersonalInfo;
   }
 
-  // Toggle edit mode for address
-  toggleAddressEdit() {
-    if (this.isEditingAddress) {
-      // Cancel edit - restore original values
-      this.addressInfo = { ...this.originalAddressInfo };
-    } else {
-      // Start edit - save original values
-      this.originalAddressInfo = { ...this.addressInfo };
+  /* METHODES PRINCIPALES (avec gestion du mode test) */
+  loadUserData(): void {
+    const userId = this.sessionService.getUserId();
+    if (userId) {
+      console.log('Chargement des données utilisateur (mode réel)');
+      this.callGetUserById(userId);
     }
-    this.isEditingAddress = !this.isEditingAddress;
   }
 
-  // Save personal info changes
-  savePersonalInfo() {
-    this.originalPersonalInfo = { ...this.personalInfo };
-    this.isEditingPersonalInfo = false;
-    // Here you would typically call an API to save the data
+  updateProfile(): void {
+    if (this.profileForm.valid) {
+      const userId = this.TEST_MODE ? this.TEST_USER_ID : this.sessionService.getUserId();
+      const updateData = {
+        speudo: this.profileForm.value.pseudo,
+        email: this.profileForm.value.email
+      };
+
+      console.log('Envoi mise à jour profil:', updateData);
+      this.callUpdateUserInfo(userId, updateData);
+    }
   }
 
-  // Save address changes
-  saveAddress() {
-    this.originalAddressInfo = { ...this.addressInfo };
-    this.isEditingAddress = false;
-    // Here you would typically call an API to save the data
+  updatePassword(): void {
+    if (this.passwordForm.valid) {
+      const userId = this.TEST_MODE ? this.TEST_USER_ID : this.sessionService.getUserId();
+      const passwordData = {
+        oldPassword: this.passwordForm.value.oldPassword,
+        newPassword: this.passwordForm.value.newPassword
+      };
+
+      console.log('Envoi changement mot de passe');
+      this.callChangePassword(userId, passwordData);
+    }
+  }
+
+  /* APPELS API DIRECTS (pour un meilleur contrôle) */
+  private callGetUserById(userId: number): void {
+    this.usersService.getUserById(userId).subscribe({
+      next: (response) => {
+        console.log('Réponse getUserById:', response);
+        this.user = response.data;
+        this.profileForm.patchValue({
+          pseudo: this.user.speudo,
+          email: this.user.email
+        });
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erreur getUserById:', err);
+        this.errorMessage = 'Erreur lors du chargement';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  private callUpdateUserInfo(userId: number, data: any): void {
+    // DEBUG - Vérifiez que l'ID est correct avant l'envoi
+    console.log('Envoi vers userId:', userId); // <-- Ajoutez ce log
+    
+    this.usersService.updateUserInfo(userId, data).subscribe({
+      next: (response) => {
+        console.log('Réponse updateUserInfo:', response);
+        this.profileUpdateSuccess = true;
+        this.user.speudo = data.speudo;
+        this.user.email = data.email;
+        setTimeout(() => this.profileUpdateSuccess = false, 3000);
+      },
+      error: (err) => {
+        console.error('Erreur updateUserInfo - Détails:', {
+          status: err.status,
+          url: err.url, // <-- Vérifiez l'URL complète ici
+          message: err.message
+        });
+        this.errorMessage = 'Échec de la mise à jour';
+      }
+    });
+}
+
+private callChangePassword(userId: number, data: any): void {
+    // Ajoutez confirmPassword dans les données envoyées
+    const fullData = {
+      oldPassword: data.oldPassword,
+      newPassword: data.newPassword,
+      confirmPassword: this.passwordForm.value.confirmPassword 
+    };
+
+    console.log('Envoi changement mot de passe vers userId:', userId, fullData);
+    
+    this.usersService.changePassword(userId, fullData).subscribe({
+      next: (response) => {
+        console.log('Réponse changePassword:', response);
+        this.passwordUpdateSuccess = true;
+        this.passwordForm.reset();
+        setTimeout(() => this.passwordUpdateSuccess = false, 3000);
+      },
+      error: (err) => {
+        console.error('Erreur changePassword - Détails:', {
+          status: err.status,
+          url: err.url,
+          message: err.message,
+          error: err.error // Affiche le détail de l'erreur backend
+        });
+        this.errorMessage = 'Échec du changement de mot de passe';
+      }
+    });
+}
+
+  /* METHODES DE TEST */
+  private testLoadUserData(): void {
+    console.log('Simulation chargement données test...');
+    
+    // Pour tester sans appel API réel
+    // this.user = { id: this.TEST_USER_ID, ...this.TEST_USER_DATA };
+    // this.profileForm.patchValue(this.TEST_USER_DATA);
+    // this.isLoading = false;
+
+    // Pour tester avec un vrai appel API
+    this.callGetUserById(this.TEST_USER_ID);
+  }
+
+  /* UTILITAIRES */
+  passwordMatchValidator(form: FormGroup) {
+    return form.get('newPassword')?.value === form.get('confirmPassword')?.value 
+      ? null : { mismatch: true };
+  }
+
+  getInitials(name: string): string {
+    return name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
   }
 }
