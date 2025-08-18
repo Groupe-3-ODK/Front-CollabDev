@@ -1,67 +1,74 @@
-import { CommonModule } from '@angular/common'; // Ajout de CommonModule pour *ngFor
+import { CommonModule } from '@angular/common'; 
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { Router } from '@angular/router';
-
-
+import { ProjectService } from '../../../core/services/project.service';
 import { Iproject } from '../../../core/interfaces/project';
-import { ProjectManagerService } from '../../../core/services/project-manager-service';
 
 @Component({
   selector: 'app-admin-manager',
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-
-    CommonModule ],
-
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './admin-manager.html',
   styleUrl: './admin-manager.css',
 })
 export class AdminManager implements OnInit {
-  projects: any = [];
-  filteredProjects: any = [];
+  projects: Iproject[] = [];
+  filteredProjects: Iproject[] = [];
   searchQuery: string = '';
+  isLoading: boolean = true;
+  errorMessage: string | null = null;
 
   constructor(
-    private projectManagerService: ProjectManagerService,
+    private projectService: ProjectService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-
-    this.projectManagerService.getProjects().subscribe(res => {
-      this.projects = res.data;
-      this.filteredProjects = res.data;
-
-    });
+    this.loadProjects();
   }
-  getPendingProject(){
 
+  loadProjects(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+    
+    this.projectService.getProjectsWithManagerPendingRequests().subscribe({
+      next: (response) => {
+        this.projects = Array.isArray(response.data) ? 
+          response.data.filter((item): item is Iproject => 'title' in item && 'createdDate' in item) : 
+          [];
+        
+        this.filteredProjects = [...this.projects];
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = 'Erreur lors du chargement des projets';
+        console.error('Erreur:', err);
+      }
+    });
   }
 
   filterProjects(): void {
-    const query = this.searchQuery.toLowerCase();
-
-    interface Project {
-      title: string;
-      createdDate: string;
-      // add other properties as needed
+    if (!this.searchQuery) {
+      this.filteredProjects = [...this.projects];
+      return;
     }
 
-    this.filteredProjects = this.projects.filter((project: Project) =>
-      project.title.toLowerCase().includes(query) ||
-      project.createdDate.includes(query)
-
+    const query = this.searchQuery.toLowerCase();
+    this.filteredProjects = this.projects.filter(project => 
+      project.title?.toLowerCase().includes(query) ||
+      this.formatDate(project.createdDate).toLowerCase().includes(query)
     );
   }
 
   viewManagementRequests(projectId: number): void {
-
-    console.log(`Naviguer vers les demandes de gestion pour le projet ID: ${projectId}`);
-
     this.router.navigate(['/admin/management-requests', projectId]);
+  }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR');
   }
 }

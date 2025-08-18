@@ -1,9 +1,10 @@
 // Interface pour une demande de contribution (candidature de manager)
 export interface IContributionRequest {
-  id: number; // Ceci est l'ID de la demande elle-même
-  candidateProfileId: number; // NOUVEAU : L'ID du Profil du candidat
-  candidateName: string; // Nom du candidat
-  requestDate: string; // Date de la demande (ISO 8601 string)
+  userId: any;
+  id: number; 
+  candidateProfileId: number; 
+  candidateName: string; 
+  requestDate: string; 
 }
 
 export interface Iproject {
@@ -12,20 +13,19 @@ export interface Iproject {
   description: string;
   domain: Domain;
   specification?: string;
-  // status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
+  status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
   author: UserResponseDTO;
-
-  managerId: Profil | null; // Peut être null si aucun manager n'est assigné
-
+  pendingRequestsCount?: number;
+  managerId: Profil | null; 
   level: Level;
   githubLink?: string;
   tasks: Task[];
   members: Profil[];
   pendingProfiles: Profil[];
-  contributionRequests: IContributionRequest[]; // Utilise la nouvelle interface
+  contributionRequests: IContributionRequest[]; 
   coins: number;
   comments: Comment[];
-  createdDate: string; // LocalDate → string ISO
+  createdDate: string; 
   progress?: number;
   technologies?: String[];
 }

@@ -1,81 +1,145 @@
-        // Assurez-vous que contributionRequests est toujours un tableau, même s'il est null ou undefined de l'API.
+// management-request.component.ts
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { finalize } from 'rxjs';
 
-import { ProjectManagerService } from '../../../core/services/project-manager-service';
-import { AdminService } from '../../../core/services/admin';
+import { ProjectService } from '../../../core/services/project.service';
+import { UsersService } from '../../../core/services/users.service';
+import { SessionService } from '../../../core/services/session-service';
 import { Iproject, IContributionRequest } from '../../../core/interfaces/project';
+import { addManagerInfoI } from '../../../core/interfaces/manager/addManagerInfoI';
+import { IApiResponse } from '../../../core/interfaces/api-response';
 
 @Component({
   selector: 'app-management-request',
   standalone: true,
-  imports: [
-    RouterModule,
-    CommonModule
-  ],
+  imports: [CommonModule],
   templateUrl: './management-request.html',
-  styleUrl: './management-request.css'
+  styleUrls: ['./management-request.css']
 })
 export class ManagementRequest implements OnInit {
   project: Iproject | undefined;
+  isLoading = true;
+  errorMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private projectManagerService: ProjectManagerService,
-    private adminService: AdminService
-  ) { }
+    private projectService: ProjectService,
+    private sessionService: SessionService,
+    public usersService: UsersService, // ⚠️ public car utilisé dans le template
+  ) {}
 
   ngOnInit(): void {
     const projectId = Number(this.route.snapshot.paramMap.get('id'));
+    this.loadProjectWithManagerRequests(projectId);
+  }
 
-    this.projectManagerService.getProjectById(projectId).subscribe(project => {
-      if (project) {
-        // --- Correction pour l'erreur *ngFor ---
-        // Assurez-vous que contributionRequests est toujours un tableau, même s'il est null ou undefined de l'API.
-        project.contributionRequests = project.contributionRequests || [];
-        // ------------------------------------
-        this.project = project;
-      } else {
-        console.warn(`Projet avec l'ID ${projectId} non trouvé.`);
-        // Gérer le cas où le projet n'est pas trouvé (par exemple, rediriger l'utilisateur)
+  loadProjectWithManagerRequests(projectId: number): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.projectService.getProjectById(projectId)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+        next: (response: IApiResponse<Iproject>) => {
+          if (response.data) {
+            this.project = response.data;
+            this.loadPendingManagers(projectId);
+          }
+        },
+        error: (err) => {
+          console.error('Erreur chargement projet:', err);
+          this.errorMessage = 'Erreur lors du chargement du projet';
+        }
+      });
+  }
+
+  loadPendingManagers(projectId: number): void {
+  this.isLoading = true;
+
+  this.projectService.getProjectWithManagerRequests(projectId)
+    .pipe(finalize(() => this.isLoading = false))
+    .subscribe({
+      next: (response: IApiResponse<any[]>) => {
+        console.log('Données reçues pour pendingManagers:', response.data); // Ajoute ce log
+        if (response.data && this.project) {
+          this.project.contributionRequests = response.data.map(manager => ({
+            id: manager.id,
+            candidateProfileId: manager.id,
+            candidateName: manager.pseudo ?? 'Utilisateur inconnu',
+            userId: manager.userId,
+            requestDate: manager.createdDate
+          }));
+        } else {
+          this.errorMessage = 'Aucune demande trouvée ou format invalide';
+        }
+      },
+      error: (err) => {
+        console.error('Erreur chargement demandes:', err);
+        this.errorMessage = 'Erreur lors du chargement des demandes';
       }
     });
-  }
+}
 
   getInitials(name: string): string {
-    if (!name) return '';
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
   }
 
-  accept(requestId: number): void {
-    if (this.project) {
-      const currentProject = this.project;
-      const requestToAccept = currentProject.contributionRequests.find(req => req.id === requestId);
+  acceptRequest(request: IContributionRequest): void {
+  if (!this.project) return;
+  this.isLoading = true;
 
-      if (requestToAccept) {
-        this.adminService.attributeManagerToProject(currentProject.id, requestToAccept.candidateProfileId)
-          .subscribe({
-            next: (response) => {
-              console.log('Manager attribué avec succès:', response);
-              currentProject.contributionRequests = currentProject.contributionRequests.filter(req => req.id !== requestId);
-              if (!currentProject.managerId) {
-                currentProject.managerId = { id: requestToAccept.candidateProfileId, name: requestToAccept.candidateName, bio: 'Manager attribué' };
-              }
-            },
-            error: (error) => {
-              console.error('Erreur lors de l\'attribution du manager:', error);
-            }
-          });
+  const managerInfo: addManagerInfoI = {
+    id: request.candidateProfileId,
+    manager: {
+      id: request.candidateProfileId,
+      user: null,
+      level: 'INTERMEDIATE',
+      coins: 0,
+      validatedProjects: 0,
+      badge: null,
+      profilName: request.candidateName,
+      tasks: [],
+      requestedProjects: [],
+      createdDate: new Date().toISOString()
+    },
+    githubLink: '',
+    pathCv: '',
+    createdDate: new Date().toISOString()
+  };
+
+  this.projectService.acceptManagerRequest(this.project.id, managerInfo)
+    .subscribe({
+      next: (response) => {
+        if (response.code === '202' && response.message.includes('Le projet a déjà un Manager')) {
+          this.errorMessage = 'Ce projet a déjà un manager assigné.';
+        } else {
+          this.loadProjectWithManagerRequests(this.project!.id);
+        }
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erreur acceptation:', err);
+        this.errorMessage = 'Erreur lors de l\'acceptation de la demande';
+        this.isLoading = false;
       }
-    }
-  }
+    });
+}
 
-  reject(requestId: number): void {
-    if (this.project) {
-      const currentProject = this.project;
-      currentProject.contributionRequests = currentProject.contributionRequests.filter(req => req.id !== requestId);
-      console.log(`Demande ${requestId} refusée pour le projet ${currentProject.title}.`);
-    }
-  }
+  rejectRequest(request: IContributionRequest): void {
+  if (!this.project || !request.userId) return;  // Vérifie userId
+
+  this.isLoading = true;
+
+  this.projectService.rejectManagerRequest(this.project.id, request.userId)  // Utilise userId
+    .subscribe({
+      next: () => this.loadProjectWithManagerRequests(this.project!.id),
+      error: (err) => {
+        console.error('Erreur rejet:', err);
+        this.errorMessage = 'Erreur lors du rejet de la demande';
+        this.isLoading = false;
+      }
+    });
+}
 }

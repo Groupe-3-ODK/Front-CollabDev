@@ -1,17 +1,18 @@
-import { Iproject } from "./project";
+import { Iproject } from './project';
 
-export interface IApiResponse {
+export interface IApiResponse<T = Iproject | Iproject[] | UserData> {
   code: string;
   message: string;
-  data: Iproject | Iproject[] | UserData;
+  data: T;
 }
 
 export interface UserData {
+  pseudo: string;
   designers: never[];
   id: number;
   speudo: string;
   email: string;
-  profils: any[]; // Si tu connais le type des profils, remplace `any` par l'interface correspondante
+  profils: any[];
   role: string;
 }
 
@@ -32,5 +33,5 @@ export interface Project {
   comments: any[];
   contributionRequests: any[];
   createdDate: string;
+  pendingRequestsCount?: number;
 }
-
