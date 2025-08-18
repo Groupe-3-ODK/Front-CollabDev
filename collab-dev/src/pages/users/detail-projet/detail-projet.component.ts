@@ -43,6 +43,7 @@ export class DetailProjetComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectId = +this.route.snapshot.paramMap.get('id')!;
+    console.log('------------------->', this.projectId);
     this.isManager = this.route.snapshot.queryParams['isManager'] === 'true';
     this.loadProjectDetails(this.projectId);
   }
@@ -78,7 +79,7 @@ export class DetailProjetComponent implements OnInit {
     this.projectService.getProjectById(projectId).subscribe({
       next: (response) => {
         this.projectDetails = response.data;
-        console.log('Project Details:', this.projectDetails);
+        console.log('Project Details---------->:', this.projectDetails);
         this.processProjectData();
 
         // Ajout récupération des pseudos des membres
