@@ -112,6 +112,20 @@ export class ProjectService {
     );
   }
 
+  getPendingProjectsByUser(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/projects/${userId}/userAllpendingProjects`);
+  }
+
+  cancelPendingRequest(projectId: number, userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.delete<any>(`${baseUrl}/projects/${projectId}/removeUsertoPending/${userId}`);
+  }
+
   // Validation projet
   // this.myService.validateProject(5, 123).subscribe({
   //   next: res => console.log(res),  // "Projet Terminé :) 🥳"
