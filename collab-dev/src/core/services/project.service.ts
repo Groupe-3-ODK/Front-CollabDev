@@ -48,6 +48,42 @@ export class ManagerInfo {
   providedIn: 'root',
 })
 export class ProjectService {
+
+  getDeveloperCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/developerCoins`);
+  }
+
+  getDesignerCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/designerCoins`);
+  }
+
+  getManagerCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/managerCoins`);
+  }
+
+  getTotalCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/totalCoins`);
+  }
+
+  countProjectsByAuthor(userId: number) {
+  const baseUrl = environment.API_BASE_URL.endsWith('/')
+    ? environment.API_BASE_URL.slice(0, -1)
+    : environment.API_BASE_URL;
+  // Remplace 'projects' par 'users'
+  return this._http.get<any>(`${baseUrl}/users/${userId}/countProjectsByAuthor`);
+}
   private _http = inject(HttpClient);
 
   private _apiUrl =

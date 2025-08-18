@@ -14,6 +14,7 @@ import { DetailProjetComponent } from '../pages/users/detail-projet/detail-proje
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfileComponent } from '../pages/users/profil/profil.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
