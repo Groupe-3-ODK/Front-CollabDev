@@ -110,6 +110,7 @@ export class DashboardComponent implements OnInit {
   }
 
   get todoCount(): number {
+
     return this.projects.filter(
       (project: { status: string }) => project.status === 'TODO'
     ).length;
@@ -130,6 +131,7 @@ export class DashboardComponent implements OnInit {
     return this.projects.filter(
       (project: { status: string }) => project.status === 'VALIDATED'
     ).length;
+
   }
 
   setFilter(filter: string): void {
@@ -149,6 +151,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Méthode pour calculer la progression basée sur les tâches
+
   calculateProjectProgress(project: any): number {
     if (project.status === 'VALIDATED') return 100;
     if (project.status === 'DONE') return 100;
@@ -161,6 +164,7 @@ export class DashboardComponent implements OnInit {
       ).length;
       return Math.round((completedTasks / project.tasks.length) * 100);
     }
+
 
     // Fallback pour les projets sans tâches
     if (project.status === 'IN_PROGRESS') return 50;

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProjectService } from '../../../core/services/project.service';
+import { UsersService } from '../../../core/services/users.service';
+import { forkJoin, map } from 'rxjs';
 
 enum TaskStatus {
   Todo = 'TODO',
@@ -64,11 +66,13 @@ export class DetailProjetComponent implements OnInit {
 
   teamMembers: TeamMember[] = [];
   pendingMembers: any[] = [];
+  membersWithPseudo: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private userService: UsersService
   ) {}
 
   loadProjectDetails(projectId: number): void {
@@ -77,6 +81,28 @@ export class DetailProjetComponent implements OnInit {
         this.projectDetails = response.data;
         console.log('Project Details---------->:', this.projectDetails);
         this.processProjectData();
+
+        // Ajout récupération des pseudos des membres
+        if (this.projectDetails.members && this.projectDetails.members.length > 0) {
+          const requests = this.projectDetails.members.map((profil: any) =>
+            this.userService.getUserById(profil.userId).pipe(
+              map((user: any) => ({
+                profilId: profil.id,
+                pseudo: user.data.speudo,
+                role: profil.profilName,
+                badge: profil.badge
+              }))
+            )
+          );
+          forkJoin(requests).subscribe({
+            next: (members: any) => {
+              this.membersWithPseudo = members;
+              console.log('Liste complète:', this.membersWithPseudo);
+            },
+            error: (err) =>
+              console.error('Erreur lors du chargement des pseudos', err),
+          });
+        }
       },
       error: (err) => console.error('Error loading project:', err),
     });

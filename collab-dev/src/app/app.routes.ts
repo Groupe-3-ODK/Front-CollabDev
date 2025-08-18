@@ -207,14 +207,7 @@ export const routes: Routes = [
       ).then((m) => m.VoirDetailsProjetComponent),
   },
 
-  {
-    path: 'users/add-team/:id',
-    loadComponent: () =>
-      import('../pages/users/ajout-equipe/ajout-equipe').then(
-        (m) => m.AjoutEquipe
-      ),
-  },
-
+  
   {
     path: 'users/configure-project/:id',
     loadComponent: () =>
