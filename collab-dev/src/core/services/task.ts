@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { IApiResponse } from '../interfaces/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -10,11 +11,18 @@ export class Task {
   private _http = inject(HttpClient);
   private _apiUrl = environment.API_BASE_URL;
 
-  createTasks(managerId: number, tasksDTO: any): Observable<any> {
-    const params = new HttpParams().set('managerId', managerId.toString());
-    return this._http.post(`${this._apiUrl}/tasks/create-Tasks`, tasksDTO, {
-      params,
-    });
+  createTasks(tasksDTO: any, managerId?: number): Observable<IApiResponse> {
+    let params = new HttpParams();
+    if (managerId !== undefined && managerId !== null) {
+      params = params.set('managerId', managerId.toString());
+    }
+    return this._http.post<IApiResponse>(
+      `${this._apiUrl}/tasks/create-Tasks`,
+      tasksDTO,
+      {
+        params,
+      }
+    );
   }
   // const tasksDTO = {
   //   projectId: 123,
@@ -28,8 +36,11 @@ export class Task {
   //   error: err => console.error('Erreur création tâches', err)
   // });
   //-------------------------------------------------------
-  assignTasksToProfil(managerId: number, assignDTO: any): Observable<any> {
-    const params = new HttpParams().set('managerId', managerId.toString());
+  assignTasksToProfil(assignDTO: any, managerId?: number): Observable<any> {
+    let params = new HttpParams();
+    if (managerId !== undefined && managerId !== null) {
+      params = params.set('managerId', managerId.toString());
+    }
     return this._http.post(`${this._apiUrl}/tasks/assignTask`, assignDTO, {
       params,
     });
