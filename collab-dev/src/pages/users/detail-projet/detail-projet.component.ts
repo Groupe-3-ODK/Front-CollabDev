@@ -44,6 +44,7 @@ export class DetailProjetComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectId = +this.route.snapshot.paramMap.get('id')!;
+    console.log('------------------->', this.projectId);
     this.isManager = this.route.snapshot.queryParams['isManager'] === 'true';
     this.loadProjectDetails(this.projectId);
   }

@@ -11,11 +11,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
   color: #000000;
 }
 
@@ -53,10 +53,11 @@ body {
   gap: 1rem;
 }
 
-.btn-add-collaborator, .btn-update-project {
-  background-color: #FFFFFF;
+.btn-add-collaborator,
+.btn-update-project {
+  background-color: #ffffff;
   color: #000000;
-  border: 1px solid #E0E0E0;
+  border: 1px solid #e0e0e0;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   font-size: 1rem;
@@ -67,13 +68,14 @@ body {
   transition: background-color 0.2s;
 }
 
-.btn-add-collaborator:hover, .btn-update-project:hover {
-  background-color: #D9D9D9;
+.btn-add-collaborator:hover,
+.btn-update-project:hover {
+  background-color: #d9d9d9;
 }
 
 .btn-new-task {
-  background-color: #FF6F00;
-  color: #FFFFFF;
+  background-color: #ff6f00;
+  color: #ffffff;
   border: none;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
@@ -104,13 +106,13 @@ body {
 }
 
 .stat-card {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .stat-card .stat-icon-wrapper {
@@ -121,7 +123,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .stat-card .stat-icon {
@@ -173,7 +175,6 @@ body {
   margin-bottom: 1.5rem;
 }
 
-
 .team-list {
   display: flex;
   gap: 1rem;
@@ -186,7 +187,7 @@ body {
   background: white;
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 250px;
   flex-shrink: 0; /* Empêche le rétrécissement */
 }
@@ -204,7 +205,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #0766AD; /* Couleur par défaut */
+  background: #0766ad; /* Couleur par défaut */
   color: white;
   font-weight: 600;
   align-items: center;
@@ -218,9 +219,15 @@ body {
 }
 
 /* Couleurs des avatars (conservez vos classes existantes) */
-.member-avatar.blue-bg { background-color: #0766AD; }
-.member-avatar.orange-bg { background-color: #FF6F00; }
-.member-avatar.purple-bg { background-color: #800080; }
+.member-avatar.blue-bg {
+  background-color: #0766ad;
+}
+.member-avatar.orange-bg {
+  background-color: #ff6f00;
+}
+.member-avatar.purple-bg {
+  background-color: #800080;
+}
 /* Ajoutez d'autres couleurs si nécessaire */
 
 .member-name {
@@ -245,8 +252,8 @@ body {
 }
 
 .kanban-column {
-  background-color: #FFFFFF;
-  border-left: 4px solid #FF6F00;
+  background-color: #ffffff;
+  border-left: 4px solid #ff6f00;
   padding: 1rem;
   border-radius: 8px;
   display: flex;
@@ -255,8 +262,8 @@ body {
 }
 
 .kanban-column.project-state {
-  background-color: #FFFFFF;
-  border: 1px solid #E0E0E0;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
   text-align: center;
   justify-content: center;
 }
@@ -289,10 +296,10 @@ body {
 }
 
 .kanban-card {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 0.75rem;
   cursor: grab;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -332,14 +339,14 @@ body {
 .project-progress-percent {
   font-size: 3rem;
   font-weight: 700;
-  color: #FF6F00;
+  color: #ff6f00;
   margin-bottom: 1rem;
 }
 
 .progress-bar-container {
   width: 80%;
   height: 10px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border-radius: 5px;
   margin-bottom: 2rem;
   overflow: hidden;
@@ -347,15 +354,15 @@ body {
 
 .progress-bar {
   height: 100%;
-  background-color: #FF6F00;
+  background-color: #ff6f00;
   border-radius: 5px;
   transition: width 0.3s ease;
 }
 
 .btn-status-completed {
-  background-color: #FFFFFF;
-  border: 1px solid #FF6F00;
-  color: #FF6F00;
+  background-color: #ffffff;
+  border: 1px solid #ff6f00;
+  color: #ff6f00;
   padding: 0.55rem 1rem;
   border-radius: 8px;
   font-size: 1rem;
@@ -365,8 +372,8 @@ body {
 }
 
 .btn-status-completed:hover {
-  background-color: #FF6F00;
-  color: #FFFFFF;
+  background-color: #ff6f00;
+  color: #ffffff;
 }
 
 /* Style pour le bouton désactivé */
@@ -385,4 +392,3 @@ body {
   background-color: #e0e0e0 !important;
   color: #9e9e9e !important;
 }
-
