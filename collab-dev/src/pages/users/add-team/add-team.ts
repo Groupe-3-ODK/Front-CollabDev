@@ -76,7 +76,7 @@ export class AddTeam implements OnInit {
 
   loadProjectDetails() {
     this.isLoading = true;
-    this.projectService.getProjectDetails(5).subscribe({
+    this.projectService.getProjectDetails(this.projectId).subscribe({
       next: (res: IApiResponse) => {
         this.project = res.data as unknown as Project;
         this.pendingUsers = [...this.project.pendingProfiles];
@@ -108,7 +108,7 @@ export class AddTeam implements OnInit {
 
   loadRecommendations() {
     this.isLoading = true;
-    this.projectService.getProjectRecommendations(5).subscribe({
+    this.projectService.getProjectRecommendations(this.projectId).subscribe({
       next: (res: IApiResponse) => {
         const data = res.data as unknown as RecommendationResponse;
         this.recommendedUsers = [...data.designers, ...data.developers]
