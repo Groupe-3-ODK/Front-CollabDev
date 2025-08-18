@@ -72,7 +72,7 @@ export class CreerTache implements OnInit {
         task: {
           taskName: this.task.name,
           description: this.task.description,
-          deadLine: formatDate(this.task.deadline, 'yyyy-MM-dd', 'en-US'), // Format ISO
+          deadLine: new Date(this.task.deadline).toISOString(), // Format ISO
         },
       };
 
@@ -91,7 +91,7 @@ export class CreerTache implements OnInit {
             taskId: taskId,
           };
 
-          this.taskService.assignTasksToProfil(assignDTO, 0).subscribe({
+          this.taskService.assignTasksToProfil(assignDTO).subscribe({
             next: (assignResponse) => {
               console.log('✅ Tâche assignée :', assignResponse);
               alert('Tâche créée et assignée avec succès !');

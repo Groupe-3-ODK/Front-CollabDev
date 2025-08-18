@@ -20,8 +20,8 @@ export class Task {
     };
   }): Observable<IApiResponse> {
     return this._http.post<IApiResponse>(
-      `${this._apiUrl}tasks/create-Tasks`,
-      taskObjet
+      `${this._apiUrl}tasks/${taskObjet.projectId}/create-task`,
+      taskObjet.task
     );
   }
   // const tasksDTO = {
@@ -41,7 +41,7 @@ export class Task {
     if (managerId !== undefined && managerId !== null) {
       params = params.set('managerId', managerId.toString());
     }
-    return this._http.post(`${this._apiUrl}/tasks/assignTask`, assignDTO, {
+    return this._http.post(`${this._apiUrl}tasks/assignTask`, assignDTO, {
       params,
     });
   }
