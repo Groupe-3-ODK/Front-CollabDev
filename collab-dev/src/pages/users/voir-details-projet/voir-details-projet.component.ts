@@ -1,10 +1,10 @@
 
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ProjectService } from '../../../core/services/project.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IProject } from '../../../core/interfaces/commentP';
+// On ne va pas utiliser l'ancienne interface IProject car la structure backend est différente
 
 
 
@@ -15,38 +15,17 @@ import { IProject } from '../../../core/interfaces/commentP';
   styleUrls: ['./voir-details-projet.component.css']
 })
 export class VoirDetailsProjetComponent {
-  project?: IProject;
+
+  project: any = null;
   loading = true;
   errorMessage = '';
   showCommentModal = false;
   showMemberModal = false;
   newComment = '';
+  comments: any[] = [];
 
-  defaultMembers = [
-    { name: 'Fatoumata Diawara' },
-    { name: 'Modibo Sangaré' },
-    { name: 'Hamza Sanmo' },
-    { name: 'Aichatou Coulibaly' },
-    { name: 'Seydou Dembele' },
-    { name: 'Yacouba Sanogo' },
-    { name: 'Sekou Keita' },
-    { name: 'Elinka Lika' }
-  ];
 
-  comments = [
-    {
-      author: 'Fatoumata Diawara',
-      text: 'Le développement du module Angular avance bien, je pense qu\'on pourra terminer cette semaine.',
-      date: new Date('2025-08-15T10:30:00')
-    },
-    {
-      author: 'Modibo Sangaré',
-      text: 'J\'ai rencontré un problème avec l\'API Spring Boot, je dois investiguer.',
-      date: new Date('2025-08-14T16:45:00')
-    }
-  ];
-
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private projectService: ProjectService) {
     this.route.params.subscribe((params) => {
       const projectId = +params['id'];
       this.loadProjectDetails(projectId);
@@ -74,27 +53,38 @@ export class VoirDetailsProjetComponent {
   }
 
   loadProjectDetails(projectId: number) {
-    // Simulation de chargement de données
-    setTimeout(() => {
-      this.project = {
-        id: projectId,
-        name: 'ALP',
-        description: 'Une app application web innovante conçue pour optimiser le suivi, la planification et la gestion collaborative de projets en temps réel.',
-        status: 'En cours',
-        level: 'INTERMEDIAIRE',
-        progress: 50,
-        creationDate: '6 Août 2025',
-        currentPhase: 'En cours',
-        technologies: ['Angular', 'Typescript', 'Spring boot'],
-        owner: {
-          name: 'Fatoumata Diawara',
-          projectsCount: 20,
-          memberSince: '2024'
-        },
-        members: this.defaultMembers
-      };
-      this.loading = false;
-    }, 1000);
+    this.loading = true;
+    this.projectService.getProjectDetails(projectId).subscribe({
+      next: (res) => {
+        // On mappe explicitement les champs pour correspondre à la structure backend
+        const data = res.data;
+        this.project = {
+          id: data.id,
+          title: data.title,
+          description: data.description,
+          domain: data.domain,
+          specification: data.specification,
+          author: data.author, // objet complet
+          manager: data.managerId, // objet complet
+          status: data.status,
+          level: data.level,
+          githubLink: data.githubLink,
+          tasks: data.tasks,
+          members: data.members,
+          pendingProfiles: data.pendingProfiles,
+          coins: data.coins,
+          comments: data.comments,
+          contributionRequests: data.contributionRequests,
+          createdDate: data.createdDate
+        };
+        this.comments = data.comments || [];
+        this.loading = false;
+      },
+      error: (err) => {
+        this.errorMessage = "Erreur lors du chargement du projet.";
+        this.loading = false;
+      }
+    });
   }
 
   toggleCommentModal() {
@@ -107,6 +97,7 @@ export class VoirDetailsProjetComponent {
 
   addComment() {
     if (this.newComment.trim()) {
+      // TODO: Envoyer le commentaire au backend si nécessaire
       this.comments.unshift({
         author: 'Vous', // À remplacer par le nom de l'utilisateur connecté
         text: this.newComment,
@@ -117,6 +108,7 @@ export class VoirDetailsProjetComponent {
   }
 
   getInitials(name: string): string {
+    if (!name) return '';
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 }
