@@ -14,6 +14,7 @@ import { DetailProjetComponent } from '../pages/users/detail-projet/detail-proje
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfileComponent } from '../pages/users/profil/profil.component';
+import { TraceAdmin } from '../pages/admin/trace-admin/trace-admin';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,7 @@ import { ProfileComponent } from '../pages/users/profil/profil.component';
     MatSnackBarModule,
     ReactiveFormsModule,
 
-    CommonModule,
+    // CommonModule,
     RouterOutlet,
     AjoutEquipe,
     ToastModule,
@@ -35,8 +36,8 @@ import { ProfileComponent } from '../pages/users/profil/profil.component';
     RippleModule,
     DetailProjetComponent,
     DashboardAdmin,
-
     ProfileComponent,
+    TraceAdmin,
   ],
 
   templateUrl: './app.component.html',

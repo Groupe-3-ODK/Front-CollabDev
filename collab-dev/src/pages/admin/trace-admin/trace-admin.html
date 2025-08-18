@@ -1,0 +1,81 @@
+<div class="container">
+    <header class="header">
+        <div class="user-profile">
+            <img src="Group 671.png" alt="Avatar de l'utilisateur" class="avatar">
+            <div class="user-details">
+                <span>Seydou Dembele</span>
+                <span class="role">ADMIN</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1>Traçabilité des projets</h1>
+        <div class="filters">
+            <div class="search-input">
+                <img src="SearchRecherche.png" alt="Recherche" class="search-icon">
+                <input type="text" placeholder="Recherche un utilisateur" [(ngModel)]="searchTerm" (input)="filterProjects()">
+            </div>
+            <div class="roles-select">
+                <img src="mynaui_filter-solid.png" alt="Flèche déroulante" class="dropdown-icon">
+                <select>
+                    <option>Tous les rôles</option>
+                    <option>Admin</option>
+                    <option>User</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats-cards">
+            <div class="card">
+                <div class="icon total">
+                    <img src="bi_folderProjets en cours.png" alt="Icône Total">
+                </div>
+                <div class="number">{{ projects.length }}</div>
+                <div class="label">Total Projets</div>
+            </div>
+            <div class="card">
+                <div class="icon delivered">
+                    <img src="VectorProjets terminés.png" alt="Icône Projets terminés">
+                </div>
+                <div class="number">{{ deliveredCount }}</div>
+                <div class="label">Livrés</div>
+            </div>
+            <div class="card">
+                <div class="icon pending">
+                    <img src="icomoon-free_clockProjets à faire.png" alt="Icône Projets en cours">
+                </div>
+                <div class="number">{{ pendingCount }}</div>
+                <div class="label">En cours</div>
+            </div>
+            <div class="card">
+                <div class="icon rejected">
+                    <img src="healthicons_no-outline-24px.png" alt="Icône Projets à faire">
+                </div>
+                <div class="number">{{ rejectedCount }}</div>
+                <div class="label">Rejetés</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Projets</th>
+                        <th>Gestionnaires</th>
+                        <th>Date de livraison</th>
+                        <th>Statuts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of filteredProjects">
+                        <td>{{ project.name }}</td>
+                        <td>{{ project.manager }}</td>
+                        <td>{{ project.deliveryDate }}</td>
+                        <td><span class="status" [ngClass]="project.statusClass">{{ project.status }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
