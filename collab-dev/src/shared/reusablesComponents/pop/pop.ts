@@ -10,7 +10,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
     >
       <!-- Contenu du popup -->
       <div
-        class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 border-2 border-gray-300"
+        class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 border-2 border-gray-300 z-[10000]"
         (click)="$event.stopPropagation()"
       >
         <h2 class="text-xl font-semibold mb-4 text-center">

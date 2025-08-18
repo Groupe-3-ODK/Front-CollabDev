@@ -4,6 +4,7 @@
     <h2 class="profile-subtitle">Mon profil</h2>
   </div>
 
+
   <div class="profile-card">
     <div class="avatar-section">
       <div class="avatar-circle">
@@ -13,6 +14,7 @@
         <!-- <h3 class="initials">{{ getInitials(user?.speudo || '') }}</h3> -->
         <h4 class="full-name">{{ user?.speudo || '' }}</h4>
         
+
       </div>
       <!-- <div class="info-section">
         <div class="info-group">
@@ -22,6 +24,7 @@
       </div> -->
     </div>
   </div>
+
 
   <div class="edit-section">
     <h3>Modifier les informations</h3>
@@ -43,9 +46,11 @@
 
       <div *ngIf="profileUpdateSuccess" class="success-message">
         Profil mis à jour avec succès!
+
       </div>
     </form>
   </div>
+
 
   <div class="password-section">
     <h3>Changer le mot de passe</h3>
@@ -65,6 +70,7 @@
         <div class="form-group">
           <label for="confirmPassword">Confirmer le nouveau mot de passe</label>
           <input type="password" id="confirmPassword" formControlName="confirmPassword">
+
         </div>
       </div>
 
@@ -81,6 +87,7 @@
       <div *ngIf="passwordUpdateSuccess" class="success-message">
         Mot de passe changé avec succès!
       </div>
+
     </form>
   </div>
 
@@ -88,3 +95,4 @@
     {{ errorMessage }}
   </div>
 </div>
+

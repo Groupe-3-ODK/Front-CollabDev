@@ -4,12 +4,8 @@
     <h1>Mes contributions</h1>
     <div class="stats">
       <div class="stat-item">
-        <div class="stat-number">{{ projects.length }}</div>
+        <div class="stat-number">X</div>
         <div class="stat-label">Total</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">5</div>
-        <div class="stat-label">Cette semaine</div>
       </div>
     </div>
   </header>
@@ -72,10 +68,9 @@
   </div>
 
   <!-- Liste des projets -->
-  <div class="project-list" >
-    
-    @for (contribution of contributions; track $index) {
-    <div class="project-card">
+  <div class="project-list">
+    @for (contribution of filteredProjects; track $index) {
+    <div class="project-card" (click)="showProjectEnv(contribution)">
       <div class="project-info">
         <div class="project-avatar" [ngClass]="contribution.role">
           <svg
@@ -103,7 +98,6 @@
             fill="currentColor"
             viewBox="0 0 24 24"
             class="h-8 w-8"
-            
           >
             <path
               d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
@@ -111,11 +105,11 @@
           </svg>
         </div>
         <div class="project-details">
-          <span class="project-name">{{ contribution.name  || "" }}</span>
+          <span class="project-name">{{ contribution.name || "" }}</span>
           <span
             class="project-level"
             [style.background-color]="getLevelColor(contribution.level)"
-            >{{ contribution.level  || ""}}</span
+            >{{ contribution.level || ""}}</span
           >
           <span class="project-date">
             <svg fill="currentColor" viewBox="0 0 24 24" class="h-4 w-4">
@@ -135,16 +129,16 @@
             />
           </svg>
           <span class="collaborators-count"
-            >{{ contribution.collaborators  || "" }} Collaborateurs</span
+            >{{ contribution.collaborators || "" }} Collaborateurs</span
           >
         </div>
         <span
           class="project-status"
           [ngClass]="{'status-en-cours': contribution.statut === 'En cours', 'status-ferme': contribution.statut === 'Fermé'}"
-          >{{ contribution.statut  || ""}}</span
+          >{{ contribution.statut || ""}}</span
         >
       </div>
     </div>
-      }
+    }
   </div>
 </div>

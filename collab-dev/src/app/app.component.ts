@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
-import { Component, inject, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { PopUp } from '../shared/reusablesComponents/pop-up/pop-up';
+
 import { RouterOutlet } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -11,6 +11,7 @@ import { ToastModule } from 'primeng/toast';
 import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
 import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
+
 import { ProfileComponent } from '../pages/users/profil/profil.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -28,9 +29,11 @@ import { CommonModule } from '@angular/common';
 
 
   imports: [
+
     ReactiveFormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,
+
     CommonModule,
     RouterOutlet,
     AjoutEquipe,
@@ -40,20 +43,23 @@ import { CommonModule } from '@angular/common';
     RippleModule,
     DetailProjetComponent,
     DashboardAdmin,
+
     ProfileComponent
+
   ],
 
 
   templateUrl: './app.component.html',
-  // providers: [CookieService],
-  styleUrl: './app.component.css',
+
+  styleUrls: ['./app.component.css'],
+
 })
 export class AppComponent implements OnInit {
-  private cookieService = inject(CookieService);
-
-  ngOnInit(): void {
-    this.cookieService.deleteAll('/');
-  }
+  constructor(
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
+  ) {}
+  ngOnInit(): void {}
 
   title = 'collab-dev';
 
@@ -77,5 +83,61 @@ export class AppComponent implements OnInit {
     this.isModalVisible = false;
     const projectId = data.projectId;
     const profilId = data.profilId;
+  }
+
+  // ---------------------- TOAST ----------------------
+  showSuccess() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Succès',
+      detail: 'Opération réussie !',
+    });
+  }
+
+  showInfo() {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: 'Voici une information.',
+    });
+  }
+
+  showWarn() {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Attention',
+      detail: 'Soyez prudent.',
+    });
+  }
+
+  showError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erreur',
+      detail: 'Une erreur est survenue.',
+    });
+  }
+
+  // ---------------------- CONFIRM DIALOG ----------------------
+  confirmDelete() {
+    this.confirmationService.confirm({
+      message: 'Voulez-vous vraiment supprimer cet élément ?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Supprimé',
+          detail: "L'élément a été supprimé.",
+        });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Annulé',
+          detail: 'Suppression annulée.',
+        });
+      },
+    });
   }
 }

@@ -29,7 +29,10 @@
     </div>
   </div>
   <div class="projects-grid">
-    <div class="project-card" *ngFor="let project of filteredProjects">
+    <div
+      class="project-card"
+      *ngFor="let project of filteredProjects.slice().reverse()"
+    >
       <div class="project-header">
         <span class="date">{{ getRelativeDate(project.createdDate) }}</span>
       </div>
@@ -64,7 +67,7 @@
           >
           <span
             class="contributor-count"
-            *ngIf="membersSpeudos[project.id].length > 3"
+            *ngIf="(membersSpeudos[project.id]?.length || 0) > 3"
           >
             +{{ membersSpeudos[project.id].length - 3 }}
           </span>
@@ -115,6 +118,9 @@
         </div>
 
         }
+      </div>
+      <div class="voir-details">
+          <a (click)="viewDetails(project)">Voir détails</a>
       </div>
     </div>
     <div *ngIf="filteredProjects.length === 0" class="no-projects">

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { CONSTANT } from '../core/constants/contant';
+import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 import { LayoutComponent } from './layout/layout.component';
 import { Redirect } from './redirect/redirect';
-import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 
 export const routes: Routes = [
   {
@@ -29,8 +29,8 @@ export const routes: Routes = [
           {
             path: 'admin/statistics',
             loadComponent: () =>
-              import('../pages/admin/statistics/statistics.component').then(
-                (m) => m.StatisticsComponent
+              import('../pages/admin/dashboard-admin/dashboard-admin').then(
+                (m) => m.DashboardAdmin
               ),
           },
           {
@@ -45,8 +45,8 @@ export const routes: Routes = [
       {
         path: 'admin/statistics',
         loadComponent: () =>
-          import('../pages/admin/statistics/statistics.component').then(
-            (m) => m.StatisticsComponent
+          import('../pages/admin/dashboard-admin/dashboard-admin').then(
+            (m) => m.DashboardAdmin
           ),
       },
       {
@@ -59,8 +59,8 @@ export const routes: Routes = [
       {
         path: 'admin/managers',
         loadComponent: () =>
-          import('../pages/admin/managers/managers.component').then(
-            (m) => m.ManagersComponent
+          import('../pages/admin/admin-manager/admin-manager').then(
+            (m) => m.AdminManager
           ),
       },
       {
@@ -73,9 +73,9 @@ export const routes: Routes = [
       {
         path: 'admin/users',
         loadComponent: () =>
-          import('../pages/admin/users/users.component').then(
-            (m) => m.UsersComponent
-          ),
+          import(
+            '../pages/admin/gestion-des-users-cote-admin/gestion-des-users-cote-admin'
+          ).then((m) => m.GestionDesUsersCoteAdmin),
       },
       {
         path: 'admin/configuration',
@@ -123,7 +123,6 @@ export const routes: Routes = [
           ),
       },
 
-      
       {
         path: 'user/profil',
         loadComponent: () =>
@@ -132,7 +131,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'user/projects-views',
+        path: 'user/projects-views/:id',
         loadComponent: () =>
           import('../pages/users/view-projects/view-projects').then(
             (m) => m.ViewProjectsComponent
@@ -164,11 +163,11 @@ export const routes: Routes = [
       },
 
       {
-    path: 'redirect/user/dashboard',
-    component: ContributionAsk
-  },
-  // route par défaut qui redirige vers dashboard :
-  { path: '', redirectTo: 'redirect/user/dashboard', pathMatch: 'full' }
+        path: 'redirect/user/dashboard',
+        component: ContributionAsk,
+      },
+      // route par défaut qui redirige vers dashboard :
+      { path: '', redirectTo: 'redirect/user/dashboard', pathMatch: 'full' },
     ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
@@ -208,14 +207,7 @@ export const routes: Routes = [
       ).then((m) => m.VoirDetailsProjetComponent),
   },
 
-  {
-    path: 'users/add-team/:id',
-    loadComponent: () =>
-      import('../pages/users/ajout-equipe/ajout-equipe').then(
-        (m) => m.AjoutEquipe
-      ),
-  },
-
+  
   {
     path: 'users/configure-project/:id',
     loadComponent: () =>
@@ -443,5 +435,17 @@ export const routes: Routes = [
       import('../pages/users/admin-form/admin-form.component').then(
         (m) => m.AdminFormComponent
       ),
+  },
+  {
+    path: 'admin/management-requests/:id',
+    loadComponent: () =>
+      import('../pages/admin/management-request/management-request').then(
+        (m) => m.ManagementRequest
+      ),
+  },
+  {
+    path: 'users/add-team/:id',
+    loadComponent: () =>
+      import('../pages/users/add-team/add-team').then((m) => m.AddTeam),
   },
 ];

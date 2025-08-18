@@ -1,22 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ProjectService } from '../../../core/services/project.service';
-import { IApiResponse } from '../../../core/interfaces/api-response';
-
-interface User {
-  id: number;
-  pseudo: string;
-  level: string;
-  coins: number;
-  validatedProjects: number;
-  profilName: 'DESIGNER' | 'DEVELOPER'; // champ réel API
-}
-
-interface UserData {
-  designers: User[];
-  developers: User[];
-}
 
 @Component({
   selector: 'app-contribution-ask',
@@ -26,69 +12,129 @@ interface UserData {
   styleUrls: ['./contribution-ask.css'],
 })
 export class ContributionAsk implements OnInit {
-  private projectService = inject(ProjectService);
+  contributions: any[] = [];
+  userId: number = 0; // ID de l'utilisateur connecté
 
-  users: User[] = [];
+  private cookieService = inject(CookieService);
+  private router = inject(Router);
+  public currentUser: any = null;
+  constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    // const cookieValue = this.cookieService.get('currentUser');
+    // this.currentUser = cookieValue ? JSON.parse(cookieValue) : null;
+    // if (this.currentUser) {
+    //   this.userId = this.currentUser.id;
+    // }
+    // this.projectService.getUserContributions(this.userId).subscribe({
+    //   next: (res) => {
+    //     console.log(res);
+    //     this.contributions = res;
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   },
+    // });
+
+    this.contributions = this.projects;
   }
 
-  loadUsers() {
-  this.projectService.getProjectRecommendations(1).subscribe({
-    next: (res: IApiResponse) => {
-      const rawData = res.data as unknown;
+  // Filtre actuel pour les projets
+  filter: string = 'all';
 
-        // On cast localement en objet qui contient designers et developers (optionnellement)
-        const data = rawData as { designers?: User[]; developers?: User[] };
-
-        // On concatène les deux tableaux s'ils existent
-        this.users = [
-          ...(data.designers ?? []),
-          ...(data.developers ?? [])
-        ];
+  // Liste des projets avec des données d'exemple
+  projects: any[] = [
+    {
+      avatar: 'assets/avatar1.png',
+      name: 'ALP',
+      level: 'Débutant',
+      endDate: '22/06/2025',
+      collaborators: 10,
+      status: 'En cours',
+      category: 'code', // Ajout de la catégorie pour le filtre et l'icône
     },
-    error: (err) => {
-      console.error('Erreur chargement utilisateurs', err);
+    {
+      avatar: 'assets/avatar2.png',
+      name: 'ALP',
+      level: 'Intermédiaire',
+      endDate: '22/06/2025',
+      collaborators: 10,
+      status: 'En cours',
+      category: 'design', // Ajout de la catégorie
     },
-  });
-}
-
-  acceptUser(userId: number) {
-    console.log(`User with ID ${userId} accepted.`);
-    this.users = this.users.filter(user => user.id !== userId);
-  }
-
-  rejectUser(userId: number) {
-    console.log(`User with ID ${userId} rejected.`);
-    this.users = this.users.filter(user => user.id !== userId);
-  }
-
-  getBadgeColor(level: string): string {
-  switch(level.toLowerCase()) {
-    case 'beginner': return 'text-green-500';
-    case 'intermediate': return 'text-yellow-500';
-    case 'advanced': return 'text-red-500';
-    default: return 'text-gray-500';
-  }
-}
-
-loadPendingContributors() {
-  this.projectService.getPendingContributors(1).subscribe({
-    next: (res) => {
-      const rawData = res.data as unknown;
-
-        // On cast localement en objet qui contient designers et developers (optionnellement)
-        const data = rawData as { designers?: User[]; developers?: User[] };
-
-        // On concatène les deux tableaux s'ils existent
-        this.users = [
-          ...(data.designers ?? []),
-          ...(data.developers ?? [])
-        ];
+    {
+      avatar: 'assets/avatar3.png',
+      name: 'ALP',
+      level: 'Débutant',
+      endDate: '22/06/2025',
+      collaborators: 10,
+      status: 'Fermé',
+      category: 'code', // Ajout de la catégorie
     },
-    error: (err) => console.error('Erreur chargement contributeurs', err)
-  });
-}
+    {
+      avatar: 'assets/avatar4.png',
+      name: 'ALP',
+      level: 'Débutant',
+      endDate: '22/06/2025',
+      collaborators: 0,
+      status: 'En cours',
+      category: 'management', // Ajout de la catégorie
+    },
+    {
+      avatar: 'assets/avatar5.png',
+      name: 'ALP',
+      level: 'Débutant',
+      endDate: '22/06/2025',
+      collaborators: 0,
+      status: 'En cours',
+      category: 'code', // Ajout de la catégorie
+    },
+    {
+      avatar: 'assets/avatar6.png',
+      name: 'ALP',
+      level: 'Intermédiaire',
+      endDate: '22/06/2025',
+      collaborators: 10,
+      status: 'En cours',
+      category: 'design', // Ajout de la catégorie
+    },
+  ];
 
+  /**
+   * Retourne la liste des projets filtrés en fonction du filtre actuel.
+   * @returns {any[]} La liste des projets filtrés.
+   */
+  get filteredProjects(): any[] {
+    if (this.filter === 'all') {
+      return this.contributions;
+    }
+    return this.contributions.filter(
+      (project) => project.category === this.filter
+    );
+  }
+  /**
+   * Définit le filtre actuel pour les projets.
+   * @param filter La valeur du filtre.
+   */
+  setFilter(filter: string): void {
+    this.filter = filter;
+  }
+
+  /**
+   * Retourne la couleur de fond en fonction du niveau du projet.
+   * @param level Le niveau du projet.
+   * @returns {string} Le code couleur hexadécimal.
+   */
+  getLevelColor(level: string): string {
+    switch (level) {
+      case 'Débutant':
+        return '#DDEEBB';
+      case 'Intermédiaire':
+        return '#92D3FB';
+      case 'Avancé':
+        return '#FBC792'; // J'ai ajouté une couleur pour le niveau avancé
+      default:
+        return '#FFFFFF';
+    }
+  }
 }

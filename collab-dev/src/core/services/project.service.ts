@@ -8,8 +8,12 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CONSTANT } from '../constants/contant';
 import { IApiResponse } from '../interfaces/api-response';
-import { Iproject } from '../interfaces/project';
 
+import { TaskStatus } from '../../app/shared/models/task-status.enum';
+
+@Injectable({
+  providedIn: 'root',
+})
 export class CreateProject {
   title: string;
   description: string;
@@ -60,19 +64,42 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  getUserContributions(userId: number): Observable<any[]> {
-  let url = `${this.apiUrl}contributions/user/${userId}`;
-  return this._http.get<any[]>(url);
+  getUserContributions(userId: number): Observable<IApiResponse> {
+    let url = `${this.apiUrl}projects/${userId}/projectsUserAll`;
+    return this._http.get<IApiResponse>(url);
+  }
 
-}
-
-
+  getProjectByStatus(status: string): Observable<IApiResponse> {
+    let url = `${this.apiUrl}projects/getByStatus?status=${status}`;
+    return this._http.get<IApiResponse>(url);
+  }
   // GET user by id
   getProjectById(id: number): Observable<IApiResponse> {
     return this._http
       .get<IApiResponse>(`${this._apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
+
+  getProjectDetails(projectId: number): Observable<IApiResponse> {
+  return this._http.get<IApiResponse>(
+    `${this.apiUrl}projects/${projectId}`
+  );
+}
+
+  selectProfilAndAddToProject(profileId: number, projectId: number): Observable<any> {
+  return this._http.put(
+    `${this.apiUrl}managerInfo/selectProfilAndAddToProject`,
+    null,
+    { params: { profilId: profileId.toString(), projectId: projectId.toString() } }
+  );
+}
+
+  getProjectRecommendations(projectId: number): Observable<IApiResponse> {
+  return this._http.get<IApiResponse>(
+    `${this.apiUrl}systems/projectRecommendation`,
+    { params: { projectId: projectId.toString() } }
+  );
+}
 
   validateProject(managerId: number, projectId: number): Observable<string> {
     const params = new HttpParams()
@@ -81,7 +108,6 @@ export class ProjectService {
 
     return this._http.put<string>(
       `${this.apiUrl}/managerInfo/validateProject`,
-      null, // pas de body
       { params }
     );
   }
@@ -103,15 +129,39 @@ export class ProjectService {
 
   updateProjects(
     id: number,
-    project: { level: string; githubLink: string; specification?: string },
-    managerProfilId: number
-  ): Observable<Iproject> {
+    project: { level: string; githubLink: string },
+    managerProfilId?: number,
+    file?: File
+  ): Observable<any> {
+    const formData = new FormData();
+    formData.append('level', project.level);
+    formData.append('githubLink', project.githubLink);
+
+    if (file) {
+      formData.append('file', file, file.name);
+    }
+
     return this._http
-      .put<Iproject>(
-        `${environment.API_BASE_URL}${CONSTANT.PROJECT_RESSOURCES.PROJECTS}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}?managerProfilId=${managerProfilId}`,
-        project
+      .put<any>(
+        `${environment.API_BASE_URL}${CONSTANT.PROJECT_RESSOURCES.PROJECTS}/${id}${CONSTANT.PROJECT_RESSOURCES.CONFIGURE_PROJECT}`,
+        formData,
+        {
+          params:
+            managerProfilId !== undefined
+              ? new HttpParams().set(
+                  'managerProfilId',
+                  managerProfilId.toString()
+                )
+              : new HttpParams(),
+        }
       )
       .pipe(catchError(this.handleError));
+  }
+
+  updateTaskStatus(taskId: number, newStatus: TaskStatus): Observable<any> {
+    const url = `${this.apiUrl}/tasks/${taskId}/status`;
+    const body = { status: newStatus };
+    return this._http.patch(url, body);
   }
 
   joinProjectWithProfilName(
@@ -174,14 +224,14 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  getProjectRecommendations(projectId: number): Observable<IApiResponse> {
-    const baseUrl = environment.API_BASE_URL.endsWith('/')
-      ? environment.API_BASE_URL.slice(0, -1)
-      : environment.API_BASE_URL;
+  // getProjectRecommendations(projectId: number): Observable<IApiResponse> {
+  //   const baseUrl = environment.API_BASE_URL.endsWith('/')
+  //     ? environment.API_BASE_URL.slice(0, -1)
+  //     : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/systems/projectRecommendation?projectId=${projectId}`;
-    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
-  }
+  //   const url = `${baseUrl}/systems/projectRecommendation?projectId=${projectId}`;
+  //   return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+  // }
 
   getProjectsByUserAsDesigner(userId: number): Observable<IApiResponse> {
     const baseUrl = environment.API_BASE_URL.endsWith('/')
@@ -233,19 +283,20 @@ export class ProjectService {
     return throwError(() => new Error(error.message || 'Erreur inconnue'));
   }
 
-  selectProfilAndAddToProject(
-    projectId: number,
-    profileId: number
-  ): Observable<any> {
-    const params = new HttpParams()
-      .set('profileId', projectId.toString())
-      .set('projectId', projectId.toString());
+  // selectProfilAndAddToProject(
+  //   profileId: number,
+  //   projectId: number
+  // ): Observable<any> {
+  //   const params = new HttpParams()
+  //     .set('profilId', profileId.toString())
+  //     .set('projectId', projectId.toString());
 
-    return this._http.post<any>(
-      `${this.apiUrl}/managerInfo/selectProfilAndAddToProject`,
-      { params }
-    );
-  }
+  //   return this._http.put<any>(
+  //     `${this.apiUrl}/managerInfo/selectProfilAndAddToProject`,
+  //     {}, // corps vide
+  //     { params }
+  //   );
+  // }
 
   // this.myService.selectProfilAndAddToProject(12, 45).subscribe({
   //   next: response => console.log('Profil ajouté en attente', response),

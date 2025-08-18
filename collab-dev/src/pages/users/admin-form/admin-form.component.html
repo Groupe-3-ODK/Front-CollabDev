@@ -24,7 +24,7 @@
         <input
           type="file"
           id="documentation"
-          formControlName="documentation"
+          (change)="onFileSelected($event)"
           accept="application/pdf"
         />
       </div>
