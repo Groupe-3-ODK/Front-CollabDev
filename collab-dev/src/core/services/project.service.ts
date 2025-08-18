@@ -332,16 +332,19 @@ getManagerPendingProfilesForProject(projectId: number): Observable<IApiResponse>
 }
 
 // Accepter une demande d'un manager
+// Accepter une demande d'un manager
 acceptManagerRequest(projectId: number, managerInfo: addManagerInfoI): Observable<IApiResponse> {
   const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
-  const params = new HttpParams()
-    .set('projectId', projectId.toString())
-    .set('managerId', managerInfo.id.toString());
-
+  
+  // Créez le corps de la requête selon ce que l'API attend
+  const requestBody = {
+    projectId: projectId,
+    managerId: managerInfo.id
+    // Ajoutez d'autres champs si nécessaires
+  };
+  console.log(requestBody);
   return this._http.put<IApiResponse>(
-    `${baseUrl}/admin/attributeManagerToProject`, 
-    { params }
-  ).pipe(catchError(this.handleError));
+    `${baseUrl}/admin/attributeManagerToProject?projectId=${projectId}&&managerId=${managerInfo.id}`,null).pipe(catchError(this.handleError));
 }
 
 // Récupérer les demandes de manager pour un projet

@@ -1,9 +1,9 @@
 export interface addManagerInfoI {
   id: number
-  manager: Manager
-  githubLink: string
-  pathCv: string
-  createdDate: string
+  manager?: Manager
+  githubLink?: string
+  pathCv?: string
+  createdDate?: string
 }
 
 export interface Manager {

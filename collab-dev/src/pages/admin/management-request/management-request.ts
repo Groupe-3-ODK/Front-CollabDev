@@ -86,27 +86,13 @@ export class ManagementRequest implements OnInit {
     return name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
   }
 
-  acceptRequest(request: IContributionRequest): void {
+acceptRequest(request: IContributionRequest): void {
   if (!this.project) return;
   this.isLoading = true;
 
   const managerInfo: addManagerInfoI = {
     id: request.candidateProfileId,
-    manager: {
-      id: request.candidateProfileId,
-      user: null,
-      level: 'INTERMEDIATE',
-      coins: 0,
-      validatedProjects: 0,
-      badge: null,
-      profilName: request.candidateName,
-      tasks: [],
-      requestedProjects: [],
-      createdDate: new Date().toISOString()
-    },
-    githubLink: '',
-    pathCv: '',
-    createdDate: new Date().toISOString()
+    // Les autres champs ne sont probablement pas nécessaires pour cette requête
   };
 
   this.projectService.acceptManagerRequest(this.project.id, managerInfo)
