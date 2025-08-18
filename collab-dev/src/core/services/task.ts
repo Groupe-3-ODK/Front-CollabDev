@@ -11,17 +11,17 @@ export class Task {
   private _http = inject(HttpClient);
   private _apiUrl = environment.API_BASE_URL;
 
-  createTasks(tasksDTO: any, managerId?: number): Observable<IApiResponse> {
-    let params = new HttpParams();
-    if (managerId !== undefined && managerId !== null) {
-      params = params.set('managerId', managerId.toString());
-    }
+  createTasks(taskObjet: {
+    projectId: number;
+    task: {
+      taskName: string;
+      description: string;
+      deadLine: string; // Notez le nom exact "deadLine" (avec un L majuscule)
+    };
+  }): Observable<IApiResponse> {
     return this._http.post<IApiResponse>(
-      `${this._apiUrl}/tasks/create-Tasks`,
-      tasksDTO,
-      {
-        params,
-      }
+      `${this._apiUrl}tasks/create-Tasks`,
+      taskObjet
     );
   }
   // const tasksDTO = {

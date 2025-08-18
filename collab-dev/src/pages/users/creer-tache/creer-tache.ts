@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -68,23 +68,27 @@ export class CreerTache implements OnInit {
   submitTask(): void {
     if (this.isFormValid()) {
       const taskDto = {
-        title: this.task.name,
-        description: this.task.description,
-        deadline: this.task.deadline, // bien aligner avec ce que ton backend attend
+        projectId: this.projectId,
+        task: {
+          taskName: this.task.name,
+          description: this.task.description,
+          deadLine: formatDate(this.task.deadline, 'yyyy-MM-dd', 'en-US'), // Format ISO
+        },
       };
 
+      // Étape 1 : Créer la tâche
       this.taskService.createTasks(taskDto).subscribe({
         next: (response) => {
           const createdTask = response.data;
           const taskId = createdTask.id;
 
           console.log('✅ Tâche créée :', createdTask);
-          console.log('✅ Tâche créée ID :', taskId);
 
+          // Étape 2 : Assigner la tâche
           const assignDTO = {
             projectId: this.projectId,
-            profilIdCible: this.profilId,
-            taskIds: taskId,
+            profilCibleId: this.profilId,
+            taskId: taskId,
           };
 
           this.taskService.assignTasksToProfil(assignDTO, 0).subscribe({
@@ -94,25 +98,16 @@ export class CreerTache implements OnInit {
               this.resetForm();
             },
             error: (error) => {
-              console.error(
-                '❌ Erreur lors de l’assignation de la tâche :',
-                error
-              );
-              alert('Erreur lors de l’assignation de la tâche');
+              console.error("❌ Erreur lors de l'assignation :", error);
+              alert("Erreur lors de l'assignation de la tâche");
             },
           });
         },
-
         error: (error) => {
-          console.log('Erreur produit lors de la creation de tache ', error);
+          console.error('❌ Erreur création tâche :', error);
+          alert('Erreur lors de la création de la tâche');
         },
       });
-
-      console.log('Tâche soumise :', this.task);
-      // Ici, vous pouvez ajouter la logique pour envoyer les données de la tâche à un service API
-      alert('Tâche créée avec succès !');
-      // Réinitialiser le formulaire
-      this.resetForm();
     } else {
       alert('Veuillez remplir tous les champs obligatoires.');
     }

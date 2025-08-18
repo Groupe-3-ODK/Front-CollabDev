@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
@@ -25,8 +24,6 @@ import { ProfileComponent } from '../pages/users/profil/profil.component';
     ReactiveFormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,
-
-    CommonModule,
     RouterOutlet,
     AjoutEquipe,
     ToastModule,
