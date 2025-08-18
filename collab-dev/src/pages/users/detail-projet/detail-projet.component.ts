@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProjectService } from '../../../core/services/project.service';
 import { UsersService } from '../../../core/services/users.service';
 import { forkJoin, map } from 'rxjs';
+import { TaskService } from '../../../core/services/task.service';
 
 enum TaskStatus {
   Todo = 'TODO',
@@ -71,14 +72,17 @@ export class DetailProjetComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private projectService: ProjectService,
-    private userService: UsersService
-  ) {}
+    private userService: UsersService,
+    private taskService: TaskService
+  ) {
+    console.log('TaskService instance:', this.taskService);
+  }
 
   loadProjectDetails(projectId: number): void {
     this.projectService.getProjectById(projectId).subscribe({
       next: (response) => {
         this.projectDetails = response.data;
-        console.log('Project Details:', this.projectDetails);
+        // console.log('Project Details:', this.projectDetails);
         this.processProjectData();
 
         // Ajout récupération des pseudos des membres
@@ -96,7 +100,7 @@ export class DetailProjetComponent implements OnInit {
           forkJoin(requests).subscribe({
             next: (members: any) => {
               this.membersWithPseudo = members;
-              console.log('Liste complète:', this.membersWithPseudo);
+              // console.log('Liste complète:', this.membersWithPseudo);
             },
             error: (err) =>
               console.error('Erreur lors du chargement des pseudos', err),
@@ -186,6 +190,7 @@ export class DetailProjetComponent implements OnInit {
   drop(event: DragEvent, newStatus: TaskStatus) {
     event.preventDefault();
     const taskId = event.dataTransfer?.getData('text/plain');
+    console.log('Drag and drop detected', { taskId, newStatus }); // Ajouté
     if (!taskId) return;
 
     // Trouver la tâche dans n'importe quel statut
@@ -212,18 +217,20 @@ export class DetailProjetComponent implements OnInit {
       return;
     }
 
-    // Mettre à jour le statut côté front
-    this.tasks[oldStatus] = this.tasks[oldStatus].filter(
-      (t) => t.id !== task.id
-    );
-    task.status = newStatus;
-    this.tasks[newStatus].push(task);
-
-    // Mettre à jour les compteurs
-    this.updateTaskCounters();
-
-    // Ici, vous devriez aussi appeler une API pour mettre à jour le statut en backend
-    // this.updateTaskStatus(task.id, newStatus);
+    // Appel API pour synchroniser le backend
+    this.taskService.updateTaskStatus(+taskId, newStatus).subscribe({
+      next: () => {
+        // Mettre à jour le statut côté front uniquement si succès backend
+        this.tasks[oldStatus!] = this.tasks[oldStatus!].filter((t) => t.id !== task!.id);
+        task!.status = newStatus;
+        this.tasks[newStatus].push(task!);
+        this.updateTaskCounters();
+      },
+      error: (err) => {
+        alert("Erreur lors de la mise à jour du statut côté serveur");
+        console.error(err);
+      }
+    });
   }
 
   updateTaskCounters(): void {

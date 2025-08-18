@@ -1,3 +1,10 @@
+/* Diversification des backgrounds pour les avatars */
+.avatar-bg-0 { background: #0766AD !important; color: #fff; }
+.avatar-bg-1 { background: #FF6F00 !important; color: #fff; }
+.avatar-bg-2 { background: #800080 !important; color: #fff; }
+.avatar-bg-3 { background: #009688 !important; color: #fff; }
+.avatar-bg-4 { background: #E91E63 !important; color: #fff; }
+.avatar-bg-5 { background: #4CAF50 !important; color: #fff; }
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 * {
