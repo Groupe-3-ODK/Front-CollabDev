@@ -1,25 +1,19 @@
 
 import { Component, OnInit } from '@angular/core';
 
-
 import { RouterOutlet } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
+import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 import { AjoutEquipe } from '../pages/users/ajout-equipe/ajout-equipe';
 import { DetailProjetComponent } from '../pages/users/detail-projet/detail-projet.component';
-import { DashboardAdmin } from '../pages/admin/dashboard-admin/dashboard-admin';
 
-import { ProfileComponent } from '../pages/users/profil/profil.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
-
-
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProfileComponent } from '../pages/users/profil/profil.component';
 
 @Component({
   selector: 'app-root',
@@ -27,9 +21,7 @@ import { CommonModule } from '@angular/common';
 
   providers: [MessageService, ConfirmationService],
 
-
   imports: [
-
     ReactiveFormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,
@@ -44,15 +36,12 @@ import { CommonModule } from '@angular/common';
     DetailProjetComponent,
     DashboardAdmin,
 
-    ProfileComponent
-
+    ProfileComponent,
   ],
-
 
   templateUrl: './app.component.html',
 
   styleUrls: ['./app.component.css'],
-
 })
 export class AppComponent implements OnInit {
   constructor(

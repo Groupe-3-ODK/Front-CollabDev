@@ -1,9 +1,7 @@
-import { Iproject } from "./project";
-
 export interface IApiResponse {
   code: string;
   message: string;
-  data: Iproject | Iproject[] | UserData;
+  data: any;
 }
 
 export interface UserData {
@@ -33,4 +31,3 @@ export interface Project {
   contributionRequests: any[];
   createdDate: string;
 }
-

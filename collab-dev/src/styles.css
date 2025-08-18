@@ -21,3 +21,6 @@
   --stat-icon-inprogress-circle-bg: #fef9e1; /* Jaune pâle/crème pour "Projets en cours" (conforme à l'image) */
   --stat-icon-completed-circle-bg: #4caf50; /* Vert pour "Projets terminés" (conforme à l'image) */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

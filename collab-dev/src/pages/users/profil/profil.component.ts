@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsersService } from '../../../core/services/users.service';
-import { SessionService } from '../../../core/services/session-service';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { SessionService } from '../../../core/services/session-service';
+import { UsersService } from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.css']
+  styleUrls: ['./profil.component.css'],
 })
 export class ProfileComponent implements OnInit {
   user: any;
@@ -20,14 +25,6 @@ export class ProfileComponent implements OnInit {
   passwordUpdateSuccess = false;
   errorMessage = '';
 
-  /* TEST CONFIG - À MODIFIER SELON VOS BESOINS */
-  private readonly TEST_MODE = true; // Mettre à false pour utiliser le vrai userId
-  private readonly TEST_USER_ID = 5; // ID d'un utilisateur existant dans votre base
-  private readonly TEST_USER_DATA = {
-    speudo: 'TestUser',
-    email: 'test@example.com'
-  };
-
   constructor(
     private usersService: UsersService,
     private sessionService: SessionService,
@@ -35,23 +32,21 @@ export class ProfileComponent implements OnInit {
   ) {
     this.profileForm = this.fb.group({
       pseudo: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
 
-    this.passwordForm = this.fb.group({
-      oldPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
+    this.passwordForm = this.fb.group(
+      {
+        oldPassword: ['', Validators.required],
+        newPassword: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', Validators.required],
+      },
+      { validator: this.passwordMatchValidator }
+    );
   }
 
   ngOnInit(): void {
-    if (this.TEST_MODE) {
-      console.warn('⚠️ MODE TEST ACTIVÉ - UTILISATION DE L\'ID:', this.TEST_USER_ID);
-      this.testLoadUserData();
-    } else {
-      this.loadUserData();
-    }
+    this.loadUserData();
   }
 
   /* METHODES PRINCIPALES (avec gestion du mode test) */
@@ -65,10 +60,10 @@ export class ProfileComponent implements OnInit {
 
   updateProfile(): void {
     if (this.profileForm.valid) {
-      const userId = this.TEST_MODE ? this.TEST_USER_ID : this.sessionService.getUserId();
+      const userId = this.sessionService.getUserId();
       const updateData = {
         speudo: this.profileForm.value.pseudo,
-        email: this.profileForm.value.email
+        email: this.profileForm.value.email,
       };
 
       console.log('Envoi mise à jour profil:', updateData);
@@ -78,10 +73,10 @@ export class ProfileComponent implements OnInit {
 
   updatePassword(): void {
     if (this.passwordForm.valid) {
-      const userId = this.TEST_MODE ? this.TEST_USER_ID : this.sessionService.getUserId();
+      const userId = this.sessionService.getUserId();
       const passwordData = {
         oldPassword: this.passwordForm.value.oldPassword,
-        newPassword: this.passwordForm.value.newPassword
+        newPassword: this.passwordForm.value.newPassword,
       };
 
       console.log('Envoi changement mot de passe');
@@ -97,7 +92,7 @@ export class ProfileComponent implements OnInit {
         this.user = response.data;
         this.profileForm.patchValue({
           pseudo: this.user.speudo,
-          email: this.user.email
+          email: this.user.email,
         });
         this.isLoading = false;
       },
@@ -105,82 +100,76 @@ export class ProfileComponent implements OnInit {
         console.error('Erreur getUserById:', err);
         this.errorMessage = 'Erreur lors du chargement';
         this.isLoading = false;
-      }
+      },
     });
   }
 
   private callUpdateUserInfo(userId: number, data: any): void {
     // DEBUG - Vérifiez que l'ID est correct avant l'envoi
     console.log('Envoi vers userId:', userId); // <-- Ajoutez ce log
-    
+
     this.usersService.updateUserInfo(userId, data).subscribe({
       next: (response) => {
         console.log('Réponse updateUserInfo:', response);
         this.profileUpdateSuccess = true;
         this.user.speudo = data.speudo;
         this.user.email = data.email;
-        setTimeout(() => this.profileUpdateSuccess = false, 3000);
+        setTimeout(() => (this.profileUpdateSuccess = false), 3000);
       },
       error: (err) => {
         console.error('Erreur updateUserInfo - Détails:', {
           status: err.status,
           url: err.url, // <-- Vérifiez l'URL complète ici
-          message: err.message
+          message: err.message,
         });
         this.errorMessage = 'Échec de la mise à jour';
-      }
+      },
     });
-}
+  }
 
-private callChangePassword(userId: number, data: any): void {
+  private callChangePassword(userId: number, data: any): void {
     // Ajoutez confirmPassword dans les données envoyées
     const fullData = {
       oldPassword: data.oldPassword,
       newPassword: data.newPassword,
-      confirmPassword: this.passwordForm.value.confirmPassword 
+      confirmPassword: this.passwordForm.value.confirmPassword,
     };
 
     console.log('Envoi changement mot de passe vers userId:', userId, fullData);
-    
+
     this.usersService.changePassword(userId, fullData).subscribe({
       next: (response) => {
         console.log('Réponse changePassword:', response);
         this.passwordUpdateSuccess = true;
         this.passwordForm.reset();
-        setTimeout(() => this.passwordUpdateSuccess = false, 3000);
+        setTimeout(() => (this.passwordUpdateSuccess = false), 3000);
       },
       error: (err) => {
         console.error('Erreur changePassword - Détails:', {
           status: err.status,
           url: err.url,
           message: err.message,
-          error: err.error // Affiche le détail de l'erreur backend
+          error: err.error, // Affiche le détail de l'erreur backend
         });
         this.errorMessage = 'Échec du changement de mot de passe';
-      }
+      },
     });
-}
-
-  /* METHODES DE TEST */
-  private testLoadUserData(): void {
-    console.log('Simulation chargement données test...');
-    
-    // Pour tester sans appel API réel
-    // this.user = { id: this.TEST_USER_ID, ...this.TEST_USER_DATA };
-    // this.profileForm.patchValue(this.TEST_USER_DATA);
-    // this.isLoading = false;
-
-    // Pour tester avec un vrai appel API
-    this.callGetUserById(this.TEST_USER_ID);
   }
 
   /* UTILITAIRES */
   passwordMatchValidator(form: FormGroup) {
-    return form.get('newPassword')?.value === form.get('confirmPassword')?.value 
-      ? null : { mismatch: true };
+    return form.get('newPassword')?.value === form.get('confirmPassword')?.value
+      ? null
+      : { mismatch: true };
   }
 
   getInitials(name: string): string {
-    return name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
+    return name
+      ? name
+          .split(' ')
+          .map((n) => n[0])
+          .join('')
+          .toUpperCase()
+      : '';
   }
 }

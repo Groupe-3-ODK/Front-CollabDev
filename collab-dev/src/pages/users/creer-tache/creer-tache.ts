@@ -17,22 +17,13 @@ export class CreerTache implements OnInit {
   task = {
     name: '',
     description: '',
-    dueDate: '',
-    assignee: '',
+    deadline: '',
   };
-
-  membersWithPseudo: any;
-
-  // Exemple de données pour la liste des collaborateurs
-  collaborators = [
-    { id: '1', name: 'Yacouba Sanogo' },
-    { id: '2', name: 'Seydou Dembele' },
-    { id: '3', name: 'Sekou Keita ' },
-  ];
 
   projectId!: number;
   project: any;
   errorMessage: string = '';
+  profilId: string = '';
 
   constructor(
     private taskService: Task,
@@ -40,7 +31,7 @@ export class CreerTache implements OnInit {
     private projetService: ProjectService,
     private userService: UsersService
   ) {}
-
+  membersWithPseudo: any;
   ngOnInit(): void {
     this.projectId = +this.route.snapshot.paramMap.get('id')!;
 
@@ -76,7 +67,47 @@ export class CreerTache implements OnInit {
   // Méthode appelée lors de la soumission du formulaire
   submitTask(): void {
     if (this.isFormValid()) {
-      // this.taskService.createTasks()
+      const taskDto = {
+        title: this.task.name,
+        description: this.task.description,
+        deadline: this.task.deadline, // bien aligner avec ce que ton backend attend
+      };
+
+      this.taskService.createTasks(taskDto).subscribe({
+        next: (response) => {
+          const createdTask = response.data;
+          const taskId = createdTask.id;
+
+          console.log('✅ Tâche créée :', createdTask);
+          console.log('✅ Tâche créée ID :', taskId);
+
+          const assignDTO = {
+            projectId: this.projectId,
+            profilIdCible: this.profilId,
+            taskIds: taskId,
+          };
+
+          this.taskService.assignTasksToProfil(assignDTO, 0).subscribe({
+            next: (assignResponse) => {
+              console.log('✅ Tâche assignée :', assignResponse);
+              alert('Tâche créée et assignée avec succès !');
+              this.resetForm();
+            },
+            error: (error) => {
+              console.error(
+                '❌ Erreur lors de l’assignation de la tâche :',
+                error
+              );
+              alert('Erreur lors de l’assignation de la tâche');
+            },
+          });
+        },
+
+        error: (error) => {
+          console.log('Erreur produit lors de la creation de tache ', error);
+        },
+      });
+
       console.log('Tâche soumise :', this.task);
       // Ici, vous pouvez ajouter la logique pour envoyer les données de la tâche à un service API
       alert('Tâche créée avec succès !');
@@ -92,8 +123,7 @@ export class CreerTache implements OnInit {
     return (
       this.task.name !== '' &&
       this.task.description !== '' &&
-      this.task.dueDate !== '' &&
-      this.task.assignee !== ''
+      this.task.deadline !== ''
     );
   }
 
@@ -102,8 +132,12 @@ export class CreerTache implements OnInit {
     this.task = {
       name: '',
       description: '',
-      dueDate: '',
-      assignee: '',
+      deadline: '',
     };
   }
+
+  // onAssigneeChange(event: Event) {
+  // const value = (event.target as HTMLSelectElement).value;
+  // this.profilId = value;
+  //}
 }
