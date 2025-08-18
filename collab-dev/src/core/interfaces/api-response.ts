@@ -1,9 +1,7 @@
-import { Iproject } from './project';
-
-export interface IApiResponse<T = Iproject | Iproject[] | UserData> {
+export interface IApiResponse {
   code: string;
   message: string;
-  data: T;
+  data: any;
 }
 
 export interface UserData {

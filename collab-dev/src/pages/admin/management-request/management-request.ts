@@ -1,4 +1,4 @@
-// management-request.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { UsersService } from '../../../core/services/users.service';
 import { SessionService } from '../../../core/services/session-service';
 import { Iproject, IContributionRequest } from '../../../core/interfaces/project';
 import { addManagerInfoI } from '../../../core/interfaces/manager/addManagerInfoI';
-import { IApiResponse } from '../../../core/interfaces/api-response';
+
 
 @Component({
   selector: 'app-management-request',
@@ -42,7 +42,7 @@ export class ManagementRequest implements OnInit {
     this.projectService.getProjectById(projectId)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe({
-        next: (response: IApiResponse<Iproject>) => {
+        next: (response: any) => {
           if (response.data) {
             this.project = response.data;
             this.loadPendingManagers(projectId);
@@ -61,10 +61,10 @@ export class ManagementRequest implements OnInit {
   this.projectService.getProjectWithManagerRequests(projectId)
     .pipe(finalize(() => this.isLoading = false))
     .subscribe({
-      next: (response: IApiResponse<any[]>) => {
+      next: (response: any) => {
         console.log('Données reçues pour pendingManagers:', response.data); // Ajoute ce log
         if (response.data && this.project) {
-          this.project.contributionRequests = response.data.map(manager => ({
+          this.project.contributionRequests = response.data.map((manager: { id: any; pseudo: any; userId: any; createdDate: any; }) => ({
             id: manager.id,
             candidateProfileId: manager.id,
             candidateName: manager.pseudo ?? 'Utilisateur inconnu',

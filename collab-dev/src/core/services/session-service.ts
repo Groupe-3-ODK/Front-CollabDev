@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
   getUserId(): number {
-    // Implémentez la récupération de l'ID utilisateur depuis le stockage local/session
-    // Par exemple :
-    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    return user?.id || 0;
+    if (isPlatformBrowser(this.platformId)) {
+      const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      return user?.id || 0;
+    }
+    return 0; // Retourne une valeur par défaut côté serveur
   }
 }

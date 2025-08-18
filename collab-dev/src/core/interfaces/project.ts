@@ -13,7 +13,11 @@ export interface Iproject {
   description: string;
   domain: Domain;
   specification?: string;
-  status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
+
+  status: Status;
+
+  // status: 'TODO' | 'IN_PROGRESS' | 'DONE' | 'VALIDATED';
+
   author: UserResponseDTO;
   pendingRequestsCount?: number;
   managerId: Profil | null; 

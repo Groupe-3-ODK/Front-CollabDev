@@ -272,11 +272,12 @@
 }
 
 .voir-details a{
-  color: black;
+  color: #FFA500;
 }
 .voir-details a:hover {
   opacity: 0.3;
   transition: 0.3s;
+  cursor: pointer;
   text-decoration: underline;
 }
 

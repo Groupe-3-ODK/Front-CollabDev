@@ -1,8 +1,11 @@
+
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IProject } from '../../../core/interfaces/commentP';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { IProject } from '../../../core/interfaces/commentP';
+
 
 
 @Component({
@@ -49,9 +52,6 @@ export class VoirDetailsProjetComponent {
       this.loadProjectDetails(projectId);
     });
   }
-  
-
-  
 
   userDateCreation(date: Date): string {
     const now = new Date();
@@ -120,3 +120,5 @@ export class VoirDetailsProjetComponent {
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 }
+
+    

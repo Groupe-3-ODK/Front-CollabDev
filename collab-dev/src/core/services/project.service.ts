@@ -11,7 +11,7 @@ import { IApiResponse } from '../interfaces/api-response';
 
 import { TaskStatus } from '../../app/shared/models/task-status.enum';
 import { addManagerInfoI } from '../interfaces/manager/addManagerInfoI';
-import { Iproject } from '../interfaces/project';
+
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +50,42 @@ export class ManagerInfo {
   providedIn: 'root',
 })
 export class ProjectService {
+
+  getDeveloperCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/developerCoins`);
+  }
+
+  getDesignerCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/designerCoins`);
+  }
+
+  getManagerCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/managerCoins`);
+  }
+
+  getTotalCoins(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/profil/${userId}/totalCoins`);
+  }
+
+  countProjectsByAuthor(userId: number) {
+  const baseUrl = environment.API_BASE_URL.endsWith('/')
+    ? environment.API_BASE_URL.slice(0, -1)
+    : environment.API_BASE_URL;
+  // Remplace 'projects' par 'users'
+  return this._http.get<any>(`${baseUrl}/users/${userId}/countProjectsByAuthor`);
+}
   private _http = inject(HttpClient);
 
   private _apiUrl =
@@ -76,12 +112,33 @@ export class ProjectService {
     return this._http.get<IApiResponse>(url);
   }
   // GET user by id
-  getProjectById(id: number): Observable<IApiResponse<Iproject>> {
+  getProjectById(id: number): Observable<any> {
   return this._http
-    .get<IApiResponse<Iproject>>(`${this._apiUrl}/${id}`)
+    .get<any>(`${this._apiUrl}/${id}`)
     .pipe(catchError(this.handleError));
 }
 
+
+  getProjectDetails(projectId: number): Observable<IApiResponse> {
+  return this._http.get<IApiResponse>(
+    `${this.apiUrl}projects/${projectId}`
+  );
+}
+
+  selectProfilAndAddToProject(profileId: number, projectId: number): Observable<any> {
+  return this._http.put(
+    `${this.apiUrl}managerInfo/selectProfilAndAddToProject`,
+    null,
+    { params: { profilId: profileId.toString(), projectId: projectId.toString() } }
+  );
+}
+
+  getProjectRecommendations(projectId: number): Observable<IApiResponse> {
+  return this._http.get<IApiResponse>(
+    `${this.apiUrl}systems/projectRecommendation`,
+    { params: { projectId: projectId.toString() } }
+  );
+}
 
   validateProject(managerId: number, projectId: number): Observable<string> {
     const params = new HttpParams()
@@ -92,6 +149,20 @@ export class ProjectService {
       `${this.apiUrl}/managerInfo/validateProject`,
       { params }
     );
+  }
+
+  getPendingProjectsByUser(userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.get<any>(`${baseUrl}/projects/${userId}/userAllpendingProjects`);
+  }
+
+  cancelPendingRequest(projectId: number, userId: number) {
+    const baseUrl = environment.API_BASE_URL.endsWith('/')
+      ? environment.API_BASE_URL.slice(0, -1)
+      : environment.API_BASE_URL;
+    return this._http.delete<any>(`${baseUrl}/projects/${projectId}/removeUsertoPending/${userId}`);
   }
 
   // Validation projet
@@ -205,14 +276,14 @@ export class ProjectService {
       .pipe(catchError(this.handleError));
   }
 
-  getProjectRecommendations(projectId: number): Observable<IApiResponse> {
-    const baseUrl = environment.API_BASE_URL.endsWith('/')
-      ? environment.API_BASE_URL.slice(0, -1)
-      : environment.API_BASE_URL;
+  // getProjectRecommendations(projectId: number): Observable<IApiResponse> {
+  //   const baseUrl = environment.API_BASE_URL.endsWith('/')
+  //     ? environment.API_BASE_URL.slice(0, -1)
+  //     : environment.API_BASE_URL;
 
-    const url = `${baseUrl}/systems/projectRecommendation?projectId=${projectId}`;
-    return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
-  }
+  //   const url = `${baseUrl}/systems/projectRecommendation?projectId=${projectId}`;
+  //   return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+  // }
 
   getProjectsByUserAsDesigner(userId: number): Observable<IApiResponse> {
     const baseUrl = environment.API_BASE_URL.endsWith('/')
@@ -264,20 +335,20 @@ export class ProjectService {
   return throwError(() => new Error(error.message || 'Erreur inconnue'));
 }
 
-  selectProfilAndAddToProject(
-    profileId: number,
-    projectId: number
-  ): Observable<any> {
-    const params = new HttpParams()
-      .set('profilId', profileId.toString())
-      .set('projectId', projectId.toString());
+  // selectProfilAndAddToProject(
+  //   profileId: number,
+  //   projectId: number
+  // ): Observable<any> {
+  //   const params = new HttpParams()
+  //     .set('profilId', profileId.toString())
+  //     .set('projectId', projectId.toString());
 
-    return this._http.put<any>(
-      `${this.apiUrl}/managerInfo/selectProfilAndAddToProject`,
-      {}, // corps vide
-      { params }
-    );
-  }
+  //   return this._http.put<any>(
+  //     `${this.apiUrl}/managerInfo/selectProfilAndAddToProject`,
+  //     {}, // corps vide
+  //     { params }
+  //   );
+  // }
 
   // this.myService.selectProfilAndAddToProject(12, 45).subscribe({
   //   next: response => console.log('Profil ajouté en attente', response),
@@ -348,11 +419,11 @@ acceptManagerRequest(projectId: number, managerInfo: addManagerInfoI): Observabl
 }
 
 // Récupérer les demandes de manager pour un projet
-getProjectWithManagerRequests(projectId: number): Observable<IApiResponse<Iproject[]>> {
+getProjectWithManagerRequests(projectId: number): Observable<any> {
   const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
   const url = `${baseUrl}/projects/${projectId}/pendingManagers`;
 
-  return this._http.get<IApiResponse<Iproject[]>>(url).pipe(
+  return this._http.get<any>(url).pipe(
     catchError(this.handleError)
   );
 }

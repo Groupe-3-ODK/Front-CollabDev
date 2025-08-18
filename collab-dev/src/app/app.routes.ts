@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { CONSTANT } from '../core/constants/contant';
-import { ContributionAsk } from '../pages/users/contribution-ask/contribution-ask';
 import { LayoutComponent } from './layout/layout.component';
 import { Redirect } from './redirect/redirect';
 
@@ -36,8 +35,8 @@ export const routes: Routes = [
           {
             path: 'user/dashboard',
             loadComponent: () =>
-              import('../pages/users/dashboard/dashboard.component').then(
-                (m) => m.DashboardComponent
+              import('../pages/users/second-dashboard/second-dashboard').then(
+                (m) => m.SecondDashboard
               ),
           },
         ],
@@ -118,8 +117,8 @@ export const routes: Routes = [
       {
         path: 'user/dashboard',
         loadComponent: () =>
-          import('../pages/users/dashboard/dashboard.component').then(
-            (m) => m.DashboardComponent
+          import('../pages/users/second-dashboard/second-dashboard').then(
+            (m) => m.SecondDashboard
           ),
       },
 
@@ -127,7 +126,7 @@ export const routes: Routes = [
         path: 'user/profil',
         loadComponent: () =>
           import('../pages/users/profil/profil.component').then(
-            (m) => m.ProfilComponent
+            (m) => m.ProfileComponent
           ),
       },
       {
@@ -161,13 +160,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../pages/users/favoris/favoris').then((m) => m.Favoris),
       },
-
-      {
-        path: 'redirect/user/dashboard',
-        component: ContributionAsk,
-      },
-      // route par défaut qui redirige vers dashboard :
-      { path: '', redirectTo: 'redirect/user/dashboard', pathMatch: 'full' },
     ],
     //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
@@ -205,14 +197,6 @@ export const routes: Routes = [
       import(
         '../pages/users/voir-details-projet/voir-details-projet.component'
       ).then((m) => m.VoirDetailsProjetComponent),
-  },
-
-  {
-    path: 'users/add-team/:id',
-    loadComponent: () =>
-      import('../pages/users/ajout-equipe/ajout-equipe').then(
-        (m) => m.AjoutEquipe
-      ),
   },
 
   {
