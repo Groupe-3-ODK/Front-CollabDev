@@ -56,12 +56,9 @@ export class ProjectFormComponent {
       this._projectService.createProject(this.fromData).subscribe({
         next: (response) => {
           console.log(' projet creer:', response);
-        },
-        complete: () => {
-          // Rediriger vers la page d'accueil ou une autre page après la connexion réussie
-          //
           this.router.navigate(['/user/projects-views']);
         },
+
         error: (error) => {
           console.error('Erreur lors de la creation:', error);
           alert('Échec de la creation.');

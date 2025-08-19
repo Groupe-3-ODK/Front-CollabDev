@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { Redirect } from './redirect/redirect';
 
 export const routes: Routes = [
+  // ------------------ ROUTES AVEC SIDEBAR (via LayoutComponent) ------------------
   {
     path: '',
     component: LayoutComponent,
@@ -41,6 +42,8 @@ export const routes: Routes = [
           },
         ],
       },
+
+      // ------------------- ADMIN -------------------
       {
         path: 'admin/statistics',
         loadComponent: () =>
@@ -112,8 +115,7 @@ export const routes: Routes = [
           ).then((m) => m.ConfidentialityPolicyComponent),
       },
 
-      //-------------------------- USER LINK ---------------------------------------------
-
+      // ------------------- USER -------------------
       {
         path: 'user/dashboard',
         loadComponent: () =>
@@ -121,7 +123,6 @@ export const routes: Routes = [
             (m) => m.SecondDashboard
           ),
       },
-
       {
         path: 'user/profil',
         loadComponent: () =>
@@ -130,7 +131,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'user/projects-views/:id',
+        path: 'user/projects-views',
         loadComponent: () =>
           import('../pages/users/view-projects/view-projects').then(
             (m) => m.ViewProjectsComponent
@@ -160,9 +161,178 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../pages/users/favoris/favoris').then((m) => m.Favoris),
       },
+      {
+        path: 'user/add-team',
+        loadComponent: () =>
+          import('../pages/users/ajout-equipe/ajout-equipe').then(
+            (m) => m.AjoutEquipe
+          ),
+      },
+
+      // ------------------- USERS (détails projets etc.) -------------------
+      {
+        path: 'users/view-details/:id',
+        loadComponent: () =>
+          import(
+            '../pages/users/voir-details-projet/voir-details-projet.component'
+          ).then((m) => m.VoirDetailsProjetComponent),
+      },
+      {
+        path: 'users/configure-project/:id',
+        loadComponent: () =>
+          import(
+            '../pages/users/configuration-du-projet/configuration-du-projet'
+          ).then((m) => m.ConfigurationDuProjet),
+      },
+      {
+        path: 'users/create-task/:id',
+        loadComponent: () =>
+          import('../pages/users/creer-tache/creer-tache').then(
+            (m) => m.CreerTache
+          ),
+      },
+      {
+        path: 'users/project-detail/:id',
+        loadComponent: () =>
+          import('../pages/users/detail-projet/detail-projet.component').then(
+            (m) => m.DetailProjetComponent
+          ),
+      },
+      {
+        path: 'users/project-done/:id',
+        loadComponent: () =>
+          import('../pages/users/project-done/project-done.component').then(
+            (m) => m.ProjectDoneComponent
+          ),
+      },
+      {
+        path: 'users/project-in-progress/:id',
+        loadComponent: () =>
+          import(
+            '../pages/users/projectinprogress/projectinprogress.component'
+          ).then((m) => m.ProjectinprogressComponent),
+      },
+      {
+        path: 'users/projects/:id',
+        loadComponent: () =>
+          import('../pages/users/projects/projects').then((m) => m.Projects),
+      },
+      {
+        path: 'users/settings/:id',
+        loadComponent: () =>
+          import('../pages/users/settings/settings').then((m) => m.Settings),
+      },
+      {
+        path: 'users/add-team/:id',
+        loadComponent: () =>
+          import('../pages/users/add-team/add-team').then((m) => m.AddTeam),
+      },
+
+      // ------------------- SHARED -------------------
+      {
+        path: 'shared/project-form/:id',
+        loadComponent: () =>
+          import('../shared/project-form/project-form.component').then(
+            (m) => m.ProjectFormComponent
+          ),
+      },
+      {
+        path: 'shared/submit-project-form/:id',
+        loadComponent: () =>
+          import(
+            '../shared/submit-project-form/submit-project-form.component'
+          ).then((m) => m.SubmitProjectFormComponent),
+      },
+      {
+        path: 'shared/chip',
+        loadComponent: () =>
+          import('../shared/reusablesComponents/chip/chip.component').then(
+            (m) => m.ChipComponent
+          ),
+      },
+      {
+        path: 'shared/create-task-modal',
+        loadComponent: () =>
+          import(
+            '../shared/reusablesComponents/create-task-modal/create-task-modal'
+          ).then((m) => m.CreateTaskModal),
+      },
+      {
+        path: 'shared/manager-card',
+        loadComponent: () =>
+          import(
+            '../shared/reusablesComponents/manager-card/manager-card.component'
+          ).then((m) => m.ManagerCardComponent),
+      },
+      {
+        path: 'shared/pop-up',
+        loadComponent: () =>
+          import('../shared/reusablesComponents/pop-up/pop-up').then(
+            (m) => m.PopUp
+          ),
+      },
+      {
+        path: 'shared/project-card',
+        loadComponent: () =>
+          import(
+            '../shared/reusablesComponents/project-card/project-card.component'
+          ).then((m) => m.ProjectCardComponent),
+      },
+      {
+        path: 'shared/searchbar',
+        loadComponent: () =>
+          import(
+            '../shared/reusablesComponents/searchbar/searchbar.component'
+          ).then((m) => m.SearchbarComponent),
+      },
+      {
+        path: 'shared/sidebar',
+        loadComponent: () =>
+          import(
+            '../shared/reusablesComponents/sidebar/sidebar.component'
+          ).then((m) => m.SidebarComponent),
+      },
+      {
+        path: 'shared/snackbar',
+        loadComponent: () =>
+          import(
+            '../shared/reusablesComponents/snackbar/snackbar.component'
+          ).then((m) => m.SnackbarComponent),
+      },
+      {
+        path: 'shared/table',
+        loadComponent: () =>
+          import('../shared/reusablesComponents/table/table.component').then(
+            (m) => m.TableComponent
+          ),
+      },
+      {
+        path: 'shared/user-sidebar',
+        loadComponent: () =>
+          import(
+            '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
+          ).then((m) => m.UserSidebarComponent),
+      },
+
+      // ------------------- AUTRES -------------------
+      {
+        path: 'user/manager-submit-form/:id',
+        loadComponent: () =>
+          import('../pages/users/admin-form/admin-form.component').then(
+            (m) => m.AdminFormComponent
+          ),
+      },
+      {
+        path: 'admin/management-requests/:id',
+        loadComponent: () =>
+          import('../pages/admin/management-request/management-request').then(
+            (m) => m.ManagementRequest
+          ),
+      },
     ],
-    //-------------------------- AUTHENTIFICATION LINK ---------------------------------------------
   },
+
+  // ------------------ ROUTES SANS SIDEBAR ------------------
   {
     path: 'login',
     loadComponent: () =>
@@ -175,7 +345,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('../components/signup/signup').then((m) => m.SignupComponent),
   },
-  //---------------------------------------------------------------
   {
     path: 'langing-page',
     loadComponent: () =>
@@ -189,254 +358,5 @@ export const routes: Routes = [
       import('../components/forgot-password/forgot-password').then(
         (m) => m.ForgotPasswordComponent
       ),
-  },
-
-  {
-    path: 'users/view-details/:id',
-    loadComponent: () =>
-      import(
-        '../pages/users/voir-details-projet/voir-details-projet.component'
-      ).then((m) => m.VoirDetailsProjetComponent),
-  },
-
-  {
-    path: 'users/configure-project/:id',
-    loadComponent: () =>
-      import(
-        '../pages/users/configuration-du-projet/configuration-du-projet'
-      ).then((m) => m.ConfigurationDuProjet),
-  },
-
-  {
-    path: 'users/create-task/:id',
-    loadComponent: () =>
-      import('../pages/users/creer-tache/creer-tache').then(
-        (m) => m.CreerTache
-      ),
-  },
-
-  {
-    path: 'users/project-detail/:id',
-    loadComponent: () =>
-      import('../pages/users/detail-projet/detail-projet.component').then(
-        (m) => m.DetailProjetComponent
-      ),
-  },
-
-  {
-    path: 'users/project-done/:id',
-    loadComponent: () =>
-      import('../pages/users/project-done/project-done.component').then(
-        (m) => m.ProjectDoneComponent
-      ),
-  },
-
-  {
-    path: 'users/project-in-progress/:id',
-    loadComponent: () =>
-      import(
-        '../pages/users/projectinprogress/projectinprogress.component'
-      ).then((m) => m.ProjectinprogressComponent),
-  },
-
-  {
-    path: 'users/projects/:id',
-    loadComponent: () =>
-      import('../pages/users/projects/projects').then((m) => m.Projects),
-  },
-
-  {
-    path: 'users/settings/:id',
-    loadComponent: () =>
-      import('../pages/users/settings/settings').then((m) => m.Settings),
-  },
-
-  {
-    path: 'shared/project-form/:id',
-    loadComponent: () =>
-      import('../shared/project-form/project-form.component').then(
-        (m) => m.ProjectFormComponent
-      ),
-  },
-
-  {
-    path: 'shared/submit-project-form/:id',
-    loadComponent: () =>
-      import(
-        '../shared/submit-project-form/submit-project-form.component'
-      ).then((m) => m.SubmitProjectFormComponent),
-  },
-
-  {
-    path: 'shared/chip',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/chip/chip.component').then(
-        (m) => m.ChipComponent
-      ),
-  },
-
-  {
-    path: 'shared/create-task-modal',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/create-task-modal/create-task-modal'
-      ).then((m) => m.CreateTaskModal),
-  },
-
-  {
-    path: 'shared/manager-card',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/manager-card/manager-card.component'
-      ).then((m) => m.ManagerCardComponent),
-  },
-
-  {
-    path: 'shared/pop-up',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/pop-up/pop-up').then(
-        (m) => m.PopUp
-      ),
-  },
-
-  {
-    path: 'shared/project-card',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/project-card/project-card.component'
-      ).then((m) => m.ProjectCardComponent),
-  },
-
-  {
-    path: 'shared/searchbar',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/searchbar/searchbar.component'
-      ).then((m) => m.SearchbarComponent),
-  },
-
-  {
-    path: 'shared/sidebar',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/sidebar/sidebar.component').then(
-        (m) => m.SidebarComponent
-      ),
-  },
-
-  {
-    path: 'shared/snackbar',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/snackbar/snackbar.component').then(
-        (m) => m.SnackbarComponent
-      ),
-  },
-
-  {
-    path: 'shared/table',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/table/table.component').then(
-        (m) => m.TableComponent
-      ),
-  },
-
-  {
-    path: 'shared/user-sidebar',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
-      ).then((m) => m.UserSidebarComponent),
-  },
-
-  //------------------------------------------------------------------------
-  {
-    path: 'user/add-team',
-    loadComponent: () =>
-      import('../pages/users/ajout-equipe/ajout-equipe').then(
-        (m) => m.AjoutEquipe
-      ),
-  },
-  {
-    path: 'shared/manager-card',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/manager-card/manager-card.component'
-      ).then((m) => m.ManagerCardComponent),
-  },
-
-  {
-    path: 'shared/pop-up',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/pop-up/pop-up').then(
-        (m) => m.PopUp
-      ),
-  },
-
-  {
-    path: 'shared/project-card',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/project-card/project-card.component'
-      ).then((m) => m.ProjectCardComponent),
-  },
-
-  {
-    path: 'shared/searchbar',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/searchbar/searchbar.component'
-      ).then((m) => m.SearchbarComponent),
-  },
-
-  {
-    path: 'shared/sidebar',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/sidebar/sidebar.component').then(
-        (m) => m.SidebarComponent
-      ),
-  },
-
-  {
-    path: 'shared/snackbar',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/snackbar/snackbar.component').then(
-        (m) => m.SnackbarComponent
-      ),
-  },
-
-  {
-    path: 'shared/table',
-    loadComponent: () =>
-      import('../shared/reusablesComponents/table/table.component').then(
-        (m) => m.TableComponent
-      ),
-  },
-
-  {
-    path: 'shared/user-sidebar',
-    loadComponent: () =>
-      import(
-        '../shared/reusablesComponents/user-sidebar/user-sidebar.component'
-      ).then((m) => m.UserSidebarComponent),
-  },
-
-  {
-    path: 'user/manager-submit-form/:id',
-
-    loadComponent: () =>
-      import('../pages/users/admin-form/admin-form.component').then(
-        (m) => m.AdminFormComponent
-      ),
-  },
-  {
-    path: 'admin/management-requests/:id',
-    loadComponent: () =>
-      import('../pages/admin/management-request/management-request').then(
-        (m) => m.ManagementRequest
-      ),
-  },
-  {
-    path: 'users/add-team/:id',
-    loadComponent: () =>
-      import('../pages/users/add-team/add-team').then((m) => m.AddTeam),
   },
 ];
