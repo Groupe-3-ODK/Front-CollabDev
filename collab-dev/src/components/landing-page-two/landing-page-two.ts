@@ -22,7 +22,7 @@ export class LandingPageTwo {
       githubUrl: 'https://github.com/elinkalika223',
     },
     {
-      name: 'Yacouba Maiga',
+      name: 'Yacouba Sanogo',
       role: 'Chef de projet',
       photoUrl: 'https://i.pravatar.cc/100?img=2',
       linkedinUrl: 'https://www.linkedin.com/in/douking95/',
@@ -31,6 +31,31 @@ export class LandingPageTwo {
     {
       name: 'Aissata Coulibaly',
       role: 'Designer UX/UI',
+      photoUrl: 'https://i.pravatar.cc/100?img=3',
+      linkedinUrl: 'https://www.linkedin.com/in/douking95/',
+      githubUrl: 'https://github.com/Aissatou007',
+    },
+        {
+      name: 'Mohamed Touré',
+      role: 'Développeur full-stack',
+      photoUrl: 'https://i.pravatar.cc/100?img=3',
+      linkedinUrl: 'https://www.linkedin.com/in/douking95/',
+      githubUrl: 'https://github.com/berrahtech',
+    },    {
+      name: 'Seydou Dembélé',
+      role: 'Développeur full-stack',
+      photoUrl: 'https://i.pravatar.cc/100?img=3',
+      linkedinUrl: 'https://www.linkedin.com/in/douking95/',
+      githubUrl: 'https://github.com/Aissatou007',
+    },    {
+      name: 'Sékou Keita',
+      role: 'Développeur full-stack',
+      photoUrl: 'https://i.pravatar.cc/100?img=3',
+      linkedinUrl: 'https://www.linkedin.com/in/douking95/',
+      githubUrl: 'https://github.com/Aissatou007',
+    },    {
+      name: 'Hamaza Sanmo',
+      role: 'Développeur full-stack',
       photoUrl: 'https://i.pravatar.cc/100?img=3',
       linkedinUrl: 'https://www.linkedin.com/in/douking95/',
       githubUrl: 'https://github.com/Aissatou007',
