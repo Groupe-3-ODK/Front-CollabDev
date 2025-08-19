@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import {
   CreateProject,
   ProjectService,
 } from '../../core/services/project.service';
+import { MessageService } from 'primeng/api';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-project-form',
   imports: [CommonModule, ReactiveFormsModule],
@@ -14,8 +16,8 @@ import {
   templateUrl: './project-form.component.html',
   styleUrl: './project-form.component.css',
 })
-export class ProjectFormComponent {
-  projectForm: FormGroup;
+export class ProjectFormComponent implements OnInit  {
+  projectForm!: FormGroup;
 
   public fromData: CreateProject = new CreateProject();
   private cookieService = inject(CookieService);
@@ -35,12 +37,13 @@ export class ProjectFormComponent {
   constructor(
     private fb: FormBuilder,
     private _projectService: ProjectService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
   ) {
     this.projectForm = this.fb.group({
-      projectName: [''],
-      domain: [''],
-      description: [''],
+      projectName: ['',[Validators.required]],
+      domain: ['',[Validators.required]],
+      description: ['',[Validators.required]],
       documentation: [null],
     });
   }
@@ -55,17 +58,21 @@ export class ProjectFormComponent {
       // console.warn(this.fromData.author);
       this._projectService.createProject(this.fromData).subscribe({
         next: (response) => {
+          this.toastr.success("Projet créé avec succès !!! ","Creation");
           console.log(' projet creer:', response);
           this.router.navigate(['/user/projects-views']);
         },
 
         error: (error) => {
-          console.error('Erreur lors de la creation:', error);
-          alert('Échec de la creation.');
+          this.toastr.error("Erreur lors de la creation","erreur");
+          console.error('Erreur lors de la creation', error);
+          // alert('Échec de la creation.');
         },
       });
-    } else {
-      alert('Tous les champs doivent etre renseigner');
+    } 
+    else {
+      this.toastr.warning("Tous les champs doivent etre renseigner","erreur");
+      // alert('Tous les champs doivent etre renseigner');
     }
   }
 

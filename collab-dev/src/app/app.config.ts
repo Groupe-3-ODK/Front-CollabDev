@@ -4,6 +4,7 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import  {  provideToastr  }  from  'ngx-toastr' ;
 
 import {
   Bookmark,
@@ -67,5 +68,6 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideHttpClient(withFetch()),
+    provideToastr ( )
   ],
 };
