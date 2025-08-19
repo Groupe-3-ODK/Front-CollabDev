@@ -271,6 +271,16 @@
   color: #333;
 }
 
+.voir-details a{
+  color: #FFA500;
+}
+.voir-details a:hover {
+  opacity: 0.3;
+  transition: 0.3s;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 /* Media query pour petits écrans */
 @media (max-width: 768px) {
   .header-section {

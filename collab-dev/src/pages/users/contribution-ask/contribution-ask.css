@@ -212,6 +212,9 @@ body {
 }
 
 .collaborators {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 10px 20px;
   background-color: #f97316;
   border-radius: 50px;

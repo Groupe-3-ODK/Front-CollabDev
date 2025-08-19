@@ -3,7 +3,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    font-family: 'Inter';
+    
 }
 
 .comment-btn {
@@ -221,7 +221,8 @@
     flex: 1;
     background: #FFFFFF;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .step-title {
@@ -249,7 +250,7 @@
     flex: 1;
     border: 1px solid white;
     background: #FFFFFF;
-    box-shadow: 3px 3px 14px 2px rgba(255, 111, 0, 0.3);
+    box-shadow: 3px 3px 14px 2px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
     padding: 15px;
 }
@@ -258,7 +259,7 @@
     flex: 1;
     border: 1px solid white;
     background: #FFFFFF;
-    box-shadow: 3px 3px 14px 2px rgba(255, 111, 0, 0.3);
+    box-shadow: 3px 3px 14px 2px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
     padding: 15px;
 }

@@ -1,8 +1,11 @@
+
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IProject } from '../../../core/interfaces/commentP';
+import { ProjectService } from '../../../core/services/project.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+// On ne va pas utiliser l'ancienne interface IProject car la structure backend est différente
+
 
 
 @Component({
@@ -12,66 +15,76 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./voir-details-projet.component.css']
 })
 export class VoirDetailsProjetComponent {
-  project?: IProject;
+
+  project: any = null;
   loading = true;
   errorMessage = '';
   showCommentModal = false;
   showMemberModal = false;
   newComment = '';
+  comments: any[] = [];
 
-  defaultMembers = [
-    { name: 'Fatoumata Diawara' },
-    { name: 'Modibo Sangaré' },
-    { name: 'Hamza Sanmo' },
-    { name: 'Aichatou Coulibaly' },
-    { name: 'Seydou Dembele' },
-    { name: 'Yacouba Sanogo' },
-    { name: 'Sekou Keita' },
-    { name: 'Elinka Lika' }
-  ];
 
-  comments = [
-    {
-      author: 'Fatoumata Diawara',
-      text: 'Le développement du module Angular avance bien, je pense qu\'on pourra terminer cette semaine.',
-      date: new Date('2025-08-15T10:30:00')
-    },
-    {
-      author: 'Modibo Sangaré',
-      text: 'J\'ai rencontré un problème avec l\'API Spring Boot, je dois investiguer.',
-      date: new Date('2025-08-14T16:45:00')
-    }
-  ];
-
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private projectService: ProjectService) {
     this.route.params.subscribe((params) => {
       const projectId = +params['id'];
       this.loadProjectDetails(projectId);
     });
   }
 
+  userDateCreation(date: Date): string {
+    const now = new Date();
+    const creationDate = new Date(date);
+
+    const diffMs = now.getTime() - creationDate.getTime(); // différence en millisecondes
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffH = Math.floor(diffMin / 60);
+    const diffDays = Math.floor(diffH / 24);
+    const diffMonths = Math.floor(diffDays / 30);
+    const diffYears = Math.floor(diffDays / 365);
+
+    if (diffYears > 0) return `il y a ${diffYears} an${diffYears > 1 ? 's' : ''}`;
+    if (diffMonths > 0) return `il y a ${diffMonths} mois`;
+    if (diffDays > 0) return `il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`;
+    if (diffH > 0) return `il y a ${diffH} heure${diffH > 1 ? 's' : ''}`;
+    if (diffMin > 0) return `il y a ${diffMin} minute${diffMin > 1 ? 's' : ''}`;
+    return `il y a quelques secondes`;
+  }
+
   loadProjectDetails(projectId: number) {
-    // Simulation de chargement de données
-    setTimeout(() => {
-      this.project = {
-        id: projectId,
-        name: 'ALP',
-        description: 'Une app application web innovante conçue pour optimiser le suivi, la planification et la gestion collaborative de projets en temps réel.',
-        status: 'En cours',
-        level: 'INTERMEDIAIRE',
-        progress: 50,
-        creationDate: '6 Août 2025',
-        currentPhase: 'En cours',
-        technologies: ['Angular', 'Typescript', 'Spring boot'],
-        owner: {
-          name: 'Fatoumata Diawara',
-          projectsCount: 20,
-          memberSince: '2024'
-        },
-        members: this.defaultMembers
-      };
-      this.loading = false;
-    }, 1000);
+    this.loading = true;
+    this.projectService.getProjectDetails(projectId).subscribe({
+      next: (res) => {
+        // On mappe explicitement les champs pour correspondre à la structure backend
+        const data = res.data;
+        this.project = {
+          id: data.id,
+          title: data.title,
+          description: data.description,
+          domain: data.domain,
+          specification: data.specification,
+          author: data.author, // objet complet
+          manager: data.managerId, // objet complet
+          status: data.status,
+          level: data.level,
+          githubLink: data.githubLink,
+          tasks: data.tasks,
+          members: data.members,
+          pendingProfiles: data.pendingProfiles,
+          coins: data.coins,
+          comments: data.comments,
+          contributionRequests: data.contributionRequests,
+          createdDate: data.createdDate
+        };
+        this.comments = data.comments || [];
+        this.loading = false;
+      },
+      error: (err) => {
+        this.errorMessage = "Erreur lors du chargement du projet.";
+        this.loading = false;
+      }
+    });
   }
 
   toggleCommentModal() {
@@ -84,6 +97,7 @@ export class VoirDetailsProjetComponent {
 
   addComment() {
     if (this.newComment.trim()) {
+      // TODO: Envoyer le commentaire au backend si nécessaire
       this.comments.unshift({
         author: 'Vous', // À remplacer par le nom de l'utilisateur connecté
         text: this.newComment,
@@ -94,6 +108,9 @@ export class VoirDetailsProjetComponent {
   }
 
   getInitials(name: string): string {
+    if (!name) return '';
     return name.split(' ').map(n => n[0]).join('').toUpperCase();
   }
 }
+
+    

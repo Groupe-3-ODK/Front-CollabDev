@@ -9,27 +9,21 @@
                 <div class="profile-image-container">
                     <img src="Group 671.png" alt="">
                 </div>
-                <span class="owner-name">{{ project?.owner?.name || 'Fatoumata Diawara' }}</span>
-                <span class="projects-participated">A participé à {{ project?.owner?.projectsCount || 20 }}
-                    projets</span>
-                <span class="user-since">Utilisateur depuis {{ project?.owner?.memberSince || '2024' }}</span>
+                <span class="owner-name">{{ project?.author?.pseudo }}</span>
+                <span class="user-since" *ngIf="project?.author?.speudo">{{ project?.author?.speudo }}</span>
             </div>
         </div>
         <div class="project-description-card">
             <div class="project-status-header">
-                <h2 class="project-name">{{ project?.name || 'ALP' }}</h2>
-                <div class="status-badge" [ngClass]="{'on-going': project?.status === 'En cours'}">
-                    {{ project?.status || 'En cours' }}
+                <h2 class="project-name">{{ project?.title }}</h2>
+                <div class="status-badge" [ngClass]="{'on-going': project?.status === 'En cours' || project?.status === 'TODO'}">
+                    {{ project?.status }}
                 </div>
             </div>
-            <span class="project-level">{{ project?.level || 'INTERMEDIAIRE' }}</span>
+            <span class="project-level">{{ project?.level }}</span>
             <p class="project-description">
-                {{ project?.description || 'Une app application web innovante conçue pour optimiser le suivi...' }}
+                {{ project?.description }}
             </p>
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill" [style.width.%]="project?.progress || 50"></div>
-                <span class="progress-percentage">{{ project?.progress || 50 }}%</span>
-            </div>
             <div style="display: flex;justify-content: space-between;align-items: center;">
                 <button class="join-button">Rejoindre</button>
                 <button class="comment-btn" (click)="toggleCommentModal()">
@@ -52,7 +46,7 @@
                     <div class="step-details">
                         <h4 class="step-title">Création du projet</h4>
                         <p class="step-description">Initialisation et définition des objectifs</p>
-                        <span class="step-date">Créé le {{ project?.creationDate || '6 Août 2025' }}</span>
+                        <span class="step-date">Créé le {{ project?.createdDate }}</span>
                     </div>
                 </div>
                 <div class="timeline-step">
@@ -62,7 +56,7 @@
                     <div class="step-details">
                         <h4 class="step-title">État du projet</h4>
                         <p class="step-description">Phase de développement du projet</p>
-                        <span class="step-status">{{ project?.currentPhase || 'En cours' }}</span>
+                        <span class="step-status">{{ project?.status || 'En cours' }}</span>
                     </div>
                 </div>
             </div>
@@ -76,12 +70,16 @@
             </div>
 
             <div class="team-members">
-                <div class="member-item"
-                    *ngFor="let member of project?.members?.slice(0, 3) || defaultMembers.slice(0, 3)">
-                    <div class="member-avatar">{{ getInitials(member.name) }}</div>
-                    <span class="member-name">{{ member.name }}</span>
-                </div>
-                <button class="view-all-members" (click)="toggleMemberModal()">Voir tous les membres</button>
+                <ng-container *ngIf="(project?.members || []).length; else noMembers">
+                    <div class="member-item" *ngFor="let member of (project?.members || []).slice(0, 3)">
+                        <div class="member-avatar">{{ getInitials(member.pseudo) }}</div>
+                        <span class="member-name">{{ member.pseudo }}</span>
+                    </div>
+                    <button class="view-all-members" (click)="toggleMemberModal()">Voir tous les membres</button>
+                </ng-container>
+                <ng-template #noMembers>
+                    <div class="text-center text-gray-400 py-8 w-full">Aucun membre pour le moment.</div>
+                </ng-template>
             </div>
         </div>
     </section>
@@ -122,9 +120,9 @@
             <h2>Membres du Projet</h2>
 
             <div class="modal-content">
-                <div class="member-item" *ngFor="let member of project?.members || defaultMembers">
-                    <div class="initials-circle">{{ getInitials(member.name) }}</div>
-                    <div class="member-name">{{ member.name }}</div>
+                <div class="member-item" *ngFor="let member of (project?.members || [])">
+                    <div class="initials-circle">{{ getInitials(member.pseudo) }}</div>
+                    <div class="member-name">{{ member.pseudo }}</div>
                     <div class="badge">🏅</div>
                 </div>
             </div>

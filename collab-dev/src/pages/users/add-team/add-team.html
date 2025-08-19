@@ -7,9 +7,9 @@
         <h1 class="text-5xl font-extrabold text-black">
           Ajout des collaborateurs au projet -
         </h1>
-        <h1 class="text-5xl font-bold text-[#FF6F00] ml-4">E-learning</h1>
+        <h1 class="text-5xl font-bold text-[#FF6F00] ml-4">{{ project?.title || 'Chargement...' }}</h1>
       </div>
-      <button
+      <!-- <button
         [routerLink]="['/users/project-detail/:id']"
         class="flex items-center px-6 py-3 bg-white border border-gray-400 rounded-lg shadow-md hover:bg-gray-100 transition-colors"
       >
@@ -27,10 +27,10 @@
           <polyline points="12 19 5 12 12 5"></polyline>
         </svg>
         <span class="text-2xl font-bold text-black">Retour</span>
-      </button>
+      </button> -->
     </header>
 
-    <div class="flex items-center my-8 space-x-6">
+    <!-- <div class="flex items-center my-8 space-x-6">
       <div class="relative flex-1">
         <input
           type="text"
@@ -74,64 +74,126 @@
           ></polygon>
         </svg>
       </div>
+    </div> -->
+
+    <!-- Onglets de navigation -->
+    <div class="flex mb-8 border-b border-gray-200">
+      <button 
+        class="px-6 py-3 text-xl font-medium transition-all"
+        [ngClass]="{
+          'text-white bg-[#FF6F00]': activeTab === 'pending',
+          'text-gray-500 hover:text-[#FF6F00]': activeTab !== 'pending'
+        }"
+        (click)="switchTab('pending')">
+        Demandes en attente ({{pendingUsers.length}})
+      </button>
+      <button 
+        class="px-6 py-3 text-xl font-medium transition-all"
+        [ngClass]="{
+          'text-white bg-[#FF6F00]': activeTab === 'recommendations',
+          'text-gray-500 hover:text-[#FF6F00]': activeTab !== 'recommendations'
+        }"
+        (click)="switchTab('recommendations')">
+        Recommandations ({{recommendedUsers.length}})
+      </button>
     </div>
 
-    <div class="bg-white rounded-2xl border-4 border-gray-300 p-8">
-      <div
-        class="grid grid-cols-4 gap-4 bg-[#F3A26D] p-4 rounded-t-xl text-black font-bold text-2xl"
-      >
-        <div class="col-span-1">Pseudo</div>
-        <div class="col-span-1">Badge</div>
-        <div class="col-span-1">Profil</div>
-        <div class="col-span-1"></div>
+    <!-- Contenu conditionnel -->
+    <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#FF6F00]"></div>
+    </div>
+
+    <!-- Liste des demandes en attente -->
+    <div *ngIf="!isLoading && activeTab === 'pending'" class="bg-white rounded-2xl border-4 border-gray-300">
+      <div class="grid grid-cols-5 gap-4 bg-[#F3A26D] p-4 rounded-t-xl text-black font-bold text-xl">
+        <div class="col-span-2">Pseudo</div>
+        <div>Niveau</div>
+        <div>Profil</div>
+        <div>Actions</div>
       </div>
-      <div
-        *ngFor="let user of users"
-        class="grid grid-cols-4 gap-4 p-4 items-center border-b border-gray-300"
-      >
-        <div class="col-span-1 text-black text-xl">{{ user.pseudo }}</div>
-        <div class="col-span-1">
-          <!-- <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            [ngClass]="{
-              'text-green-500': user.badge === 'green',
-              'text-yellow-500': user.badge === 'yellow',
-              'text-red-500': user.badge === 'red'
-            }"
-          >
-            <path
-              d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-            ></path>
-          </svg> -->
+      
+      <div *ngFor="let user of pendingUsers; index as i" class="grid grid-cols-5 gap-4 p-4 items-center border-b border-gray-300">
+        <div class="col-span-2 text-black text-lg font-medium">{{ membersWithPseudo[i].pseudo || 'Utilisateur #' + user.userId }}</div>
+        
+        <div>
+          <span class="{{getBadgeColor(user.level)}} font-medium">{{ user.level }}</span>
         </div>
-        <div class="col-span-1">
-          <span
-            class="text-lg font-bold px-4 py-2 rounded-lg"
+        
+        <div>
+          <span class="text-base font-bold px-3 py-1 rounded-lg"
             [ngClass]="{
-                  'bg-[#DDEEBB] text-[#4E6F0B] border border-[#4CAF50]': user.profilName === 'DESIGNER',
-                  'bg-[#92D3FB] text-[#0D2533] border border-[#3A7CA5]': user.profilName === 'DEVELOPER'
-                }"
-          >
+              'bg-[#DDEEBB] text-[#4E6F0B]': user.profilName === 'DESIGNER',
+              'bg-[#92D3FB] text-[#0D2533]': user.profilName === 'DEVELOPER',
+              'bg-purple-100 text-purple-800': user.profilName === 'MANAGER'
+            }">
             {{ user.profilName }}
           </span>
         </div>
-        <div class="col-span-1 flex space-x-2">
+        
+        <div class="flex space-x-2">
           <button
             (click)="acceptUser(user.id)"
-            class="bg-[#3F7D58] text-white font-bold py-2 px-6 rounded-lg text-lg hover:bg-[#346247] transition-colors"
-          >
+            class="bg-[#3F7D58] text-white font-medium py-1 px-4 rounded-lg text-base hover:bg-[#346247] transition-colors"
+            [disabled]="isLoading">
             Accepter
           </button>
-          <button
+          <!-- <button
             (click)="rejectUser(user.id)"
-            class="bg-gray-300 text-gray-500 font-bold py-2 px-6 rounded-lg text-lg hover:bg-gray-400 transition-colors"
-          >
+            class="bg-gray-300 text-gray-700 font-medium py-1 px-4 rounded-lg text-base hover:bg-gray-400 transition-colors"
+            [disabled]="isLoading">
             Rejeter
-          </button>
+          </button> -->
         </div>
+      </div>
+
+      <div *ngIf="pendingUsers.length === 0" class="p-8 text-center text-gray-500">
+        Aucune demande en attente pour ce projet
+      </div>
+    </div>
+
+    <!-- Liste des recommandations -->
+    <div *ngIf="!isLoading && activeTab === 'recommendations'" class="bg-white rounded-2xl border-4 border-gray-300">
+      <div class="grid grid-cols-6 gap-4 bg-[#F3A26D] p-4 rounded-t-xl text-black font-bold text-xl">
+        <div class="col-span-2">Pseudo</div>
+        <div>Niveau</div>
+        <div>Profil</div>
+        <div>Score</div>
+        <div>Action</div>
+      </div>
+      
+      <div *ngFor="let user of recommendedUsers" class="grid grid-cols-6 gap-4 p-4 items-center border-b border-gray-300">
+        <div class="col-span-2 font-medium">{{ user.pseudo }}</div>
+        
+        <div>
+          <span class="{{getBadgeColor(user.level)}} font-medium">{{ user.level }}</span>
+        </div>
+        
+        <div>
+          <span class="text-base font-bold px-3 py-1 rounded-lg"
+            [ngClass]="{
+              'bg-[#DDEEBB] text-[#4E6F0B]': user.profilName === 'DESIGNER',
+              'bg-[#92D3FB] text-[#0D2533]': user.profilName === 'DEVELOPER'
+            }">
+            {{ user.profilName }}
+          </span>
+        </div>
+        
+        <div class="font-bold text-[#FF6F00]">
+          {{ calculateScore(user) | number:'1.1-1' }}
+        </div>
+        
+        <div>
+          <!-- <button
+            (click)="inviteUser(user.id)"
+            class="bg-[#FF6F00] text-white font-medium py-1 px-4 rounded-lg text-base hover:bg-[#E65C00] transition-colors"
+            [disabled]="isLoading">
+            Inviter
+          </button> -->
+        </div>
+      </div>
+
+      <div *ngIf="recommendedUsers.length === 0" class="p-8 text-center text-gray-500">
+        Aucune recommandation disponible pour ce projet
       </div>
     </div>
   </main>

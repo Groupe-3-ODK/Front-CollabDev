@@ -1,16 +1,35 @@
-import { Iproject } from "./project";
-
 export interface IApiResponse {
   code: string;
   message: string;
-  data: Iproject | Iproject[] | UserData;
+  data: any;
 }
 
 export interface UserData {
+  pseudo: string;
   designers: never[];
   id: number;
   speudo: string;
   email: string;
-  profils: any[]; // Si tu connais le type des profils, remplace `any` par l'interface correspondante
+  profils: any[];
   role: string;
+}
+
+export interface Project {
+  id: number;
+  title: string;
+  description: string;
+  domain: string;
+  author: UserData;
+  managerId: any;
+  status: string | null;
+  level: string | null;
+  githubLink: string | null;
+  tasks: any[];
+  members: UserData[];
+  pendingProfiles: UserData[];
+  coins: number;
+  comments: any[];
+  contributionRequests: any[];
+  createdDate: string;
+  pendingRequestsCount?: number;
 }

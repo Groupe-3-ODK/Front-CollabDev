@@ -19,6 +19,51 @@ body {
 /* En-tête */
 .dashboard-header {
     display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+}
+
+.user-info {
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.user-icon-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ff6f00;
+    padding: 2px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.user-name {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    color: #ff6f00;
+    font-weight: bold;
+}
+
+/* Header section dans le main */
+.header-section {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
@@ -84,47 +129,14 @@ body {
     width: 100%;
 }
 
-.user-info {
-    border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    float: right;
-    position: relative;
-    /* position: relative; */
-    /* right: -52px; */
-    width: 200px;
-}
-
-.user-icon-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ff6f00;
-    padding: 2px;
-}
-
-.user-details {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.user-name {
-    font-weight: bold;
-    color: #333;
-    font-size: 1rem;
-}
-
-.user-role {
-    font-size: 0.8rem;
-    color: #ff6f00;
-    font-weight: bold;
-}
-
 /* Section principale */
 .dashboard-main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.dashboard-content {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -181,8 +193,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-
-
 .metric-icon-img {
     width: 40px;
     height: 40px;
@@ -208,7 +218,7 @@ body {
 }
 
 .metric-value {
-    position: absolute;
+    position: relative;
     left: 52%;
     font-size: 1.2rem;
     font-weight: bold;
@@ -216,7 +226,7 @@ body {
 }
 
 .metric-change {
-    position: absolute;
+    position: relative;
     left: 56%;
     font-size: 0.8rem;
     color: #4caf50;
@@ -545,7 +555,7 @@ body {
         width: 100%;
     }
 
-    .dashboard-header {
+    .header-section {
         gap: 15px;
     }
 

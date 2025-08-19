@@ -1,13 +1,12 @@
-
-import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { ProjectService } from '../../../core/services/project.service';
 import { IApiResponse } from '../../../core/interfaces/api-response';
 import { Iproject } from '../../../core/interfaces/project';
+import { ProjectService } from '../../../core/services/project.service';
 import { SessionService } from '../../../core/services/session-service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,8 +20,8 @@ export class DashboardComponent implements OnInit {
   searchQuery: string = '';
   private searchSubject = new Subject<string>();
 
-  projects: Iproject[] = [];
-  filteredProjects: Iproject[] = [];
+  projects: any = [];
+  filteredProjects: any = [];
   userId: number = 0;
 
   constructor(
@@ -40,13 +39,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     /* TEST START */
     this.userId = 5; // ID en dur pour les tests
     console.warn('MODE TEST ACTIVÉ - UTILISATEUR ID:', this.userId);
     this.loadUserProjects();
     /* TEST END */
-
 
     /*
     this.userId = this.sessionService.getUserId();
@@ -61,21 +58,21 @@ export class DashboardComponent implements OnInit {
 
   loadUserProjects(): void {
     console.log(`Chargement des projets pour l'utilisateur ${this.userId}...`);
-    
+
     this.projectService.getAllProjectsByUser(this.userId).subscribe({
       next: (res: IApiResponse) => {
         console.debug('Réponse API:', res); // Debug complet
-        
+
         if (res.code === '202' && res.data) {
           this.projects = res.data as Iproject[];
           this.filterProjects();
-          
+
           // Debug du nombre de projets chargés
           console.log(`Projets chargés: ${this.projects.length}`, {
             TODO: this.todoCount,
             IN_PROGRESS: this.inProgressCount,
             DONE: this.completedCount,
-            VALIDATED: this.validatedCount
+            VALIDATED: this.validatedCount,
           });
         }
       },
@@ -83,7 +80,7 @@ export class DashboardComponent implements OnInit {
         console.error('Erreur API', {
           status: err.status,
           message: err.message,
-          url: err.url // Vérifiez l'endpoint appelé
+          url: err.url, // Vérifiez l'endpoint appelé
         });
       },
     });
@@ -96,7 +93,6 @@ export class DashboardComponent implements OnInit {
     if (this.currentFilter !== 'all') {
       filtered = filtered.filter(
         (project) => project.status === this.currentFilter.toUpperCase()
-
       );
     }
 
@@ -114,20 +110,43 @@ export class DashboardComponent implements OnInit {
   }
 
   get todoCount(): number {
-    return this.projects.filter((project) => project.status === 'TODO').length;
+<<<<<<< HEAD
+    return this.projects.filter((project: { status: string; }) => project.status === 'TODO').length;
   }
 
   get inProgressCount(): number {
-    return this.projects.filter((project) => project.status === 'IN_PROGRESS').length;
+    return this.projects.filter((project: { status: string; }) => project.status === 'IN_PROGRESS').length;
   }
 
   get completedCount(): number {
-    return this.projects.filter((project) => project.status === 'DONE').length;
+    return this.projects.filter((project: { status: string; }) => project.status === 'DONE').length;
 
   }
   get validatedCount(): number {
-    return this.projects.filter((project) => project.status === 'VALIDATED').length;
+    return this.projects.filter((project: { status: string; }) => project.status === 'VALIDATED').length;
 
+=======
+    return this.projects.filter(
+      (project: { status: string }) => project.status === 'TODO'
+    ).length;
+  }
+
+  get inProgressCount(): number {
+    return this.projects.filter(
+      (project: { status: string }) => project.status === 'IN_PROGRESS'
+    ).length;
+  }
+
+  get completedCount(): number {
+    return this.projects.filter(
+      (project: { status: string }) => project.status === 'DONE'
+    ).length;
+  }
+  get validatedCount(): number {
+    return this.projects.filter(
+      (project: { status: string }) => project.status === 'VALIDATED'
+    ).length;
+>>>>>>> 99fb2d5bbeddb2e8d65a8b44162bb7353ac9e695
   }
 
   setFilter(filter: string): void {
@@ -147,13 +166,14 @@ export class DashboardComponent implements OnInit {
   }
 
   // Méthode pour calculer la progression basée sur les tâches
-calculateProjectProgress(project: Iproject): number {
+<<<<<<< HEAD
+calculateProjectProgress(project: any): number {
   if (project.status === 'VALIDATED') return 100;
   if (project.status === 'DONE') return 100;
   if (project.status === 'TODO') return 0;
   
   if (project.tasks && project.tasks.length > 0) {
-    const completedTasks = project.tasks.filter(task => task.status === 'DONE' || task.status === 'VALIDATED').length;
+    const completedTasks = project.tasks.filter((task: { status: string; }) => task.status === 'DONE' || task.status === 'VALIDATED').length;
     return Math.round((completedTasks / project.tasks.length) * 100);
   }
   
@@ -161,39 +181,61 @@ calculateProjectProgress(project: Iproject): number {
   if (project.status === 'IN_PROGRESS') return 50;
   return 0;
 }
+=======
+>>>>>>> 99fb2d5bbeddb2e8d65a8b44162bb7353ac9e695
 
-// Méthode pour obtenir les initiales des collaborateurs
-getInitials(name: string): string {
-  if (!name) return '?';
-  const parts = name.split(' ');
-  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
-  return `${parts[0].charAt(0)}${parts[parts.length - 1].charAt(0)}`.toUpperCase();
-}
+  calculateProjectProgress(project: any): number {
+    if (project.status === 'VALIDATED') return 100;
+    if (project.status === 'DONE') return 100;
+    if (project.status === 'TODO') return 0;
 
-// Méthode pour naviguer vers les détails du projet
-viewProjectDetails(project: Iproject): void {
-  const currentUserId = this.sessionService.getUserId();
-  if (!currentUserId) {
-    this.router.navigate(['/login']);
-    return;
+    if (project.tasks && project.tasks.length > 0) {
+      const completedTasks = project.tasks.filter(
+        (task: { status: string }) =>
+          task.status === 'DONE' || task.status === 'VALIDATED'
+      ).length;
+      return Math.round((completedTasks / project.tasks.length) * 100);
+    }
+
+    // Fallback pour les projets sans tâches
+    if (project.status === 'IN_PROGRESS') return 50;
+    return 0;
   }
 
-  // Vérification dans les membres du projet
-  const userProfilesInProject = project.members.filter(member => 
-    member.id === currentUserId
-  );
-
-  const hasManagerProfile = userProfilesInProject.some(profile =>
-    profile.name === 'MANAGER'
-  );
-
-  if (hasManagerProfile) {
-    this.projectService.getProjectById(project.id);
-    this.router.navigate(['/users/voir-details-projet', project.id]);
-  } else if (userProfilesInProject.length > 0) {
-    this.router.navigate(['/users/project-limited-view', project.id]);
-  } else {
-    this.router.navigate(['/access-denied']);
+  // Méthode pour obtenir les initiales des collaborateurs
+  getInitials(name: string): string {
+    if (!name) return '?';
+    const parts = name.split(' ');
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return `${parts[0].charAt(0)}${parts[parts.length - 1].charAt(
+      0
+    )}`.toUpperCase();
   }
-}
+
+  // Méthode pour naviguer vers les détails du projet
+  viewProjectDetails(project: Iproject): void {
+    const currentUserId = this.sessionService.getUserId();
+    if (!currentUserId) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Vérification dans les membres du projet
+    const userProfilesInProject = project.members.filter(
+      (member) => member.id === currentUserId
+    );
+
+    const hasManagerProfile = userProfilesInProject.some(
+      (profile) => profile.name === 'MANAGER'
+    );
+
+    if (hasManagerProfile) {
+      this.projectService.getProjectById(project.id);
+      this.router.navigate(['/users/voir-details-projet', project.id]);
+    } else if (userProfilesInProject.length > 0) {
+      this.router.navigate(['/users/project-limited-view', project.id]);
+    } else {
+      this.router.navigate(['/access-denied']);
+    }
+  }
 }
