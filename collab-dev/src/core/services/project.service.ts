@@ -10,6 +10,8 @@ import { CONSTANT } from '../constants/contant';
 import { IApiResponse } from '../interfaces/api-response';
 
 import { TaskStatus } from '../../app/shared/models/task-status.enum';
+import { addManagerInfoI } from '../interfaces/manager/addManagerInfoI';
+
 
 @Injectable({
   providedIn: 'root',
@@ -110,11 +112,12 @@ export class ProjectService {
     return this._http.get<IApiResponse>(url);
   }
   // GET user by id
-  getProjectById(id: number): Observable<IApiResponse> {
-    return this._http
-      .get<IApiResponse>(`${this._apiUrl}/${id}`)
-      .pipe(catchError(this.handleError));
-  }
+  getProjectById(id: number): Observable<any> {
+  return this._http
+    .get<any>(`${this._apiUrl}/${id}`)
+    .pipe(catchError(this.handleError));
+}
+
 
   getProjectDetails(projectId: number): Observable<IApiResponse> {
   return this._http.get<IApiResponse>(
@@ -176,7 +179,6 @@ export class ProjectService {
   }
 
   // PUT update user
-
   updateProjects(
     id: number,
     project: { level: string; githubLink: string },
@@ -329,9 +331,9 @@ export class ProjectService {
 
   // Error handling
   private handleError(error: HttpErrorResponse) {
-    console.error('Une erreur est servenue :', error);
-    return throwError(() => new Error(error.message || 'Erreur inconnue'));
-  }
+  console.error('Une erreur est survenue :', error.url, error.status, error.message); 
+  return throwError(() => new Error(error.message || 'Erreur inconnue'));
+}
 
   // selectProfilAndAddToProject(
   //   profileId: number,
@@ -379,8 +381,60 @@ export class ProjectService {
     );
   }
 
-  // this.myService.getPendingProfil(123).subscribe({
-  //   next: profils => console.log('Profils en attente DESIGNER', profils),
-  //   error: err => console.error('Erreur récupération profils', err)
-  // });
+  //Méthode pour récupérer les projets avec demandes MANAGER en attente
+  getProjectsWithManagerPendingRequests(): Observable<IApiResponse> {
+  const baseUrl = environment.API_BASE_URL.endsWith('/') 
+    ? environment.API_BASE_URL.slice(0, -1) 
+    : environment.API_BASE_URL;
+
+  const url = `${baseUrl}/projects/withManagerRequests`;
+  return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+}
+
+
+//Méthode pour récupérer les profils MANAGER en attente pour un projet spécifique
+getManagerPendingProfilesForProject(projectId: number): Observable<IApiResponse> {
+  const baseUrl = environment.API_BASE_URL.endsWith('/') 
+    ? environment.API_BASE_URL.slice(0, -1) 
+    : environment.API_BASE_URL;
+
+  const url = `${baseUrl}/projects/${projectId}/pendingManagers`;
+  return this._http.get<IApiResponse>(url).pipe(catchError(this.handleError));
+}
+
+// Accepter une demande d'un manager
+// Accepter une demande d'un manager
+acceptManagerRequest(projectId: number, managerInfo: addManagerInfoI): Observable<IApiResponse> {
+  const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+  
+  // Créez le corps de la requête selon ce que l'API attend
+  const requestBody = {
+    projectId: projectId,
+    managerId: managerInfo.id
+    // Ajoutez d'autres champs si nécessaires
+  };
+  console.log(requestBody);
+  return this._http.put<IApiResponse>(
+    `${baseUrl}/admin/attributeManagerToProject?projectId=${projectId}&&managerId=${managerInfo.id}`,null).pipe(catchError(this.handleError));
+}
+
+// Récupérer les demandes de manager pour un projet
+getProjectWithManagerRequests(projectId: number): Observable<any> {
+  const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+  const url = `${baseUrl}/projects/${projectId}/pendingManagers`;
+
+  return this._http.get<any>(url).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Rejeter une demande d'un manager
+rejectManagerRequest(projectId: number, userId: number): Observable<IApiResponse> {
+  const baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl.slice(0, -1) : this.apiUrl;
+  const url = `${baseUrl}/projects/${projectId}/removeUsertoPending/${userId}`;
+
+  return this._http.delete<IApiResponse>(url).pipe(
+    catchError(this.handleError)
+  );
+}
 }

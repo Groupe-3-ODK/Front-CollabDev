@@ -13,7 +13,7 @@ import { DetailProjetComponent } from '../pages/users/detail-projet/detail-proje
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProfileComponent } from '../pages/users/profil/profil.component';
-import { CommonModule } from '@angular/common';
+import { CreerTache } from "../pages/users/creer-tache/creer-tache";
 
 @Component({
   selector: 'app-root',
@@ -33,9 +33,9 @@ import { CommonModule } from '@angular/common';
     RippleModule,
     DetailProjetComponent,
     DashboardAdmin,
-
     ProfileComponent,
-  ],
+    CreerTache
+],
 
   templateUrl: './app.component.html',
 

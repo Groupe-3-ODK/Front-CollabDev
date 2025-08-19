@@ -1,40 +1,53 @@
 <div class="requests-container">
-  <!-- En-tête du projet avec le titre (title) et la date de création (createdDate) -->
   <div class="project-header">
-    <!-- Utilise project?.title au lieu de project?.name -->
-    <h3 class="project-name-display">{{ project?.title }}</h3>
-    <!-- Utilise project?.createdDate au lieu de project?.creationDate -->
-    <span class="project-creation-date">Créé le {{ project?.createdDate }}</span>
+    <h3 class="project-name-display">{{ project?.title || 'Chargement...' }}</h3>
+    <span class="project-creation-date">
+      Créé le {{ project?.createdDate | date:'dd/MM/yyyy' }}
+    </span>
   </div>
 
-  <!-- Liste des candidatures de gestionnaires -->
-  <div class="request-list">
-    <!-- Itère sur project?.contributionRequests au lieu de project?.requests -->
-    <div class="request-item" *ngFor="let request of project?.contributionRequests">
+  <!-- Loading spinner -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement des demandes...</p>
+  </div>
+
+  <!-- Liste des demandes -->
+  <div *ngIf="!isLoading" class="request-list">
+
+    <!-- Si pas de demandes -->
+    <div *ngIf="!project?.contributionRequests?.length" class="no-requests">
+      Aucune demande de gestionnaire en attente
+    </div>
+
+    <!-- Si demandes présentes -->
+    <div *ngFor="let request of project?.contributionRequests" class="request-item">
       <div class="candidate-info">
-        <!-- Cercle initial avec les initiales du candidat -->
         <div class="candidate-initials">
-          <!-- Appel de la nouvelle méthode getInitials() depuis le composant -->
-          {{ getInitials(request.candidateName)    }}
+          {{ getInitials(request.candidateName) }}
         </div>
         <div class="candidate-details">
-          <span class="candidate-name">{{ request.candidateName }}</span>
-          <span class="request-date">Date de la demande: {{ request.requestDate }}</span>
+          <!-- Affichage du pseudo si présent, sinon message par défaut -->
+          <span class="candidate-name">
+            {{ request.candidateName || 'Utilisateur inconnu' }}
+          </span>
+          <span class="request-date">
+            Demande envoyée le {{ request.requestDate | date:'dd/MM/yyyy' }}
+          </span>
         </div>
       </div>
+
       <div class="request-actions">
-        <!-- Bouton pour accepter la demande -->
-        <button class="action-btn accept-btn" (click)="accept(request.id)" aria-label="Accepter la demande">
-          <!-- Icône de validation -->
+        <button class="action-btn accept-btn" (click)="acceptRequest(request)">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
           </svg>
         </button>
-        <!-- Bouton pour refuser la demande -->
-        <button class="action-btn reject-btn" (click)="reject(request.id)" aria-label="Refuser la demande">
-          <!-- Icône de croix (refus) -->
+        <button class="action-btn reject-btn" (click)="rejectRequest(request)">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 
+                     5 17.59 6.41 19 12 13.41 17.59 19 
+                     19 17.59 13.41 12z"/>
           </svg>
         </button>
       </div>

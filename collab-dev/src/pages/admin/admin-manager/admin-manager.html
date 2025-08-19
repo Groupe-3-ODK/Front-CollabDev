@@ -1,71 +1,65 @@
 <div class="project-list-container">
-  <h2>Administrations des gestionnaires</h2>
+  <h2>Administration des gestionnaires</h2>
+  
+  <!-- Barre de recherche -->
   <div class="search-bar">
-    <input type="text" placeholder="Recherche un utilisateur" [(ngModel)]="searchQuery" (input)="filterProjects()">
-    <button>Tous les rôles</button>
+    <input 
+      type="text" 
+      placeholder="Rechercher un projet..." 
+      [(ngModel)]="searchQuery" 
+      (input)="filterProjects()"
+    >
   </div>
 
-  <div class="project-table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Nom du Projet</th>
-          <th>Date de Création</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Utilisation de filteredProjects pour afficher la liste après filtrage -->
-        <tr *ngFor="let project of filteredProjects">
-          <td>
-            <div class="project-info-cell">
-              <span class="project-icon">📁</span>
-              <span class="project-name">{{ project.title }}</span>
-            </div>
-          </td>
-          <td>
-            <span class="creation-date">{{ project.createdDate }}</span>
-          </td>
-          <td>
-            <button class="view-requests-btn" (click)="viewManagementRequests(project.id)">
-              Voir les demandes de gestion
-            </button>
-          </td>
-        </tr>
-        <!-- Exemples statiques pour montrer la structure et le style, ne sont pas liés aux données réelles -->
-        <tr>
-          <td>
-            <div class="project-info-cell">
-              <span class="project-icon">📁</span>
-              <span class="project-name">Projet Alpha - Exemple</span>
-            </div>
-          </td>
-          <td>
-            <span class="creation-date">01/01/2026</span>
-          </td>
-          <td>
-            <button class="view-requests-btn">
-              Voir les demandes de gestion
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div class="project-info-cell">
-              <span class="project-icon">📁</span>
-              <span class="project-name">Projet Beta - Exemple</span>
-            </div>
-          </td>
-          <td>
-            <span class="creation-date">15/02/2026</span>
-          </td>
-          <td>
-            <button class="view-requests-btn">
-              Voir les demandes de gestion
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Message de chargement -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement des projets...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button (click)="loadProjects()">Réessayer</button>
+  </div>
+
+  <!-- Liste des projets -->
+  <div *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="filteredProjects.length === 0" class="no-results">
+      Aucun projet trouvé
+    </div>
+
+    <div *ngIf="filteredProjects.length > 0" class="project-table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom du Projet</th>
+            <th>Date de Création</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let project of filteredProjects">
+            <td>
+              <div class="project-info-cell">
+                <span class="project-icon">📁</span>
+                <span class="project-name">{{ project.title || 'N/A' }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="creation-date">{{ formatDate(project.createdDate) }}</span>
+            </td>
+            <td>
+              <button 
+                class="view-requests-btn" 
+                (click)="viewManagementRequests(project.id)"
+              >
+                Gérer les demandes
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -110,6 +110,22 @@ export class DashboardComponent implements OnInit {
   }
 
   get todoCount(): number {
+<<<<<<< HEAD
+    return this.projects.filter((project: { status: string; }) => project.status === 'TODO').length;
+  }
+
+  get inProgressCount(): number {
+    return this.projects.filter((project: { status: string; }) => project.status === 'IN_PROGRESS').length;
+  }
+
+  get completedCount(): number {
+    return this.projects.filter((project: { status: string; }) => project.status === 'DONE').length;
+
+  }
+  get validatedCount(): number {
+    return this.projects.filter((project: { status: string; }) => project.status === 'VALIDATED').length;
+
+=======
     return this.projects.filter(
       (project: { status: string }) => project.status === 'TODO'
     ).length;
@@ -130,6 +146,7 @@ export class DashboardComponent implements OnInit {
     return this.projects.filter(
       (project: { status: string }) => project.status === 'VALIDATED'
     ).length;
+>>>>>>> 99fb2d5bbeddb2e8d65a8b44162bb7353ac9e695
   }
 
   setFilter(filter: string): void {
@@ -149,6 +166,23 @@ export class DashboardComponent implements OnInit {
   }
 
   // Méthode pour calculer la progression basée sur les tâches
+<<<<<<< HEAD
+calculateProjectProgress(project: any): number {
+  if (project.status === 'VALIDATED') return 100;
+  if (project.status === 'DONE') return 100;
+  if (project.status === 'TODO') return 0;
+  
+  if (project.tasks && project.tasks.length > 0) {
+    const completedTasks = project.tasks.filter((task: { status: string; }) => task.status === 'DONE' || task.status === 'VALIDATED').length;
+    return Math.round((completedTasks / project.tasks.length) * 100);
+  }
+  
+  // Fallback pour les projets sans tâches
+  if (project.status === 'IN_PROGRESS') return 50;
+  return 0;
+}
+=======
+>>>>>>> 99fb2d5bbeddb2e8d65a8b44162bb7353ac9e695
 
   calculateProjectProgress(project: any): number {
     if (project.status === 'VALIDATED') return 100;
