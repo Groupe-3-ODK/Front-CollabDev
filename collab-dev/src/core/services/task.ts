@@ -36,14 +36,8 @@ export class Task {
   //   error: err => console.error('Erreur création tâches', err)
   // });
   //-------------------------------------------------------
-  assignTasksToProfil(assignDTO: any, managerId?: number): Observable<any> {
-    let params = new HttpParams();
-    if (managerId !== undefined && managerId !== null) {
-      params = params.set('managerId', managerId.toString());
-    }
-    return this._http.post(`${this._apiUrl}tasks/assignTask`, assignDTO, {
-      params,
-    });
+  assignTasksToProfil(assignDTO: any): Observable<any> {
+    return this._http.post(`${this._apiUrl}tasks/assignTask/`, assignDTO);
   }
   // const assignDTO = {
   //   projectId: 123,

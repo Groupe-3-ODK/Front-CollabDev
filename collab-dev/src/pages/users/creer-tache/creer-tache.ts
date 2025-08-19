@@ -87,7 +87,7 @@ export class CreerTache implements OnInit {
           // Étape 2 : Assigner la tâche
           const assignDTO = {
             projectId: this.projectId,
-            profilCibleId: this.profilId,
+            profilIdCible: this.profilId,
             taskId: taskId,
           };
 
@@ -98,6 +98,7 @@ export class CreerTache implements OnInit {
               this.resetForm();
             },
             error: (error) => {
+              console.log(assignDTO)
               console.error("❌ Erreur lors de l'assignation :", error);
               alert("Erreur lors de l'assignation de la tâche");
             },
