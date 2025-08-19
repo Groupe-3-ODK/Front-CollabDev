@@ -70,13 +70,16 @@
             </div>
 
             <div class="team-members">
-                <ng-container *ngIf="(project?.members || []).length">
+                <ng-container *ngIf="(project?.members || []).length; else noMembers">
                     <div class="member-item" *ngFor="let member of (project?.members || []).slice(0, 3)">
                         <div class="member-avatar">{{ getInitials(member.pseudo) }}</div>
                         <span class="member-name">{{ member.pseudo }}</span>
                     </div>
                     <button class="view-all-members" (click)="toggleMemberModal()">Voir tous les membres</button>
                 </ng-container>
+                <ng-template #noMembers>
+                    <div class="text-center text-gray-400 py-8 w-full">Aucun membre pour le moment.</div>
+                </ng-template>
             </div>
         </div>
     </section>
