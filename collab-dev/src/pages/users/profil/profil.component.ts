@@ -51,12 +51,18 @@ export class ProfileComponent implements OnInit {
 
   /* METHODES PRINCIPALES (avec gestion du mode test) */
   loadUserData(): void {
-    const userId = this.sessionService.getUserId();
-    if (userId) {
-      console.log('Chargement des données utilisateur (mode réel)');
-      this.callGetUserById(userId);
-    }
+  const userId = this.sessionService.getUserId();
+  console.log('ID utilisateur récupéré:', userId); // <-- Ajoutez ce log
+  
+  if (userId && userId !== 0) {
+    console.log('Chargement des données utilisateur (mode réel)');
+    this.callGetUserById(userId);
+  } else {
+    console.error('ID utilisateur invalide ou non connecté:', userId);
+    this.errorMessage = 'Utilisateur non connecté';
+    this.isLoading = false;
   }
+}
 
   updateProfile(): void {
     if (this.profileForm.valid) {

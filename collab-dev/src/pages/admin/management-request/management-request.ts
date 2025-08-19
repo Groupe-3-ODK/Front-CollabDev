@@ -90,23 +90,27 @@ acceptRequest(request: IContributionRequest): void {
   if (!this.project) return;
   this.isLoading = true;
 
-  const managerInfo: addManagerInfoI = {
-    id: request.candidateProfileId,
-    // Les autres champs ne sont probablement pas nécessaires pour cette requête
-  };
 
-  this.projectService.acceptManagerRequest(this.project.id, managerInfo)
+  this.projectService.acceptManagerRequest(this.project.id, request.candidateProfileId)
+  
     .subscribe({
       next: (response) => {
-        if (response.code === '202' && response.message.includes('Le projet a déjà un Manager')) {
-          this.errorMessage = 'Ce projet a déjà un manager assigné.';
-        } else {
+           console.log({
+          "projectId": this.project?.id,
+          "managerId": request.candidateProfileId 
+        })
+        console.log(response.data)
           this.loadProjectWithManagerRequests(this.project!.id);
-        }
         this.isLoading = false;
       },
       error: (err) => {
         console.error('Erreur acceptation:', err);
+
+         console.log({
+          "projectId": this.project?.id,
+          "managerId": request.candidateProfileId 
+        })
+
         this.errorMessage = 'Erreur lors de l\'acceptation de la demande';
         this.isLoading = false;
       }
